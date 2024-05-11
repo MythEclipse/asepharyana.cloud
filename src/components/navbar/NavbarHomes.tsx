@@ -11,12 +11,12 @@ const Navbar = () => {
               <Link href="/">
                 <Image
                   src="/ASEPHARYANA.svg"
-                  className="logo"
+                  className="logo cursor-pointer hover:scale-110 transition duration-300 ease-in-out"
                   alt="logo"
                   quality={100}
                   loading = 'eager'
-                  width={112}
-                  height={57}
+                  width={100}
+                  height={50}
                 />
               </Link>
             </div>
