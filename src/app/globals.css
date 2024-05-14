@@ -3,31 +3,37 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --foreground-light: #333; /* Dark Gray for Light Mode Text */
+  --foreground-dark: #fff; /* White for Dark Mode Text */
+  --background-light: #fff; /* White for Light Mode Background */
+  --background-dark: #222; /* Dark Gray for Dark Mode Background */
+  --gradient-start-light: #f0f0f0; /* Light Gray for Light Mode Gradient */
+  --gradient-end-light: #e0e0e0; /* Off-White for Light Mode Gradient */
+  --gradient-start-dark: #303030; /* Dark Gray for Dark Mode Gradient */
+  --gradient-end-dark: #202020; /* Black for Dark Mode Gradient */
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --foreground-rgb: var(--foreground-dark);
+    --background-rgb: var(--background-dark);
   }
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
+  font-family: 'Arial', sans-serif; /* Choose a suitable font */
+  color: var(--foreground-rgb);
   background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+    to bottom,
+    transparent,
+    var(--gradient-end-rgb)
+  ) var(--gradient-start-rgb);
+  min-height: 100vh; /* Ensure content fills the viewport */
+ 
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.text-balance {
+  text-align: justify; /* Justify text for better readability */
+  max-width: 800px; /* Limit text width for better layout */
+  margin: 20px 0;
 }
