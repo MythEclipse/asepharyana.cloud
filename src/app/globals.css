@@ -17,6 +17,8 @@
   :root {
     --foreground-rgb: var(--foreground-dark);
     --background-rgb: var(--background-dark);
+    --gradient-start-rgb: var(--gradient-start-dark);
+    --gradient-end-rgb: var(--gradient-end-dark);
   }
 }
 
