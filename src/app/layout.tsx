@@ -4,6 +4,7 @@ import "./globals.css";
 import { Montserrat } from 'next/font/google'
 import Navbar from "../components/navbar/NavbarHomes";
 import { ViewTransitions } from 'next-view-transitions'
+import SessionWrapper from "@/components/SessionWrapper";
 
 const montserrat = Montserrat({ subsets: ['latin'] })
 
@@ -20,6 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <ViewTransitions>
+      <SessionWrapper>
     <html lang="en">
       <body className={montserrat.className}>
         <Navbar />
@@ -28,6 +30,7 @@ export default function RootLayout({
         </div>
       </body>
     </html>
+    </SessionWrapper>
   </ViewTransitions>
   );
 }
