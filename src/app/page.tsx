@@ -17,7 +17,7 @@ export default function Home() {
             </h1>
             <h2 className="font-medium text-slate-500 text-lg mb-5 lg:text-2xl">
               Saya adalah seorang{" "}
-              <span className="text-hitam">web developer</span>
+              <span className="text-hitam">Programmer</span>
             </h2>
             <p className="font-medium text-slate-400">
               Lorem ipsum dolor sit, amet consectetur adipisicing elit. Porro,
