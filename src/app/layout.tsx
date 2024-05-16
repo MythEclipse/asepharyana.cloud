@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <ViewTransitions>
-      <SessionWrapper>
+      {/* <SessionWrapper> */}
     <html lang="en">
       <body className={montserrat.className}>
         <Navbar />
@@ -30,7 +30,7 @@ export default function RootLayout({
         </div>
       </body>
     </html>
-    </SessionWrapper>
+    {/* </SessionWrapper> */}
   </ViewTransitions>
   );
 }
