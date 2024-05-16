@@ -13,23 +13,23 @@
   --gradient-end-dark: #202020; /* Black for Dark Mode Gradient */
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: var(--foreground-dark);
     --background-rgb: var(--background-dark);
     --gradient-start-rgb: var(--gradient-start-dark);
     --gradient-end-rgb: var(--gradient-end-dark);
   }
-}
+} */
 
 body {
   font-family: 'Arial', sans-serif; /* Choose a suitable font */
-  color: var(--foreground-rgb);
+  /* color: var(--foreground-rgb);
   background: linear-gradient(
     to bottom,
     transparent,
     var(--gradient-end-rgb)
-  ) var(--gradient-start-rgb);
+  ) var(--gradient-start-rgb); */
   min-height: 100vh; /* Ensure content fills the viewport */
  
 }
