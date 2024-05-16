@@ -16,7 +16,8 @@ const config: Config = {
       },
       colors: {
         primary:'#14b8a6',
-        hitam: '#020617',
+        dark: '#020617',
+        secondary: '#64748b',
       }
     },
   },
