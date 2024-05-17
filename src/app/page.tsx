@@ -1,6 +1,8 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import Box from "@/components/box/Box";
+import BoxContainer from "@/components/box/BoxContainer";
 import { useState } from "react";
 
 export default function Home() {
@@ -164,50 +166,46 @@ export default function Home() {
               </p>
             </div>
           </div>
-          <div className="w-full px-4 flex flex-wrap justify-center xl:w-10/12 xl:mx-auto">
-            <div className="mb-12 p-4 md:w-1/2">
-              <div className="rounded-md shadow-md overflow-hidden">
-                <Image
-                  src="https://source.unsplash.com/600x300/?programing"
-                  alt="porto"
-                  className="object-cover w-full h-72"
-                  width="0"
-                  height="0"
-                  sizes="100vw"
-                ></Image>
-                <h3 className="font-semibold text-xl text-dark mt-5 mb3">
-                  project1
-                </h3>
-                <p className="font-medium text-base text-secondary">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Quisquam enim hic voluptates libero rerum ipsum excepturi
-                  ducimus inventore unde, veritatis reiciendis non aliquam quos
-                  optio fuga vero ut, eaque aperiam?
-                </p>
-              </div>
-            </div>
-            <div className="mb-12 p-4 md:w-1/2">
-              <div className="rounded-md shadow-md overflow-hidden">
-                <Image
-                  src="https://source.unsplash.com/600x300/?programing"
-                  alt="porto"
-                  className="object-cover w-full h-72"
-                  width="0"
-                  height="0"
-                  sizes="100vw"
-                ></Image>
-                <h3 className="font-semibold text-xl text-dark mt-5 mb3">
-                  project1
-                </h3>
-                <p className="font-medium text-base text-secondary">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Quisquam enim hic voluptates libero rerum ipsum excepturi
-                  ducimus inventore unde, veritatis reiciendis non aliquam quos
-                  optio fuga vero ut, eaque aperiam?
-                </p>
-              </div>
-            </div>
-          </div>
+          <BoxContainer>
+            <Box>
+              <Image
+                src="https://source.unsplash.com/600x300/?programing"
+                alt="porto"
+                className="object-cover w-full h-72"
+                width="0"
+                height="0"
+                sizes="100vw"
+              ></Image>
+              <h3 className="font-semibold text-xl text-dark mt-5 m-3">
+                project1
+              </h3>
+              <p className="font-medium text-base text-secondary m-3">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Quisquam enim hic voluptates libero rerum ipsum excepturi
+                ducimus inventore unde, veritatis reiciendis non aliquam quos
+                optio fuga vero ut, eaque aperiam?
+              </p>
+            </Box>
+            <Box>
+              <Image
+                src="https://source.unsplash.com/600x300/?programing"
+                alt="porto"
+                className="object-cover w-full h-72"
+                width="0"
+                height="0"
+                sizes="100vw"
+              ></Image>
+              <h3 className="font-semibold text-xl text-dark mt-5 m-3">
+                project1
+              </h3>
+              <p className="font-medium text-base text-secondary m-3">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Quisquam enim hic voluptates libero rerum ipsum excepturi
+                ducimus inventore unde, veritatis reiciendis non aliquam quos
+                optio fuga vero ut, eaque aperiam?
+              </p>
+            </Box>
+          </BoxContainer>
         </div>
       </section>
     </>
