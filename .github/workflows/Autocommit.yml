@@ -11,6 +11,7 @@ on:
     - cron: '0 15 * * *' # 3 PM UTC
     - cron: '0 18 * * *' # 6 PM UTC
     - cron: '0 19 * * *' # 7 PM UTC
+  workflow_dispatch:
 
 jobs:
   auto_commit:
