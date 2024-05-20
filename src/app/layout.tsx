@@ -5,6 +5,8 @@ import { Montserrat } from 'next/font/google'
 import Navbar from "../components/navbar/NavbarHomes";
 import { ViewTransitions } from 'next-view-transitions'
 import SessionWrapper from "@/components/SessionWrapper";
+import {} from 'flowbite'
+import {Alert} from 'flowbite-react'
 
 const montserrat = Montserrat({ subsets: ['latin'] })
 
