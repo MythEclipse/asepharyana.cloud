@@ -1,8 +1,8 @@
 "use strict";
 "use client";
 import { useState,useContext } from "react";
-import AppContextProvider, { ContextApp }  from "@/components/ContextApp";
-export default function Home() {
+import { ContextApp }  from "@/components/ContextApp";
+export default function Project1() {
     const {lokasi, setLokasi} = useContext(ContextApp);
   return (<main>
     <div>

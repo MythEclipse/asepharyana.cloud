@@ -10,7 +10,6 @@ import { Alert } from "flowbite-react";
 import { createContext, useState } from "react";
 import { ContextApp } from "@/components/ContextApp";
 import ContextAppProvider  from "@/components/ContextApp";
-import NavbarHomeClient from "@/components/navbar/NavbarHomeClient";
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 
