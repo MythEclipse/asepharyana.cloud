@@ -176,9 +176,14 @@ export default function Home() {
                 height="0"
                 sizes="100vw"
               ></Image>
-              <h3 className="font-semibold text-xl text-dark mt-5 m-3">
-                project1
-              </h3>
+              <Link
+                href="/Project1"
+                className="font-semibold text-xl text-dark"
+              >
+                <h3 className="font-semibold text-xl text-dark mt-5 m-3">
+                  project1
+                </h3>
+              </Link>
               <p className="font-medium text-base text-secondary m-3">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                 Quisquam enim hic voluptates libero rerum ipsum excepturi

@@ -8,6 +8,8 @@
       {
         "aria-valid-attr-value": "off"
       }
-    ]
+    ],
+    "button-type": "off",
+    "axe/name-role-value": "off"
   }
 }
