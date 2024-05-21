@@ -1,8 +1,9 @@
-"use client";
 "use strict";
-import { useState } from "react";
+"use client";
+import { useState,useContext } from "react";
+import { AppContext } from "../layout";
 export default function Home() {
-  const [lokasi, setLokasi] = useState("1");
+    const {lokasi, setLokasi} = useContext(AppContext);
   return (<main>
     <div>
       <h1 className="text-4xl font-bold text-center">Project 1</h1>
@@ -14,7 +15,7 @@ export default function Home() {
         bandung
       </button>
       <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
+         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
         onClick={() => setLokasi("Surabaya")}
       >
         surabaya
