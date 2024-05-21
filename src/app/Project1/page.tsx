@@ -1,9 +1,9 @@
 "use strict";
 "use client";
 import { useState,useContext } from "react";
-import { AppContext } from "../layout";
+import AppContextProvider, { ContextApp }  from "@/components/ContextApp";
 export default function Home() {
-    const {lokasi, setLokasi} = useContext(AppContext);
+    const {lokasi, setLokasi} = useContext(ContextApp);
   return (<main>
     <div>
       <h1 className="text-4xl font-bold text-center">Project 1</h1>
