@@ -82,13 +82,10 @@ jobs:
         with:
           path: ./out
 
-      - name: Publish package
+      - name: Publish package to GitHub Packages
         run: |
-          # Ensure the package version is updated accordingly
-          # For npm registry
-          npm publish
-          # OR for GitHub Packages
-          # npm publish --registry=https://npm.pkg.github.com
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > .npmrc
+          npm publish --registry=https://npm.pkg.github.com
 
   # Deployment job
   deploy:
