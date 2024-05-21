@@ -2,7 +2,6 @@
   "name": "@asepharyana/web5",
   "version": "0.1.0",
   "description": "My personal website",
-  "private": true,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Asepharyana71/asepharyana.my.id.git"
