@@ -88,23 +88,23 @@ jobs:
           name: build-zip
           path: .
 
-      - name: Create GitHub release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-        with:
-          tag_name: "v1.0.0"  # Change this to dynamically set the version if needed
-          release_name: "Build Release v1.0.0"  # Change this as needed
-          draft: false
-          prerelease: false
+     # - name: Create GitHub release
+     #   id: create_release
+     #   uses: actions/create-release@v1
+     #   env:
+     #     GITHUB_TOKEN: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+     #   with:
+     #     tag_name: "v1.0.0"  # Change this to dynamically set the version if needed
+     #     release_name: "Build Release v1.0.0"  # Change this as needed
+     #     draft: false
+     #     prerelease: false
 
-      - name: Upload release asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./build.zip
-          asset_name: build.zip
-          asset_content_type: application/zip
+     # - name: Upload release asset
+     #   uses: actions/upload-release-asset@v1
+     #   env:
+     #     GITHUB_TOKEN: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+     #   with:
+     #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+     #     asset_path: ./build.zip
+     #     asset_name: build.zip
+     #     asset_content_type: application/zip
