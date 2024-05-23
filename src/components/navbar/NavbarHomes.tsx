@@ -13,7 +13,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row items-center justify-between h-full">
           <div className="flex items-center pt-3">
-            <div className={`${pathname === "/" ? "border border-gray-800 bg-primary " : "bg-primary"} flex-shrink-0   hover:opacity-80 rounded-md`}>
+            <div className={`${pathname === "/" ? "border border-gray-800 bg-primary-600 " : "bg-primary-600"} flex-shrink-0   hover:opacity-80 rounded-md shadow-md`}>
               <Link href="/">
                 <Image
                   src="/ASEPHARYANA.png"
@@ -27,7 +27,7 @@ const Navbar = () => {
               </Link>
             </div>
             <Button
-              className="flex items-center px-3 py-3 border rounded-md text-teal-200 border-primary hover:text-white hover:border-white sm:hidden"
+              className="flex items-center px-3 py-3 border rounded-md text-teal-200 border-primary-600 hover:text-white hover:border-white sm:hidden"
               onClick={() => setIsOpen(!isOpen)}
               title="Toggle Menu"
             >
@@ -45,21 +45,21 @@ const Navbar = () => {
             <ul className="flex flex-col sm:flex-row md:space-x-4">
               <li>
                 <Link href="/about">
-                  <span className={`${pathname === "/about" ? "text-primary" : "text-gray-900"} hover:bg-gray-700 hover:text-white block px-3 py-4 rounded-md text-sm font-medium sm:px-0 sm:py-0`}>
+                  <span className={`${pathname === "/about" ? "text-primary-600" : "text-gray-900"} hover:bg-gray-700 hover:text-white block px-3 py-4 rounded-md text-sm font-medium sm:px-0 sm:py-0`}>
                     About
                   </span>
                 </Link>
               </li>
               <li>
                 <Link href="/services">
-                  <span className={`${pathname === "/services" ? "text-primary" : "text-gray-900"} hover:bg-gray-700 hover:text-white block px-3 py-4 rounded-md text-sm font-medium sm:px-0 sm:py-0`}>
+                  <span className={`${pathname === "/services" ? "text-primary-600" : "text-gray-900"} hover:bg-gray-700 hover:text-white block px-3 py-4 rounded-md text-sm font-medium sm:px-0 sm:py-0`}>
                     Services
                   </span>
                 </Link>
               </li>
               <li>
                 <Link href="/contact">
-                  <span className={`${pathname === "/contact" ? "text-primary" : "text-gray-900"} hover:bg-gray-700 hover:text-white block px-3 py-4 rounded-md text-sm font-medium sm:px-0 sm:py-0`}>
+                  <span className={`${pathname === "/contact" ? "text-primary-600" : "text-gray-900"} hover:bg-gray-700 hover:text-white block px-3 py-4 rounded-md text-sm font-medium sm:px-0 sm:py-0`}>
                     Contact
                   </span>
                 </Link>

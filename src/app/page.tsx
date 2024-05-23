@@ -17,7 +17,7 @@ export default function Home() {
         <div className="container">
           <div className="flex flex-wrap">
             <div className="w-full self-center px-2 lg:w-1/2">
-              <h1 className="text-base font-semibold text-primary lg:text-xl">
+              <h1 className="text-base font-semibold text-primary-600 lg:text-xl">
                 Halo semua 👋,saya{" "}
                 <span className="block font-bold text-dark text-4xl lg:text-5xl">
                   Asep haryana saputra
@@ -33,7 +33,7 @@ export default function Home() {
               </p>
               <link
                 href="#"
-                className="text-base font-semibold text-white bg-primary py-3 px-8 rounded-full hover:shadow-lg hover:opacity-80 transition duration-300 ease-in-out"
+                className="text-base font-semibold text-white bg-primary-600 py-3 px-8 rounded-full hover:shadow-lg hover:opacity-80 transition duration-300 ease-in-out"
               />
             </div>
             <div className="w-full self-end px-4 lg:w-1/2 pt-4">
@@ -55,7 +55,7 @@ export default function Home() {
         <div className="container">
           <div className="flex flex-wrap">
             <div className="w-full px-4 mb-7 lg:w-1/2">
-              <h4 className="font-bold uppercase text-primary text-lg mb-3">
+              <h4 className="font-bold uppercase text-primary-600 text-lg mb-3">
                 Tentang Saya
               </h4>
               <h2 className="font-bold text-dark text-3xl mb-5 max-w-md">
@@ -81,7 +81,7 @@ export default function Home() {
               <div className="flex items-center ">
                 <Link
                   href="https://github.com/Asepharyana71"
-                  className="w-9 h-9 rounded-full flex justify-center item-center border text-dark border-slate-300 hover:border-primary hover:bg-primary hover:text-white"
+                  className="w-9 h-9 rounded-full flex justify-center item-center border text-dark border-slate-300 hover:border-primary-600 hover:bg-primary-600 hover:text-white"
                 >
                   <svg
                     width="20"
@@ -95,7 +95,7 @@ export default function Home() {
                 </Link>
                 <Link
                   href="https://www.instagram.com/asepharyana18/"
-                  className="w-9 h-9 rounded-full flex justify-center item-center border text-dark border-slate-300 hover:border-primary hover:bg-primary hover:text-white"
+                  className="w-9 h-9 rounded-full flex justify-center item-center border text-dark border-slate-300 hover:border-primary-600 hover:bg-primary-600 hover:text-white"
                 >
                   <svg
                     fill="#000000"
@@ -119,7 +119,7 @@ export default function Home() {
                 </Link>
                 <Link
                   href="https://www.linkedin.com/in/asep-haryana-2014a5294/"
-                  className="w-9 h-9 rounded-full flex justify-center item-center border text-dark border-slate-300 hover:border-primary hover:bg-primary hover:text-white"
+                  className="w-9 h-9 rounded-full flex justify-center item-center border text-dark border-slate-300 hover:border-primary-600 hover:bg-primary-600 hover:text-white"
                 >
                   <svg
                     fill="#000000"
@@ -137,7 +137,7 @@ export default function Home() {
                 </Link>
                 <Link
                   href="https://www.facebook.com/asep.haryana.7355"
-                  className="w-9 h-9 rounded-full flex justify-center item-center border text-dark border-slate-300 hover:border-primary hover:bg-primary hover:text-white"
+                  className="w-9 h-9 rounded-full flex justify-center item-center border text-dark border-slate-300 hover:border-primary-600 hover:bg-primary-600 hover:text-white"
                 >
                   <svg
                     fill="#000000"
@@ -158,7 +158,7 @@ export default function Home() {
         <div className="container">
           <div className="w-full">
             <div className="max-w-xl mx-auto text-center mb-16">
-              <h4 className="font-semibold text-lg text-primary mb-2">
+              <h4 className="font-semibold text-lg text-primary-600 mb-2">
                 Portfolio
               </h4>
               <h2 className="font-bold text-dark text-3xl mb-4 ">
@@ -174,7 +174,7 @@ export default function Home() {
           <BoxContainer>
             <Box>
               <Image
-                src="https://source.unsplash.com/600x300/?programing"
+                src="/Project1.png"
                 alt="porto"
                 className="object-cover w-full h-72"
                 width="0"
@@ -182,18 +182,15 @@ export default function Home() {
                 sizes="100vw"
               ></Image>
               <Link
-                href="/Project1"
+                href="/login"
                 className="font-semibold text-xl text-dark "
               >
-                <h3 className="font-semibold text-xl text-dark hover:text-primary mt-5 m-3">
-                  project1
+                <h3 className="font-semibold text-xl text-dark hover:text-primary-600 mt-5 m-3">
+                  Login Page
                 </h3>
               </Link>
               <p className="font-medium text-base text-secondary m-3">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Quisquam enim hic voluptates libero rerum ipsum excepturi
-                ducimus inventore unde, veritatis reiciendis non aliquam quos
-                optio fuga vero ut, eaque aperiam?
+                login page test
               </p>
             </Box>
             <Box>
@@ -206,10 +203,10 @@ export default function Home() {
                 sizes="100vw"
               ></Image>
               <Link
-                href="/Project1"
+                href="/product"
                 className="font-semibold text-xl text-dark "
               >
-                <h3 className="font-semibold text-xl text-dark hover:text-primary mt-5 m-3">
+                <h3 className="font-semibold text-xl text-dark hover:text-primary-600 mt-5 m-3">
                   project2
                 </h3>
               </Link>
