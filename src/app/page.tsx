@@ -183,9 +183,9 @@ export default function Home() {
               ></Image>
               <Link
                 href="/Project1"
-                className="font-semibold text-xl text-dark"
+                className="font-semibold text-xl text-dark "
               >
-                <h3 className="font-semibold text-xl text-dark mt-5 m-3">
+                <h3 className="font-semibold text-xl text-dark hover:text-primary mt-5 m-3">
                   project1
                 </h3>
               </Link>
@@ -205,9 +205,14 @@ export default function Home() {
                 height="0"
                 sizes="100vw"
               ></Image>
-              <h3 className="font-semibold text-xl text-dark mt-5 m-3">
-                project1
-              </h3>
+              <Link
+                href="/Project1"
+                className="font-semibold text-xl text-dark "
+              >
+                <h3 className="font-semibold text-xl text-dark hover:text-primary mt-5 m-3">
+                  project2
+                </h3>
+              </Link>
               <p className="font-medium text-base text-secondary m-3">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                 Quisquam enim hic voluptates libero rerum ipsum excepturi
@@ -215,6 +220,7 @@ export default function Home() {
                 optio fuga vero ut, eaque aperiam?
               </p>
             </Box>
+            
           </BoxContainer>
         </div>
       </section>

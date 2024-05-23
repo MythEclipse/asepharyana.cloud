@@ -1,17 +1,19 @@
 "use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { useState } from "react";
+import { Button } from "flowbite-react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const pathname = usePathname();
   return (
-    <nav className="bg-gray-800">
+    <nav className="bg-white dark:bg-gray-800 fixed w-full z-10 top-0">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row items-center justify-between h-full">
-          <div className="flex items-center">
-            <div className="flex-shrink-0">
+          <div className="flex items-center pt-3">
+            <div className={`${pathname === "/" ? "border border-gray-800 bg-primary " : "bg-primary"} flex-shrink-0   hover:opacity-80 rounded-md`}>
               <Link href="/">
                 <Image
                   src="/ASEPHARYANA.png"
@@ -24,8 +26,8 @@ const Navbar = () => {
                 />
               </Link>
             </div>
-            <button
-              className="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white sm:hidden"
+            <Button
+              className="flex items-center px-3 py-3 border rounded-md text-teal-200 border-primary hover:text-white hover:border-white sm:hidden"
               onClick={() => setIsOpen(!isOpen)}
               title="Toggle Menu"
             >
@@ -37,27 +39,27 @@ const Navbar = () => {
                 <title>Menu</title>
                 <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
               </svg>
-            </button>
+            </Button>
           </div>
           <div className={`${isOpen ? "block" : "hidden"} sm:flex sm:items-center sm:justify-end sm:flex-1`}>
             <ul className="flex flex-col sm:flex-row md:space-x-4">
               <li>
                 <Link href="/about">
-                  <span className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-sm font-medium sm:px-0 sm:py-0">
+                  <span className={`${pathname === "/about" ? "text-primary" : "text-gray-900"} hover:bg-gray-700 hover:text-white block px-3 py-4 rounded-md text-sm font-medium sm:px-0 sm:py-0`}>
                     About
                   </span>
                 </Link>
               </li>
               <li>
                 <Link href="/services">
-                  <span className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-sm font-medium sm:px-0 sm:py-0">
+                  <span className={`${pathname === "/services" ? "text-primary" : "text-gray-900"} hover:bg-gray-700 hover:text-white block px-3 py-4 rounded-md text-sm font-medium sm:px-0 sm:py-0`}>
                     Services
                   </span>
                 </Link>
               </li>
               <li>
                 <Link href="/contact">
-                  <span className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-sm font-medium sm:px-0 sm:py-0">
+                  <span className={`${pathname === "/contact" ? "text-primary" : "text-gray-900"} hover:bg-gray-700 hover:text-white block px-3 py-4 rounded-md text-sm font-medium sm:px-0 sm:py-0`}>
                     Contact
                   </span>
                 </Link>
