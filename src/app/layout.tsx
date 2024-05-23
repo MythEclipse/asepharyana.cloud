@@ -9,13 +9,32 @@ import {} from "flowbite";
 import { Alert } from "flowbite-react";
 import { createContext, useState } from "react";
 import { ContextApp } from "@/components/ContextApp";
+import { ThemeModeScript } from "flowbite-react";
 import ContextAppProvider  from "@/components/ContextApp";
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 
 export const metadata: Metadata = {
-  title: 'My Page Title',
-}
+  title: 'Website pribadi milik Asep Haryana Saputra',
+  description: 'Website pribadi milik Asep Haryana Saputra,ini adalah halaman utama pada website ini',
+  openGraph: {
+    title: 'Website pribadi milik Asep Haryana Saputra',
+    description: 'Website pribadi milik Asep Haryana Saputra,ini adalah halaman utama pada website ini',
+    images: ['/public/profil.jpg'],
+    type: 'article',
+    url: 'https://asepharyana.my.id/',
+    siteName: 'Website pribadi milik Asep Haryana Saputra',
+    locale: 'id_ID',
+  },
+  twitter: {
+    card: 'summary',
+    site: '@asepharyana',
+    title: 'Website pribadi milik Asep Haryana Saputra',
+    description: 'Website pribadi milik Asep Haryana Saputra,ini adalah halaman utama pada website ini',
+    images: ['/public/profil.jpg'],
+    creator: '@asepharyana71',
+  },
+};
 
 export default function RootLayout({
   children,
@@ -27,6 +46,9 @@ export default function RootLayout({
       <ViewTransitions>
         {/* <SessionWrapper> */}
         <html lang="en">
+          <head>
+            <ThemeModeScript></ThemeModeScript>
+          </head>
           <body className={montserrat.className}>
             <NavbarWrapper />
             <div className="mx-auto max-w-full px-3 pb-10 pt-20">
