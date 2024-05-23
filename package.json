@@ -9,7 +9,6 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
-
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -25,6 +24,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^5.2.1",
+    "sharp": "^0.33.4",
     "tailwind-merge": "^2.3.0"
   },
   "devDependencies": {
