@@ -24,6 +24,9 @@ export default async function ProductPage(props: ProductPageProps) {
   className="p-8 rounded-t-lg  h-96 w-full object-cover"
   src={product.image}
   alt="product image"
+  width={0}
+  height={0}
+  layout="responsive"
 />
     </Link>
     <div className="px-5 pb-5">

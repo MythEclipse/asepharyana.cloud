@@ -10,6 +10,11 @@ const nextConfig = {
             protocol: 'https',
             hostname: 'imgur.com',
           },
+          {
+            protocol: 'https',
+            hostname: 'fakestoreapi.com',
+          },
+
 
         ],
       },
