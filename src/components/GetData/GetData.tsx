@@ -1,9 +1,8 @@
 async function getData(url: string) {
     const res = await fetch(url,{
-      cache: "no-store",
-      // next:{
-      //   revalidate: 3600;
-      // },
+      next:{
+        revalidate: 3600,
+      },
     });
   
     if (!res.ok) {
