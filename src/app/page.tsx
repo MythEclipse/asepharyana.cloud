@@ -207,14 +207,11 @@ export default function Home() {
                 className="font-semibold text-xl text-dark "
               >
                 <h3 className="font-semibold text-xl text-dark hover:text-primary-600 mt-5 m-3">
-                  project2
+                  fake store
                 </h3>
               </Link>
               <p className="font-medium text-base text-secondary m-3">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Quisquam enim hic voluptates libero rerum ipsum excepturi
-                ducimus inventore unde, veritatis reiciendis non aliquam quos
-                optio fuga vero ut, eaque aperiam?
+              Data Fetching dari fakestoreapi
               </p>
             </Box>
             

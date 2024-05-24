@@ -3,11 +3,12 @@ import Image from "next/image";
 import next from "next";
 import getData from "@/components/GetData/GetData";
 import { revalidatePath } from "next/cache";
+import { Button } from "flowbite-react";
 type ProductPageProps = { params: { slug: string[] } };
 
 export default async function ProductPage(props: ProductPageProps) {
   const { params } = props;
-  const product = await getData('https://fakestoreapi.com/products');
+  const product = await getData("https://fakestoreapi.com/products");
   return (
     <div className="grid grid-cols-4 mt-5 place-items-center">
       {/* <h1>{params.slug ? "Detail product page" : "product page"}</h1> */}
@@ -17,23 +18,18 @@ export default async function ProductPage(props: ProductPageProps) {
             key={product.id}
             className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 my-5"
           >
-            <Link href="#">
-              <Image
-                className="p-8 rounded-t-lg  h-96 w-full object-cover"
-                src={product.image}
-                alt="product image"
-                width="0"
-                height="0"
-                sizes="100vw"
-                
-              />
-            </Link>
+            <Image
+              className="p-8 rounded-t-lg  h-96 w-full object-cover"
+              src={product.image}
+              alt="product image"
+              width="0"
+              height="0"
+              sizes="100vw"
+            />
             <div className="px-5 pb-5">
-              <Link href="#">
-                <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white truncate">
-                  {product.title}
-                </h5>
-              </Link>
+              <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white truncate">
+                {product.title}
+              </h5>
               <div className="flex items-center mt-2.5 mb-5">
                 <div className="flex items-center space-x-1 rtl:space-x-reverse">
                   <svg
@@ -88,12 +84,13 @@ export default async function ProductPage(props: ProductPageProps) {
                 <span className="text-3xl font-bold text-gray-900 dark:text-white">
                   $ {product.price}
                 </span>
-                <a
-                  href="#"
+                <Link
+                  key={product.id}
+                  href={`/product/detail/${product.id}`}
                   className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
                   Add to cart
-                </a>
+                </Link>
               </div>
             </div>
           </div>
