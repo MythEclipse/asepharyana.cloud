@@ -1,16 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
+import next from "next";
+import getData from "@/components/GetData/Getdata";
+import { revalidatePath } from "next/cache";
 type ProductPageProps = { params: { slug: string[] } };
-async function getData() {
-  const res = await fetch("https://fakestoreapi.com/products");
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
-  }
-  return res.json();
-}
+
 export default async function ProductPage(props: ProductPageProps) {
   const { params } = props;
-  const product = await getData();
+  const product = await getData('https://fakestoreapi.com/products');
   return (
     <div className="grid grid-cols-4 mt-5 place-items-center">
       {/* <h1>{params.slug ? "Detail product page" : "product page"}</h1> */}
@@ -25,6 +22,10 @@ export default async function ProductPage(props: ProductPageProps) {
                 className="p-8 rounded-t-lg  h-96 w-full object-cover"
                 src={product.image}
                 alt="product image"
+                width="0"
+                height="0"
+                sizes="100vw"
+                
               />
             </Link>
             <div className="px-5 pb-5">

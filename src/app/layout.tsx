@@ -20,12 +20,12 @@ export const metadata: Metadata = {
     description: 'Website pribadi milik Asep Haryana Saputra,ini adalah halaman utama pada website ini',
     images: [
       {
-        url: 'https://imgur.com/DLHzyeA', // Must be an absolute URL
+        url: 'https://i.imgur.com/DLHzyeA.png', // Must be an absolute URL
         width: 800,
         height: 600,
       },
       {
-        url: 'https://imgur.com/DLHzyeA', // Must be an absolute URL
+        url: 'https://i.imgur.com/DLHzyeA.png', // Must be an absolute URL
         width: 1800,
         height: 1600,
         alt: 'My custom alt',
@@ -43,12 +43,12 @@ export const metadata: Metadata = {
     description: 'Website pribadi milik Asep Haryana Saputra,ini adalah halaman utama pada website ini',
     images: [
       {
-        url: 'https://imgur.com/a/n1E3Yxm', // Must be an absolute URL
+        url: 'https://i.imgur.com/DLHzyeA.png', // Must be an absolute URL
         width: 800,
         height: 600,
       },
       {
-        url: 'https://imgur.com/a/n1E3Yxm', // Must be an absolute URL
+        url: 'https://i.imgur.com/DLHzyeA.png', // Must be an absolute URL
         width: 1800,
         height: 1600,
         alt: 'My custom alt',
