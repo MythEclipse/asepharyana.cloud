@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import next from "next";
-import getData from "@/components/GetData/Getdata";
+import getData from "@/components/GetData/GetData";
 import { revalidatePath } from "next/cache";
 type ProductPageProps = { params: { slug: string[] } };
 
