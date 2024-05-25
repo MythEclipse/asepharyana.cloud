@@ -195,7 +195,7 @@ export default function Home() {
             </Box>
             <Box>
               <Image
-                src="https://source.unsplash.com/600x300/?programing"
+                src="/Project2.png"
                 alt="porto"
                 className="object-cover w-full h-72"
                 width="0"
@@ -211,7 +211,7 @@ export default function Home() {
                 </h3>
               </Link>
               <p className="font-medium text-base text-secondary m-3">
-              Data Fetching dari fakestoreapi
+              Data Fetching dari fakestoreapi dengan detail product yang menggunakan modal box
               </p>
             </Box>
             

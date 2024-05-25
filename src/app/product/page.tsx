@@ -10,7 +10,7 @@ export default async function ProductPage(props: ProductPageProps) {
   const { params } = props;
   const product = await getData("https://fakestoreapi.com/products");
   return (
-    <div className="grid grid-cols-4 mt-5 place-items-center">
+    <div className="md:grid md:grid-cols-2 lg:grid lg:grid-cols-4 mt-5 place-items-center">
       {/* <h1>{params.slug ? "Detail product page" : "product page"}</h1> */}
       {product.length > 0 &&
         product.map((product: any) => (
