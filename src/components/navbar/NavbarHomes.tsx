@@ -4,10 +4,13 @@ import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { useState } from "react";
 import { Button } from "flowbite-react";
+import { signIn, signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+  const {data: session,status}:{data:any; status:string;} = useSession();
   return (
     <nav className="bg-white dark:bg-gray-800 fixed w-full z-10 top-0">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -63,6 +66,21 @@ const Navbar = () => {
                     Contact
                   </span>
                 </Link>
+              </li>
+              <li>
+                {status === "authenticated" ? (
+                  <Button color={"red"} onClick={() => signOut()}>
+                  {/* <span className={`${pathname === "/login" ? "text-primary-600" : "text-gray-900"} block px-3 py-4 rounded-md text-sm font-medium sm:px-0 sm:py-0`}> */}
+                    Logout
+                  {/* </span> */}
+                </Button>
+                ):(
+                  <Button color={"blue"}  onClick={() => signIn()}>
+                  {/* <span className={`${pathname === "/login" ? "text-primary-600" : "text-gray-900"} block px-3 py-4 rounded-md text-sm font-medium sm:px-0 sm:py-0`}> */}
+                    Login
+                  {/* </span> */}
+                </Button>
+                )}
               </li>
             </ul>
           </div>
