@@ -75,7 +75,7 @@ const Navbar = () => {
                   {/* </span> */}
                 </Button>
                 ):(
-                  <Button color={"blue"}  onClick={() => signIn()}>
+                  <Button color={"blue"}  as={Link} href="/login"> 
                   {/* <span className={`${pathname === "/login" ? "text-primary-600" : "text-gray-900"} block px-3 py-4 rounded-md text-sm font-medium sm:px-0 sm:py-0`}> */}
                     Login
                   {/* </span> */}
