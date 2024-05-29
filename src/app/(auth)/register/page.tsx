@@ -1,9 +1,37 @@
-'use client';
-export default function RegisterPage() {
-    const handleSubmit = async (e: any) => {
-    e.preventDefault();
+"use client";
 
+import { set } from "firebase/database";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+
+export default function RegisterPage() {
+  const { push } = useRouter();
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const handleSubmit = async (e: any) => {
+
+    e.preventDefault();
+    setError("");
+    setIsLoading(true);
+    const res= await fetch("/api/auth/register", {
+      method: "POST",
+      body: JSON.stringify({
+        fullname: e.target.fullname.value,
+        email: e.target.email.value,
+        password: e.target.password.value,
+        confirmPassword: e.target["confirm-password"].value,
+      }),
+    });
+    if (res.status === 200) {
+      e.target.reset();
+      push("/login");
+      setIsLoading(false);
+    }else{
+      setError("Email already exists");
+      setIsLoading(false);
     }
+  };
+
   return (
     <>
       <section className="bg-gray-50 dark:bg-gray-900">
@@ -12,12 +40,16 @@ export default function RegisterPage() {
           <img className="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo">
           Flowbite    
       </a> */}
+      {error !=='' && <div className="text-red-600 font-bold mb-3">{error}</div>}
           <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                 Create an account
               </h1>
-              <form className="space-y-4 md:space-y-6" onSubmit={(e)=>handleSubmit(e)}>
+              <form
+                className="space-y-4 md:space-y-6"
+                onSubmit={(e) => handleSubmit(e)}
+              >
                 <div>
                   <label
                     htmlFor="fullname"
@@ -74,7 +106,7 @@ export default function RegisterPage() {
                     Confirm password
                   </label>
                   <input
-                    type="confirm-password"
+                    type="password"
                     name="confirm-password"
                     id="confirm-password"
                     placeholder="••••••••"
