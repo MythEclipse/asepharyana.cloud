@@ -1,6 +1,8 @@
+import { login, register } from "@/lib/firebase/service";
 import { Awaitable, NextAuthOptions, RequestInternal, User } from "next-auth";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
+import bcrypt from "bcrypt";
 
 const authOption: NextAuthOptions = {
   secret: process.env.SECRET,
@@ -20,14 +22,13 @@ const authOption: NextAuthOptions = {
           email: string;
           password: string;
         };
-        const user: any = {
-          id: 1,
-          name: "Admin",
-          email: "superaseph@gmail.com",
-          role: "admin",
-        };
-        if (email === "superaseph@gmail.com" && password === "123456") {
-          return user;
+        const user: any = await login({ email, password });
+        if (user) {
+          const passwordConfirm = await bcrypt.compare(password, user.password);
+          if (passwordConfirm) {
+            return user;
+          }
+          return null;
         } else {
           return null;
         }
@@ -60,6 +61,4 @@ const authOption: NextAuthOptions = {
 
 const handler = NextAuth(authOption);
 
-export{
-  handler as GET,handler as POST
-}
+export { handler as GET, handler as POST };

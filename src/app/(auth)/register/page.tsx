@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { set } from "firebase/database";
 import { useRouter } from "next/navigation";

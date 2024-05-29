@@ -66,21 +66,21 @@ export default function RootLayout({
   return (
     <ContextAppProvider>
       <ViewTransitions>
+          <SessionWrapper>
         
         <html lang="en">
           <head>
             <ThemeModeScript></ThemeModeScript>
           </head>
           <body className={montserrat.className}>
-          <SessionWrapper>
             <NavbarWrapper />
             <div className="mx-auto max-w-full px-3 pb-10 pt-20">
               {children}
             </div>
-            </SessionWrapper>
           </body>
         </html>
         
+            </SessionWrapper>
       </ViewTransitions>
     </ContextAppProvider>
   );
