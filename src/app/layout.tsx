@@ -11,6 +11,7 @@ import { ContextApp } from "@/components/ContextApp";
 import { ThemeModeScript } from "flowbite-react";
 import ContextAppProvider  from "@/components/ContextApp";
 const montserrat = Montserrat({ subsets: ["latin"] });
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 export const metadata: Metadata = {
   title: 'Website pribadi milik Asep Haryana Saputra',
@@ -66,6 +67,7 @@ export default function RootLayout({
   return (
     <ContextAppProvider>
       <ViewTransitions>
+      <GoogleAnalytics gaId={`process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID`} />
           <SessionWrapper>
         
         <html lang="en">

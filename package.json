@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@firebase/analytics": "^0.10.4",
+    "@next/third-parties": "^14.2.3",
     "@types/bcrypt": "^5.0.2",
     "bcrypt": "^5.1.1",
     "firebase": "^10.12.2",
