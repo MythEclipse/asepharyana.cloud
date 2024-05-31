@@ -1,9 +1,7 @@
 import Link from "next/link";
+
 import Image from "next/image";
-import next from "next";
 import getData from "@/components/GetData/GetData";
-import { revalidatePath } from "next/cache";
-import { Button } from "flowbite-react";
 type ProductPageProps = { params: { slug: string[] } };
 
 export default async function ProductPage(props: ProductPageProps) {

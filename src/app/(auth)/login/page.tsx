@@ -1,10 +1,5 @@
 "use client";
-import { sign } from "crypto";
-import Email from "next-auth/providers/email";
 import { signIn } from "next-auth/react";
-import { redirect } from "next/dist/server/api-utils";
-import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 export default function LoginPage() {
   const { push } = useRouter();
@@ -104,7 +99,7 @@ export default function LoginPage() {
                   </div>
                 </div>
                 <a
-                  href="#"
+                  href="/"
                   className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
                 >
                   Forgot password?

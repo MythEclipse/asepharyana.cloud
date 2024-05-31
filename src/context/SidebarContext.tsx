@@ -7,6 +7,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 interface SidebarContextProps {
   isCollapsed: boolean;
+  // eslint-disable-next-line no-unused-vars
   setCollapsed: (isOpen: boolean) => void;
 }
 

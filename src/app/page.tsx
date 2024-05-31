@@ -1,10 +1,8 @@
-/* eslint-disable tailwindcss/no-custom-classname */
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Box from "@/components/box/Box";
 import BoxContainer from "@/components/box/BoxContainer";
-import { useState } from "react";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

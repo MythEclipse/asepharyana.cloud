@@ -1,6 +1,5 @@
 'use client';
 
-import { set } from "firebase/database";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -117,7 +116,7 @@ export default function RegisterPage() {
                       I accept the{" "}
                       <a
                         className="font-medium text-primary-600 hover:underline dark:text-primary-500"
-                        href="#"
+                        href="/"
                       >
                         Terms and Conditions
                       </a>
@@ -134,7 +133,7 @@ export default function RegisterPage() {
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                   Already have an account?{" "}
                   <a
-                    href="#"
+                    href="/"
                     className="font-medium text-primary-600 hover:underline dark:text-primary-500"
                   >
                     Login here

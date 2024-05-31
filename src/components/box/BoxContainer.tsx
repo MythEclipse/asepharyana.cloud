@@ -1,5 +1,4 @@
 import { ReactNode } from 'react';
-import Box from './Box';
 
 const BoxContainer = ({ children }: { children: ReactNode }) => {
     return (

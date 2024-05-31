@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 "use client";
 import { useRouter } from "next/navigation";
 import { MouseEventHandler, ReactNode, KeyboardEvent, useRef } from "react";

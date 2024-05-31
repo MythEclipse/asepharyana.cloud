@@ -1,5 +1,5 @@
-import { login, register } from "@/lib/firebase/service";
-import { Awaitable, NextAuthOptions, RequestInternal, User } from "next-auth";
+import { login } from "@/lib/firebase/service";
+import { NextAuthOptions } from "next-auth";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
@@ -36,7 +36,7 @@ const authOption: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, account, profile, user }: any) {
+    async jwt({ token, account, user }: any) {
       if (account?.provider === "credentials") {
         token.email = user.email;
         token.fullName = user.fullname;

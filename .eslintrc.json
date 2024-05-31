@@ -1,32 +1,36 @@
 {
   "root": true,
-  "extends": [
-    "plugin:tailwindcss/recommended",
-    "next/core-web-vitals",
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "next", 
-    "prettier"
-  ],
-  "overrides": [
-    {
-      "files": ["*.ts", "*.tsx"], // Include TypeScript and JSX files
-      "parser": "@typescript-eslint/parser",
-      "extends": ["plugin:@typescript-eslint/recommended"] // Extend with TypeScript rules
-    }
-  ],
-  "plugins": ["tailwindcss", "react", "prettier", "@typescript-eslint"],
-  "settings": {
-    "react": {
-      "version": "detect" // Specify your React version (or use "detect")
+  "extends": ["next", "eslint:recommended","prettier","next/core-web-vitals", "plugin:react/recommended", "plugin:react-hooks/recommended"],
+  "plugins": ["react", "react-hooks"],
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2021,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
     }
   },
   "rules": {
-    // Add or modify ESLint rules here as needed
+    "react/react-in-jsx-scope": "off", // Next.js does not require React to be in scope
+    "react/prop-types": "off", // You can enable this if you use PropTypes
+    "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
+    "react-hooks/exhaustive-deps": "warn", // Checks effect dependencies
+    "jsx-a11y/anchor-is-valid": [
+      "error",
+      {
+        "components": ["Link"],
+        "specialLink": ["hrefLeft", "hrefRight"],
+        "aspects": ["invalidHref", "preferButton"]
+      }
+    ]
   },
-  "prettier": {
-    "endOfLine": "auto",
-    "singleQuote": true,
-    "trailingComma": "es5"
+  "settings": {
+    "react": {
+      "version": "detect" // Automatically detect the react version
+    }
   }
 }

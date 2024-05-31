@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import React from "react";
 import "./globals.css";
 import { Montserrat } from "next/font/google";
 import NavbarWrapper from "../components/navbar/NavbarHomes";
 import { ViewTransitions } from "next-view-transitions";
 import SessionWrapper from "@/components/SessionWrapper";
 import {} from "flowbite";
-import { createContext, useState } from "react";
-import { ContextApp } from "@/components/ContextApp";
 import { ThemeModeScript } from "flowbite-react";
 import { DarkThemeToggle, Flowbite } from "flowbite-react";
 import ContextAppProvider from "@/components/ContextApp";

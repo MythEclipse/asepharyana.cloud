@@ -1,5 +1,4 @@
-import Image from "next/image";
-import { Children, ReactNode } from "react";
+import { ReactNode } from "react";
 
 const Box = ({children}: {children: ReactNode}) => {
     return (

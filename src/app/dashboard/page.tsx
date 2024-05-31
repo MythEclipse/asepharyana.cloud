@@ -1,7 +1,7 @@
 'use client'
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { Children, use, useEffect } from "react";
+import { useEffect } from "react";
 
 export default function DasboardPage() {
     const {data: session,status}:{data:any; status:string;} = useSession();
