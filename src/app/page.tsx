@@ -1,3 +1,4 @@
+/* eslint-disable tailwindcss/no-custom-classname */
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -19,11 +20,11 @@ export default function Home() {
             <div className="w-full self-center px-2 lg:w-1/2">
               <h1 className="text-base font-semibold text-primary-600 lg:text-xl">
                 Halo semua 👋,saya{" "}
-                <span className="block font-bold text-dark text-4xl lg:text-5xl">
+                <span className="block text-4xl font-bold text-dark lg:text-5xl">
                   Asep haryana saputra
                 </span>
               </h1>
-              <h2 className="font-medium text-secondary text-lg mb-5 lg:text-2xl">
+              <h2 className="mb-5 text-lg font-medium text-secondary lg:text-2xl">
                 Saya adalah seorang{" "}
                 <span className="text-dark">Programmer</span>
               </h2>
@@ -33,15 +34,15 @@ export default function Home() {
               </p>
               <link
                 href="#"
-                className="text-base font-semibold text-white bg-primary-600 py-3 px-8 rounded-full hover:shadow-lg hover:opacity-80 transition duration-300 ease-in-out"
+                className="rounded-full bg-primary-600 px-8 py-3 text-base font-semibold text-white transition duration-300 ease-in-out hover:opacity-80 hover:shadow-lg"
               />
             </div>
-            <div className="w-full self-end px-4 lg:w-1/2 pt-4">
-              <div className="relative mt-10 lg:mt-0 lg:right-0">
+            <div className="w-full self-end px-4 pt-4 lg:w-1/2">
+              <div className="relative mt-10 lg:right-0 lg:mt-0">
                 <Image
                   src="/profil.jpg"
                   alt=""
-                  className="object-cover rounded-full mx-auto w-80 h-80 md:w-auto md:h-auto lg:h-auto lg:w-auto max-w-80 max-h-80 "
+                  className="mx-auto size-80 max-h-80 max-w-80 rounded-full object-cover md:size-auto lg:size-auto "
                   width="0"
                   height="0"
                   sizes="100vw"
@@ -51,27 +52,27 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section id="about" className="pt-36 pb-32">
+      <section id="about" className="pb-32 pt-36">
         <div className="container">
           <div className="flex flex-wrap">
-            <div className="w-full px-4 mb-7 lg:w-1/2">
-              <h4 className="font-bold uppercase text-primary-600 text-lg mb-3">
+            <div className="mb-7 w-full px-4 lg:w-1/2">
+              <h4 className="mb-3 text-lg font-bold uppercase text-primary-600">
                 Tentang Saya
               </h4>
-              <h2 className="font-bold text-dark text-3xl mb-5 max-w-md">
+              <h2 className="mb-5 max-w-md text-3xl font-bold text-dark">
                 Saya adalah seorang programmer
               </h2>
-              <p className="font-medium text-base text-secondary max-w-xl">
+              <p className="max-w-xl text-base font-medium text-secondary">
                 Lorem ipsum, dolor sit amet consectetur adipisicing elit.
                 Dolore, mollitia tempora? Illum, ad inventore. Maxime obcaecati
                 explicabo iste!
               </p>
             </div>
             <div className="w-full px-4 lg:w-1/2">
-              <h3 className="font-semibold text-dark text-2xl mb-4">
+              <h3 className="mb-4 text-2xl font-semibold text-dark">
                 Mari berteman
               </h3>
-              <p className="font-medium text-base text-secondary mb-6">
+              <p className="mb-6 text-base font-medium text-secondary">
                 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rem,
                 nemo voluptas temporibus eos nesciunt tenetur aut unde ab
                 pariatur molestias soluta excepturi harum neque ipsum cum!
@@ -81,7 +82,7 @@ export default function Home() {
               <div className="flex items-center ">
                 <Link
                   href="https://github.com/Asepharyana71"
-                  className="w-9 h-9 rounded-full flex justify-center item-center border text-dark border-slate-300 hover:border-primary-600 hover:bg-primary-600 hover:text-white"
+                  className="item-center flex size-9 justify-center rounded-full border border-slate-300 text-dark hover:border-primary-600 hover:bg-primary-600 hover:text-white"
                 >
                   <svg
                     width="20"
@@ -95,7 +96,7 @@ export default function Home() {
                 </Link>
                 <Link
                   href="https://www.instagram.com/asepharyana18/"
-                  className="w-9 h-9 rounded-full flex justify-center item-center border text-dark border-slate-300 hover:border-primary-600 hover:bg-primary-600 hover:text-white"
+                  className="item-center flex size-9 justify-center rounded-full border border-slate-300 text-dark hover:border-primary-600 hover:bg-primary-600 hover:text-white"
                 >
                   <svg
                     fill="#000000"
@@ -119,7 +120,7 @@ export default function Home() {
                 </Link>
                 <Link
                   href="https://www.linkedin.com/in/asep-haryana-2014a5294/"
-                  className="w-9 h-9 rounded-full flex justify-center item-center border text-dark border-slate-300 hover:border-primary-600 hover:bg-primary-600 hover:text-white"
+                  className="item-center flex size-9 justify-center rounded-full border border-slate-300 text-dark hover:border-primary-600 hover:bg-primary-600 hover:text-white"
                 >
                   <svg
                     fill="#000000"
@@ -137,7 +138,7 @@ export default function Home() {
                 </Link>
                 <Link
                   href="https://www.facebook.com/asep.haryana.7355"
-                  className="w-9 h-9 rounded-full flex justify-center item-center border text-dark border-slate-300 hover:border-primary-600 hover:bg-primary-600 hover:text-white"
+                  className="item-center flex size-9 justify-center rounded-full border border-slate-300 text-dark hover:border-primary-600 hover:bg-primary-600 hover:text-white"
                 >
                   <svg
                     fill="#000000"
@@ -154,17 +155,17 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section id="portfolio" className="pt-36 pb-16 bg-slate-200 ">
+      <section id="portfolio" className="bg-slate-200 pb-16 pt-36 ">
         <div className="container">
           <div className="w-full">
-            <div className="max-w-xl mx-auto text-center mb-16">
-              <h4 className="font-semibold text-lg text-primary-600 mb-2">
+            <div className="mx-auto mb-16 max-w-xl text-center">
+              <h4 className="mb-2 text-lg font-semibold text-primary-600">
                 Portfolio
               </h4>
-              <h2 className="font-bold text-dark text-3xl mb-4 ">
+              <h2 className="mb-4 text-3xl font-bold text-dark ">
                 Project terbaru
               </h2>
-              <p className="font-medium text-md text-secondary">
+              <p className="text-md font-medium text-secondary">
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quia
                 minus laborum quidem id eveniet molestias voluptas quos
                 recusandae natus placeat!
@@ -176,20 +177,20 @@ export default function Home() {
               <Image
                 src="/Project1.png"
                 alt="porto"
-                className="object-cover w-full h-72"
+                className="h-72 w-full object-cover"
                 width="0"
                 height="0"
                 sizes="100vw"
               ></Image>
               <Link
                 href="/login"
-                className="font-semibold text-xl text-dark "
+                className="text-xl font-semibold text-dark "
               >
-                <h3 className="font-semibold text-xl text-dark hover:text-primary-600 mt-5 m-3">
+                <h3 className="m-3 mt-5 text-xl font-semibold text-dark hover:text-primary-600">
                   Login Page
                 </h3>
               </Link>
-              <p className="font-medium text-base text-secondary m-3">
+              <p className="m-3 text-base font-medium text-secondary">
                 login page test
               </p>
             </Box>
@@ -197,20 +198,20 @@ export default function Home() {
               <Image
                 src="/Project2.png"
                 alt="porto"
-                className="object-cover w-full h-72"
+                className="h-72 w-full object-cover"
                 width="0"
                 height="0"
                 sizes="100vw"
               ></Image>
               <Link
                 href="/product"
-                className="font-semibold text-xl text-dark "
+                className="text-xl font-semibold text-dark "
               >
-                <h3 className="font-semibold text-xl text-dark hover:text-primary-600 mt-5 m-3">
+                <h3 className="m-3 mt-5 text-xl font-semibold text-dark hover:text-primary-600">
                   fake store
                 </h3>
               </Link>
-              <p className="font-medium text-base text-secondary m-3">
+              <p className="m-3 text-base font-medium text-secondary">
               Data Fetching dari fakestoreapi dengan detail product yang menggunakan modal box
               </p>
             </Box>

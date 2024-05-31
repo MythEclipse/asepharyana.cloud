@@ -1,0 +1,32 @@
+{
+  "root": true,
+  "extends": [
+    "plugin:tailwindcss/recommended",
+    "next/core-web-vitals",
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "next", 
+    "prettier"
+  ],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"], // Include TypeScript and JSX files
+      "parser": "@typescript-eslint/parser",
+      "extends": ["plugin:@typescript-eslint/recommended"] // Extend with TypeScript rules
+    }
+  ],
+  "plugins": ["tailwindcss", "react", "prettier", "@typescript-eslint"],
+  "settings": {
+    "react": {
+      "version": "18.3.1" // Specify your React version (or use "detect")
+    }
+  },
+  "rules": {
+    // Add or modify ESLint rules here as needed
+  },
+  "prettier": {
+    "endOfLine": "auto",
+    "singleQuote": true,
+    "trailingComma": "es5"
+  }
+}
