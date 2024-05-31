@@ -51,7 +51,7 @@ const Navbar = () => {
                       className={`${
                         pathname === "/about"
                           ? "text-primary-600"
-                          : "text-gray-900"
+                          : "text-gray-900 dark:text-gray-100"
                       } block rounded-md px-3 py-4 text-sm font-medium hover:bg-gray-700 hover:text-white sm:p-0`}
                     >
                       About
@@ -64,7 +64,7 @@ const Navbar = () => {
                       className={`${
                         pathname === "/services"
                           ? "text-primary-600"
-                          : "text-gray-900"
+                          : "text-gray-900 dark:text-gray-100"
                       } block rounded-md px-3 py-4 text-sm font-medium hover:bg-gray-700 hover:text-white sm:p-0`}
                     >
                       Services
@@ -77,7 +77,7 @@ const Navbar = () => {
                       className={`${
                         pathname === "/contact"
                           ? "text-primary-600"
-                          : "text-gray-900"
+                          : "text-gray-900 dark:text-gray-100"
                       } block rounded-md px-3 py-4 text-sm font-medium hover:bg-gray-700 hover:text-white sm:p-0`}
                     >
                       Contact
@@ -117,7 +117,7 @@ const Navbar = () => {
                       className={`${
                         pathname === "/about"
                           ? "text-primary-600"
-                          : "text-gray-900"
+                          : "text-gray-900 dark:text-gray-100"
                       } block rounded-md px-3 py-4 text-sm font-medium hover:bg-gray-700 hover:text-white sm:p-0 md:hidden lg:hidden`}
                     >
                       About
@@ -130,7 +130,7 @@ const Navbar = () => {
                       className={`${
                         pathname === "/services"
                           ? "text-primary-600"
-                          : "text-gray-900"
+                          : "text-gray-900 dark:text-gray-100"
                       } block rounded-md px-3 py-4 text-sm font-medium hover:bg-gray-700 hover:text-white sm:p-0 md:hidden lg:hidden`}
                     >
                       Services
@@ -143,7 +143,7 @@ const Navbar = () => {
                       className={`${
                         pathname === "/contact"
                           ? "text-primary-600"
-                          : "text-gray-900"
+                          : "text-gray-900 dark:text-gray-100"
                       } block rounded-md px-3 py-4 text-sm font-medium hover:bg-gray-700 hover:text-white sm:p-0 md:hidden lg:hidden`}
                     >
                       Contact
@@ -159,14 +159,14 @@ const Navbar = () => {
                 {status === "authenticated" ? (
                   <div className="">
                     <Button color={"red"} onClick={() => signOut()}>
-                      {/* <span className={`${pathname === "/login" ? "text-primary-600" : "text-gray-900"} block px-3 py-4 rounded-md text-sm font-medium sm:px-0 sm:py-0`}> */}
+                      {/* <span className={`${pathname === "/login" ? "text-primary-600" : "text-gray-900 dark:text-gray-100"} block px-3 py-4 rounded-md text-sm font-medium sm:px-0 sm:py-0`}> */}
                       Logout
                       {/* </span> */}
                     </Button>
                   </div>
                 ) : (
                   <Button color={"blue"} as={Link} href="/login">
-                    {/* <span className={`${pathname === "/login" ? "text-primary-600" : "text-gray-900"} block px-3 py-4 rounded-md text-sm font-medium sm:px-0 sm:py-0`}> */}
+                    {/* <span className={`${pathname === "/login" ? "text-primary-600" : "text-gray-900 dark:text-gray-100"} block px-3 py-4 rounded-md text-sm font-medium sm:px-0 sm:py-0`}> */}
                     Login
                     {/* </span> */}
                   </Button>
