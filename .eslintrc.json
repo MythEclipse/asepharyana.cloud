@@ -18,7 +18,7 @@
   "plugins": ["tailwindcss", "react", "prettier", "@typescript-eslint"],
   "settings": {
     "react": {
-      "version": "18.3.1" // Specify your React version (or use "detect")
+      "version": "detect" // Specify your React version (or use "detect")
     }
   },
   "rules": {
