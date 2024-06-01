@@ -32,6 +32,10 @@
   "settings": {
     "react": {
       "version": "detect" // Automatically detect the react version
+    },
+    "tailwindcss": {
+      "callees": ["twMerge", "createTheme"],
+      "classRegex": "^(class(Name)|theme)?$"
     }
   }
 }
