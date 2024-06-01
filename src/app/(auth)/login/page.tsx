@@ -1,28 +1,29 @@
 "use client";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import React from "react";
 export default function LoginPage() {
   const { push } = useRouter();
-  const handleLogin = async (e: any) => {
+
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try{
+    try {
       const res = await signIn("credentials", {
         redirect: false,
-        email: e.target.email.value,
-        password: e.target.password.value,
+        email: (e.target as HTMLFormElement).email.value,
+        password: (e.target as HTMLFormElement).password.value,
         callbackUrl: "/dashboard",
       });
       if (!res?.error) {
-        push("/dashboard")
-      }else{
-        console.log(res.error)
+        push("/dashboard");
+      } else {
+        console.log(res.error);
       }
-    }
-    catch (error) {
+    } catch (error) {
       console.log(error);
     }
   };
-  
+
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
       <div className="mx-auto flex flex-col items-center justify-center px-6 py-8 md:h-screen lg:py-0">
@@ -86,7 +87,7 @@ export default function LoginPage() {
                       id="remember"
                       aria-describedby="remember"
                       type="checkbox"
-                      className="focus:ring-3 size-4 rounded border border-gray-300 bg-gray-50 focus:ring-primary-300 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
+                      className="size-4 rounded border border-gray-300 bg-gray-50 focus:ring-primary-300 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
                     />
                   </div>
                   <div className="ml-3 text-sm">

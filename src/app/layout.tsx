@@ -80,7 +80,7 @@ export default function RootLayout({
               </head>
               <body className={montserrat.className}>
                 <NavbarWrapper />
-                <div className="mx-auto dark:bg-gray-900 max-w-full px-3 pb-10 pt-20">
+                <div className="mx-auto max-w-full px-3 pb-10 pt-20 dark:bg-gray-900">
                   {children}
                 </div>
                 <DarkThemeToggle className="fixed bottom-0 z-10"></DarkThemeToggle>

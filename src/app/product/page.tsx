@@ -17,7 +17,7 @@ export default async function ProductPage(props: ProductPageProps) {
             className="my-5 w-full max-w-sm rounded-lg border border-gray-200 bg-white shadow dark:border-gray-700 dark:bg-gray-800"
           >
             <Image
-              className="h-96 w-full  rounded-t-lg object-cover p-8"
+              className="h-96 w-full rounded-t-lg object-cover p-8"
               src={product.image}
               alt="product image"
               width="0"

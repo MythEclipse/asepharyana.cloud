@@ -26,7 +26,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({
         status: 404,
         Message: "Not Found",
-        data:{}
+        data: {},
       });
     }
     return NextResponse.json({
@@ -35,5 +35,4 @@ export async function GET(request: NextRequest) {
       data: detailProduct,
     });
   }
-
 }

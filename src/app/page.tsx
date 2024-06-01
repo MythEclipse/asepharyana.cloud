@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <section>
-      <section id="hero" className="pt-35 lg:px-3 dark:bg-gray-900">
+      <section id="hero" className="pt-35 dark:bg-gray-900 lg:px-3">
         <div className="container">
           <div className="flex flex-wrap">
             <div className="w-full self-center px-2 lg:w-1/2">
@@ -40,7 +40,7 @@ export default function Home() {
                 <Image
                   src="/profil.jpg"
                   alt=""
-                  className="mx-auto size-80 max-h-80 max-w-80 rounded-full object-cover md:size-auto lg:size-auto "
+                  className="mx-auto size-80 max-h-80 max-w-80 rounded-full object-cover md:size-auto lg:size-auto"
                   width="0"
                   height="0"
                   sizes="100vw"
@@ -77,10 +77,10 @@ export default function Home() {
                 Cumque iusto debitis fugit optio exercitationem quaerat nobis
                 nostrum deserunt! Voluptas sapiente reprehenderit quisquam?
               </p>
-              <div className="flex items-center ">
+              <div className="flex items-center">
                 <Link
                   href="https://github.com/Asepharyana71"
-                  className="item-center flex size-9 justify-center rounded-full border border-slate-300 text-dark dark:text-gray-100 hover:border-primary-600 hover:bg-primary-600 hover:text-white"
+                  className="item-center flex size-9 justify-center rounded-full border border-slate-300 text-dark hover:border-primary-600 hover:bg-primary-600 hover:text-white dark:text-gray-100"
                 >
                   <svg
                     width="20"
@@ -94,7 +94,7 @@ export default function Home() {
                 </Link>
                 <Link
                   href="https://www.instagram.com/asepharyana18/"
-                  className="item-center flex size-9 justify-center rounded-full border border-slate-300 text-dark dark:text-gray-100 hover:border-primary-600 hover:bg-primary-600 hover:text-white"
+                  className="item-center flex size-9 justify-center rounded-full border border-slate-300 text-dark hover:border-primary-600 hover:bg-primary-600 hover:text-white dark:text-gray-100"
                 >
                   <svg
                     fill="#000000"
@@ -118,7 +118,7 @@ export default function Home() {
                 </Link>
                 <Link
                   href="https://www.linkedin.com/in/asep-haryana-2014a5294/"
-                  className="item-center flex size-9 justify-center rounded-full border border-slate-300 text-dark dark:text-gray-100 hover:border-primary-600 hover:bg-primary-600 hover:text-white"
+                  className="item-center flex size-9 justify-center rounded-full border border-slate-300 text-dark hover:border-primary-600 hover:bg-primary-600 hover:text-white dark:text-gray-100"
                 >
                   <svg
                     fill="#000000"
@@ -136,7 +136,7 @@ export default function Home() {
                 </Link>
                 <Link
                   href="https://www.facebook.com/asep.haryana.7355"
-                  className="item-center flex size-9 justify-center rounded-full border border-slate-300 text-dark dark:text-gray-100 hover:border-primary-600 hover:bg-primary-600 hover:text-white"
+                  className="item-center flex size-9 justify-center rounded-full border border-slate-300 text-dark hover:border-primary-600 hover:bg-primary-600 hover:text-white dark:text-gray-100"
                 >
                   <svg
                     fill="#000000"
@@ -153,14 +153,17 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section id="portfolio" className="bg-slate-200 dark:border-gray-700 dark:bg-gray-800 pb-16 pt-36 ">
+      <section
+        id="portfolio"
+        className="bg-slate-200 pb-16 pt-36 dark:border-gray-700 dark:bg-gray-800"
+      >
         <div className="container">
           <div className="w-full">
             <div className="mx-auto mb-16 max-w-xl text-center">
               <h4 className="mb-2 text-lg font-semibold text-primary-600">
                 Portfolio
               </h4>
-              <h2 className="mb-4 text-3xl font-bold text-dark dark:text-gray-100 ">
+              <h2 className="mb-4 text-3xl font-bold text-dark dark:text-gray-100">
                 Project terbaru
               </h2>
               <p className="text-md font-medium text-secondary">
@@ -182,9 +185,9 @@ export default function Home() {
               ></Image>
               <Link
                 href="/login"
-                className="text-xl font-semibold text-dark dark:text-gray-100 "
+                className="text-xl font-semibold text-dark dark:text-gray-100"
               >
-                <h3 className="m-3 mt-5 text-xl font-semibold text-dark dark:text-gray-100 dark:hover:text-primary-600 hover:text-primary-600">
+                <h3 className="m-3 mt-5 text-xl font-semibold text-dark hover:text-primary-600 dark:text-gray-100 dark:hover:text-primary-600">
                   Login Page
                 </h3>
               </Link>
@@ -203,17 +206,17 @@ export default function Home() {
               ></Image>
               <Link
                 href="/product"
-                className="text-xl font-semibold text-dark dark:text-gray-100 "
+                className="text-xl font-semibold text-dark dark:text-gray-100"
               >
-                <h3 className="m-3 mt-5 text-xl font-semibold text-dark dark:text-gray-100 dark:hover:text-primary-600 hover:text-primary-600">
+                <h3 className="m-3 mt-5 text-xl font-semibold text-dark hover:text-primary-600 dark:text-gray-100 dark:hover:text-primary-600">
                   fake store
                 </h3>
               </Link>
               <p className="m-3 text-base font-medium text-secondary">
-              Data Fetching dari fakestoreapi dengan detail product yang menggunakan modal box
+                Data Fetching dari fakestoreapi dengan detail product yang
+                menggunakan modal box
               </p>
             </Box>
-            
           </BoxContainer>
         </div>
       </section>

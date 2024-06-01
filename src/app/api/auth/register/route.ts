@@ -5,6 +5,6 @@ export async function POST(request: NextRequest) {
   const res = await register(req);
   return NextResponse.json(
     { status: res.status, message: res.message },
-    { status: res.statusCode }
+    { status: res.statusCode },
   );
 }

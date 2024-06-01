@@ -15,13 +15,13 @@ const Navbar = () => {
     <nav className="fixed top-0 z-10 w-full bg-white dark:bg-gray-800">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-full flex-col items-center justify-between sm:flex-row">
-          <div className="flex items-center pt-3 ">
+          <div className="flex items-center pt-3">
             <div
               className={`${
                 pathname === "/"
-                  ? "border border-gray-800 bg-primary-600 "
+                  ? "border border-gray-800 bg-primary-600"
                   : "bg-primary-600"
-              } shrink-0   rounded-md shadow-md hover:opacity-80`}
+              } shrink-0 rounded-md shadow-md hover:opacity-80`}
             >
               <Link href="/">
                 <Image
@@ -107,49 +107,49 @@ const Navbar = () => {
             } sm:flex sm:flex-1 sm:items-center sm:justify-end`}
           >
             <ul
-              className={` flex-col items-center justify-center px-3 sm:flex-row md:space-x-4 ${
+              className={`flex-col items-center justify-center px-3 sm:flex-row md:space-x-4 ${
                 isOpen ? "sm:hidden" : "flex"
               } `}
             >
               <li>
-                  <Link href="/about">
-                    <span
-                      className={`${
-                        pathname === "/about"
-                          ? "text-primary-600"
-                          : "text-gray-900 dark:text-gray-100"
-                      } block rounded-md px-3 py-4 text-sm font-medium hover:bg-gray-700 hover:text-white sm:p-0 md:hidden lg:hidden`}
-                    >
-                      About
-                    </span>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/services">
-                    <span
-                      className={`${
-                        pathname === "/services"
-                          ? "text-primary-600"
-                          : "text-gray-900 dark:text-gray-100"
-                      } block rounded-md px-3 py-4 text-sm font-medium hover:bg-gray-700 hover:text-white sm:p-0 md:hidden lg:hidden`}
-                    >
-                      Services
-                    </span>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/contact">
-                    <span
-                      className={`${
-                        pathname === "/contact"
-                          ? "text-primary-600"
-                          : "text-gray-900 dark:text-gray-100"
-                      } block rounded-md px-3 py-4 text-sm font-medium hover:bg-gray-700 hover:text-white sm:p-0 md:hidden lg:hidden`}
-                    >
-                      Contact
-                    </span>
-                  </Link>
-                </li>
+                <Link href="/about">
+                  <span
+                    className={`${
+                      pathname === "/about"
+                        ? "text-primary-600"
+                        : "text-gray-900 dark:text-gray-100"
+                    } block rounded-md px-3 py-4 text-sm font-medium hover:bg-gray-700 hover:text-white sm:p-0 md:hidden lg:hidden`}
+                  >
+                    About
+                  </span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/services">
+                  <span
+                    className={`${
+                      pathname === "/services"
+                        ? "text-primary-600"
+                        : "text-gray-900 dark:text-gray-100"
+                    } block rounded-md px-3 py-4 text-sm font-medium hover:bg-gray-700 hover:text-white sm:p-0 md:hidden lg:hidden`}
+                  >
+                    Services
+                  </span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact">
+                  <span
+                    className={`${
+                      pathname === "/contact"
+                        ? "text-primary-600"
+                        : "text-gray-900 dark:text-gray-100"
+                    } block rounded-md px-3 py-4 text-sm font-medium hover:bg-gray-700 hover:text-white sm:p-0 md:hidden lg:hidden`}
+                  >
+                    Contact
+                  </span>
+                </Link>
+              </li>
               <li>
                 <h4 className="text-sm text-teal-500">
                   {session?.user?.email}
