@@ -1,9 +1,9 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import Box from "@/components/box/Box";
 import BoxContainer from "@/components/box/BoxContainer";
 import { Metadata } from "next";
+import BoxContent from "@/components/box/BoxContent";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -174,49 +174,19 @@ export default function Home() {
             </div>
           </div>
           <BoxContainer>
-            <Box>
-              <Image
-                src="/Project1.png"
-                alt="porto"
-                className="h-72 w-full object-cover"
-                width="0"
-                height="0"
-                sizes="100vw"
-              ></Image>
-              <Link
-                href="/login"
-                className="text-xl font-semibold text-dark dark:text-gray-100"
-              >
-                <h3 className="m-3 mt-5 text-xl font-semibold text-dark hover:text-primary-600 dark:text-gray-100 dark:hover:text-primary-600">
-                  Login Page
-                </h3>
-              </Link>
-              <p className="m-3 text-base font-medium text-secondary">
-                login page test
-              </p>
-            </Box>
-            <Box>
-              <Image
-                src="/Project2.png"
-                alt="porto"
-                className="h-72 w-full object-cover"
-                width="0"
-                height="0"
-                sizes="100vw"
-              ></Image>
-              <Link
-                href="/product"
-                className="text-xl font-semibold text-dark dark:text-gray-100"
-              >
-                <h3 className="m-3 mt-5 text-xl font-semibold text-dark hover:text-primary-600 dark:text-gray-100 dark:hover:text-primary-600">
-                  fake store
-                </h3>
-              </Link>
-              <p className="m-3 text-base font-medium text-secondary">
-                Data Fetching dari fakestoreapi dengan detail product yang
-                menggunakan modal box
-              </p>
-            </Box>
+            <BoxContent
+              gambar="/Project1.png"
+              href="/login"
+              judul="Login Page"
+              description="aaaa"
+            />
+            <BoxContent
+              gambar="/Project2.png"
+              href="/product"
+              judul="fake store"
+              description="Data Fetching dari fakestoreapi dengan detail product yang
+              menggunakan modal box"
+            />
           </BoxContainer>
         </div>
       </section>

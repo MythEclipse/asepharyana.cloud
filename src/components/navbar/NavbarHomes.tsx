@@ -15,13 +15,13 @@ const Navbar = () => {
     <nav className="fixed top-0 z-10 w-full bg-white dark:bg-gray-800">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-full flex-col items-center justify-between sm:flex-row">
-          <div className="flex items-center pt-3">
+          <div className="flex items-center py-3">
             <div
               className={`${
                 pathname === "/"
                   ? "border border-gray-800 bg-primary-600"
                   : "bg-primary-600"
-              } shrink-0 rounded-md shadow-md hover:opacity-80`}
+              } shrink-0 items-center justify-center rounded-md shadow-md hover:opacity-80`}
             >
               <Link href="/">
                 <Image
