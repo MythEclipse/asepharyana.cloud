@@ -78,9 +78,9 @@ export default function RootLayout({
               <head>
                 <ThemeModeScript></ThemeModeScript>
               </head>
-              <body className={montserrat.className}>
+              <body className={`montserrat.className dark:bg-gray-900`}>
                 <NavbarWrapper />
-                <div className="m-auto max-w-full px-3 pb-10 pt-20 dark:bg-gray-900">
+                <div className="m-auto max-h-full max-w-full px-3 pb-10 pt-20 dark:bg-gray-900">
                   {children}
                 </div>
                 <DarkThemeToggle className="fixed bottom-0 z-10"></DarkThemeToggle>
