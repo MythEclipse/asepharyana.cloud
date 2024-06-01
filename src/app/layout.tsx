@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import React from "react";
 import "./globals.css";
-import { Montserrat } from "next/font/google";
 import NavbarWrapper from "../components/navbar/NavbarHomes";
 import { ViewTransitions } from "next-view-transitions";
 import SessionWrapper from "@/components/SessionWrapper";
@@ -9,7 +8,6 @@ import {} from "flowbite";
 import { ThemeModeScript } from "flowbite-react";
 import { DarkThemeToggle, Flowbite } from "flowbite-react";
 import ContextAppProvider from "@/components/ContextApp";
-const montserrat = Montserrat({ subsets: ["latin"] });
 import { GoogleAnalytics } from "@next/third-parties/google";
 
 export const metadata: Metadata = {
@@ -60,7 +58,6 @@ export const metadata: Metadata = {
     creator: "@asepharyana71",
   },
 };
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -78,7 +75,7 @@ export default function RootLayout({
               <head>
                 <ThemeModeScript></ThemeModeScript>
               </head>
-              <body className={`montserrat.className dark:bg-gray-900`}>
+              <body className={`dark:bg-gray-900`}>
                 <NavbarWrapper />
                 <div className="m-auto max-h-full max-w-full px-3 pb-10 pt-20 dark:bg-gray-900">
                   {children}
