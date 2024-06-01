@@ -1,11 +1,13 @@
+/* eslint-disable no-undef */
 "use client";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React from "react";
-export default function LoginPage() {
+export default function LoginPage({ searchParams }: any) {
   const { push } = useRouter();
   const [error, setError] = React.useState<string>("");
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
+  const callbackUrl = searchParams.callbackUrl || "/";
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
@@ -15,12 +17,12 @@ export default function LoginPage() {
         redirect: false,
         email: (e.target as HTMLFormElement).email.value,
         password: (e.target as HTMLFormElement).password.value,
-        callbackUrl: "/dashboard",
+        callbackUrl,
       });
       if (!res?.error) {
         (e.target as HTMLFormElement).reset();
         setIsLoading(false);
-        push("/dashboard");
+        push(callbackUrl);
       } else {
         setIsLoading(false);
         console.log(res.error);
@@ -127,6 +129,16 @@ export default function LoginPage() {
                       className="w-full rounded-lg bg-primary-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                     >
                       {isLoading ? "Loading..." : "Sign in"}
+                    </button>
+                    <hr />
+                    <button
+                      type="button"
+                      onClick={() =>
+                        signIn("google", { callbackUrl, redirect: false })
+                      }
+                      className="w-full rounded-lg bg-primary-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                    >
+                      login with google
                     </button>
                     <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                       Don’t have an account yet?{" "}

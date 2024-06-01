@@ -1,14 +1,17 @@
 /* eslint-disable no-unused-vars */
+import withAuth from "./middlewares/withAuth";
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 
-export function middleware(request: NextRequest) {
-  const isLogin = true;
-  if (!isLogin) {
-    return NextResponse.redirect("/login");
-  }
+export function mainMiddleware(request: NextRequest) {
+  const res = NextResponse.next();
+  return res;
 }
 
-export const config = {
-  matcher: ["/dashboard/:path*"],
-};
+export default withAuth(mainMiddleware, [
+  "/dashboard",
+  "/profile",
+  "/settings",
+  "/login",
+  "/register",
+]);
