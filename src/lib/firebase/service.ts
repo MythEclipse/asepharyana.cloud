@@ -95,13 +95,13 @@ export async function loginWithGoogle(data: any, callbacks: any) {
     where("email", "==", data.email),
   );
   const snapshot = await getDocs(q);
-  const user = snapshot.docs.map((doc) => ({
+  const user: any = snapshot.docs.map((doc) => ({
     id: doc.id,
     ...doc.data(),
   }));
 
   if (user.length > 0) {
-    data.role = data[0].role;
+    data.role = user[0].role;
     await updateDoc(doc(firestore, "users", user[0].id), data).then(() => {
       callbacks({ status: true, data: data });
     });

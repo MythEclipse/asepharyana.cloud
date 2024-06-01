@@ -49,9 +49,10 @@ const authOption: NextAuthOptions = {
       }
       if (account?.provider === "google") {
         const data = {
-          email: account.email,
-          fullName: account.name,
+          email: user.email,
+          fullName: user.name,
           role: "member",
+          type: "google",
         };
         await loginWithGoogle(
           data,
