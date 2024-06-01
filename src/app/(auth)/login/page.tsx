@@ -5,9 +5,11 @@ import React from "react";
 export default function LoginPage() {
   const { push } = useRouter();
   const [error, setError] = React.useState<string>("");
-
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
+    setError("");
     try {
       const res = await signIn("credentials", {
         redirect: false,
@@ -16,8 +18,11 @@ export default function LoginPage() {
         callbackUrl: "/dashboard",
       });
       if (!res?.error) {
+        (e.target as HTMLFormElement).reset();
+        setIsLoading(false);
         push("/dashboard");
       } else {
+        setIsLoading(false);
         console.log(res.error);
         if (res.status === 401) {
           setError("Invalid email or password");
@@ -117,10 +122,11 @@ export default function LoginPage() {
                       </a>
                     </div>
                     <button
+                      disabled={isLoading}
                       type="submit"
                       className="w-full rounded-lg bg-primary-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                     >
-                      Sign in
+                      {isLoading ? "Loading..." : "Sign in"}
                     </button>
                     <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                       Don’t have an account yet?{" "}

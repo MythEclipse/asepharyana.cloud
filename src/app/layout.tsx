@@ -66,24 +66,27 @@ export default function RootLayout({
   return (
     <ContextAppProvider>
       <ViewTransitions>
-        <GoogleAnalytics
-          gaId={`process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID`}
-        />
+        {process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID && ( // Conditionally render GoogleAnalytics
+          <GoogleAnalytics
+            gaId={process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID}
+          />
+        )}
         <SessionWrapper>
-          <Flowbite>
-            <html lang="en">
-              <head>
-                <ThemeModeScript></ThemeModeScript>
-              </head>
-              <body className={`dark:bg-gray-900`}>
+          <html lang="en">
+            <head>
+              {ThemeModeScript && <ThemeModeScript />}
+              {/* Conditionally render ThemeModeScript */}
+            </head>
+            <body>
+              <Flowbite>
                 <NavbarWrapper />
                 <div className="m-auto max-h-full max-w-full px-3 pb-10 pt-20 dark:bg-gray-900">
                   {children}
                 </div>
-                <DarkThemeToggle className="fixed bottom-0 z-10"></DarkThemeToggle>
-              </body>
-            </html>
-          </Flowbite>
+                <DarkThemeToggle className="fixed bottom-0 z-10" />
+              </Flowbite>
+            </body>
+          </html>
         </SessionWrapper>
       </ViewTransitions>
     </ContextAppProvider>
