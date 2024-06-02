@@ -24,7 +24,6 @@ export default function ModalWraper({ children }: { children: ReactNode }) {
   return (
     <>
       <Modal show={openModal} onClose={() => setOpenModal(false)}>
-        <Modal.Header>Product</Modal.Header>
         <Modal.Body>{children}</Modal.Body>
       </Modal>
     </>
