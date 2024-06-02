@@ -151,8 +151,32 @@ const Navbar = () => {
                 </Link>
               </li>
               <li>
+                {status === "authenticated" ? (
+                  <div>
+                    <Image
+                      className="rounded-full text-dark dark:fill-current dark:text-gray-100"
+                      alt="profile"
+                      src={
+                        session?.user?.image ??
+                        "/profile-circle-svgrepo-com.svg"
+                      }
+                      width={50}
+                      height={50}
+                    ></Image>
+                  </div>
+                ) : (
+                  <Image
+                    className="rounded-full text-dark dark:fill-current dark:text-gray-100"
+                    alt="profile"
+                    src="/profile-circle-svgrepo-com.svg"
+                    width={50}
+                    height={50}
+                  ></Image>
+                )}
+              </li>
+              <li>
                 <h4 className="text-sm text-teal-500">
-                  {session?.user?.email}
+                  {session?.user?.email ?? "Guest"}
                 </h4>
               </li>
               <li>
