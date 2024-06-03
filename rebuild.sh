@@ -1,1 +1,0 @@
-npm run build && sudo systemctl restart web5.service && sudo systemctl restart apache2
