@@ -21,6 +21,9 @@
   "dependencies": {
     "@firebase/analytics": "^0.10.4",
     "@next/third-parties": "^14.2.3",
+    "@supabase/ssr": "^0.3.0",
+    "@supabase/supabase-js": "^2.43.4",
+    "@tanstack/react-query": "^5.40.0",
     "@types/bcrypt": "^5.0.2",
     "bcrypt": "^5.1.1",
     "firebase": "^10.12.2",
@@ -38,6 +41,7 @@
   "devDependencies": {
     "@jest/globals": "^29.7.0",
     "@next/eslint-plugin-next": "^14.2.3",
+    "@tanstack/eslint-plugin-query": "^5.35.6",
     "@testing-library/jest-dom": "^6.4.5",
     "@testing-library/react": "^15.0.7",
     "@types/jest": "^29.5.12",

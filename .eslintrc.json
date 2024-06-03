@@ -1,7 +1,7 @@
 {
   "root": true,
-  "extends": ["next", "eslint:recommended","prettier","next/core-web-vitals", "plugin:react/recommended", "plugin:react-hooks/recommended", "plugin:jsx-a11y/recommended", "plugin:prettier/recommended", "plugin:@next/next/recommended","plugin:tailwindcss/recommended"],
-  "plugins": ["react", "react-hooks"],
+  "extends": ["next", "eslint:recommended","prettier","next/core-web-vitals", "plugin:react/recommended", "plugin:react-hooks/recommended", "plugin:jsx-a11y/recommended", "plugin:prettier/recommended", "plugin:@next/next/recommended","plugin:tailwindcss/recommended","plugin:@tanstack/eslint-plugin-query/recommended"],
+  "plugins": ["react", "react-hooks","@tanstack/query","tailwindcss","@next/next","jsx-a11y","prettier"],
   "env": {
     "browser": true,
     "node": true,
@@ -18,6 +18,9 @@
     "react/react-in-jsx-scope": "off", // Next.js does not require React to be in scope
     "react/prop-types": "off", // You can enable this if you use PropTypes
     "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
+    "@tanstack/query/exhaustive-deps": "error",
+    "@tanstack/query/no-rest-destructuring": "warn",
+    "@tanstack/query/stable-query-client": "error",
     "tailwindcss/no-custom-classname": "off", // Disable this rule if you use custom classnames
     "react-hooks/exhaustive-deps": "warn", // Checks effect dependencies
     "jsx-a11y/anchor-is-valid": [
