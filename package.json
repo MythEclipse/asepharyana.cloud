@@ -12,12 +12,12 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start && prisma studio",
+    "start": "next start & prisma studio",
     "lint": "next lint",
     "lint:debug": "next lint  --debug",
     "lint:fix": "next lint --fix",
     "test": "jest",
-    "migrate":"prisma migrate dev"
+    "migrate": "prisma migrate dev"
   },
   "dependencies": {
     "@firebase/analytics": "^0.10.4",

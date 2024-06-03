@@ -1,5 +1,6 @@
 async function getData(url: string) {
   const res = await fetch(url, {
+    cache: "force-cache",
     next: {
       revalidate: 3600,
     },
