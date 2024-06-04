@@ -4,6 +4,7 @@
     pkgs.nodejs_20
     pkgs.corepack
     pkgs.nodenv
+    pkgs.openssl
   ];
   idx.extensions = [
     
