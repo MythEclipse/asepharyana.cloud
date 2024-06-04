@@ -12,7 +12,6 @@
  "bradlc.vscode-tailwindcss"
  "christian-kohler.npm-intellisense"
  "christian-kohler.path-intellisense"
- "Codeium.codeium"
  "CoenraadS.bracket-pair-colorizer-2"
  "DavidAnson.vscode-markdownlint"
  "dsznajder.es7-react-js-snippets"
