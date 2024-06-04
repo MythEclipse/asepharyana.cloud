@@ -11,7 +11,7 @@ import ContextAppProvider from "@/components/ContextApp";
 import { GoogleAnalytics } from "@next/third-parties/google";
 
 export const metadata: Metadata = {
-  title: "Website pribadi milik Asep Haryana Saputra",
+  title: "Asep Haryana Saputra",
   description:
     "Website pribadi milik Asep Haryana Saputra,ini adalah halaman utama pada website ini",
   openGraph: {
