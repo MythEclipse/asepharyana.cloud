@@ -9,7 +9,7 @@ type ModalWrapperProps = {
   children: ReactNode;
   title?: string; // Add the title prop with an optional string type
 };
-export default function ModalWraper({ children,title }: ModalWrapperProps) {
+export default function ModalWraper({ children, title }: ModalWrapperProps) {
   const overlay = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const [openModal, setOpenModal] = useState(true);
