@@ -14,7 +14,6 @@
  "christian-kohler.path-intellisense"
  "Codeium.codeium"
  "CoenraadS.bracket-pair-colorizer-2"
- "Continue.continue"
  "DavidAnson.vscode-markdownlint"
  "dsznajder.es7-react-js-snippets"
  "eclipse-theia.builtin-extension-pack"

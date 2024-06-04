@@ -5,7 +5,7 @@ export default async function DetailProductPage(props: any) {
   const { params } = props;
   const data = await getData("https://fakestoreapi.com/products/" + params.id);
   return (
-    <ModalWrapper>
+    <ModalWrapper title="product">
       <Image
         className="col-span-2 aspect-square w-full object-cover"
         src={data.image}
