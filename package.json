@@ -1,7 +1,6 @@
 {
   "name": "@asepharyana/asepharyana.my.id",
   "version": "0.1.0",
-  "type": "module",
   "description": "My personal website",
   "repository": {
     "type": "git",
