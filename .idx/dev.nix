@@ -30,7 +30,9 @@
  "Tomi.xasnippets"
  "usernamehw.errorlens"
  "xabikos.JavaScriptSnippets"
- "yzhang.markdown-all-in-one"];
+ "yzhang.markdown-all-in-one"
+ "ms-python.debugpy"
+ "ms-python.python"];
   idx.previews = {
     previews = {
       web = {
