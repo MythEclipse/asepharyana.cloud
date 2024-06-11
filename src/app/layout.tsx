@@ -72,7 +72,7 @@ export default function RootLayout({
           />
         )}
         <SessionWrapper>
-          <html lang="en">
+          <html lang="id">
             <head>
               {ThemeModeScript && <ThemeModeScript />}
               {/* Conditionally render ThemeModeScript */}
