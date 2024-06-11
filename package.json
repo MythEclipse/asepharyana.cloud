@@ -9,7 +9,6 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
-  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
