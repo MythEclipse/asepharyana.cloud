@@ -34,6 +34,7 @@
     "firebase": "^10.12.2",
     "flowbite": "^2.3.0",
     "flowbite-react": "^0.9.0",
+    "formik": "^2.4.6",
     "negotiator": "^0.6.3",
     "next": "14.2.3",
     "next-auth": "^4.24.7",
@@ -45,7 +46,8 @@
     "react-icons": "^5.2.1",
     "sharp": "^0.33.4",
     "sqlite3": "^5.1.7",
-    "tailwind-merge": "^2.3.0"
+    "tailwind-merge": "^2.3.0",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",

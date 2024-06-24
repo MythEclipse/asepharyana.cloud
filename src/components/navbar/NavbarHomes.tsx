@@ -12,7 +12,7 @@ const Navbar = () => {
   const pathname = usePathname();
   const { data: session, status } = useSession();
   return (
-    <nav className="fixed top-0 z-10 w-full bg-white dark:bg-gray-800">
+    <nav className="fixed top-0 z-10 w-full bg-white dark:bg-gray-800 rounded-xl">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-full flex-col items-center justify-between sm:flex-row">
           <div className="flex items-center py-3">

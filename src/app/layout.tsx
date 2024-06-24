@@ -72,18 +72,18 @@ export default function RootLayout({
           />
         )}
         <SessionWrapper>
-          <html lang="id">
+          <html suppressHydrationWarning lang="id">
             <head>
               {ThemeModeScript && <ThemeModeScript />}
               {/* Conditionally render ThemeModeScript */}
             </head>
-            <body>
+            <body className="h-screen dark:bg-gray-900">
               <Flowbite>
                 <NavbarWrapper />
-                <div className="m-auto max-h-full max-w-full px-3 pb-10 pt-20 dark:bg-gray-900">
+            <div className="max-w-full px-3 pb-10 pt-20 mt-5 sm:px-6 lg:px-8">
                   {children}
-                </div>
                 <DarkThemeToggle className="fixed bottom-0 z-10" />
+                </div>
               </Flowbite>
             </body>
           </html>
