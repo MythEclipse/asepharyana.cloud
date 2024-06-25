@@ -9,7 +9,15 @@ import { ThemeModeScript } from "flowbite-react";
 import { DarkThemeToggle, Flowbite } from "flowbite-react";
 import ContextAppProvider from "@/components/ContextApp";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import type { CustomFlowbiteTheme } from "flowbite-react";
 
+const customTheme: CustomFlowbiteTheme = {
+  button: {
+    color: {
+      primary: "bg-blue-500 hover:bg-blue-600",
+    },
+  },
+};
 export const metadata: Metadata = {
   title: "Asep Haryana Saputra",
   description:
@@ -78,11 +86,11 @@ export default function RootLayout({
               {/* Conditionally render ThemeModeScript */}
             </head>
             <body className="h-screen dark:bg-gray-900">
-              <Flowbite>
-                <NavbarWrapper />
-            <div className="max-w-full px-3 pb-10 pt-20 mt-5 sm:px-6 lg:px-8">
+              <NavbarWrapper />
+              <Flowbite theme={{ theme: customTheme }}>
+                <div className="mt-5 max-w-full px-3 pb-10 pt-20 sm:px-6 lg:px-8">
                   {children}
-                <DarkThemeToggle className="fixed bottom-0 z-10" />
+                  <DarkThemeToggle className="fixed bottom-0 z-10" />
                 </div>
               </Flowbite>
             </body>

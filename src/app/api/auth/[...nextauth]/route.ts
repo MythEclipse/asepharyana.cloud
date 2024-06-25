@@ -44,7 +44,7 @@ const authOption: NextAuthOptions = {
     async jwt({ token, account, user }: any) {
       if (account?.provider === "credentials") {
         token.email = user.email;
-        token.fullName = user.fullname;
+        token.fullName = user.fullName;
         token.role = user.role;
       }
       if (account?.provider === "google") {

@@ -1,0 +1,18 @@
+<svg width="200" height="150" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FF5733" /> 
+      <stop offset="100%" stop-color="#FFC300" /> 
+    </linearGradient>
+    <pattern id="motif" width="10" height="10" patternUnits="userSpaceOnUse"> 
+        <path d="M0 0 L5 10 L10 0 Z" fill="#2c3e50" opacity="0.15"/> 
+    </pattern> 
+  </defs>
+
+  <g transform="translate(20,20)"> 
+    <path d="M0 0 L50 100 L100 0 Z" fill="url(#grad1)" />
+    <path d="M30 30 L50 70 L70 30 Z" fill="url(#motif)" /> 
+    <text x="50" y="80" font-family="Montserrat" font-size="36" font-weight="bold" fill="white" text-anchor="middle">A</text>
+    <text x="60" y="50" font-family="Montserrat" font-size="18" fill="white" text-anchor="middle" transform="rotate(-30, 60, 50)" opacity="0.8">HS</text>
+  </g>
+</svg>

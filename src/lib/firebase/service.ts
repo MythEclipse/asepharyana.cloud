@@ -31,7 +31,7 @@ export async function retrieveDataById(collectionName: string, id: string) {
 }
 
 export async function register(data: {
-  fullname: string;
+  fullName: string;
   email: string;
   password: string;
   role?: string;
