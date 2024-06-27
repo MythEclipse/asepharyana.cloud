@@ -43,7 +43,7 @@ export default function Component() {
             <>
               <button
                 type="button"
-                className="relative flex rounded-full bg-gray-800 text-sm focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 md:me-0"
+                className="relative flex rounded-full fill-current text-white dark:fill-current dark:text-gray-100 text-sm focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 md:me-0"
                 id="user-menu-button"
                 aria-expanded={isProfileOpen}
                 onClick={() => setIsProfileOpen(!isProfileOpen)}
@@ -64,7 +64,7 @@ export default function Component() {
                   </div>
                 ) : (
                   <Image
-                    className="rounded-full text-white dark:fill-current dark:text-gray-100"
+                    className="rounded-full fill-current text-white dark:fill-current dark:text-gray-100"
                     alt="profile"
                     src="/profile-circle-svgrepo-com.svg"
                     width={50}
