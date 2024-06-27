@@ -13,7 +13,7 @@ export default function Component() {
   const { data: session, status } = useSession();
 
   return (
-    <nav className="fixed top-0 z-10 w-full border-gray-200 dark:bg-gray-900">
+    <nav className="fixed top-0 z-10 w-full border-gray-200">
       <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4">
         <Link
           href="/"
@@ -64,7 +64,7 @@ export default function Component() {
                   </div>
                 ) : (
                   <Image
-                    className="rounded-full text-dark dark:fill-current dark:text-gray-100"
+                    className="rounded-full text-white dark:fill-current dark:text-gray-100"
                     alt="profile"
                     src="/profile-circle-svgrepo-com.svg"
                     width={50}
@@ -110,7 +110,7 @@ export default function Component() {
           className={`items-center justify-between ${isNavOpen ? "block" : "hidden"} w-full md:order-1 md:flex md:w-auto`}
           id="navbar-user"
         >
-          <ul className="mt-4 flex flex-col rounded-lg border border-gray-100 bg-gray-50 p-4 font-medium dark:border-gray-700 dark:bg-gray-900 md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-white md:p-0 md:dark:bg-gray-900 rtl:space-x-reverse">
+          <ul className="mt-4 flex flex-col rounded-lg border border-gray-100 bg-gray-50 p-4 font-medium dark:border-gray-700 md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-transparent rtl:space-x-reverse">
             <li>
               <Link href="/about">
                 <span
