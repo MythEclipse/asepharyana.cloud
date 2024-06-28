@@ -14,7 +14,7 @@ export default function RegisterPage() {
     const res = await fetch("/api/auth/register", {
       method: "POST",
       body: JSON.stringify({
-        fullname: e.target.fullname.value,
+        fullName: e.target.fullName.value,
         email: e.target.email.value,
         password: e.target.password.value,
       }),
@@ -51,7 +51,7 @@ export default function RegisterPage() {
               >
                 <div>
                   <label
-                    htmlFor="fullname"
+                    htmlFor="fullName"
                     className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
                   >
                     Your fullname
@@ -59,7 +59,7 @@ export default function RegisterPage() {
                   <input
                     type="text"
                     name="fullname"
-                    id="fullname"
+                    id="fullName"
                     className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-primary-600 focus:ring-primary-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
                     placeholder="namecompany"
                     required={true}

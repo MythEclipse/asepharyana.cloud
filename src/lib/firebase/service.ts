@@ -71,7 +71,7 @@ export async function register(data: {
   }
 }
 
-export async function login(data: { email: string; password: string }) {
+export async function login(data: any) {
   const q = query(
     collection(firestore, "users"),
     where("email", "==", data.email),

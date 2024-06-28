@@ -1,32 +1,14 @@
 {
   "root": true,
   "extends": [
-    "next",
+    "next", 
     "eslint:recommended",
     "prettier",
-    "next/core-web-vitals",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
     "plugin:jsx-a11y/recommended",
-    "plugin:prettier/recommended",
-    "plugin:@next/next/recommended",
-    "plugin:tailwindcss/recommended",
-    "plugin:@tanstack/eslint-plugin-query/recommended"
+    "plugin:tailwindcss/recommended"
   ],
-  "plugins": [
-    "react",
-    "react-hooks",
-    "@tanstack/query",
-    "tailwindcss",
-    "@next/next",
-    "jsx-a11y",
-    "prettier"
-  ],
-  "env": {
-    "browser": true,
-    "node": true,
-    "es6": true
-  },
   "parserOptions": {
     "ecmaVersion": 2021,
     "sourceType": "module",
@@ -34,15 +16,16 @@
       "jsx": true
     }
   },
+  "env": {
+    "browser": true,
+    "node": true
+  },
   "rules": {
-    "react/react-in-jsx-scope": "off", // Next.js does not require React to be in scope
-    "react/prop-types": "off", // You can enable this if you use PropTypes
-    "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
-    "@tanstack/query/exhaustive-deps": "error",
-    "@tanstack/query/no-rest-destructuring": "warn",
-    "@tanstack/query/stable-query-client": "error",
-    "tailwindcss/no-custom-classname": "off", // Disable this rule if you use custom classnames
-    "react-hooks/exhaustive-deps": "warn", // Checks effect dependencies
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "tailwindcss/no-custom-classname": "off",
+    "react-hooks/exhaustive-deps": "warn",
     "jsx-a11y/anchor-is-valid": [
       "error",
       {
@@ -50,11 +33,12 @@
         "specialLink": ["hrefLeft", "hrefRight"],
         "aspects": ["invalidHref", "preferButton"]
       }
-    ]
+    ],
+    "jsx-a11y/click-events-have-key-events": "warn" // Consider adding this rule
   },
   "settings": {
     "react": {
-      "version": "detect" // Automatically detect the react version
+      "version": "detect" 
     },
     "tailwindcss": {
       "callees": ["twMerge", "createTheme"],

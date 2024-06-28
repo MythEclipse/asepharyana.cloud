@@ -43,7 +43,7 @@ export default function Component() {
             <>
               <button
                 type="button"
-                className="relative flex rounded-full fill-current text-white dark:fill-current dark:text-gray-100 text-sm focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 md:me-0"
+                className="relative flex rounded-full fill-current text-sm text-white focus:ring-4 focus:ring-gray-300 dark:fill-current dark:text-gray-100 dark:focus:ring-gray-600 md:me-0"
                 id="user-menu-button"
                 aria-expanded={isProfileOpen}
                 onClick={() => setIsProfileOpen(!isProfileOpen)}

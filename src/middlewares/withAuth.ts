@@ -6,7 +6,7 @@ import {
   NextResponse,
 } from "next/server";
 
-const onlyAdminPage = ["/dashboard", "/profile", "/settings"];
+const onlyAdminPage = ["/profile", "/settings"];
 const authPage = ["/login", "/register"];
 export default function withAuth(
   middleware: NextMiddleware,
