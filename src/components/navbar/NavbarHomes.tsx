@@ -29,11 +29,10 @@ export default function Component() {
             height={100}
           />
           <span
-            className={`${
-              pathname === "/"
+            className={`${pathname === "/"
                 ? "font-semibold text-primary-600"
                 : "text-gray-900 dark:text-gray-100"
-            } block rounded px-3 py-2 hover:bg-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500`}
+              } block rounded px-3 py-2 hover:bg-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500`}
           >
             Asep Haryana
           </span>
@@ -114,11 +113,10 @@ export default function Component() {
             <li>
               <Link href="/about">
                 <span
-                  className={`${
-                    pathname === "/about"
+                  className={`${pathname === "/about"
                       ? "font-semibold text-primary-600"
                       : "text-gray-900 dark:text-gray-100"
-                  } block rounded px-3 py-2 hover:bg-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500`}
+                    } block rounded px-3 py-2 hover:bg-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500`}
                 >
                   About
                 </span>
@@ -127,11 +125,10 @@ export default function Component() {
             <li>
               <Link href="/services">
                 <span
-                  className={`${
-                    pathname === "/services"
+                  className={`${pathname === "/services"
                       ? "font-semibold text-primary-600"
                       : "text-gray-900 dark:text-gray-100"
-                  } block rounded px-3 py-2 hover:bg-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500`}
+                    } block rounded px-3 py-2 hover:bg-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500`}
                 >
                   Services
                 </span>
@@ -140,11 +137,10 @@ export default function Component() {
             <li>
               <Link href="/contact">
                 <span
-                  className={`${
-                    pathname === "/contact"
+                  className={`${pathname === "/contact"
                       ? "font-semibold text-primary-600"
                       : "text-gray-900 dark:text-gray-100"
-                  } block rounded px-3 py-2 hover:bg-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500`}
+                    } block rounded px-3 py-2 hover:bg-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500`}
                 >
                   Contact
                 </span>
@@ -160,7 +156,7 @@ export default function Component() {
             >
               <div className="px-4 py-3">
                 <span className="block text-sm text-gray-900 dark:text-white">
-                  {session?.user?.fullName ?? "Guest"}
+                  {session?.user.name ?? session?.user?.fullName ?? "Guest"}
                 </span>
                 <span className="block truncate text-sm text-gray-500 dark:text-gray-400">
                   {session?.user?.email ?? "Guest"}

@@ -112,3 +112,42 @@ export async function loginWithGoogle(data: any, callbacks: any) {
     });
   }
 }
+
+export async function comment(data: any, callbacks: any) {
+  const userQuery = query(
+    collection(firestore, "users"),
+    where("email", "==", data.email),
+  );
+  const postQuery = query(
+    collection(firestore, "posts"),
+    where("id", "==", data.postId),
+  );
+
+  const userSnapshot = await getDocs(userQuery);
+  const postSnapshot = await getDocs(postQuery);
+
+  const user = userSnapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
+
+  const post = postSnapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
+
+  // Perform comment logic here
+  const commentData = {
+    userId: user[0].id,
+    postId: post[0].id,
+    content: data.content,
+    createdAt: new Date(),
+  };
+
+  try {
+    await addDoc(collection(firestore, "comments"), commentData);
+    callbacks({ status: true, data: { user, post } });
+  } catch (error) {
+    callbacks({ status: false, error });
+  }
+}
