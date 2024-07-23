@@ -1,12 +1,12 @@
-'use client'
-import { useState } from 'react'
-import { Formik, Form, Field, ErrorMessage } from 'formik'
-import * as Yup from 'yup'
+'use client';
+import { useState } from 'react';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 
 // Define validation schema using Yup
 const validationSchema = Yup.object().shape({
   name: Yup.string().required('Nama harus diisi!').min(3, 'Nama terlalu pendek!').max(20, 'Nama terlalu panjang!')
-})
+});
 
 // Placeholder for khodam data
 const khodamList: { name: string; meaning: string }[] = [
@@ -737,17 +737,17 @@ const khodamList: { name: string; meaning: string }[] = [
     name: 'Anjing Pelacak',
     meaning: 'Kamu setia dan penuh dedikasi, selalu menemukan jalan menuju tujuanmu.'
   }
-]
+];
 
 const App = () => {
   // State variables
   const [khodam, setKhodam] = useState<{
-    name: string
-    meaning: string
-  } | null>(null) // Holds current khodam
-  const [loading, setLoading] = useState(false) // Loading state
-  const [isSubmitted, setIsSubmitted] = useState(false) // Form submission state
-  const [submittedName, setSubmittedName] = useState('') // Submitted name
+    name: string;
+    meaning: string;
+  } | null>(null); // Holds current khodam
+  const [loading, setLoading] = useState(false); // Loading state
+  const [isSubmitted, setIsSubmitted] = useState(false); // Form submission state
+  const [submittedName, setSubmittedName] = useState(''); // Submitted name
 
   return (
     <div className='flex min-h-screen flex-col items-center justify-center bg-gradient-to-r from-purple-300 to-blue-200 dark:bg-gray-900'>
@@ -759,16 +759,16 @@ const App = () => {
           initialValues={{ name: '' }}
           validationSchema={validationSchema}
           onSubmit={(values, { setSubmitting }) => {
-            setLoading(true) // Start loading state
+            setLoading(true); // Start loading state
             setTimeout(() => {
               // Simulate fetching khodam data
-              const randomIndex = Math.floor(Math.random() * khodamList.length)
-              setKhodam(khodamList[randomIndex]) // Set random khodam
-              setLoading(false) // End loading state
-              setSubmitting(false) // End Formik's submitting state
-              setIsSubmitted(true) // Set form submission state
-              setSubmittedName(values.name) // Set submitted name
-            }, 2000) // Simulate 2 seconds delay
+              const randomIndex = Math.floor(Math.random() * khodamList.length);
+              setKhodam(khodamList[randomIndex]); // Set random khodam
+              setLoading(false); // End loading state
+              setSubmitting(false); // End Formik's submitting state
+              setIsSubmitted(true); // Set form submission state
+              setSubmittedName(values.name); // Set submitted name
+            }, 2000); // Simulate 2 seconds delay
           }}
         >
           {({ isSubmitting, resetForm }) => (
@@ -817,10 +817,10 @@ const App = () => {
                   type='button'
                   className='focus:shadow-outline mt-2 rounded bg-gray-300 px-4 py-2 font-bold text-gray-800 hover:bg-gray-400 focus:outline-none'
                   onClick={() => {
-                    resetForm() // Reset Formik form
-                    setIsSubmitted(false) // Reset submission state
-                    setKhodam(null) // Clear khodam data
-                    setSubmittedName('') // Clear submitted name
+                    resetForm(); // Reset Formik form
+                    setIsSubmitted(false); // Reset submission state
+                    setKhodam(null); // Clear khodam data
+                    setSubmittedName(''); // Clear submitted name
                   }}
                 >
                   {loading ? 'Loading...' : 'Cek Lagi'}
@@ -831,7 +831,7 @@ const App = () => {
         </Formik>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

@@ -1,16 +1,16 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { useSession, signOut } from 'next-auth/react'
-import Link from 'next/link'
-import Image from 'next/image'
-import { usePathname } from 'next/navigation'
+import { useState } from 'react';
+import { useSession, signOut } from 'next-auth/react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 
 export default function Component() {
-  const [isProfileOpen, setIsProfileOpen] = useState(false)
-  const [isNavOpen, setIsNavOpen] = useState(false)
-  const pathname = usePathname()
-  const { data: session, status } = useSession()
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [isNavOpen, setIsNavOpen] = useState(false);
+  const pathname = usePathname();
+  const { data: session, status } = useSession();
 
   return (
     <nav className='fixed top-0 z-10 w-full border-gray-200'>
@@ -183,5 +183,5 @@ export default function Component() {
         </div>
       </div>
     </nav>
-  )
+  );
 }

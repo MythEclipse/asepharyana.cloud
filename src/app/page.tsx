@@ -1,13 +1,13 @@
-import React from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
-import BoxContainer from '@/components/box/BoxContainer'
-import { Metadata } from 'next'
-import BoxContent from '@/components/box/BoxContent'
+import React from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import BoxContainer from '@/components/box/BoxContainer';
+import { Metadata } from 'next';
+import BoxContent from '@/components/box/BoxContent';
 
 export const metadata: Metadata = {
   title: 'Home'
-}
+};
 export default function Home() {
   return (
     <section>
@@ -163,5 +163,5 @@ export default function Home() {
         </div>
       </section>
     </section>
-  )
+  );
 }

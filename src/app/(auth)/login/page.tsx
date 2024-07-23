@@ -1,39 +1,41 @@
 /* eslint-disable no-undef */
-'use client'
-import { signIn } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
-import React from 'react'
+'use client';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import React from 'react';
 export default function LoginPage({ searchParams }: any) {
-  const { push } = useRouter()
-  const [error, setError] = React.useState<string>('')
-  const [isLoading, setIsLoading] = React.useState<boolean>(false)
-  const callbackUrl = searchParams.callbackUrl || '/'
+  const { push } = useRouter();
+  const [error, setError] = React.useState<string>('');
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
+  const callbackUrl = searchParams.callbackUrl || '/';
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setIsLoading(true)
-    setError('')
+    e.preventDefault();
+    setIsLoading(true);
+    setError('');
     try {
       const res = await signIn('credentials', {
         redirect: false,
         email: (e.target as HTMLFormElement).email.value,
         password: (e.target as HTMLFormElement).password.value,
         callbackUrl
-      })
+      });
       if (!res?.error) {
-        (e.target as HTMLFormElement).reset()
-        setIsLoading(false)
-        push(callbackUrl)
+        {
+          (e.target as HTMLFormElement).reset();
+          setIsLoading(false);
+          push(callbackUrl);
+        }
       } else {
-        setIsLoading(false)
-        console.log(res.error)
+        setIsLoading(false);
+        console.log(res.error);
         if (res.status === 401) {
-          setError('Invalid email or password')
+          setError('Invalid email or password');
         }
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   return (
     <section className='pt-35 mx-auto h-full max-h-full max-w-full bg-gray-50 dark:bg-gray-900'>
@@ -144,5 +146,5 @@ export default function LoginPage({ searchParams }: any) {
         </div>
       </div>
     </section>
-  )
+  );
 }

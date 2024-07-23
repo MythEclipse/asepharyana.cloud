@@ -1,15 +1,15 @@
-import type { Metadata } from 'next'
-import React from 'react'
-import './globals.css'
-import NavbarWrapper from '../components/navbar/NavbarHomes'
-import { ViewTransitions } from 'next-view-transitions'
-import SessionWrapper from '@/components/SessionWrapper'
-import {} from 'flowbite'
-import { ThemeModeScript } from 'flowbite-react'
-import { DarkThemeToggle, Flowbite } from 'flowbite-react'
-import ContextAppProvider from '@/components/ContextApp'
-import { GoogleAnalytics } from '@next/third-parties/google'
-import type { CustomFlowbiteTheme } from 'flowbite-react'
+import type { Metadata } from 'next';
+import React from 'react';
+import './globals.css';
+import NavbarWrapper from '../components/navbar/NavbarHomes';
+import { ViewTransitions } from 'next-view-transitions';
+import SessionWrapper from '@/components/SessionWrapper';
+import {} from 'flowbite';
+import { ThemeModeScript } from 'flowbite-react';
+import { DarkThemeToggle, Flowbite } from 'flowbite-react';
+import ContextAppProvider from '@/components/ContextApp';
+import { GoogleAnalytics } from '@next/third-parties/google';
+import type { CustomFlowbiteTheme } from 'flowbite-react';
 
 const customTheme: CustomFlowbiteTheme = {
   button: {
@@ -17,7 +17,7 @@ const customTheme: CustomFlowbiteTheme = {
       primary: 'bg-blue-500 hover:bg-blue-600'
     }
   }
-}
+};
 export const metadata: Metadata = {
   title: 'Asep Haryana Saputra',
   description: 'Website pribadi milik Asep Haryana Saputra,ini adalah halaman utama pada website ini',
@@ -62,11 +62,11 @@ export const metadata: Metadata = {
     ],
     creator: '@asepharyana71'
   }
-}
+};
 export default function RootLayout({
   children
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
     <ContextAppProvider>
@@ -93,5 +93,5 @@ export default function RootLayout({
         </SessionWrapper>
       </ViewTransitions>
     </ContextAppProvider>
-  )
+  );
 }

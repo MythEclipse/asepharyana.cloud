@@ -1,5 +1,5 @@
-import ModalWraper from '@/components/core/modal'
-import { Spinner } from 'flowbite-react'
+import ModalWraper from '@/components/core/modal';
+import { Spinner } from 'flowbite-react';
 
 export default function Loading() {
   return (
@@ -11,5 +11,5 @@ export default function Loading() {
         </div>
       </div>
     </ModalWraper>
-  )
+  );
 }

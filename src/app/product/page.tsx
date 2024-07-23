@@ -1,12 +1,12 @@
-import Link from 'next/link'
+import Link from 'next/link';
 
-import Image from 'next/image'
-import getData from '@/components/GetData/GetData'
-type ProductPageProps = { params: { slug: string[] } }
+import Image from 'next/image';
+import getData from '@/components/GetData/GetData';
+type ProductPageProps = { params: { slug: string[] } };
 
 export default async function ProductPage(props: ProductPageProps) {
-  const { params } = props
-  const product = await getData('https://fakestoreapi.com/products')
+  const { params } = props;
+  const product = await getData('https://fakestoreapi.com/products');
   return (
     <div className='mt-5 place-items-center md:grid md:grid-cols-2 lg:grid lg:grid-cols-4'>
       {/* <h1>{params.slug ? "Detail product page" : "product page"}</h1> */}
@@ -99,5 +99,5 @@ export default async function ProductPage(props: ProductPageProps) {
         </>
       )}
     </div>
-  )
+  );
 }

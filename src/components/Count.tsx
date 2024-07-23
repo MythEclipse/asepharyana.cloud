@@ -1,7 +1,7 @@
-'use client'
-import { useState } from 'react'
+'use client';
+import { useState } from 'react';
 export default function Count() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
   return (
     <div>
       <h1 className='text-center text-4xl font-bold'>Count</h1>
@@ -13,5 +13,5 @@ export default function Count() {
         Click me
       </button>
     </div>
-  )
+  );
 }

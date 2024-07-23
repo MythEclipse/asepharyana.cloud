@@ -1,16 +1,16 @@
-'use client'
+'use client';
 
-import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 export default function RegisterPage() {
-  const { push } = useRouter()
-  const [error, setError] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
+  const { push } = useRouter();
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const handleSubmit = async (e: any) => {
-    e.preventDefault()
-    setError('')
-    setIsLoading(true)
+    e.preventDefault();
+    setError('');
+    setIsLoading(true);
     const res = await fetch('/api/auth/register', {
       method: 'POST',
       body: JSON.stringify({
@@ -18,16 +18,16 @@ export default function RegisterPage() {
         email: e.target.email.value,
         password: e.target.password.value
       })
-    })
+    });
     if (res.status === 200) {
-      e.target.reset()
-      push('/login')
-      setIsLoading(false)
+      e.target.reset();
+      push('/login');
+      setIsLoading(false);
     } else {
-      setError('Email already exists')
-      setIsLoading(false)
+      setError('Email already exists');
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
     <>
@@ -121,5 +121,5 @@ export default function RegisterPage() {
         </div>
       </section>
     </>
-  )
+  );
 }

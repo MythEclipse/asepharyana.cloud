@@ -1,5 +1,5 @@
-import { isBrowser } from './is-browser'
+import { isBrowser } from './is-browser';
 
 export function isSmallScreen(): boolean {
-  return isBrowser() && window.innerWidth < 768
+  return isBrowser() && window.innerWidth < 768;
 }

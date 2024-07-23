@@ -1,15 +1,15 @@
-import Link from 'next/link'
-import React from 'react'
-import Image from 'next/image'
-import Box from './Box'
+import Link from 'next/link';
+import React from 'react';
+import Image from 'next/image';
+import Box from './Box';
 
 // Define the type for the props
 type BoxContentProps = {
-  gambar: string
-  judul: string
-  description: string
-  href: string
-}
+  gambar: string;
+  judul: string;
+  description: string;
+  href: string;
+};
 
 // Functional component
 const BoxContent: React.FC<BoxContentProps> = ({ gambar, judul, description, href }) => {
@@ -23,7 +23,7 @@ const BoxContent: React.FC<BoxContentProps> = ({ gambar, judul, description, hre
       </Link>
       <p className='m-3 text-base font-medium text-secondary'>{description}</p>
     </Box>
-  )
-}
+  );
+};
 
-export default BoxContent
+export default BoxContent;

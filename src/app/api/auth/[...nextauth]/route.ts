@@ -1,9 +1,9 @@
-import { login, loginWithGoogle } from '@/app/lib/firebase/service'
-import { NextAuthOptions } from 'next-auth'
-import NextAuth from 'next-auth/next'
-import CredentialsProvider from 'next-auth/providers/credentials'
-import bcrypt from 'bcrypt'
-import GoogleProvider from 'next-auth/providers/google'
+import { login, loginWithGoogle } from '@/app/lib/firebase/service';
+import { NextAuthOptions } from 'next-auth';
+import NextAuth from 'next-auth/next';
+import CredentialsProvider from 'next-auth/providers/credentials';
+import bcrypt from 'bcrypt';
+import GoogleProvider from 'next-auth/providers/google';
 
 const authOption: NextAuthOptions = {
   secret: process.env.SECRET,
@@ -20,18 +20,18 @@ const authOption: NextAuthOptions = {
       },
       async authorize(credentials) {
         const { email, password } = credentials as {
-          email: string
-          password: string
-        }
-        const user: any = await login({ email, password })
+          email: string;
+          password: string;
+        };
+        const user: any = await login({ email, password });
         if (user) {
-          const passwordConfirm = await bcrypt.compare(password, user.password)
+          const passwordConfirm = await bcrypt.compare(password, user.password);
           if (passwordConfirm) {
-            return user
+            return user;
           }
-          return null
+          return null;
         } else {
-          return null
+          return null;
         }
       }
     }),
@@ -43,9 +43,9 @@ const authOption: NextAuthOptions = {
   callbacks: {
     async jwt({ token, account, user }: any) {
       if (account?.provider === 'credentials') {
-        token.email = user.email
-        token.fullName = user.fullName
-        token.role = user.role
+        token.email = user.email;
+        token.fullName = user.fullName;
+        token.role = user.role;
       }
       if (account?.provider === 'google') {
         const data = {
@@ -53,32 +53,32 @@ const authOption: NextAuthOptions = {
           fullName: user.name,
           role: 'member',
           type: 'google'
-        }
+        };
         await loginWithGoogle(data, (result: { status: boolean; data: any }) => {
           if (result.status) {
-            token.email = result.data.email
-            token.fullName = result.data.fullName
-            token.role = result.data.role
+            token.email = result.data.email;
+            token.fullName = result.data.fullName;
+            token.role = result.data.role;
           }
-        })
+        });
       }
-      return token
+      return token;
     },
     async session({ session, token }: any) {
       if ('email' in token) {
-        session.user.email = token.email
+        session.user.email = token.email;
       }
       if ('role' in token) {
-        session.user.role = token.role
+        session.user.role = token.role;
       }
       if ('fullName' in token) {
-        session.user.fullName = token.fullName
+        session.user.fullName = token.fullName;
       }
-      return session
+      return session;
     }
   }
-}
+};
 
-const handler = NextAuth(authOption)
+const handler = NextAuth(authOption);
 
-export { handler as GET, handler as POST }
+export { handler as GET, handler as POST };

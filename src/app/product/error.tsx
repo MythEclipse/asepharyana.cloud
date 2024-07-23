@@ -1,6 +1,6 @@
-'use client'
-import Link from 'next/link'
-import React from 'react'
+'use client';
+import Link from 'next/link';
+import React from 'react';
 
 export default function NotFound() {
   return (
@@ -29,5 +29,5 @@ export default function NotFound() {
         </div>
       </section>
     </>
-  )
+  );
 }

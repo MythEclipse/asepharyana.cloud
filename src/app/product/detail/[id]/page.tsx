@@ -1,8 +1,8 @@
-import getData from '@/components/GetData/GetData'
-import Image from 'next/image'
+import getData from '@/components/GetData/GetData';
+import Image from 'next/image';
 export default async function DetailProductPage(props: any) {
-  const { params } = props
-  const data = await getData('https://localhost:3000/products?id=' + params.id)
+  const { params } = props;
+  const data = await getData('https://localhost:3000/products?id=' + params.id);
   return (
     <div className='container mx-auto my-10 flex items-center'>
       <div className='mx-auto w-1/2 border border-gray-700'>
@@ -20,5 +20,5 @@ export default async function DetailProductPage(props: any) {
         </div>
       </div>
     </div>
-  )
+  );
 }
