@@ -5,7 +5,7 @@ import React from 'react';
 const CommentPage = () => {
   return (
     <>
-      <CommentDisplay comments={[]} />
+      <CommentDisplay />
       <CommentInput />
     </>
   );
