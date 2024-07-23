@@ -20,7 +20,7 @@ export default function LoginPage({ searchParams }: any) {
         callbackUrl
       })
       if (!res?.error) {
-        ;(e.target as HTMLFormElement).reset()
+        (e.target as HTMLFormElement).reset()
         setIsLoading(false)
         push(callbackUrl)
       } else {
