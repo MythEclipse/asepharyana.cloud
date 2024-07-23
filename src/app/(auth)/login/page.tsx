@@ -1,39 +1,39 @@
 /* eslint-disable no-undef */
-"use client";
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import React from "react";
+'use client'
+import { signIn } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
+import React from 'react'
 export default function LoginPage({ searchParams }: any) {
-  const { push } = useRouter();
-  const [error, setError] = React.useState<string>("");
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  const callbackUrl = searchParams.callbackUrl || "/";
+  const { push } = useRouter()
+  const [error, setError] = React.useState<string>('')
+  const [isLoading, setIsLoading] = React.useState<boolean>(false)
+  const callbackUrl = searchParams.callbackUrl || '/'
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setError("");
+    e.preventDefault()
+    setIsLoading(true)
+    setError('')
     try {
-      const res = await signIn("credentials", {
+      const res = await signIn('credentials', {
         redirect: false,
         email: (e.target as HTMLFormElement).email.value,
         password: (e.target as HTMLFormElement).password.value,
-        callbackUrl,
-      });
+        callbackUrl
+      })
       if (!res?.error) {
-        (e.target as HTMLFormElement).reset();
-        setIsLoading(false);
-        push(callbackUrl);
+        (e.target as HTMLFormElement).reset()
+        setIsLoading(false)
+        push(callbackUrl)
       } else {
-        setIsLoading(false);
-        console.log(res.error);
+        setIsLoading(false)
+        console.log(res.error)
         if (res.status === 401) {
-          setError("Invalid email or password");
+          setError('Invalid email or password')
         }
       }
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   return (
     <section className="pt-35 mx-auto h-full max-h-full max-w-full bg-gray-50 dark:bg-gray-900">
@@ -53,23 +53,15 @@ export default function LoginPage({ searchParams }: any) {
             alt="logo"
           />
         </Link> */}
-              {error !== "" && (
-                <div className="mb-3 font-bold text-red-600">{error}</div>
-              )}
+              {error !== '' && <div className="mb-3 font-bold text-red-600">{error}</div>}
               <div className="w-full rounded-lg bg-white shadow dark:border dark:border-gray-700 dark:bg-gray-800 sm:max-w-md md:mt-0 xl:p-0">
                 <div className="space-y-4 p-6 sm:p-8 md:space-y-6">
                   <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white md:text-2xl">
                     Sign in to your account
                   </h1>
-                  <form
-                    className="space-y-4 md:space-y-6"
-                    onSubmit={(e) => handleLogin(e)}
-                  >
+                  <form className="space-y-4 md:space-y-6" onSubmit={(e) => handleLogin(e)}>
                     <div>
-                      <label
-                        htmlFor="email"
-                        className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-                      >
+                      <label htmlFor="email" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
                         Your email
                       </label>
                       <input
@@ -108,10 +100,7 @@ export default function LoginPage({ searchParams }: any) {
                           />
                         </div>
                         <div className="ml-3 text-sm">
-                          <label
-                            htmlFor="remember"
-                            className="text-gray-500 dark:text-gray-300"
-                          >
+                          <label htmlFor="remember" className="text-gray-500 dark:text-gray-300">
                             Remember me
                           </label>
                         </div>
@@ -128,20 +117,18 @@ export default function LoginPage({ searchParams }: any) {
                       type="submit"
                       className="w-full rounded-lg bg-primary-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                     >
-                      {isLoading ? "Loading..." : "Sign in"}
+                      {isLoading ? 'Loading...' : 'Sign in'}
                     </button>
                     <hr />
                     <button
                       type="button"
-                      onClick={() =>
-                        signIn("google", { callbackUrl, redirect: false })
-                      }
+                      onClick={() => signIn('google', { callbackUrl, redirect: false })}
                       className="w-full rounded-lg bg-primary-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                     >
                       login with google
                     </button>
                     <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                      Don’t have an account yet?{" "}
+                      Don’t have an account yet?{' '}
                       <a
                         href="/register"
                         className="font-medium text-primary-600 hover:underline dark:text-primary-500"
@@ -157,5 +144,5 @@ export default function LoginPage({ searchParams }: any) {
         </div>
       </div>
     </section>
-  );
+  )
 }

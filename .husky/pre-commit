@@ -1,0 +1,23 @@
+echo ' prepare-commit-msg hook'
+
+npm run check-format || npm run format || {
+    echo 'please fix format' >&2
+    exit 1
+}
+
+npm run check-lint || npm run lint:fix || {
+    echo 'Please fix the linting issues' >&2
+    exit 1
+}
+
+npm run check-types || {
+    echo 'Please fix the TypeScript errors' >&2
+    exit 1
+}
+
+npm run build || {
+    echo 'Please fix the build errors' >&2
+    exit 1
+}
+
+echo 'All checks passed'

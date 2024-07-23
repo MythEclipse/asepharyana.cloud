@@ -1,12 +1,12 @@
-import Link from "next/link";
+import Link from 'next/link'
 
-import Image from "next/image";
-import getData from "@/components/GetData/GetData";
-type ProductPageProps = { params: { slug: string[] } };
+import Image from 'next/image'
+import getData from '@/components/GetData/GetData'
+type ProductPageProps = { params: { slug: string[] } }
 
 export default async function ProductPage(props: ProductPageProps) {
-  const { params } = props;
-  const product = await getData("https://fakestoreapi.com/products");
+  const { params } = props
+  const product = await getData('https://fakestoreapi.com/products')
   return (
     <div className="mt-5 place-items-center md:grid md:grid-cols-2 lg:grid lg:grid-cols-4">
       {/* <h1>{params.slug ? "Detail product page" : "product page"}</h1> */}
@@ -79,9 +79,7 @@ export default async function ProductPage(props: ProductPageProps) {
                 {/* <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-3">5.0</span> */}
               </div>
               <div className="mt-3 flex items-center justify-between">
-                <span className="text-3xl font-bold text-gray-900 dark:text-white">
-                  $ {product.price}
-                </span>
+                <span className="text-3xl font-bold text-gray-900 dark:text-white">$ {product.price}</span>
                 <Link
                   key={product.id}
                   href={`/product/detail/${product.id}`}
@@ -101,5 +99,5 @@ export default async function ProductPage(props: ProductPageProps) {
         </>
       )}
     </div>
-  );
+  )
 }

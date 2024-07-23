@@ -1,9 +1,9 @@
-import getData from "@/components/GetData/GetData";
-import Image from "next/image";
-import ModalWrapper from "@/components/core/modal/";
+import getData from '@/components/GetData/GetData'
+import Image from 'next/image'
+import ModalWrapper from '@/components/core/modal/'
 export default async function DetailProductPage(props: any) {
-  const { params } = props;
-  const data = await getData("https://fakestoreapi.com/products/" + params.id);
+  const { params } = props
+  const data = await getData('https://fakestoreapi.com/products/' + params.id)
   return (
     <ModalWrapper title="product">
       <Image
@@ -19,5 +19,5 @@ export default async function DetailProductPage(props: any) {
         <p>price : ${data.price}</p>
       </div>
     </ModalWrapper>
-  );
+  )
 }

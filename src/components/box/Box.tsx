@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react'
 
 const Box = ({ children }: { children: ReactNode }) => {
   return (
@@ -7,7 +7,7 @@ const Box = ({ children }: { children: ReactNode }) => {
         <div className="m-2">{children}</div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Box;
+export default Box

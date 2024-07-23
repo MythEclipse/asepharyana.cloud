@@ -1,13 +1,13 @@
-import React from "react";
-import Image from "next/image";
-import Link from "next/link";
-import BoxContainer from "@/components/box/BoxContainer";
-import { Metadata } from "next";
-import BoxContent from "@/components/box/BoxContent";
+import React from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
+import BoxContainer from '@/components/box/BoxContainer'
+import { Metadata } from 'next'
+import BoxContent from '@/components/box/BoxContent'
 
 export const metadata: Metadata = {
-  title: "Home",
-};
+  title: 'Home'
+}
 export default function Home() {
   return (
     <section>
@@ -16,18 +16,16 @@ export default function Home() {
           <div className="flex flex-wrap">
             <div className="w-full self-center px-2 lg:w-1/2">
               <h1 className="text-base font-semibold text-primary-600 lg:text-xl">
-                Halo semua 👋,saya{" "}
+                Halo semua 👋,saya{' '}
                 <span className="block text-4xl font-bold text-dark dark:text-gray-100 lg:text-5xl">
                   Asep haryana saputra
                 </span>
               </h1>
               <h2 className="mb-5 text-lg font-medium text-secondary lg:text-2xl">
-                Saya adalah seorang{" "}
-                <span className="text-dark dark:text-gray-100">Programmer</span>
+                Saya adalah seorang <span className="text-dark dark:text-gray-100">Programmer</span>
               </h2>
               <p className="font-medium text-slate-400">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Porro,
-                voluptas!
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Porro, voluptas!
               </p>
               <link
                 href="#"
@@ -53,40 +51,28 @@ export default function Home() {
         <div className="container">
           <div className="flex flex-wrap">
             <div className="mb-7 w-full px-4 lg:w-1/2">
-              <h4 className="mb-3 text-lg font-bold uppercase text-primary-600">
-                Tentang Saya
-              </h4>
+              <h4 className="mb-3 text-lg font-bold uppercase text-primary-600">Tentang Saya</h4>
               <h2 className="mb-5 max-w-md text-3xl font-bold text-dark dark:text-gray-100">
                 Saya adalah seorang programmer
               </h2>
               <p className="max-w-xl text-base font-medium text-secondary">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Dolore, mollitia tempora? Illum, ad inventore. Maxime obcaecati
-                explicabo iste!
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolore, mollitia tempora? Illum, ad inventore.
+                Maxime obcaecati explicabo iste!
               </p>
             </div>
             <div className="w-full px-4 lg:w-1/2">
-              <h3 className="mb-4 text-2xl font-semibold text-dark dark:text-gray-100">
-                Mari berteman
-              </h3>
+              <h3 className="mb-4 text-2xl font-semibold text-dark dark:text-gray-100">Mari berteman</h3>
               <p className="mb-6 text-base font-medium text-secondary">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rem,
-                nemo voluptas temporibus eos nesciunt tenetur aut unde ab
-                pariatur molestias soluta excepturi harum neque ipsum cum!
-                Cumque iusto debitis fugit optio exercitationem quaerat nobis
-                nostrum deserunt! Voluptas sapiente reprehenderit quisquam?
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rem, nemo voluptas temporibus eos nesciunt
+                tenetur aut unde ab pariatur molestias soluta excepturi harum neque ipsum cum! Cumque iusto debitis
+                fugit optio exercitationem quaerat nobis nostrum deserunt! Voluptas sapiente reprehenderit quisquam?
               </p>
               <div className="flex items-center">
                 <Link
                   href="https://github.com/Asepharyana71"
                   className="item-center flex size-9 justify-center rounded-full border border-slate-300 text-dark hover:border-primary-600 hover:bg-primary-600 hover:text-white dark:text-gray-100"
                 >
-                  <svg
-                    width="20"
-                    viewBox="0 0 24 24"
-                    className="fill-current"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
+                  <svg width="20" viewBox="0 0 24 24" className="fill-current" xmlns="http://www.w3.org/2000/svg">
                     <title>github</title>
                     <path d="M12,2A10,10,0,0,0,8.84,21.5c.5.08.66-.23.66-.5V19.31C6.73,19.91,6.14,18,6.14,18A2.69,2.69,0,0,0,5,16.5c-.91-.62.07-.6.07-.6a2.1,2.1,0,0,1,1.53,1,2.15,2.15,0,0,0,2.91.83,2.16,2.16,0,0,1,.63-1.34C8,16.17,5.62,15.31,5.62,11.5a3.87,3.87,0,0,1,1-2.71,3.58,3.58,0,0,1,.1-2.64s.84-.27,2.75,1a9.63,9.63,0,0,1,5,0c1.91-1.29,2.75-1,2.75-1a3.58,3.58,0,0,1,.1,2.64,3.87,3.87,0,0,1,1,2.71c0,3.82-2.34,4.66-4.57,4.91a2.39,2.39,0,0,1,.69,1.85V21c0,.27.16.59.67.5A10,10,0,0,0,12,2Z" />
                   </svg>
@@ -152,33 +138,20 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section
-        id="portfolio"
-        className="bg-slate-200 pb-16 pt-36 dark:border-gray-700 dark:bg-gray-800"
-      >
+      <section id="portfolio" className="bg-slate-200 pb-16 pt-36 dark:border-gray-700 dark:bg-gray-800">
         <div className="container">
           <div className="w-full">
             <div className="mx-auto mb-16 max-w-xl text-center">
-              <h4 className="mb-2 text-lg font-semibold text-primary-600">
-                Portfolio
-              </h4>
-              <h2 className="mb-4 text-3xl font-bold text-dark dark:text-gray-100">
-                Project terbaru
-              </h2>
+              <h4 className="mb-2 text-lg font-semibold text-primary-600">Portfolio</h4>
+              <h2 className="mb-4 text-3xl font-bold text-dark dark:text-gray-100">Project terbaru</h2>
               <p className="text-md font-medium text-secondary">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quia
-                minus laborum quidem id eveniet molestias voluptas quos
-                recusandae natus placeat!
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quia minus laborum quidem id eveniet molestias
+                voluptas quos recusandae natus placeat!
               </p>
             </div>
           </div>
           <BoxContainer>
-            <BoxContent
-              gambar="/Project1.png"
-              href="/login"
-              judul="Login Page"
-              description="aaaa"
-            />
+            <BoxContent gambar="/Project1.png" href="/login" judul="Login Page" description="aaaa" />
             <BoxContent
               gambar="/Project2.png"
               href="/product"
@@ -190,5 +163,5 @@ export default function Home() {
         </div>
       </section>
     </section>
-  );
+  )
 }

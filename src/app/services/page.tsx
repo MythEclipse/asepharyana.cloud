@@ -3,5 +3,5 @@ export default function servies() {
     <div>
       <span>aaaaaaaaaaaaaaaaaa</span>
     </div>
-  );
+  )
 }

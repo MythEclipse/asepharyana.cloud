@@ -31,7 +31,6 @@ body {
     var(--gradient-end-rgb)
   ) var(--gradient-start-rgb); */
   min-height: 100vh; /* Ensure content fills the viewport */
- 
 }
 
 .text-balance {

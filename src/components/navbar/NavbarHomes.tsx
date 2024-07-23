@@ -1,24 +1,21 @@
-"use client";
+'use client'
 
-import { useState } from "react";
-import { useSession, signOut } from "next-auth/react";
-import Link from "next/link";
-import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { useState } from 'react'
+import { useSession, signOut } from 'next-auth/react'
+import Link from 'next/link'
+import Image from 'next/image'
+import { usePathname } from 'next/navigation'
 
 export default function Component() {
-  const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const [isNavOpen, setIsNavOpen] = useState(false);
-  const pathname = usePathname();
-  const { data: session, status } = useSession();
+  const [isProfileOpen, setIsProfileOpen] = useState(false)
+  const [isNavOpen, setIsNavOpen] = useState(false)
+  const pathname = usePathname()
+  const { data: session, status } = useSession()
 
   return (
     <nav className="fixed top-0 z-10 w-full border-gray-200">
       <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4">
-        <Link
-          href="/"
-          className="flex items-center space-x-3 rtl:space-x-reverse"
-        >
+        <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
           <Image
             src="/Logo.svg"
             className="cursor-pointer transition duration-300 ease-in-out hover:scale-110"
@@ -29,16 +26,15 @@ export default function Component() {
             height={100}
           />
           <span
-            className={`${pathname === "/"
-                ? "font-semibold text-primary-600"
-                : "text-gray-900 dark:text-gray-100"
-              } block rounded px-3 py-2 hover:bg-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500`}
+            className={`${
+              pathname === '/' ? 'font-semibold text-primary-600' : 'text-gray-900 dark:text-gray-100'
+            } block rounded px-3 py-2 hover:bg-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500`}
           >
             Asep Haryana
           </span>
         </Link>
         <div className="relative flex items-center space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse">
-          {status === "authenticated" ? (
+          {status === 'authenticated' ? (
             <>
               <button
                 type="button"
@@ -48,15 +44,12 @@ export default function Component() {
                 onClick={() => setIsProfileOpen(!isProfileOpen)}
               >
                 <span className="sr-only">Open user menu</span>
-                {status === "authenticated" ? (
+                {status === 'authenticated' ? (
                   <div>
                     <Image
                       className="rounded-full text-dark dark:fill-current dark:text-gray-100"
                       alt="profile"
-                      src={
-                        session?.user?.image ??
-                        "/profile-circle-svgrepo-com.svg"
-                      }
+                      src={session?.user?.image ?? '/profile-circle-svgrepo-com.svg'}
                       width={50}
                       height={50}
                     ></Image>
@@ -106,17 +99,16 @@ export default function Component() {
           </button>
         </div>
         <div
-          className={`items-center justify-between ${isNavOpen ? "block" : "hidden"} w-full md:order-1 md:flex md:w-auto`}
+          className={`items-center justify-between ${isNavOpen ? 'block' : 'hidden'} w-full md:order-1 md:flex md:w-auto`}
           id="navbar-user"
         >
           <ul className="mt-4 flex flex-col rounded-lg border border-gray-100 bg-gray-50 p-4 font-medium dark:border-gray-700 md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-transparent rtl:space-x-reverse">
             <li>
               <Link href="/about">
                 <span
-                  className={`${pathname === "/about"
-                      ? "font-semibold text-primary-600"
-                      : "text-gray-900 dark:text-gray-100"
-                    } block rounded px-3 py-2 hover:bg-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500`}
+                  className={`${
+                    pathname === '/about' ? 'font-semibold text-primary-600' : 'text-gray-900 dark:text-gray-100'
+                  } block rounded px-3 py-2 hover:bg-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500`}
                 >
                   About
                 </span>
@@ -125,10 +117,9 @@ export default function Component() {
             <li>
               <Link href="/services">
                 <span
-                  className={`${pathname === "/services"
-                      ? "font-semibold text-primary-600"
-                      : "text-gray-900 dark:text-gray-100"
-                    } block rounded px-3 py-2 hover:bg-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500`}
+                  className={`${
+                    pathname === '/services' ? 'font-semibold text-primary-600' : 'text-gray-900 dark:text-gray-100'
+                  } block rounded px-3 py-2 hover:bg-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500`}
                 >
                   Services
                 </span>
@@ -137,10 +128,9 @@ export default function Component() {
             <li>
               <Link href="/contact">
                 <span
-                  className={`${pathname === "/contact"
-                      ? "font-semibold text-primary-600"
-                      : "text-gray-900 dark:text-gray-100"
-                    } block rounded px-3 py-2 hover:bg-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500`}
+                  className={`${
+                    pathname === '/contact' ? 'font-semibold text-primary-600' : 'text-gray-900 dark:text-gray-100'
+                  } block rounded px-3 py-2 hover:bg-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500`}
                 >
                   Contact
                 </span>
@@ -156,10 +146,10 @@ export default function Component() {
             >
               <div className="px-4 py-3">
                 <span className="block text-sm text-gray-900 dark:text-white">
-                  {session?.user.name ?? session?.user?.fullName ?? "Guest"}
+                  {session?.user.name ?? session?.user?.fullName ?? 'Guest'}
                 </span>
                 <span className="block truncate text-sm text-gray-500 dark:text-gray-400">
-                  {session?.user?.email ?? "Guest"}
+                  {session?.user?.email ?? 'Guest'}
                 </span>
               </div>
               <ul className="py-2" aria-labelledby="user-menu-button">
@@ -193,5 +183,5 @@ export default function Component() {
         </div>
       </div>
     </nav>
-  );
+  )
 }
