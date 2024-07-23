@@ -1,14 +1,52 @@
-eslintrc.json
-prettierrc.json
-package.jsom
-package-lock.json
+# Konfigurasi dan file sistem
+.eslintrc.json
+.prettierrc
+.prettierignore
+package.json
+pnpm-lock.yaml
 tsconfig.json
-CHANGELOG.md
-readme.md
-nodemon.json
-yarn.lock
-dist
-build
-public
-node_modules
-vercel.json
+tsconfig.tsbuildinfo
+next.config.mjs
+postcss.config.mjs
+prettier.config.js
+tailwind.config.ts
+.env
+.env.example
+.hintrc
+.deepsource.toml
+.devdbrc
+.idx
+.jest.config.ts
+.vscode/
+LICENSE
+README.md
+SECURITY.md
+LAST_UPDATED
+
+# Direktori build dan distribusi
+dist/
+build/
+.next/
+out/
+
+# Direktori publik
+public/
+
+# Direktori dependensi
+node_modules/
+
+# Direktori Prisma
+prisma/
+
+# Direktori Next.js
+.next/
+husky/
+
+# Direktori cache
+.cache/
+
+# File atau skrip shell
+*.sh
+
+# Direktori types
+types/

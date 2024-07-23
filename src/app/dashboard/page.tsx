@@ -16,7 +16,7 @@ export default function DasboardPage() {
     }
   }, [router, session, session?.user.role, status])
   return (
-    <div className="flex items-center">
+    <div className='flex items-center'>
       <h1>Dashboard</h1>
     </div>
   )

@@ -75,17 +75,17 @@ export default function RootLayout({
           <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID} />
         )}
         <SessionWrapper>
-          <html suppressHydrationWarning lang="id">
+          <html suppressHydrationWarning lang='id'>
             <head>
               {ThemeModeScript && <ThemeModeScript />}
               {/* Conditionally render ThemeModeScript */}
             </head>
-            <body className="h-screen dark:bg-gray-900">
+            <body className='h-screen dark:bg-gray-900'>
               <NavbarWrapper />
               <Flowbite theme={{ theme: customTheme }}>
-                <div className="mt-5 max-w-full px-3 pb-10 pt-20 sm:px-6 lg:px-8">
+                <div className='mt-5 max-w-full px-3 pb-10 pt-20 sm:px-6 lg:px-8'>
                   {children}
-                  <DarkThemeToggle className="fixed bottom-0 z-10" />
+                  <DarkThemeToggle className='fixed bottom-0 z-10' />
                 </div>
               </Flowbite>
             </body>

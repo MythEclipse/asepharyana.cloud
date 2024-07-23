@@ -18,10 +18,10 @@
     "lint:fix": "next lint --fix",
     "migrate": "prisma migrate dev",
     "studio": "prisma studio",
-    "format": "prettier --write .",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
     "prepare": "husky",
     "check-types": "tsc --noEmit",
-    "check-format": "prettier --check .",
+    "check-format": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
     "check-lint": "next lint"
   },
   "dependencies": {
