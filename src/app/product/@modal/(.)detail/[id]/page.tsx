@@ -1,4 +1,4 @@
-import getData from '@/components/GetData/GetData';
+import {getData} from '@/components/GetData/GetData';
 import Image from 'next/image';
 import ModalWrapper from '@/components/core/modal/';
 export default async function DetailProductPage(props: any) {
