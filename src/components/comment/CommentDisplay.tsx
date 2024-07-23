@@ -1,5 +1,5 @@
+// pages/product.tsx
 import React from 'react';
-import { getDataNC } from '@/components/GetData/GetData';
 
 interface Comment {
   id: string;
@@ -16,15 +16,28 @@ const formatDate = (seconds: number) => {
   return date.toLocaleDateString();
 };
 
-export default async function ProductPage() {
-  const comment: Comment[] = await getDataNC('http://localhost:9000/api/comment');
+export async function getServerSideProps() {
+  const res = await fetch('/api/comment'); // Adjust the URL if needed
+  const data: Comment[] = await res.json();
 
+  return {
+    props: {
+      comments: data,
+    },
+  };
+}
+
+interface CommentDisplayProps {
+  comments: Comment[];
+}
+
+const CommentDisplay: React.FC<CommentDisplayProps> = ({ comments }) => {
   return (
     <div className='p-6 max-w-3xl mx-auto'>
       <h2 className='text-2xl font-semibold mb-6 text-gray-800'>Comments</h2>
       <div className='space-y-4'>
-        {comment.length > 0 ? (
-          comment.map((comment) => (
+        {comments.length > 0 ? (
+          comments.map((comment: Comment) => (
             <div key={comment.id} className='p-4 bg-white border border-gray-200 rounded-lg shadow-sm'>
               <p className='text-lg text-gray-700 mb-2'>{comment.content}</p>
               <span className='text-sm text-gray-500'>— {comment.email}</span>
@@ -39,4 +52,6 @@ export default async function ProductPage() {
       </div>
     </div>
   );
-}
+};
+
+export default CommentDisplay;
