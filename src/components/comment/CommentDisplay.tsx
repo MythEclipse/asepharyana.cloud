@@ -22,8 +22,8 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      comments: data,
-    },
+      comments: data
+    }
   };
 }
 
