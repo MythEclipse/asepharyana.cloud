@@ -22,7 +22,7 @@
     "prepare": "husky",
     "check-types": "tsc --noEmit",
     "check-format": "prettier --check .",
-    "check-lint": "eslint . --ext ts --ext tsx --ext js --ext jsx"
+    "check-lint": "next lint"
   },
   "dependencies": {
     "@firebase/analytics": "^0.10.4",

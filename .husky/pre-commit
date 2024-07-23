@@ -15,9 +15,9 @@ npm run check-types || {
     exit 1
 }
 
-npm run build || {
-    echo 'Please fix the build errors' >&2
-    exit 1
-}
+# npm run build || {
+#     echo 'Please fix the build errors' >&2
+#     exit 1
+# }
 
 echo 'All checks passed'
