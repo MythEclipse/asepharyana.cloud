@@ -28,7 +28,7 @@ dist/
 build/
 .next/
 out/
-
+.idx/
 # Direktori publik
 public/
 
