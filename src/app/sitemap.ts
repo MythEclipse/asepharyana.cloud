@@ -15,7 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8
     },
     {
-      url: 'https://asepharyana.my.id/contact',
+      url: 'https://asepharyana.my.id/cekkhodam',
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.5
