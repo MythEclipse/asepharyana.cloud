@@ -90,7 +90,7 @@ export async function loginWithGoogle(data: any, callbacks: any) {
   }
 }
 
-export async function postComment(data: { content: String; postId: String; userId: String; email: String }) {
+export async function postComment(data: { content: string; postId: string; userId: string; email: string }) {
   // const userQuery = query(collection(firestore, 'users'), where('email', '==', data.email));
   // const postQuery = query(collection(firestore, 'posts'), where('id', '==', data.postId));
 

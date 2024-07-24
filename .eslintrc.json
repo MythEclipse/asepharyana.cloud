@@ -4,7 +4,12 @@
     "es2021": true,
     "node": true
   },
-  "extends": ["eslint:recommended", "plugin:@next/next/recommended"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@next/next/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": "latest",
@@ -17,6 +22,8 @@
     "@typescript-eslint/restrict-template-expressions": "off",
     "@typescript-eslint/strict-boolean-expressions": "off",
     "no-return-assign": "off",
-    "array-callback-return": "off"
+    "array-callback-return": "off",
+    "@typescript-eslint/no-explicit-any":"off",
+    "@typescript-eslint/no-unused-vars":"off"
   }
 }
