@@ -159,6 +159,7 @@ export default function Home() {
               description='Data Fetching dari fakestoreapi dengan detail product yang
               menggunakan modal box'
             />
+            <BoxContent gambar='/Project1.png' href='/comment' judul='Feedback' description='coment feedback' />
           </BoxContainer>
         </div>
       </section>
