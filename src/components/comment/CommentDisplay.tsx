@@ -1,4 +1,5 @@
-import React from 'react';
+"use client"
+import React,{useEffect,useState} from 'react';
 import { GET } from '@/app/api/comment/route';
 
 interface Comment {
@@ -16,9 +17,21 @@ const formatDate = (seconds: number) => {
   return date.toLocaleDateString();
 };
 
-export default async function CommentDisplay() {
-  const response = await GET();
-  const comments: Comment[] = await response.json();
+const CommentDisplay: React.FC = () => {
+  const [comments, setComments] = useState<Comment[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await GET();
+        const data: Comment[] = await response.json();
+        setComments(data);
+      } catch (error) {
+        console.error('Failed to fetch comments:', error);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <div className='p-6 max-w-3xl mx-auto'>
@@ -40,4 +53,6 @@ export default async function CommentDisplay() {
       </div>
     </div>
   );
-}
+};
+
+export default CommentDisplay;
