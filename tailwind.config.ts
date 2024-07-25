@@ -66,8 +66,9 @@ const config: Config = {
           '900': '#1e3a8a',
           '950': '#172554'
         },
-        dark: '#020617',
-        secondary: '#64748b'
+        dark: '#111111',
+        darka: '#171717',
+        darkb:'#171717'
       }
     }
   },

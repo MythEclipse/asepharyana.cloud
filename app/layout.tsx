@@ -5,12 +5,12 @@ import './globals.css';
 import NavbarWrapper from '../components/navbar/NavbarHomes';
 import { ViewTransitions } from 'next-view-transitions';
 import SessionWrapper from '../components/SessionWrapper';
-import {} from 'flowbite';
 import { ThemeModeScript } from 'flowbite-react';
 import { DarkThemeToggle, Flowbite } from 'flowbite-react';
 import ContextAppProvider from '../components/ContextApp';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import type { CustomFlowbiteTheme } from 'flowbite-react';
+import { Theme } from '@radix-ui/themes';
 
 const customTheme: CustomFlowbiteTheme = {
   button: {
@@ -81,14 +81,16 @@ export default function RootLayout({
               {ThemeModeScript && <ThemeModeScript />}
               {/* Conditionally render ThemeModeScript */}
             </head>
-            <body className='h-screen dark:bg-gray-900'>
-              <NavbarWrapper />
-              <Flowbite theme={{ theme: customTheme }}>
-                <div className='mt-5 max-w-full px-3 pb-10 pt-20 sm:px-6 lg:px-8'>
-                  {children}
-                  <DarkThemeToggle className='fixed bottom-0 z-10' />
-                </div>
-              </Flowbite>
+            <body className='h-screen dark:bg-dark'>
+              <Theme accentColor='blue' grayColor='gray' panelBackground='solid' scaling='100%' radius='full'>
+                <NavbarWrapper />
+                <Flowbite theme={{ theme: customTheme }}>
+                  <div className='mt-5 max-w-full px-3 pb-10 pt-20 sm:px-6 lg:px-8'>
+                    {children}
+                    <DarkThemeToggle className='fixed bottom-0 z-10' />
+                  </div>
+                </Flowbite>
+              </Theme>
             </body>
           </html>
         </SessionWrapper>

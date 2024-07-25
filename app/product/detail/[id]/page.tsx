@@ -5,7 +5,7 @@ export default async function DetailProductPage(props: any) {
   const data = await getData('https://localhost:3000/products?id=' + params.id);
   return (
     <div className='container mx-auto my-10 flex items-center'>
-      <div className='mx-auto w-1/2 border border-gray-700'>
+      <div className='mx-auto w-1/2 border border-darkb'>
         <Image
           className='col-span-2 aspect-square w-full object-cover'
           src={data.image}

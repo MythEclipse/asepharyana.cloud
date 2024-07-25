@@ -5,6 +5,7 @@ import { useSession, signOut } from 'next-auth/react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import { Button } from '@radix-ui/themes';
 
 export default function Component() {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -105,17 +106,21 @@ export default function Component() {
           <ul className='mt-4 flex flex-col rounded-lg border border-gray-100 bg-gray-50 p-4 font-medium dark:border-gray-700 md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-transparent rtl:space-x-reverse'>
             <li>
               <Link href='/about'>
+                <Button>
+
                 <span
                   className={`${
                     pathname === '/about' ? 'font-semibold text-primary-600' : 'text-gray-900 dark:text-gray-100'
                   } block rounded px-3 py-2 hover:bg-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500`}
-                >
+                  >
                   About
                 </span>
+                  </Button>
               </Link>
             </li>
             <li>
               <Link href='/services'>
+                <Button>
                 <span
                   className={`${
                     pathname === '/services' ? 'font-semibold text-primary-600' : 'text-gray-900 dark:text-gray-100'
@@ -123,10 +128,12 @@ export default function Component() {
                 >
                   Services
                 </span>
+                </Button>
               </Link>
             </li>
             <li>
               <Link href='/contact'>
+            <Button>
                 <span
                   className={`${
                     pathname === '/contact' ? 'font-semibold text-primary-600' : 'text-gray-900 dark:text-gray-100'
@@ -134,6 +141,7 @@ export default function Component() {
                 >
                   Contact
                 </span>
+                </Button>
               </Link>
             </li>
           </ul>

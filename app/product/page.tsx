@@ -14,7 +14,7 @@ export default async function ProductPage(props: ProductPageProps) {
         product.map((product: any) => (
           <div
             key={product.id}
-            className='my-5 w-full max-w-sm rounded-lg border border-gray-200 bg-white shadow dark:border-gray-700 dark:bg-gray-800'
+            className='my-5 w-full max-w-sm rounded-lg border border-gray-200 bg-white shadow dark:border-darkb dark:bg-darkb'
           >
             <Image
               className='h-96 w-full rounded-t-lg object-cover p-8'
@@ -25,7 +25,7 @@ export default async function ProductPage(props: ProductPageProps) {
               sizes='100vw'
             />
             <div className='px-5 pb-5'>
-              <h5 className='truncate text-xl font-semibold tracking-tight text-gray-900 dark:text-white'>
+              <h5 className='truncate text-xl font-semibold tracking-tight text-darkb dark:text-white'>
                 {product.title}
               </h5>
               <div className='mb-5 mt-2.5 flex items-center'>
@@ -79,7 +79,7 @@ export default async function ProductPage(props: ProductPageProps) {
                 {/* <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-3">5.0</span> */}
               </div>
               <div className='mt-3 flex items-center justify-between'>
-                <span className='text-3xl font-bold text-gray-900 dark:text-white'>$ {product.price}</span>
+                <span className='text-3xl font-bold text-darkb dark:text-white'>$ {product.price}</span>
                 <Link
                   key={product.id}
                   href={`/product/detail/${product.id}`}
