@@ -107,40 +107,39 @@ export default function Component() {
             <li>
               <Link href='/about'>
                 <Button>
-
-                <span
-                  className={`${
-                    pathname === '/about' ? 'font-semibold text-primary-600' : 'text-gray-900 dark:text-gray-100'
-                  } block rounded px-3 py-2 hover:bg-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500`}
+                  <span
+                    className={`${
+                      pathname === '/about' ? 'font-semibold text-primary-600' : 'text-gray-900 dark:text-gray-100'
+                    } block rounded px-3 py-2 hover:bg-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500`}
                   >
-                  About
-                </span>
-                  </Button>
+                    About
+                  </span>
+                </Button>
               </Link>
             </li>
             <li>
               <Link href='/services'>
                 <Button>
-                <span
-                  className={`${
-                    pathname === '/services' ? 'font-semibold text-primary-600' : 'text-gray-900 dark:text-gray-100'
-                  } block rounded px-3 py-2 hover:bg-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500`}
-                >
-                  Services
-                </span>
+                  <span
+                    className={`${
+                      pathname === '/services' ? 'font-semibold text-primary-600' : 'text-gray-900 dark:text-gray-100'
+                    } block rounded px-3 py-2 hover:bg-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500`}
+                  >
+                    Services
+                  </span>
                 </Button>
               </Link>
             </li>
             <li>
               <Link href='/contact'>
-            <Button>
-                <span
-                  className={`${
-                    pathname === '/contact' ? 'font-semibold text-primary-600' : 'text-gray-900 dark:text-gray-100'
-                  } block rounded px-3 py-2 hover:bg-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500`}
-                >
-                  Contact
-                </span>
+                <Button>
+                  <span
+                    className={`${
+                      pathname === '/contact' ? 'font-semibold text-primary-600' : 'text-gray-900 dark:text-gray-100'
+                    } block rounded px-3 py-2 hover:bg-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500`}
+                  >
+                    Contact
+                  </span>
                 </Button>
               </Link>
             </li>

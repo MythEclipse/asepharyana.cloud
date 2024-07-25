@@ -15,7 +15,14 @@ type BoxContentProps = {
 const BoxContent: React.FC<BoxContentProps> = ({ gambar, judul, description, href }) => {
   return (
     <Box className='m-4 p-4 rounded-lg shadow-lg dark:bg-darkb'>
-      <Image src={gambar} alt='porto' className='h-72 w-full object-cover rounded-lg' width='0' height='0' sizes='100vw' />
+      <Image
+        src={gambar}
+        alt='porto'
+        className='h-72 w-full object-cover rounded-lg'
+        width='0'
+        height='0'
+        sizes='100vw'
+      />
       <Link href={href}>
         <h3 className='m-3 mt-5 text-xl font-semibold text-dark hover:text-primary-600 dark:text-gray-100 dark:hover:text-primary-600'>
           {judul}
