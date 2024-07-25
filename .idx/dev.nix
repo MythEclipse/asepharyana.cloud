@@ -16,6 +16,7 @@
     pkgs.pnpm
     pkgs.jdk
     pkgs.bash
+    pkgs.openssl
   ];
 
   # Sets environment variables in the workspace

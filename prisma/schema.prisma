@@ -1,54 +1,80 @@
-
-datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
-}
-
 generator client {
   provider = "prisma-client-js"
 }
 
-model chat {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  messages  String
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
 }
 
-model Post {
-  id       String    @id @default(uuid())
-  title    String
-  body     String
-  comments Comment[]
+model feedback {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  message   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model User {
-  id       String    @id @default(uuid())
-  name     String
-  comments Comment[]
-  likes    Like[]
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  email     String    @unique
+  name      String?
+  password  String
+  posts     Post[]    @relation("UserPosts")
+  comments  Comment[] @relation("UserComments")
+  accounts  Account[] @relation("UserAccounts")
+  sessions  Session[] @relation("UserSessions")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Post {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  content   String
+  authorId  String    @db.ObjectId
+  author    User      @relation("UserPosts", fields: [authorId], references: [id])
+  comments  Comment[] @relation("PostComments")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
 model Comment {
-  id        String    @id @default(uuid())
-  message   String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String
-  post      Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
-  postId    String
-  parent    Comment?  @relation("ParentChild", fields: [parentId], references: [id], onDelete: Cascade)
-  children  Comment[] @relation("ParentChild")
-  parentId  String?
-  likes     Like[]
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  content   String
+  postId    String   @db.ObjectId
+  post      Post     @relation("PostComments", fields: [postId], references: [id])
+  authorId  String   @db.ObjectId
+  author    User     @relation("UserComments", fields: [authorId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
-model Like {
-  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
-  userId    String
-  commentId String
+model Account {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String   @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User     @relation("UserAccounts", fields: [userId], references: [id])
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
 
-  @@id([userId, commentId])
+model Session {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId       String   @db.ObjectId
+  expires      DateTime
+  sessionToken String   @unique
+  accessToken  String?
+  user         User     @relation("UserSessions", fields: [userId], references: [id])
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
