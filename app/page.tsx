@@ -1,9 +1,9 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import BoxContainer from '@/components/box/BoxContainer';
+import BoxContainer from '../components/box/BoxContainer';
 import { Metadata } from 'next';
-import BoxContent from '@/components/box/BoxContent';
+import BoxContent from '../components/box/BoxContent';
 
 export const metadata: Metadata = {
   title: 'Home'

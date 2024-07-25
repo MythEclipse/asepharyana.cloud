@@ -1,7 +1,7 @@
 'use client';
 
-import { isBrowser } from '@/helpers/is-browser';
-import { isSmallScreen } from '@/helpers/is-small-screen';
+import { isBrowser } from '../helpers/is-browser';
+import { isSmallScreen } from '../helpers/is-small-screen';
 import type { FC, PropsWithChildren } from 'react';
 import { createContext, useContext, useEffect, useState } from 'react';
 

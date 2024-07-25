@@ -1,4 +1,4 @@
-import { register } from '@/app/lib/firebase/service';
+import { register } from '../../../lib/firebase/service';
 import { NextRequest, NextResponse } from 'next/server';
 export async function POST(request: NextRequest) {
   const req = await request.json();

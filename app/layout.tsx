@@ -3,11 +3,11 @@ import React from 'react';
 import './globals.css';
 import NavbarWrapper from '../components/navbar/NavbarHomes';
 import { ViewTransitions } from 'next-view-transitions';
-import SessionWrapper from '@/components/SessionWrapper';
+import SessionWrapper from '../components/SessionWrapper';
 import {} from 'flowbite';
 import { ThemeModeScript } from 'flowbite-react';
 import { DarkThemeToggle, Flowbite } from 'flowbite-react';
-import ContextAppProvider from '@/components/ContextApp';
+import ContextAppProvider from '../components/ContextApp';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import type { CustomFlowbiteTheme } from 'flowbite-react';
 

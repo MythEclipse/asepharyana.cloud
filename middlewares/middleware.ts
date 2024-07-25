@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import withAuth from './middlewares/withAuth';
+import withAuth from './withAuth';
 import { NextResponse } from 'next/server';
 import { NextRequest } from 'next/server';
 

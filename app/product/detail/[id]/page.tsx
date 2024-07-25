@@ -1,4 +1,4 @@
-import { getData } from '@/components/GetData/GetData';
+import { getData } from '../../../../components/GetData/GetData';
 import Image from 'next/image';
 export default async function DetailProductPage(props: any) {
   const { params } = props;

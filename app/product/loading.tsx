@@ -1,4 +1,4 @@
-import ModalWraper from '@/components/core/modal';
+import ModalWraper from '../../components/core/modal';
 import { Spinner } from 'flowbite-react';
 
 export default function Loading() {
