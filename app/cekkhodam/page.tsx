@@ -750,9 +750,9 @@ const App = () => {
   const [submittedName, setSubmittedName] = useState(''); // Submitted name
 
   return (
-    <div className='flex min-h-screen flex-col items-center justify-center bg-gradient-to-r from-purple-300 to-blue-200 dark:bg-darka'>
-      <div className='max-w-md rounded-lg bg-white p-6 shadow-lg'>
-        <h1 className='mb-6 text-center text-3xl font-bold text-gray-800'>Cek Khodam</h1>
+    <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-r from-purple-300 to-blue-200 dark:bg-darka">
+      <div className="max-w-md rounded-lg bg-white p-6 shadow-lg">
+        <h1 className="mb-6 text-center text-3xl font-bold text-gray-800">Cek Khodam</h1>
 
         {/* Formik form component */}
         <Formik
@@ -772,28 +772,28 @@ const App = () => {
           }}
         >
           {({ isSubmitting, resetForm }) => (
-            <Form className='flex flex-col gap-4'>
+            <Form className="flex flex-col gap-4">
               {/* Input field for name */}
               <div>
-                <label htmlFor='name' className='mb-2 block font-bold text-gray-700'>
+                <label htmlFor="name" className="mb-2 block font-bold text-gray-700">
                   Nama Anda:
                 </label>
                 <Field
-                  type='text'
-                  name='name'
-                  id='name'
-                  placeholder='Masukkan Nama'
-                  className='focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none'
+                  type="text"
+                  name="name"
+                  id="name"
+                  placeholder="Masukkan Nama"
+                  className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
                   disabled={isSubmitting || isSubmitted} // Disable input during submission
                 />
                 {/* Display validation error message */}
-                <ErrorMessage name='name' component='p' className='text-xs italic text-red-500' />
+                <ErrorMessage name="name" component="p" className="text-xs italic text-red-500" />
               </div>
 
               {/* Submit button */}
               <button
-                type='submit'
-                className='focus:shadow-outline rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 focus:outline-none'
+                type="submit"
+                className="focus:shadow-outline rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 focus:outline-none"
                 disabled={isSubmitting || isSubmitted} // Disable button during submission
               >
                 {isSubmitting ? 'Memproses...' : 'Cek'}
@@ -801,12 +801,12 @@ const App = () => {
 
               {/* Display result if submitted and khodam is found */}
               {isSubmitted && khodam && (
-                <div className='mt-6 border-l-4 border-green-500 bg-green-100 p-4 text-green-700' role='alert'>
-                  <p className='font-bold'>Hasil:</p>
+                <div className="mt-6 border-l-4 border-green-500 bg-green-100 p-4 text-green-700" role="alert">
+                  <p className="font-bold">Hasil:</p>
                   <p>Halo {submittedName}, Khodamu adalah: </p>
-                  <span className='text-xl font-bold text-blue-500'>{khodam.name}</span>
+                  <span className="text-xl font-bold text-blue-500">{khodam.name}</span>
                   <p>
-                    <span className='text-gray-900'>{khodam.meaning}</span>
+                    <span className="text-gray-900">{khodam.meaning}</span>
                   </p>
                 </div>
               )}
@@ -814,8 +814,8 @@ const App = () => {
               {/* Display reset button during loading or after submission */}
               {(isSubmitted || loading) && (
                 <button
-                  type='button'
-                  className='focus:shadow-outline mt-2 rounded bg-gray-300 px-4 py-2 font-bold text-gray-800 hover:bg-gray-400 focus:outline-none'
+                  type="button"
+                  className="focus:shadow-outline mt-2 rounded bg-gray-300 px-4 py-2 font-bold text-gray-800 hover:bg-gray-400 focus:outline-none"
                   onClick={() => {
                     resetForm(); // Reset Formik form
                     setIsSubmitted(false); // Reset submission state
