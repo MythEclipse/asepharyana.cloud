@@ -19,7 +19,7 @@ export default function LoginPage({ searchParams }: any) {
         redirect: false,
         email: (e.target as HTMLFormElement).email.value,
         password: (e.target as HTMLFormElement).password.value,
-        callbackUrl,
+        callbackUrl
       });
       if (!res?.error) {
         (e.target as HTMLFormElement).reset();
