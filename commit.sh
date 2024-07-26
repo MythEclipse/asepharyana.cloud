@@ -4,7 +4,7 @@
 git add .
 
 # Commit dengan pesan otomatis
-git commit -m "wwkkwkkwkwkwkk"
+git commit -m "cari sendiri"
 
 # Push ke repository
 git push

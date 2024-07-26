@@ -1,3 +1,7 @@
+git checkout beta
+git add .
+git commit -m "Cari sendiri"
+git push
 #!/bin/bash
 
 # Pindah ke branch master
@@ -19,13 +23,5 @@ echo "If you resolved conflicts, add the files and commit them."
 # Commit perubahan hasil merge
 git add .
 git commit -m "Merge beta into master"
-
-# Dorong perubahan ke remote repository untuk branch master
-if ! git push origin master; then
-  echo "Push failed. Switching back to beta."
-  git checkout beta
-  exit 1
-fi
-
-# Kembali ke branch beta
+git push origin master
 git checkout beta
