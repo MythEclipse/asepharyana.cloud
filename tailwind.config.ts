@@ -1,6 +1,6 @@
 import type { Config } from 'tailwindcss'
 import flowbite from 'flowbite-react/tailwind'
-
+import { blackA, violet, mauve } from '@radix-ui/colors';
 const config: Config = {
   darkMode: 'class',
   content: [
@@ -67,8 +67,11 @@ const config: Config = {
           '950': '#172554'
         },
         dark: '#111111',
-        darka: '#171717',
-        darkb:'#171717'
+        darka: '#212121',
+        darkb:'#171717',
+        ...blackA,
+        ...violet,
+        ...mauve
       }
     }
   },
