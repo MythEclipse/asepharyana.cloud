@@ -750,7 +750,7 @@ const App = () => {
   const [submittedName, setSubmittedName] = useState(''); // Submitted name
 
   return (
-    <div className='flex min-h-screen flex-col items-center justify-center bg-gradient-to-r from-purple-300 to-blue-200 dark:bg-gray-900'>
+    <div className='flex min-h-screen flex-col items-center justify-center bg-gradient-to-r from-purple-300 to-blue-200 dark:bg-darka'>
       <div className='max-w-md rounded-lg bg-white p-6 shadow-lg'>
         <h1 className='mb-6 text-center text-3xl font-bold text-gray-800'>Cek Khodam</h1>
 
