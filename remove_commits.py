@@ -1,17 +1,21 @@
-from git_filter_repo import Filter, Commit, Blob, Tag
+import git_filter_repo as fr
 
-class RemoveCommit(Filter):
-    def __init__(self, commit_message):
-        self.commit_message = commit_message
+class RemoveCommits(fr.Filter):
+    def __init__(self, commit_messages):
+        super().__init__()
+        self.commit_messages = commit_messages
 
-    def commit_filter(self, commit):
-        if commit.message.decode('utf-8').strip() == self.commit_message:
-            return None
+    def commit_callback(self, commit):
+        message = commit.message.decode('utf-8').strip()
+        if message in self.commit_messages:
+            return None  # Skip the commit
         return commit
 
 def main():
-    commit_message_to_remove = "chore(bot): 👺 auto commit"
-    filter = RemoveCommit(commit_message_to_remove)
+    commit_messages_to_remove = [
+        "filtered"
+    ]
+    filter = RemoveCommits(commit_messages_to_remove)
     filter.run()
 
 if __name__ == "__main__":
