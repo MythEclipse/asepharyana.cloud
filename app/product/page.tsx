@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import Image from 'next/image';
-import { getData } from '../../components/GetData/GetData';
+import { getData } from '../../components/core/GetData/GetData';
 type ProductPageProps = { params: { slug: string[] } };
 
 export default async function ProductPage(props: ProductPageProps) {
