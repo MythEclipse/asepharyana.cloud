@@ -1,12 +1,14 @@
 'use client';
 import { Box, Button, TextArea, TextField } from '@radix-ui/themes';
-import React from 'react';
+import React from "react";
+import "easymde/dist/easymde.min.css";
+import MarkdownEditor from '@/components/MarkdownEditor';
 
 const NewFeedback = () => {
   return (
     <div className="max-w-xl space-y-3">
-      <TextField.Root placeholder="Name"></TextField.Root>
-      <TextArea placeholder="Message"></TextArea>
+      <TextField.Root placeholder="Nama"></TextField.Root>
+      <MarkdownEditor ph='Isi Pesan'/>
       <Button>Kirim</Button>
     </div>
   );
