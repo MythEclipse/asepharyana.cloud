@@ -1,17 +1,30 @@
 'use client';
-import { Box, Button, TextArea, TextField } from '@radix-ui/themes';
+import {Button, TextArea, TextField } from '@radix-ui/themes';
 import React from 'react';
-import 'easymde/dist/easymde.min.css';
-import 'simplemde/dist/simplemde.min.css';
-import MarkdownEditor from '@/components/MarkdownEditor';
+import { useForm} from 'react-hook-form';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
+
+interface FeedbackForm {
+  name: string;
+  message: string;
+}
 
 const NewFeedback = () => {
+  const router = useRouter();
+  const { register,handleSubmit } = useForm<FeedbackForm>();
   return (
-    <div className="max-w-xl space-y-3">
-      <TextField.Root placeholder="Nama"></TextField.Root>
-      <MarkdownEditor placeholder="Isi Pesan" />
+    <form
+      className="max-w-xl space-y-3"
+      onSubmit={handleSubmit(async (data) => {
+        await axios.post('/api/feedback', data);
+        router.push('/feedback');
+      })}
+    >
+      <TextField.Root placeholder="Nama" {...register('name')}></TextField.Root>
+      <TextArea placeholder="Pesan" {...register('message')}></TextArea>
       <Button>Kirim</Button>
-    </div>
+    </form>
   );
 };
 
