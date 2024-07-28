@@ -23,7 +23,7 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({ placeholder }) => {
         spellChecker: false, // Menonaktifkan spell checker
         renderingConfig: {
           singleLineBreaks: false,
-          codeSyntaxHighlighting: true,
+          codeSyntaxHighlighting: true
         },
         toolbar: [
           'bold',
@@ -40,8 +40,8 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({ placeholder }) => {
           '|',
           'preview',
           '|',
-          'guide',
-        ],
+          'guide'
+        ]
       }}
       placeholder={placeholder}
     />
