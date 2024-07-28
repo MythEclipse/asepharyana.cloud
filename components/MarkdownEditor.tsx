@@ -1,19 +1,29 @@
+import 'simplemde/dist/simplemde.min.css';
+import React, { useEffect } from 'react';
 import SimpleMDE from 'react-simplemde-editor';
 
-import React from 'react';
-
-type typh = {
-  ph: string;
+type MarkdownEditorProps = {
+  placeholder: string;
 };
 
-const MarkdownEditor = (ph: typh) => {
+const MarkdownEditor: React.FC<MarkdownEditorProps> = ({ placeholder }) => {
+  useEffect(() => {
+    // Tambahkan kelas CSS untuk mode gelap pada body
+    document.body.classList.add('dark-mode');
+
+    return () => {
+      document.body.classList.remove('dark-mode');
+    };
+  }, []);
+
   return (
     <SimpleMDE
+      className="dark:bg-darka dark:text-gray-100"
       options={{
         spellChecker: false, // Menonaktifkan spell checker
         renderingConfig: {
           singleLineBreaks: false,
-          codeSyntaxHighlighting: true
+          codeSyntaxHighlighting: true,
         },
         toolbar: [
           'bold',
@@ -30,11 +40,11 @@ const MarkdownEditor = (ph: typh) => {
           '|',
           'preview',
           '|',
-          'guide'
-        ]
+          'guide',
+        ],
       }}
-      placeholder={ph.ph}
-    ></SimpleMDE>
+      placeholder={placeholder}
+    />
   );
 };
 
