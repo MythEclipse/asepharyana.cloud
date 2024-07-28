@@ -1,7 +1,7 @@
 'use client';
-import {Button, TextArea, TextField } from '@radix-ui/themes';
+import { Button, TextArea, TextField } from '@radix-ui/themes';
 import React from 'react';
-import { useForm} from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 
@@ -12,7 +12,7 @@ interface FeedbackForm {
 
 const NewFeedback = () => {
   const router = useRouter();
-  const { register,handleSubmit } = useForm<FeedbackForm>();
+  const { register, handleSubmit } = useForm<FeedbackForm>();
   return (
     <form
       className="max-w-xl space-y-3"
