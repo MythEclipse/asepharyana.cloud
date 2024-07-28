@@ -5,7 +5,9 @@ import Link from 'next/link';
 const page = () => {
   return (
     <div>
-        <Link href="/feedback/newfeedback"><Button>New Feedback</Button></Link>
+      <Link href="/feedback/newfeedback">
+        <Button>New Feedback</Button>
+      </Link>
     </div>
   );
 };

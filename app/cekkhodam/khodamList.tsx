@@ -1,6 +1,6 @@
 'use client';
 // Placeholder for khodam data
-export const khodamList: { name: string; meaning: string; }[] = [
+export const khodamList: { name: string; meaning: string }[] = [
   {
     name: 'Harimau Putih',
     meaning: 'Kamu kuat dan berani seperti harimau, karena pendahulumu mewariskan kekuatan besar padamu.'

@@ -13,9 +13,7 @@ import type { CustomFlowbiteTheme } from 'flowbite-react';
 import { Theme } from '@radix-ui/themes';
 import { Inter } from 'next/font/google';
 
-const inter =Inter({ subsets: ['latin'],
-  variable: '--font-inter',
- })
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
 const customTheme: CustomFlowbiteTheme = {
   button: {

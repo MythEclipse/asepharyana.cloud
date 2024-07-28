@@ -87,7 +87,9 @@ const App = () => {
               <p className="font-bold">Hasil:</p>
               <p>Halo {submittedName}, Khodamu adalah: </p>
               <span className="text-xl font-bold text-blue-500">{khodam.name}</span>
-              <p><span className="text-gray-900">{khodam.meaning}</span></p>
+              <p>
+                <span className="text-gray-900">{khodam.meaning}</span>
+              </p>
             </div>
           )}
 
