@@ -2,11 +2,11 @@ import SimpleMDE from 'react-simplemde-editor';
 
 import React from 'react';
 
-type typh ={
-    ph:string
-}
+type typh = {
+  ph: string;
+};
 
-const MarkdownEditor = (ph:typh) => {
+const MarkdownEditor = (ph: typh) => {
   return (
     <SimpleMDE
       options={{
