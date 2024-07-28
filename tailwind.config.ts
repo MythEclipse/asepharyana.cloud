@@ -66,6 +66,7 @@ const config: Config = {
           '900': '#1e3a8a',
           '950': '#172554'
         },
+        lighta:'#E2E8F0',
         dark: '#111111',
         darka: '#212121',
         darkb:'#171717',

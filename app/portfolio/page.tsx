@@ -33,6 +33,14 @@ export default function servies() {
           <Box>
             <BoxContent gambar="/Project1.png" href="/cekkhodam" judul="cekkhodam" description="cekkhodam" />
           </Box>
+          <Box>
+            <BoxContent
+              gambar="/Project1.png"
+              href="/feedback"
+              judul="crudtest"
+              description="Crudtest"
+            />
+          </Box>
         </Grid>
       </div>
     </section>

@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export default function Home() {
   return (
-    <section id="about" className="pb-32 pt-36 dark:bg-darkb">
+    <section id="about" className="pb-32 pt-36 bg-lighta dark:bg-darkb">
       <div className="container">
         <div className="flex flex-wrap">
           <div className="mb-7 w-full px-4 lg:w-1/2">

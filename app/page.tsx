@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <section id="hero" className="pt-35 dark:bg-darkb lg:px-3 h-screen w-full">
+    <section id="hero" className="pt-35 bg-lighta dark:bg-darkb lg:px-3 h-screen w-full">
       <div className="container">
         <div className="flex flex-wrap">
           <div className="w-full self-center px-2 lg:w-1/2">
@@ -28,7 +28,7 @@ export default function Home() {
             />
           </div>
           <div className="w-full self-end px-4 pt-4 lg:w-1/2">
-            <div className="relative mt-10 lg:right-0 lg:mt-0">
+            <div className="relative pt-20 lg:right-0 lg:mt-0">
               <Image
                 src="/profil.jpg"
                 alt=""

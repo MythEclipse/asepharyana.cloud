@@ -11,6 +11,11 @@ import ContextAppProvider from '../components/ContextApp';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import type { CustomFlowbiteTheme } from 'flowbite-react';
 import { Theme } from '@radix-ui/themes';
+import { Inter } from 'next/font/google';
+
+const inter =Inter({ subsets: ['latin'],
+  variable: '--font-inter',
+ })
 
 const customTheme: CustomFlowbiteTheme = {
   button: {
@@ -76,16 +81,16 @@ export default function RootLayout({
           <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID} />
         )}
         <SessionWrapper>
-          <html suppressHydrationWarning lang="id">
+          <html suppressHydrationWarning lang="id" className={inter.className}>
             <head>
               {ThemeModeScript && <ThemeModeScript />}
               {/* Conditionally render ThemeModeScript */}
             </head>
             <body className="h-screen dark:bg-dark">
-              <Theme accentColor="blue" grayColor="gray" panelBackground="solid" scaling="100%" radius="full">
+              <Theme accentColor="blue" grayColor="gray" panelBackground="solid" radius="large">
                 <NavbarWrapper />
                 <Flowbite theme={{ theme: customTheme }}>
-                  <div className="mt-5 max-w-full px-3 pb-10 pt-20 sm:px-6 lg:px-8">
+                  <div className="mt-5 max-w-full px-3 pb-10 pt-56 sm:px-6 lg:px-8">
                     {children}
                     <DarkThemeToggle className="fixed bottom-0 z-10" />
                   </div>
