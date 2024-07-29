@@ -15,11 +15,10 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(validation.error.errors, { status: 400 });
   }
   const newFeedback = await prisma.feedback.create({
-    data: { name: body.name, message: body.message,email : body.email }
+    data: { name: body.name, message: body.message, email: body.email }
   });
   return NextResponse.json(newFeedback, { status: 201 });
 }
-
 
 export async function GET() {
   try {
@@ -27,9 +26,12 @@ export async function GET() {
     return NextResponse.json(Feedbacks);
   } catch (error) {
     console.error('Error fetching feedbacks:', error); // Menampilkan kesalahan di log server
-    return NextResponse.json({
-      status: 500,
-      message: 'Internal Server Error'
-    }, { status: 500 });
+    return NextResponse.json(
+      {
+        status: 500,
+        message: 'Internal Server Error'
+      },
+      { status: 500 }
+    );
   }
 }

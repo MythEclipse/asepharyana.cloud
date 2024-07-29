@@ -22,13 +22,13 @@ export default function NewFeedback() {
       const res = await fetch('/api/feedback', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           name: name,
           message: message,
-          email: session?.user?.email ?? 'Guest',
-        }),
+          email: session?.user?.email ?? 'Guest'
+        })
       });
 
       if (res.ok) {
@@ -52,20 +52,12 @@ export default function NewFeedback() {
             <h1 className="text-xl font-bold leading-tight tracking-tight text-darkb dark:text-white md:text-2xl">
               Leave Your Feedback
             </h1>
-            <form
-              className="space-y-4 md:space-y-6"
-              onSubmit={handleSubmit}
-            >
+            <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
               <div>
                 <label htmlFor="name" className="mb-2 block text-sm font-medium text-darkb dark:text-white">
                   Name
                 </label>
-                <TextField.Root
-                  id="name"
-                  placeholder="Nama"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
+                <TextField.Root id="name" placeholder="Nama" value={name} onChange={(e) => setName(e.target.value)} />
               </div>
               <div>
                 <label htmlFor="message" className="mb-2 block text-sm font-medium text-darkb dark:text-white">

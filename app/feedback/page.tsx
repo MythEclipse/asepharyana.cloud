@@ -7,7 +7,7 @@ interface Feedback {
   id: string;
   name: string;
   message: string;
-  createdAt: string; 
+  createdAt: string;
 }
 
 async function fetchFeedbacks(): Promise<Feedback[]> {
