@@ -74,7 +74,7 @@ const authOption: NextAuthOptions = {
       if ('fullName' in token) {
         session.user.fullName = token.fullName;
       }
-      return session;
+      return await session;
     }
   }
 };

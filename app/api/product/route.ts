@@ -23,13 +23,13 @@ export async function GET(request: NextRequest) {
   if (id) {
     const detailProduct = data.find((item) => item.id === Number(id));
     if (!detailProduct) {
-      return NextResponse.json({
+      return await NextResponse.json({
         status: 404,
         Message: 'Not Found',
         data: {}
       });
     }
-    return NextResponse.json({
+    return await NextResponse.json({
       status: 200,
       Message: 'success',
       data: detailProduct

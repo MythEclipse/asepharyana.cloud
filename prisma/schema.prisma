@@ -8,6 +8,7 @@ datasource db {
 }
 
 model feedback {
+  email     String   @unique
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   name      String
   message   String
