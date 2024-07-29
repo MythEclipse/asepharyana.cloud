@@ -1,1 +1,1 @@
-pnpm install && pnpm run build 
+prisma db push &&pnpm install && pnpm run build 
