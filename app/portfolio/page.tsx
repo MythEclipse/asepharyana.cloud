@@ -1,7 +1,7 @@
 import { Box, Grid } from '@radix-ui/themes';
 import BoxContent from '@/components/box/BoxContent';
 
-export default function servies() {
+export default function page() {
   return (
     <section id="portfolio" className="bg-slate-200 pb-16 pt-36 dark:border-darkb dark:bg-darkb">
       <div className="container">
@@ -21,15 +21,6 @@ export default function servies() {
               description="fungsi login dengan register yang berfungsi secara seharusnya"
             />
           </Box>
-          {/* <Box>
-              <BoxContent
-                gambar='/Project2.png'
-                href='/product'
-                judul='fake store'
-                description='Data Fetching dari fakestoreapi dengan detail product yang
-        menggunakan modal box'
-              />
-            </Box> */}
           <Box>
             <BoxContent gambar="/Project1.png" href="/cekkhodam" judul="cekkhodam" description="cekkhodam" />
           </Box>

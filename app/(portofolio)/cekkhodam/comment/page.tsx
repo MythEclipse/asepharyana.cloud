@@ -1,5 +1,5 @@
-import CommentDisplay from '../../components/comment/CommentDisplay';
-import CommentInput from '../../components/comment/CommentInput';
+import CommentDisplay from '../../../../components/comment/CommentDisplay';
+import CommentInput from '../../../../components/comment/CommentInput';
 import React from 'react';
 
 const CommentPage = () => {

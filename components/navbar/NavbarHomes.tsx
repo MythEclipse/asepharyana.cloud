@@ -37,7 +37,6 @@ export default function Navbar() {
           {status === 'authenticated' ? (
             <DropdownMenu.Root>
               <DropdownMenu.Trigger>
-                <Button variant="soft">
                   <Image
                     className="rounded-full text-dark dark:fill-current dark:text-gray-100"
                     alt="profile"
@@ -46,7 +45,6 @@ export default function Navbar() {
                     height={50}
                   />
                   <DropdownMenu.TriggerIcon />
-                </Button>
               </DropdownMenu.Trigger>
               <DropdownMenu.Content className="text-center">
                 <DropdownMenu.Item>{session?.user?.name ?? session?.user?.fullName ?? 'Guest'}</DropdownMenu.Item>

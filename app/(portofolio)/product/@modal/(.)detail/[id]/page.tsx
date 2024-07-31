@@ -1,6 +1,6 @@
-import { getData } from '../../../../../components/core/GetData/GetData';
+import { getData } from '../../../../../../components/core/GetData/GetData';
 import Image from 'next/image';
-import ModalWrapper from '../../../../../components/core/modal';
+import ModalWrapper from '../../../../../../components/core/modal';
 export default async function DetailProductPage(props: any) {
   const { params } = props;
   const data = await getData('https://fakestoreapi.com/products/' + params.id);
