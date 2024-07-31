@@ -14,7 +14,7 @@ export default function RegisterPage() {
     const res = await fetch('/api/auth/register', {
       method: 'POST',
       body: JSON.stringify({
-        fullName: e.target.fullName.value,
+        name: e.target.name.value,
         email: e.target.email.value,
         password: e.target.password.value
       })
@@ -45,13 +45,13 @@ export default function RegisterPage() {
               </h1>
               <form className="space-y-4 md:space-y-6" onSubmit={(e) => handleSubmit(e)}>
                 <div>
-                  <label htmlFor="fullName" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
-                    Your fullname
+                  <label htmlFor="name" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
+                    Your name
                   </label>
                   <input
                     type="text"
-                    name="fullname"
-                    id="fullName"
+                    name="name"
+                    id="name"
                     className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-primary-600 focus:ring-primary-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
                     placeholder="namecompany"
                     required={true}
