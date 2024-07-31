@@ -46,13 +46,13 @@ const authOption: NextAuthOptions = {
   callbacks: {
     async jwt({ token, account, user }) {
       if (account?.provider === 'credentials' && user) {
-        token.email = user.email ?? '';  // Perbaikan di sini
-        token.fullName = user.fullName ?? '';  // Perbaikan di sini
-        token.role = user.role ?? '';  // Perbaikan di sini
+        token.email = user.email ?? ''; // Perbaikan di sini
+        token.fullName = user.fullName ?? ''; // Perbaikan di sini
+        token.role = user.role ?? ''; // Perbaikan di sini
       }
       if (account?.provider === 'google' && user) {
         const dbUser = await prisma.user.upsert({
-          where: { email: user.email ?? '' },  // Perbaikan di sini
+          where: { email: user.email ?? '' }, // Perbaikan di sini
           update: {},
           create: {
             email: user.email ?? '',
@@ -62,16 +62,16 @@ const authOption: NextAuthOptions = {
             password: '' // or any default value as per your requirement
           }
         });
-        token.email = dbUser.email ?? '';  // Perbaikan di sini
-        token.fullName = dbUser.fullName ?? '';  // Perbaikan di sini
-        token.role = dbUser.role ?? '';  // Perbaikan di sini
+        token.email = dbUser.email ?? ''; // Perbaikan di sini
+        token.fullName = dbUser.fullName ?? ''; // Perbaikan di sini
+        token.role = dbUser.role ?? ''; // Perbaikan di sini
       }
       return token;
     },
     async session({ session, token }) {
-      session.user.email = token.email as string;  // Perbaikan di sini
-      session.user.role = token.role as string;  // Perbaikan di sini
-      session.user.fullName = token.fullName as string | undefined;  // Perbaikan di sini
+      session.user.email = token.email as string; // Perbaikan di sini
+      session.user.role = token.role as string; // Perbaikan di sini
+      session.user.fullName = token.fullName as string | undefined; // Perbaikan di sini
       return session;
     }
   }
