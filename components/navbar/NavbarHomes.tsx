@@ -37,14 +37,14 @@ export default function Navbar() {
           {status === 'authenticated' ? (
             <DropdownMenu.Root>
               <DropdownMenu.Trigger>
-                  <Image
-                    className="rounded-full text-dark dark:fill-current dark:text-gray-100"
-                    alt="profile"
-                    src={session?.user?.image ?? '/profile-circle-svgrepo-com.svg'}
-                    width={50}
-                    height={50}
-                  />
-                  <DropdownMenu.TriggerIcon />
+                <Image
+                  className="rounded-full text-dark dark:fill-current dark:text-gray-100"
+                  alt="profile"
+                  src={session?.user?.image ?? '/profile-circle-svgrepo-com.svg'}
+                  width={50}
+                  height={50}
+                />
+                <DropdownMenu.TriggerIcon />
               </DropdownMenu.Trigger>
               <DropdownMenu.Content className="text-center">
                 <DropdownMenu.Item>{session?.user?.name ?? session?.user?.fullName ?? 'Guest'}</DropdownMenu.Item>
