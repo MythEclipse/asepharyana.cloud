@@ -1,7 +1,10 @@
-import { Discord, Facebook, Instagram, Linkedln } from '@/components/logo/svg';
+import Instagram  from '@/components/logo/Instagram';
+import Facebook from '@/components/logo/Facebook';
+import Linkedln from '@/components/logo/Linkedln';
+import Discord from '@/components/logo/Discord';
 import Link from 'next/link';
 
-export default function Home() {
+export default function Page() {
   return (
     <section id="about" className="pb-32 pt-36 bg-lighta dark:bg-darkb">
       <div className="container">
