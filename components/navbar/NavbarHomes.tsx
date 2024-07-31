@@ -37,16 +37,17 @@ export default function Navbar() {
           {status === 'authenticated' ? (
             <DropdownMenu.Root>
               <DropdownMenu.Trigger>
-                <Image
-                  className="rounded-full text-dark dark:fill-current dark:text-gray-100"
-                  alt="profile"
-                  src={session?.user?.image ?? '/profile-circle-svgrepo-com.svg'}
-                  width={50}
-                  height={50}
-                />
-                <DropdownMenu.TriggerIcon />
+                <button className='invisible'>
+                  <Image
+                    className="rounded-full text-dark dark:fill-current dark:text-gray-100"
+                    alt="profile"
+                    src={session?.user?.image ?? '/profile-circle-svgrepo-com.svg'}
+                    width={50}
+                    height={50}
+                  />
+                </button>
               </DropdownMenu.Trigger>
-              <DropdownMenu.Content className="text-center">
+              <DropdownMenu.Content>
                 <DropdownMenu.Item>{session?.user?.name ?? session?.user?.fullName ?? 'Guest'}</DropdownMenu.Item>
                 <DropdownMenu.Item>{session?.user?.email ?? 'Guest'}</DropdownMenu.Item>
                 <DropdownMenu.Separator />
@@ -114,21 +115,10 @@ export default function Navbar() {
                     pathname === '/portfolio' ? 'font-semibold text-primary-600' : 'text-gray-900 dark:text-gray-100'
                   } block rounded px-3 py-2 transition duration-300 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:text-white`}
                 >
-                  portfolio
+                  Portfolio
                 </span>
               </Link>
             </li>
-            {/* <li>
-              <Link href='/contact'>
-                <span
-                  className={`${
-                    pathname === '/contact' ? 'font-semibold text-primary-600' : 'text-gray-900 dark:text-gray-100'
-                  } block rounded px-3 py-2 transition duration-300 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:text-white`}
-                >
-                  Contact
-                </span>
-              </Link>
-            </li> */}
           </ul>
         </div>
       </div>
