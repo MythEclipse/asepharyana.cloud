@@ -1,4 +1,4 @@
-import Instagram  from '@/components/logo/Instagram';
+import Instagram from '@/components/logo/Instagram';
 import Facebook from '@/components/logo/Facebook';
 import Linkedln from '@/components/logo/Linkedln';
 import Discord from '@/components/logo/Discord';
