@@ -37,7 +37,7 @@ export default function Navbar() {
           {status === 'authenticated' ? (
             <DropdownMenu.Root>
               <DropdownMenu.Trigger>
-                <button className="invisible">
+                <button>
                   <Image
                     className="rounded-full text-dark dark:fill-current dark:text-gray-100"
                     alt="profile"
