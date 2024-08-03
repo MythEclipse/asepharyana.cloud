@@ -12,6 +12,7 @@ import { GoogleAnalytics } from '@next/third-parties/google';
 import type { CustomFlowbiteTheme } from 'flowbite-react';
 import { Theme } from '@radix-ui/themes';
 import { Inter } from 'next/font/google';
+import Providers from './providers'; // Import Providers
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
@@ -22,6 +23,7 @@ const customTheme: CustomFlowbiteTheme = {
     }
   }
 };
+
 export const metadata: Metadata = {
   title: 'Asep Haryana Saputra',
   description: 'Website pribadi milik Asep Haryana Saputra,ini adalah halaman utama pada website ini',
@@ -67,6 +69,7 @@ export const metadata: Metadata = {
     creator: '@asepharyana71'
   }
 };
+
 export default function RootLayout({
   children
 }: Readonly<{
@@ -88,10 +91,12 @@ export default function RootLayout({
               <Theme accentColor="blue" grayColor="gray" panelBackground="solid" radius="large">
                 <NavbarWrapper />
                 <Flowbite theme={{ theme: customTheme }}>
-                  <div className="mt-5 max-w-full px-3 pb-10 pt-56 sm:px-6 lg:px-8">
-                    {children}
-                    <DarkThemeToggle className="fixed bottom-0 z-10" />
-                  </div>
+                  <Providers> {/* Wrap children with Providers */}
+                    <div className="mt-5 max-w-full px-3 pb-10 pt-56 sm:px-6 lg:px-8">
+                      {children}
+                      <DarkThemeToggle className="fixed bottom-0 z-10" />
+                    </div>
+                  </Providers>
                 </Flowbite>
               </Theme>
             </body>
