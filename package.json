@@ -39,6 +39,7 @@
     "@uiw/react-md-editor": "^4.0.4",
     "axios": "^1.7.2",
     "bcrypt": "^5.1.1",
+    "cheerio": "1.0.0-rc.12",
     "classnames": "^2.5.1",
     "dotenv": "^16.4.5",
     "easymde": "^2.18.0",

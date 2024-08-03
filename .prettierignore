@@ -31,7 +31,7 @@ out/
 .idx/
 # Direktori publik
 public/
-
+.devcontainer/
 # Direktori dependensi
 node_modules/
 
