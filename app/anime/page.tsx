@@ -37,10 +37,7 @@ export default async function AnimePage() {
   return (
     <main className="p-6">
       <h1 className="text-2xl font-bold mb-4">Latest Ongoing Anime</h1>
-      <Grid
-        columns={{ sm: "1", md: "2", lg: "3" }}
-        gap="4"
-      >
+      <Grid columns={{ sm: '1', md: '2', lg: '3' }} gap="4">
         {homeData.data.ongoing_anime.map((anime) => (
           <Card key={anime.slug} className="shadow-lg rounded-lg overflow-hidden flex flex-col items-center p-4">
             <Image
@@ -74,10 +71,7 @@ export default async function AnimePage() {
       </Grid>
 
       <h1 className="text-2xl font-bold mt-8 mb-4">Currently Finished Anime</h1>
-      <Grid
-        columns={{ sm: "1", md: "2", lg: "3" }}
-        gap="4"
-      >
+      <Grid columns={{ sm: '1', md: '2', lg: '3' }} gap="4">
         {homeData.data.complete_anime.map((anime) => (
           <Card key={anime.slug} className="shadow-lg rounded-lg overflow-hidden flex flex-col items-center p-4">
             <Image

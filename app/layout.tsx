@@ -91,7 +91,9 @@ export default function RootLayout({
               <Theme accentColor="blue" grayColor="gray" panelBackground="solid" radius="large">
                 <NavbarWrapper />
                 <Flowbite theme={{ theme: customTheme }}>
-                  <Providers> {/* Wrap children with Providers */}
+                  <Providers>
+                    {' '}
+                    {/* Wrap children with Providers */}
                     <div className="mt-5 max-w-full px-3 pb-10 pt-56 sm:px-6 lg:px-8">
                       {children}
                       <DarkThemeToggle className="fixed bottom-0 z-10" />
