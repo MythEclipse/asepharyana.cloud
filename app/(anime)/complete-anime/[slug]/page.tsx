@@ -36,7 +36,7 @@ interface DetailAnimePageProps {
 }
 
 export default async function AnimePage({ params }: DetailAnimePageProps) {
-  const BASEURL = process.env.ANIME || 'https://otakudesu-unofficial-api.vercel.app/';
+  const BASEURL = process.env.ANIME || 'https://otakudesu-unofficial-api.vercel.app';
   let homeData: HomeData;
 
   try {

@@ -1,6 +1,6 @@
 import '@radix-ui/themes/styles.css';
 import type { Metadata } from 'next';
-import React from 'react';
+import React, { Suspense } from 'react';
 import './globals.css';
 import NavbarWrapper from '../components/navbar/NavbarHomes';
 import { ViewTransitions } from 'next-view-transitions';
@@ -13,7 +13,7 @@ import type { CustomFlowbiteTheme } from 'flowbite-react';
 import { Theme } from '@radix-ui/themes';
 import { Inter } from 'next/font/google';
 import Providers from './providers'; // Import Providers
-
+import Loading from '@/components/loading';
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
 const customTheme: CustomFlowbiteTheme = {
@@ -135,7 +135,9 @@ export default function RootLayout({
                     {' '}
                     {/* Wrap children with Providers */}
                     <div className="mt-5 max-w-full px-3 pb-10 pt-56 sm:px-6 lg:px-8">
+                    <Suspense fallback={<Loading />}>
                       {children}
+                    </Suspense>
                       <DarkThemeToggle className="fixed bottom-0 z-10" />
                     </div>
                   </Providers>
