@@ -20,7 +20,7 @@ interface AnimeGridProps {
 
 const AnimeGrid: React.FC<AnimeGridProps> = ({ animes }) => {
   return (
-    <Grid columns={{ sm: '1', md: '2', lg: '3' }} gap="4">
+    <Grid columns={{ sm: '1', md: '3', lg: '5' }} gap="4">
       {animes.map((anime) => (
         <Card key={anime.slug} className="shadow-lg rounded-lg overflow-hidden flex flex-col items-center p-4">
           <Image src={anime.poster} alt={anime.title} width={460} height={651} className="object-cover w-full h-auto" />
