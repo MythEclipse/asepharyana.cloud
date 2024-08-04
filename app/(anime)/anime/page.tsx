@@ -38,7 +38,7 @@ export default async function AnimePage() {
   return (
     <main className="p-6">
       <Link href={'/ongoing-anime/1'}>
-      <h1 className="text-2xl font-bold mb-4">Latest Ongoing Anime</h1>
+        <h1 className="text-2xl font-bold mb-4">Latest Ongoing Anime</h1>
       </Link>
       <Grid columns={{ sm: '1', md: '3', lg: '5' }} gap="4">
         {homeData.data.ongoing_anime.map((anime) => (
