@@ -1,7 +1,5 @@
 export async function getData(url: string) {
-  const res = await fetch(url, {
-    cache: 'force-cache'
-  });
+  const res = await fetch(url, { next: { revalidate: 3600 } });
 
   if (!res.ok) {
     throw new Error('Failed to fetch data');

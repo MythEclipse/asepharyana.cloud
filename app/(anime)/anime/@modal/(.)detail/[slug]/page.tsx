@@ -179,9 +179,11 @@ export default async function DetailProductPage(props: DetailProductPageProps) {
               <li key={episode.slug} className="mb-1">
                 <Link
                   key={episode.slug}
-                  href={`/anime/${episode.slug}/episodes/`}
+                  href={`/anime/full/${episode.slug}`}
                   className="text-blue-600 hover:underline"
-                />
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >{episode.slug}</Link>
               </li>
             ))}
           </ul>

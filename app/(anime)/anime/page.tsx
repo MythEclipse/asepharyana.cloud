@@ -23,7 +23,7 @@ interface Anime {
 
 async function fetchHomeData(): Promise<HomeData> {
   const BASEURL = process.env.ANIME || 'https://otakudesu-unofficial-api.vercel.app/';
-  const res = await fetch(`${BASEURL}/v1/home`);
+  const res = await fetch(`${BASEURL}/v1/home`,{ next: { revalidate: 3600 } });
 
   if (!res.ok) {
     throw new Error('Failed to fetch data');
