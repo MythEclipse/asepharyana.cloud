@@ -59,9 +59,8 @@ export default async function AnimePage() {
                 {anime.release_day} - {anime.newest_release_date}
               </Text>
               <Link
+                key={anime.slug}
                 href={`/anime/detail/${anime.slug}`}
-                target="_blank"
-                rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
               >
                 Detail
@@ -93,9 +92,8 @@ export default async function AnimePage() {
                 {anime.release_day} - {anime.newest_release_date}
               </Text>
               <Link
+                key={anime.slug}
                 href={`/anime/detail/${anime.slug}`}
-                target="_blank"
-                rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
               >
                 Detail

@@ -14,7 +14,7 @@ export default async function DetailProductPage(props: any) {
         height="0"
         sizes="100vw"
       />
-      <div className="x-6 bg-white p-4">
+      <div className="x-6 p-4">
         <h3>{data.title}</h3>
         <p>price : ${data.price}</p>
       </div>
