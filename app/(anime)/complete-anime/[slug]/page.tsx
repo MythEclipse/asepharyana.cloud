@@ -31,7 +31,7 @@ interface Pagination {
 
 interface DetailAnimePageProps {
   params: {
-    page: string;
+    slug: string;
   };
 }
 
@@ -40,8 +40,7 @@ export default async function AnimePage({ params }: DetailAnimePageProps) {
   let homeData: HomeData;
 
   try {
-    homeData = await getData(`${BASEURL}/v1/complete-anime/${params.page}`);
-    console.log('API Response:', homeData); // Log the API response
+    homeData = await getData(`${BASEURL}/v1/complete-anime/${params.slug}`);
   } catch (error) {
     console.error('Failed to fetch data:', error);
     return (
@@ -74,12 +73,12 @@ const PaginationComponent = ({ pagination }: { pagination: Pagination }) => {
   return (
     <div className="flex justify-between mt-8">
       {pagination.has_previous_page && pagination.previous_page !== null && (
-        <Link href={`/anime/page/${pagination.previous_page}`} className="text-blue-600 hover:underline">
+        <Link href={`/complete-anime/${pagination.previous_page}`} className="text-blue-600 hover:underline">
           Previous
         </Link>
       )}
       {pagination.has_next_page && pagination.next_page !== null && (
-        <Link href={`/anime/page/${pagination.next_page}`} className="text-blue-600 hover:underline">
+        <Link href={`/complete-anime/${pagination.next_page}`} className="text-blue-600 hover:underline">
           Next
         </Link>
       )}
