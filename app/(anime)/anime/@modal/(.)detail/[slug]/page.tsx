@@ -177,7 +177,11 @@ export default async function DetailProductPage(props: DetailProductPageProps) {
           <ul className="list-disc ml-6">
             {Anime.data.episode_lists.map((episode) => (
               <li key={episode.slug} className="mb-1">
-                <Link key={episode.slug} href={`/anime/${episode.slug}/episodes/`} className="text-blue-600 hover:underline"/>
+                <Link
+                  key={episode.slug}
+                  href={`/anime/${episode.slug}/episodes/`}
+                  className="text-blue-600 hover:underline"
+                />
               </li>
             ))}
           </ul>
@@ -200,7 +204,11 @@ export default async function DetailProductPage(props: DetailProductPageProps) {
                   height={150}
                 />
                 <Text size="2" className="text-center">
-                <Link key={recommendation.slug} href={`/anime/detail/${recommendation.slug}`} className="text-blue-600 hover:underline"/>
+                  <Link
+                    key={recommendation.slug}
+                    href={`/anime/detail/${recommendation.slug}`}
+                    className="text-blue-600 hover:underline"
+                  />
                 </Text>
               </Flex>
             ))}
