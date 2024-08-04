@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { Card, Box, Flex, Text, Grid } from '@radix-ui/themes';
+import Link from 'next/link';
 
 interface HomeData {
   status: string;
@@ -57,14 +58,14 @@ export default async function AnimePage() {
               <Text as="div" size="2" color="gray" className="mb-2">
                 {anime.release_day} - {anime.newest_release_date}
               </Text>
-              <a
-                href={anime.otakudesu_url}
+              <Link
+                href={`/anime/detail/${anime.slug}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
               >
-                Watch Now
-              </a>
+                Detail
+              </Link>
             </Box>
           </Card>
         ))}
@@ -91,14 +92,14 @@ export default async function AnimePage() {
               <Text as="div" size="2" color="gray" className="mb-2">
                 {anime.release_day} - {anime.newest_release_date}
               </Text>
-              <a
-                href={anime.otakudesu_url}
+              <Link
+                href={`/anime/detail/${anime.slug}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
               >
-                Watch Now
-              </a>
+                Detail
+              </Link>
             </Box>
           </Card>
         ))}
