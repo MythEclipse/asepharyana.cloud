@@ -1,7 +1,6 @@
 import { getData } from '../../../../../components/core/GetData/GetData';
-import Image from 'next/image';
-import ModalWrapper from '../../../../../components/core/modal';
 import Link from 'next/link';
+import { Button } from '@radix-ui/themes';
 
 interface AnimeResponse {
   status: string;
@@ -54,21 +53,25 @@ export default async function DetailAnimePage(props: DetailAnimePageProps) {
   const Anime: AnimeResponse = await getData(`${BASEURL}/v1/episode/${params.slug}`);
 
   if (Anime.status !== 'Ok') {
-    return <div>Error loading anime details</div>;
+    return (
+      <div className="p-4 max-w-screen-md mx-auto">
+        <p className="text-red-500">Error loading anime details</p>
+      </div>
+    );
   }
 
   return (
-    <div className="p-4 max-w-screen-md mx-auto">
-      <h1 className="text-4xl font-bold">{Anime.data.episode}</h1>
-      <hr className="my-4" />
+    <div className="p-4 max-w-screen-md mx-auto bg-white-100 dark:bg-darkb rounded-lg shadow-lg">
+      <h1 className="text-4xl font-bold text-white-900">{Anime.data.episode}</h1>
+      <hr className="my-4 border-white-300" />
 
-      <p className="text-lg">
+      <p className="text-lg text-white-700">
         Anime:{' '}
         <Link
           href={`/anime/detail/${Anime.data.anime.slug}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-blue-500 underline"
+          className="text-blue-600 underline hover:text-blue-800"
         >
           {Anime.data.anime.slug}
         </Link>
@@ -76,12 +79,12 @@ export default async function DetailAnimePage(props: DetailAnimePageProps) {
 
       <div className="flex flex-col gap-2 mt-4">
         {Anime.data.stream_url && (
-          <p className="text-lg">
+          <p className="text-lg text-white-700">
             <a
               href={Anime.data.stream_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-500 underline"
+              className="text-blue-600 underline hover:text-blue-800"
             >
               Watch Stream
             </a>
@@ -89,48 +92,42 @@ export default async function DetailAnimePage(props: DetailAnimePageProps) {
         )}
 
         {Anime.data.next_episode && (
-          <p className="text-lg">
+          <p className="text-lg text-white-700">
             Next Episode:{' '}
-            <Link
-              href={`/anime/full/${Anime.data.next_episode.slug}`}
-              className="text-blue-500 underline"
-            >
+            <Link href={`/anime/full/${Anime.data.next_episode.slug}`} className="text-blue-600 underline hover:text-blue-800">
               {Anime.data.next_episode.slug}
             </Link>
           </p>
         )}
 
         {Anime.data.previous_episode && (
-          <p className="text-lg">
+          <p className="text-lg text-white-700">
             Previous Episode:{' '}
-            <Link
-              href={`/anime/full/${Anime.data.previous_episode.slug}`}
-              className="text-blue-500 underline"
-            >
+            <Link href={`/anime/full/${Anime.data.previous_episode.slug}`} className="text-blue-600 underline hover:text-blue-800">
               {Anime.data.previous_episode.slug}
             </Link>
           </p>
         )}
       </div>
 
-      <hr className="my-4" />
+      <hr className="my-4 border-white-300 dark:border-darka" />
 
-      <h2 className="text-3xl font-semibold mt-4">Download Links</h2>
+      <h2 className="text-3xl font-semibold mt-4 text-white-900">Download Links</h2>
       <div className="flex flex-col gap-2 mt-2">
         {Object.entries(Anime.data.download_urls).map(([format, resolutions]) => (
-          <div key={format}>
-            <p className="text-lg font-medium">{format.toUpperCase()}</p>
+          <div key={format} className="bg-white dark:bg-dark p-4 rounded-lg shadow-md">
+            <p className="text-lg font-medium text-white-800">{format.toUpperCase()}</p>
             {resolutions.map((resolution: VideoResolution, resolutionIdx: number) => (
               <div key={resolutionIdx} className="mt-2">
-                <p className="text-lg">{resolution.resolution}</p>
+                <p className="text-lg text-white-700">{resolution.resolution}</p>
                 <div className="flex flex-col gap-1 mt-1">
                   {resolution.urls.map((urlObj: DownloadUrl, urlIdx: number) => (
-                    <p key={urlIdx} className="text-lg">
+                    <p key={urlIdx} className="text-lg text-white-700">
                       <a
                         href={urlObj.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-blue-500 underline"
+                        className="text-blue-600 underline hover:text-blue-800"
                       >
                         {urlObj.provider}
                       </a>
