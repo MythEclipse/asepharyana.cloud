@@ -41,7 +41,7 @@ export default async function AnimePage({ params }: DetailAnimePageProps) {
 
   try {
     homeData = await getData(`${BASEURL}/v1/complete-anime/${params.page}`);
-    console.log('API Response:', homeData);  // Log the API response
+    console.log('API Response:', homeData); // Log the API response
   } catch (error) {
     console.error('Failed to fetch data:', error);
     return (
