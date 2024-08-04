@@ -58,11 +58,7 @@ export default async function AnimePage() {
               <Text as="div" size="2" color="gray" className="mb-2">
                 {anime.release_day} - {anime.newest_release_date}
               </Text>
-              <Link
-                key={anime.slug}
-                href={`/anime/detail/${anime.slug}`}
-                className="text-blue-600 hover:underline"
-              >
+              <Link key={anime.slug} href={`/anime/detail/${anime.slug}`} className="text-blue-600 hover:underline">
                 Detail
               </Link>
             </Box>
@@ -91,11 +87,7 @@ export default async function AnimePage() {
               <Text as="div" size="2" color="gray" className="mb-2">
                 {anime.release_day} - {anime.newest_release_date}
               </Text>
-              <Link
-                key={anime.slug}
-                href={`/anime/detail/${anime.slug}`}
-                className="text-blue-600 hover:underline"
-              >
+              <Link key={anime.slug} href={`/anime/detail/${anime.slug}`} className="text-blue-600 hover:underline">
                 Detail
               </Link>
             </Box>

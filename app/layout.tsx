@@ -16,7 +16,6 @@ import Providers from './providers'; // Import Providers
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
-
 const customTheme: CustomFlowbiteTheme = {
   button: {
     color: {
@@ -63,8 +62,7 @@ const customTheme: CustomFlowbiteTheme = {
   }
   // Tambahkan komponen lain yang ingin Anda kustomisasi di sini
 };
-  // Tambahkan komponen lain yang ingin Anda kustomisasi di sini
-
+// Tambahkan komponen lain yang ingin Anda kustomisasi di sini
 
 export const metadata: Metadata = {
   title: 'Asep Haryana Saputra',

@@ -79,19 +79,17 @@ export default async function DetailProductPage(props: DetailProductPageProps) {
             {Anime.data.title}
           </Heading>
           <ul className="list-disc ml-6">
-
             <li className="mb-1">
-
               <Text size="2" weight="bold" className="mb-1">
                 Japanese Title: {Anime.data.japanese_title}
               </Text>
-            </li><li className="mb-1">
-
+            </li>
+            <li className="mb-1">
               <Text size="2" weight="bold" className="mb-1">
                 Rating: {Anime.data.rating}
               </Text>
-            </li><li className="mb-1">
-
+            </li>
+            <li className="mb-1">
               <Text size="2" className="mb-1">
                 Produser: {Anime.data.produser}
               </Text>
@@ -163,7 +161,8 @@ export default async function DetailProductPage(props: DetailProductPageProps) {
             <Text size="2">
               <a href={Anime.data.batch.otakudesu_url} className="text-blue-500 underline">
                 {Anime.data.batch.slug}
-              </a> - {Anime.data.batch.uploaded_at}
+              </a>{' '}
+              - {Anime.data.batch.uploaded_at}
             </Text>
           </Box>
         )}
