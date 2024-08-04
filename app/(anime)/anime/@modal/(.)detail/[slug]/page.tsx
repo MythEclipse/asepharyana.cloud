@@ -1,8 +1,9 @@
 // DetailProductPage.tsx
-import { getData } from '../../../../../components/core/GetData/GetData';
+import { getData } from '../../../../../../components/core/GetData/GetData';
 import Image from 'next/image';
-import ModalWrapper from '../../../../../components/core/modal';
+import ModalWrapper from '../../../../../../components/core/modal';
 import { Box, Text, Heading, Separator, Flex } from '@radix-ui/themes';
+import Link from 'next/link';
 
 interface Genre {
   name: string;
@@ -176,9 +177,7 @@ export default async function DetailProductPage(props: DetailProductPageProps) {
           <ul className="list-disc ml-6">
             {Anime.data.episode_lists.map((episode) => (
               <li key={episode.slug} className="mb-1">
-                <a href={episode.otakudesu_url} className="text-blue-500 underline">
-                  {episode.episode}
-                </a>
+                <Link key={episode.slug} href={`/anime/${episode.slug}/episodes/`} className="text-blue-600 hover:underline"/>
               </li>
             ))}
           </ul>
@@ -201,9 +200,7 @@ export default async function DetailProductPage(props: DetailProductPageProps) {
                   height={150}
                 />
                 <Text size="2" className="text-center">
-                  <a href={recommendation.otakudesu_url} className="text-blue-500 underline">
-                    {recommendation.title}
-                  </a>
+                <Link key={recommendation.slug} href={`/anime/detail/${recommendation.slug}`} className="text-blue-600 hover:underline"/>
                 </Text>
               </Flex>
             ))}
