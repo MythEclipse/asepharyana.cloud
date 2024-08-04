@@ -183,7 +183,9 @@ export default async function DetailProductPage(props: DetailProductPageProps) {
                   className="text-blue-600 hover:underline"
                   target="_blank"
                   rel="noopener noreferrer"
-                >{episode.slug}</Link>
+                >
+                  {episode.slug}
+                </Link>
               </li>
             ))}
           </ul>
