@@ -93,8 +93,6 @@ export default async function DetailAnimePage(props: DetailAnimePageProps) {
             Next Episode:{' '}
             <Link
               href={`/anime/full/${Anime.data.next_episode.slug}`}
-              target="_blank"
-              rel="noopener noreferrer"
               className="text-blue-500 underline"
             >
               {Anime.data.next_episode.slug}
@@ -107,8 +105,6 @@ export default async function DetailAnimePage(props: DetailAnimePageProps) {
             Previous Episode:{' '}
             <Link
               href={`/anime/full/${Anime.data.previous_episode.slug}`}
-              target="_blank"
-              rel="noopener noreferrer"
               className="text-blue-500 underline"
             >
               {Anime.data.previous_episode.slug}
