@@ -1,5 +1,5 @@
 // app/anime/search/SearchComponent.tsx
-"use client";
+'use client';
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -25,10 +25,7 @@ const SearchComponent: React.FC = () => {
           onChange={(e) => setQuery(e.target.value)}
           className="p-2 border rounded"
         />
-        <button
-          type="submit"
-          className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
-        >
+        <button type="submit" className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600">
           Search
         </button>
       </div>

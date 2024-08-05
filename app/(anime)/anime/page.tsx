@@ -38,9 +38,9 @@ export default async function AnimePage() {
   return (
     <main className="p-6">
       <div className="text-2xl font-bold mt-8 mb-4">
-      <Link href={'/anime/ongoing-anime/1'}>
-        <Button size="3" >Latest Ongoing Anime</Button>
-      </Link>
+        <Link href={'/anime/ongoing-anime/1'}>
+          <Button size="3">Latest Ongoing Anime</Button>
+        </Link>
       </div>
       <Grid columns={{ sm: '3', md: '5', lg: '7' }} gap="4">
         {homeData.data.ongoing_anime.map((anime) => (
@@ -53,11 +53,11 @@ export default async function AnimePage() {
               className="object-cover w-full h-auto"
             />
             <Box className="mt-4 text-center">
-            <Link href={`/anime/detail/${anime.slug}`} className="text-blue-600 hover:underline">
-            <Text as="div" size="2" weight="bold" className="text-lg mb-2">
-              {anime.title}
-            </Text>
-            </Link>
+              <Link href={`/anime/detail/${anime.slug}`} className="text-blue-600 hover:underline">
+                <Text as="div" size="2" weight="bold" className="text-lg mb-2">
+                  {anime.title}
+                </Text>
+              </Link>
               <Text as="div" size="2" color="gray" className="mb-2">
                 {anime.current_episode}
               </Text>
@@ -69,9 +69,9 @@ export default async function AnimePage() {
         ))}
       </Grid>
       <div className="text-2xl font-bold mt-8 mb-4">
-      <Link href={'/anime/complete-anime/1'}>
-        <Button size="3" >Latest complete Anime</Button>
-      </Link>
+        <Link href={'/anime/complete-anime/1'}>
+          <Button size="3">Latest complete Anime</Button>
+        </Link>
       </div>
       <Grid columns={{ sm: '3', md: '5', lg: '7' }} gap="4">
         {homeData.data.complete_anime.map((anime) => (
@@ -84,10 +84,10 @@ export default async function AnimePage() {
               className="object-cover w-full h-auto"
             />
             <Box className="mt-4 text-center">
-            <Link key={anime.slug} href={`/anime/detail/${anime.slug}`} className="text-blue-600 hover:underline">
-              <Text as="div" size="2" weight="bold" className="text-lg mb-2">
-                {anime.title}
-              </Text>
+              <Link key={anime.slug} href={`/anime/detail/${anime.slug}`} className="text-blue-600 hover:underline">
+                <Text as="div" size="2" weight="bold" className="text-lg mb-2">
+                  {anime.title}
+                </Text>
               </Link>
               <Text as="div" size="2" color="gray" className="mb-2">
                 {anime.current_episode}
@@ -95,7 +95,6 @@ export default async function AnimePage() {
               <Text as="div" size="2" color="gray" className="mb-2">
                 {anime.release_day} - {anime.newest_release_date}
               </Text>
-              
             </Box>
           </Card>
         ))}

@@ -63,22 +63,26 @@ const SearchPage = async ({ params }: DetailAnimePageProps) => {
                 </Text>
               </Link>
               {anime.poster && (
-                <Image src={anime.poster} alt={anime.title || 'Anime Poster'} width={200} height={300} className="mb-2" />
+                <Image
+                  src={anime.poster}
+                  alt={anime.title || 'Anime Poster'}
+                  width={200}
+                  height={300}
+                  className="mb-2"
+                />
               )}
               {anime.genres && (
                 <div className="text-sm mb-2">
                   {anime.genres.map((genre) => (
                     <Link href={`/anime/genre/${genre.slug}`} key={genre.slug}>
-                    <Button key={genre.slug} className="">
-                      {genre.name}
-                    </Button>
+                      <Button key={genre.slug} className="">
+                        {genre.name}
+                      </Button>
                     </Link>
                   ))}
                 </div>
               )}
-              {anime.rating && (
-                <div className="text-sm text-gray-600 mb-2">Rating: {anime.rating}</div>
-              )}
+              {anime.rating && <div className="text-sm text-gray-600 mb-2">Rating: {anime.rating}</div>}
             </Box>
           </Card>
         ))}

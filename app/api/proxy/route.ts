@@ -20,7 +20,7 @@ export async function GET(request: Request) {
     $('.box_item_ads_popup').remove();
 
     return new NextResponse($.html(), {
-      headers: { 'Content-Type': 'text/html' },
+      headers: { 'Content-Type': 'text/html' }
     });
   } catch (error) {
     return NextResponse.json({ error: 'Failed to fetch page' }, { status: 500 });

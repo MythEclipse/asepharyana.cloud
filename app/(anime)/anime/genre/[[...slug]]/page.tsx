@@ -130,7 +130,13 @@ const GenrePage = async ({ params }: DetailAnimePageProps) => {
   );
 };
 
-const PaginationComponent = ({ pagination, params }: { pagination: Pagination; params: DetailAnimePageProps['params'] }) => {
+const PaginationComponent = ({
+  pagination,
+  params
+}: {
+  pagination: Pagination;
+  params: DetailAnimePageProps['params'];
+}) => {
   const { slug } = params;
   const genreSlug = slug[0];
   const currentPage = slug[1] ? parseInt(slug[1], 10) : 1;
@@ -139,20 +145,19 @@ const PaginationComponent = ({ pagination, params }: { pagination: Pagination; p
     <div className="flex justify-between mt-8">
       {pagination.has_previous_page && pagination.previous_page !== null && (
         <div className="text-2xl font-bold mt-8 mb-4">
-        <Link href={`/anime/genre/${genreSlug}${currentPage > 2 ? `/${currentPage - 1}` : ''}`} className="text-blue-600 hover:underline">
-         <Button size="3" >
-          Previous
-         </Button>
-        </Link>
+          <Link
+            href={`/anime/genre/${genreSlug}${currentPage > 2 ? `/${currentPage - 1}` : ''}`}
+            className="text-blue-600 hover:underline"
+          >
+            <Button size="3">Previous</Button>
+          </Link>
         </div>
       )}
       {pagination.has_next_page && pagination.next_page !== null && (
         <div className="text-2xl font-bold mt-8 mb-4">
-        <Link href={`/anime/genre/${genreSlug}/${currentPage + 1}`} className="text-blue-600 hover:underline">
-        <Button size="3" >
-          Next
-          </Button>
-        </Link>
+          <Link href={`/anime/genre/${genreSlug}/${currentPage + 1}`} className="text-blue-600 hover:underline">
+            <Button size="3">Next</Button>
+          </Link>
         </div>
       )}
     </div>

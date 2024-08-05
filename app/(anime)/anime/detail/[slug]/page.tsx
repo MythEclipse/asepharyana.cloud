@@ -200,15 +200,15 @@ export default async function DetailAnimePage(props: DetailAnimePageProps) {
                 width={100}
                 height={150}
               />
-                <Link
-                  key={recommendation.slug}
-                  href={`/anime/detail/${recommendation.slug}`}
-                  className="text-blue-600 hover:underline"
-                >
-              <Text size="2" className="text-center">
+              <Link
+                key={recommendation.slug}
+                href={`/anime/detail/${recommendation.slug}`}
+                className="text-blue-600 hover:underline"
+              >
+                <Text size="2" className="text-center">
                   {recommendation.title}
-              </Text>
-                </Link>
+                </Text>
+              </Link>
             </Flex>
           ))}
         </div>

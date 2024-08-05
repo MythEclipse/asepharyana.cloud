@@ -14,7 +14,6 @@ import Providers from './providers'; // Import Providers
 import Loading from '@/components/loading';
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
-
 export const metadata: Metadata = {
   title: 'Asep Haryana Saputra',
   description: 'Website pribadi milik Asep Haryana Saputra,ini adalah halaman utama pada website ini',
@@ -71,9 +70,7 @@ export default function RootLayout({
       <ViewTransitions>
         <SessionWrapper>
           <html suppressHydrationWarning lang="id" className={inter.className}>
-            <head>
-              {ThemeModeScript && <ThemeModeScript />}
-            </head>
+            <head>{ThemeModeScript && <ThemeModeScript />}</head>
             <body className="h-screen dark:bg-dark">
               <Theme accentColor="blue" grayColor="gray" panelBackground="solid" radius="large">
                 <NavbarWrapper />

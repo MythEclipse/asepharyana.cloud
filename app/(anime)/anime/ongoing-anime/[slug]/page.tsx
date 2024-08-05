@@ -75,20 +75,16 @@ const PaginationComponent = ({ pagination }: { pagination: Pagination }) => {
     <div className="flex justify-between mt-8">
       {pagination.has_previous_page && pagination.previous_page !== null && (
         <div className="text-2xl font-bold mt-8 mb-4">
-        <Link href={`/anime/ongoing-anime/${pagination.previous_page}`} className="text-blue-600 hover:underline">
-        <Button size="3" >
-          Previous
-          </Button>
-        </Link>
+          <Link href={`/anime/ongoing-anime/${pagination.previous_page}`} className="text-blue-600 hover:underline">
+            <Button size="3">Previous</Button>
+          </Link>
         </div>
       )}
       {pagination.has_next_page && pagination.next_page !== null && (
         <div className="text-2xl font-bold mt-8 mb-4">
-        <Link href={`/anime/ongoing-anime/${pagination.next_page}`} className="text-blue-600 hover:underline">
-        <Button size="3" >
-          Next
-          </Button>
-        </Link>
+          <Link href={`/anime/ongoing-anime/${pagination.next_page}`} className="text-blue-600 hover:underline">
+            <Button size="3">Next</Button>
+          </Link>
         </div>
       )}
     </div>

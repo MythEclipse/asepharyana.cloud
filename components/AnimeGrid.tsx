@@ -26,9 +26,9 @@ const AnimeGrid: React.FC<AnimeGridProps> = ({ animes }) => {
           <Image src={anime.poster} alt={anime.title} width={460} height={651} className="object-cover w-full h-auto" />
           <Box className="mt-4 text-center">
             <Link href={`/anime/detail/${anime.slug}`} className="text-blue-600 hover:underline">
-            <Text as="div" size="2" weight="bold" className="text-lg mb-2">
-              {anime.title}
-            </Text>
+              <Text as="div" size="2" weight="bold" className="text-lg mb-2">
+                {anime.title}
+              </Text>
             </Link>
             <Text as="div" size="2" color="gray" className="mb-2">
               Episodes: {anime.episode_count}
@@ -39,7 +39,6 @@ const AnimeGrid: React.FC<AnimeGridProps> = ({ animes }) => {
             <Text as="div" size="2" color="gray" className="mb-2">
               Last Release Date: {anime.last_release_date}
             </Text>
-            
           </Box>
         </Card>
       ))}

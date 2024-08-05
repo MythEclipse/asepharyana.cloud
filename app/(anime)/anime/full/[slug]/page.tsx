@@ -79,9 +79,7 @@ export default async function DetailAnimePage(props: DetailAnimePageProps) {
       </p>
 
       <div className="flex flex-col gap-2 mt-4">
-        {Anime.data.stream_url && (
-            <ClientPlayer url={Anime.data.stream_url} />
-        )}
+        {Anime.data.stream_url && <ClientPlayer url={Anime.data.stream_url} />}
         <div className="flex justify-between mt-8">
           {Anime.data.previous_episode && (
             <p className="text-lg text-white-700">
@@ -110,37 +108,30 @@ export default async function DetailAnimePage(props: DetailAnimePageProps) {
 
       <h2 className="text-3xl font-semibold mt-4 text-white-900">Download Links</h2>
       <div className="flex flex-col gap-4 mt-4">
-  {Object.entries(Anime.data.download_urls).map(([format, resolutions]) => (
-    <div key={format} className="bg-white dark:bg-dark p-4 rounded-lg shadow-lg">
-      <p className="text-lg font-semibold text-gray-900 dark:text-gray-100">{format.toUpperCase()}</p>
-      <div className="flex flex-col gap-3 mt-3">
-        {resolutions.map((resolution: VideoResolution, resolutionIdx: number) => (
-          <div key={resolutionIdx}>
-            <p className="text-md text-gray-800 dark:text-gray-300">{resolution.resolution}</p>
-            <Grid columns={{ sm: '1', md: '3', lg: '5' }} gap="4">
-              {resolution.urls.map((urlObj: DownloadUrl, urlIdx: number) => (
-                <p key={urlIdx} className="text-sm">
-                  <Button size="3" >
-
-                  <a
-                    href={urlObj.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className=""
-                    >
-                    {urlObj.provider}
-                  </a>
-                    </Button>
-                </p>
+        {Object.entries(Anime.data.download_urls).map(([format, resolutions]) => (
+          <div key={format} className="bg-white dark:bg-dark p-4 rounded-lg shadow-lg">
+            <p className="text-lg font-semibold text-gray-900 dark:text-gray-100">{format.toUpperCase()}</p>
+            <div className="flex flex-col gap-3 mt-3">
+              {resolutions.map((resolution: VideoResolution, resolutionIdx: number) => (
+                <div key={resolutionIdx}>
+                  <p className="text-md text-gray-800 dark:text-gray-300">{resolution.resolution}</p>
+                  <Grid columns={{ sm: '1', md: '3', lg: '5' }} gap="4">
+                    {resolution.urls.map((urlObj: DownloadUrl, urlIdx: number) => (
+                      <p key={urlIdx} className="text-sm">
+                        <Button size="3">
+                          <a href={urlObj.url} target="_blank" rel="noopener noreferrer" className="">
+                            {urlObj.provider}
+                          </a>
+                        </Button>
+                      </p>
+                    ))}
+                  </Grid>
+                </div>
               ))}
-            </Grid>
+            </div>
           </div>
         ))}
       </div>
-    </div>
-  ))}
-</div>
-
     </div>
   );
 }
