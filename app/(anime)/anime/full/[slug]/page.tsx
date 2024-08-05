@@ -1,6 +1,7 @@
 import { getData } from '../../../../../components/core/GetData/GetData';
 import Link from 'next/link';
-import { Button } from '@radix-ui/themes';
+import { Button, Grid } from '@radix-ui/themes';
+import ClientPlayer from '@/components/ClientPlayer';
 
 interface AnimeResponse {
   status: string;
@@ -79,72 +80,67 @@ export default async function DetailAnimePage(props: DetailAnimePageProps) {
 
       <div className="flex flex-col gap-2 mt-4">
         {Anime.data.stream_url && (
-          <p className="text-lg text-white-700">
-            <a
-              href={Anime.data.stream_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 underline hover:text-blue-800"
-            >
-              Watch Stream
-            </a>
-          </p>
+            <ClientPlayer url={Anime.data.stream_url} />
         )}
-
-        {Anime.data.next_episode && (
-          <p className="text-lg text-white-700">
-            Next Episode:{' '}
+        <div className="flex justify-between mt-8">
+          {Anime.data.previous_episode && (
+            <p className="text-lg text-white-700">
+              <Link
+                href={`/anime/full/${Anime.data.previous_episode.slug}`}
+                className="text-blue-600 underline hover:text-blue-800"
+              >
+                <Button size="3">Previous Episode</Button>
+              </Link>
+            </p>
+          )}
+          {Anime.data.next_episode && (
             <Link
               href={`/anime/full/${Anime.data.next_episode.slug}`}
               className="text-blue-600 underline hover:text-blue-800"
             >
-              {Anime.data.next_episode.slug}
+              <p className="text-lg text-white-700">
+                <Button size="3">Next Episode</Button>
+              </p>
             </Link>
-          </p>
-        )}
-
-        {Anime.data.previous_episode && (
-          <p className="text-lg text-white-700">
-            Previous Episode:{' '}
-            <Link
-              href={`/anime/full/${Anime.data.previous_episode.slug}`}
-              className="text-blue-600 underline hover:text-blue-800"
-            >
-              {Anime.data.previous_episode.slug}
-            </Link>
-          </p>
-        )}
+          )}
+        </div>
       </div>
 
       <hr className="my-4 border-white-300 dark:border-darka" />
 
       <h2 className="text-3xl font-semibold mt-4 text-white-900">Download Links</h2>
-      <div className="flex flex-col gap-2 mt-2">
-        {Object.entries(Anime.data.download_urls).map(([format, resolutions]) => (
-          <div key={format} className="bg-white dark:bg-dark p-4 rounded-lg shadow-md">
-            <p className="text-lg font-medium text-white-800">{format.toUpperCase()}</p>
-            {resolutions.map((resolution: VideoResolution, resolutionIdx: number) => (
-              <div key={resolutionIdx} className="mt-2">
-                <p className="text-lg text-white-700">{resolution.resolution}</p>
-                <div className="flex flex-col gap-1 mt-1">
-                  {resolution.urls.map((urlObj: DownloadUrl, urlIdx: number) => (
-                    <p key={urlIdx} className="text-lg text-white-700">
-                      <a
-                        href={urlObj.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-600 underline hover:text-blue-800"
-                      >
-                        {urlObj.provider}
-                      </a>
-                    </p>
-                  ))}
-                </div>
-              </div>
-            ))}
+      <div className="flex flex-col gap-4 mt-4">
+  {Object.entries(Anime.data.download_urls).map(([format, resolutions]) => (
+    <div key={format} className="bg-white dark:bg-dark p-4 rounded-lg shadow-lg">
+      <p className="text-lg font-semibold text-gray-900 dark:text-gray-100">{format.toUpperCase()}</p>
+      <div className="flex flex-col gap-3 mt-3">
+        {resolutions.map((resolution: VideoResolution, resolutionIdx: number) => (
+          <div key={resolutionIdx}>
+            <p className="text-md text-gray-800 dark:text-gray-300">{resolution.resolution}</p>
+            <Grid columns={{ sm: '1', md: '3', lg: '5' }} gap="4">
+              {resolution.urls.map((urlObj: DownloadUrl, urlIdx: number) => (
+                <p key={urlIdx} className="text-sm">
+                  <Button size="3" >
+
+                  <a
+                    href={urlObj.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className=""
+                    >
+                    {urlObj.provider}
+                  </a>
+                    </Button>
+                </p>
+              ))}
+            </Grid>
           </div>
         ))}
       </div>
+    </div>
+  ))}
+</div>
+
     </div>
   );
 }

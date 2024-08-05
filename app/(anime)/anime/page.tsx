@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { Card, Box, Flex, Text, Grid } from '@radix-ui/themes';
+import { Card, Box, Flex, Text, Grid, Button } from '@radix-ui/themes';
 import Link from 'next/link';
 
 interface HomeData {
@@ -37,10 +37,12 @@ export default async function AnimePage() {
 
   return (
     <main className="p-6">
-      <Link href={'/ongoing-anime/1'}>
-        <h1 className="text-2xl font-bold mb-4">Latest Ongoing Anime</h1>
+      <div className="text-2xl font-bold mt-8 mb-4">
+      <Link href={'/anime/ongoing-anime/1'}>
+        <Button size="3" >Latest Ongoing Anime</Button>
       </Link>
-      <Grid columns={{ sm: '1', md: '3', lg: '5' }} gap="4">
+      </div>
+      <Grid columns={{ sm: '3', md: '5', lg: '7' }} gap="4">
         {homeData.data.ongoing_anime.map((anime) => (
           <Card key={anime.slug} className="shadow-lg rounded-lg overflow-hidden flex flex-col items-center p-4">
             <Image
@@ -51,26 +53,27 @@ export default async function AnimePage() {
               className="object-cover w-full h-auto"
             />
             <Box className="mt-4 text-center">
-              <Text as="div" size="2" weight="bold" className="text-lg mb-2">
-                {anime.title}
-              </Text>
+            <Link href={`/anime/detail/${anime.slug}`} className="text-blue-600 hover:underline">
+            <Text as="div" size="2" weight="bold" className="text-lg mb-2">
+              {anime.title}
+            </Text>
+            </Link>
               <Text as="div" size="2" color="gray" className="mb-2">
                 {anime.current_episode}
               </Text>
               <Text as="div" size="2" color="gray" className="mb-2">
                 {anime.release_day} - {anime.newest_release_date}
               </Text>
-              <Link key={anime.slug} href={`/anime/detail/${anime.slug}`} className="text-blue-600 hover:underline">
-                Detail
-              </Link>
             </Box>
           </Card>
         ))}
       </Grid>
-      <Link href={'/complete-anime/1'}>
-        <h1 className="text-2xl font-bold mt-8 mb-4">Currently Finished Anime</h1>
+      <div className="text-2xl font-bold mt-8 mb-4">
+      <Link href={'/anime/complete-anime/1'}>
+        <Button size="3" >Latest complete Anime</Button>
       </Link>
-      <Grid columns={{ sm: '1', md: '3', lg: '5' }} gap="4">
+      </div>
+      <Grid columns={{ sm: '3', md: '5', lg: '7' }} gap="4">
         {homeData.data.complete_anime.map((anime) => (
           <Card key={anime.slug} className="shadow-lg rounded-lg overflow-hidden flex flex-col items-center p-4">
             <Image
@@ -81,18 +84,18 @@ export default async function AnimePage() {
               className="object-cover w-full h-auto"
             />
             <Box className="mt-4 text-center">
+            <Link key={anime.slug} href={`/anime/detail/${anime.slug}`} className="text-blue-600 hover:underline">
               <Text as="div" size="2" weight="bold" className="text-lg mb-2">
                 {anime.title}
               </Text>
+              </Link>
               <Text as="div" size="2" color="gray" className="mb-2">
                 {anime.current_episode}
               </Text>
               <Text as="div" size="2" color="gray" className="mb-2">
                 {anime.release_day} - {anime.newest_release_date}
               </Text>
-              <Link key={anime.slug} href={`/anime/detail/${anime.slug}`} className="text-blue-600 hover:underline">
-                Detail
-              </Link>
+              
             </Box>
           </Card>
         ))}

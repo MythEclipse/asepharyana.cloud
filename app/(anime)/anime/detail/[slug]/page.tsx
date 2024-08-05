@@ -135,9 +135,9 @@ export default async function DetailAnimePage(props: DetailAnimePageProps) {
         </Text>
         <div className="flex flex-wrap gap-2 mb-4">
           {Anime.data.genres.map((genre) => (
-            <a key={genre.slug} href={genre.otakudesu_url} className="text-blue-500 underline">
+            <Link key={genre.slug} href={`/anime/genre/${genre.slug}`} className="text-blue-500 underline">
               {genre.name}
-            </a>
+            </Link>
           ))}
         </div>
       </Box>
@@ -200,13 +200,15 @@ export default async function DetailAnimePage(props: DetailAnimePageProps) {
                 width={100}
                 height={150}
               />
-              <Text size="2" className="text-center">
                 <Link
                   key={recommendation.slug}
                   href={`/anime/detail/${recommendation.slug}`}
                   className="text-blue-600 hover:underline"
-                />
+                >
+              <Text size="2" className="text-center">
+                  {recommendation.title}
               </Text>
+                </Link>
             </Flex>
           ))}
         </div>

@@ -1,8 +1,9 @@
-// app/(anime)/complete-anime/[page]/page.tsx
+// app/(anime)/ongoing-anime/[page]/page.tsx
 import React from 'react';
 import { getData } from '@/components/core/GetData/GetData';
 import AnimeGrid from '@/components/AnimeGrid';
 import Link from 'next/link';
+import { Button } from '@radix-ui/themes';
 
 interface HomeData {
   status: string;
@@ -40,7 +41,7 @@ export default async function AnimePage({ params }: DetailAnimePageProps) {
   let homeData: HomeData;
 
   try {
-    homeData = await getData(`${BASEURL}/v1/complete-anime/${params.slug}`);
+    homeData = await getData(`${BASEURL}/v1/ongoing-anime/${params.slug}`);
   } catch (error) {
     console.error('Failed to fetch data:', error);
     return (
@@ -62,7 +63,7 @@ export default async function AnimePage({ params }: DetailAnimePageProps) {
 
   return (
     <main className="p-6">
-      <h1 className="text-2xl font-bold mt-8 mb-4">Currently Finished Anime</h1>
+      <h1 className="text-2xl font-bold mt-8 mb-4">Ongoing Anime</h1>
       <AnimeGrid animes={homeData.data} />
       <PaginationComponent pagination={homeData.pagination} />
     </main>
@@ -73,14 +74,22 @@ const PaginationComponent = ({ pagination }: { pagination: Pagination }) => {
   return (
     <div className="flex justify-between mt-8">
       {pagination.has_previous_page && pagination.previous_page !== null && (
-        <Link href={`/complete-anime/${pagination.previous_page}`} className="text-blue-600 hover:underline">
+        <div className="text-2xl font-bold mt-8 mb-4">
+        <Link href={`/anime/ongoing-anime/${pagination.previous_page}`} className="text-blue-600 hover:underline">
+        <Button size="3" >
           Previous
+          </Button>
         </Link>
+        </div>
       )}
       {pagination.has_next_page && pagination.next_page !== null && (
-        <Link href={`/complete-anime/${pagination.next_page}`} className="text-blue-600 hover:underline">
+        <div className="text-2xl font-bold mt-8 mb-4">
+        <Link href={`/anime/ongoing-anime/${pagination.next_page}`} className="text-blue-600 hover:underline">
+        <Button size="3" >
           Next
+          </Button>
         </Link>
+        </div>
       )}
     </div>
   );
