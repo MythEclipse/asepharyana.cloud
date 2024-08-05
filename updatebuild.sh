@@ -1,1 +1,1 @@
-npx prisma db push &&pnpm install && pnpm run build 
+git pull && npx prisma db push &&pnpm install && pnpm run build 

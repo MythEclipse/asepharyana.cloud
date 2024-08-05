@@ -70,7 +70,9 @@ export default async function DetailAnimePage(props: DetailAnimePageProps) {
           className="object-cover rounded-lg w-full h-full"
           src={Anime.data.poster}
           alt={Anime.data.title}
-          layout="fill"
+          fill
+          quality={100}
+          priority
         />
       </div>
 
@@ -197,8 +199,8 @@ export default async function DetailAnimePage(props: DetailAnimePageProps) {
                 className="object-cover rounded-lg"
                 src={recommendation.poster}
                 alt={recommendation.title}
-                width={100}
-                height={150}
+                width={240}
+                height={320}
               />
               <Link
                 key={recommendation.slug}
