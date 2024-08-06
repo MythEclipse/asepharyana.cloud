@@ -83,11 +83,7 @@ export default function LoginPage({ searchParams }: any) {
                     </div>
                     <div className="flex items-center justify-between">
                       <div className="flex items-start">
-                        <Checkbox
-                          id="remember"
-                          aria-describedby="remember"
-                          className="h-5 w-5"
-                        />
+                        <Checkbox id="remember" aria-describedby="remember" className="h-5 w-5" />
                         <Label htmlFor="remember" className="ml-3 text-sm">
                           Remember me
                         </Label>
