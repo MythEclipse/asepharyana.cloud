@@ -54,12 +54,13 @@ const SearchPage = async ({ params }: DetailAnimePageProps) => {
       <h1 className="text-2xl font-bold mb-4">Search Results</h1>
       <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-7 gap-4">
         {homeData.data.map((anime: Anime) => (
-          <div key={anime.slug} className="shadow-lg rounded-lg overflow-hidden flex flex-col items-center p-4 bg-white dark:bg-gray-800">
+          <div
+            key={anime.slug}
+            className="shadow-lg rounded-lg overflow-hidden flex flex-col items-center p-4 bg-white dark:bg-gray-800"
+          >
             <div className="mt-4 text-center">
               <Link href={`/anime/detail/${anime.slug}`} className="text-blue-600 hover:underline">
-                <div className="text-lg font-bold mb-2">
-                  {anime.title || 'No Title'}
-                </div>
+                <div className="text-lg font-bold mb-2">{anime.title || 'No Title'}</div>
               </Link>
               {anime.poster && (
                 <Image
@@ -74,9 +75,7 @@ const SearchPage = async ({ params }: DetailAnimePageProps) => {
                 <div className="text-sm mb-2">
                   {anime.genres.map((genre) => (
                     <Link href={`/anime/genre/${genre.slug}`} key={genre.slug} className="inline-block mr-2">
-                      <span className="px-2 py-1 bg-blue-100 text-blue-600 rounded">
-                        {genre.name}
-                      </span>
+                      <span className="px-2 py-1 bg-blue-100 text-blue-600 rounded">{genre.name}</span>
                     </Link>
                   ))}
                 </div>

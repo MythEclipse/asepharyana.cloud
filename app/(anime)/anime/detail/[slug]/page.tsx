@@ -76,15 +76,33 @@ export default async function DetailAnimePage(props: DetailAnimePageProps) {
       <div className="mb-4 dark:text-lighta">
         <h3 className="text-2xl font-bold mb-2">{Anime.data.title}</h3>
         <ul className="list-disc ml-6">
-          <li className="mb-1"><strong>Japanese Title:</strong> {Anime.data.japanese_title}</li>
-          <li className="mb-1"><strong>Rating:</strong> {Anime.data.rating}</li>
-          <li className="mb-1"><strong>Produser:</strong> {Anime.data.produser}</li>
-          <li className="mb-1"><strong>Type:</strong> {Anime.data.type}</li>
-          <li className="mb-1"><strong>Status:</strong> {Anime.data.status}</li>
-          <li className="mb-1"><strong>Episode Count:</strong> {Anime.data.episode_count}</li>
-          <li className="mb-1"><strong>Duration:</strong> {Anime.data.duration}</li>
-          <li className="mb-1"><strong>Release Date:</strong> {Anime.data.release_date}</li>
-          <li className="mb-1"><strong>Studio:</strong> {Anime.data.studio}</li>
+          <li className="mb-1">
+            <strong>Japanese Title:</strong> {Anime.data.japanese_title}
+          </li>
+          <li className="mb-1">
+            <strong>Rating:</strong> {Anime.data.rating}
+          </li>
+          <li className="mb-1">
+            <strong>Produser:</strong> {Anime.data.produser}
+          </li>
+          <li className="mb-1">
+            <strong>Type:</strong> {Anime.data.type}
+          </li>
+          <li className="mb-1">
+            <strong>Status:</strong> {Anime.data.status}
+          </li>
+          <li className="mb-1">
+            <strong>Episode Count:</strong> {Anime.data.episode_count}
+          </li>
+          <li className="mb-1">
+            <strong>Duration:</strong> {Anime.data.duration}
+          </li>
+          <li className="mb-1">
+            <strong>Release Date:</strong> {Anime.data.release_date}
+          </li>
+          <li className="mb-1">
+            <strong>Studio:</strong> {Anime.data.studio}
+          </li>
         </ul>
       </div>
 
@@ -149,7 +167,11 @@ export default async function DetailAnimePage(props: DetailAnimePageProps) {
                 width={240}
                 height={320}
               />
-              <Link key={recommendation.slug} href={`/anime/detail/${recommendation.slug}`} className="text-blue-600 hover:underline text-center">
+              <Link
+                key={recommendation.slug}
+                href={`/anime/detail/${recommendation.slug}`}
+                className="text-blue-600 hover:underline text-center"
+              >
                 {recommendation.title}
               </Link>
             </div>

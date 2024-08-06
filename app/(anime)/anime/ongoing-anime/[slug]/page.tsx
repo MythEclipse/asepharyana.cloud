@@ -76,7 +76,7 @@ const PaginationComponent = ({ pagination }: { pagination: Pagination }) => {
       {pagination.has_previous_page && pagination.previous_page !== null && (
         <div className="text-2xl font-bold mt-8 mb-4">
           <Link href={`/anime/ongoing-anime/${pagination.previous_page}`} className="text-blue-600 hover:underline">
-          <Button size="lg">Previous</Button>
+            <Button size="lg">Previous</Button>
           </Link>
         </div>
       )}

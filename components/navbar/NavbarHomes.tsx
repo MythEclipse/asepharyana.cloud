@@ -35,14 +35,14 @@ export default function Navbar() {
         </Link>
         <div className="relative flex items-center space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse">
           {status === 'authenticated' ? (
-            <Dropdown arrowIcon={false} inline label={<Avatar alt="profile" img={session?.user?.image ?? '/profile-circle-svgrepo-com.svg'} rounded />}>
+            <Dropdown
+              arrowIcon={false}
+              inline
+              label={<Avatar alt="profile" img={session?.user?.image ?? '/profile-circle-svgrepo-com.svg'} rounded />}
+            >
               <Dropdown.Header>
-                <span className="block text-sm">
-                  {session?.user?.name ?? session?.user?.fullName ?? 'Guest'}
-                </span>
-                <span className="block text-sm font-medium truncate">
-                  {session?.user?.email ?? 'Guest'}
-                </span>
+                <span className="block text-sm">{session?.user?.name ?? session?.user?.fullName ?? 'Guest'}</span>
+                <span className="block text-sm font-medium truncate">{session?.user?.email ?? 'Guest'}</span>
               </Dropdown.Header>
               <Dropdown.Item>
                 <Link href="/dashboard">Dashboard</Link>
@@ -57,9 +57,7 @@ export default function Navbar() {
             </Dropdown>
           ) : (
             <Link href="/login" className="mr-3">
-              <Button color="info">
-                Login
-              </Button>
+              <Button color="info">Login</Button>
             </Link>
           )}
           <button

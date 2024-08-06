@@ -25,20 +25,10 @@ const AnimeGrid: React.FC<AnimeGridProps> = ({ animes }) => {
           <Image src={anime.poster} alt={anime.title} width={460} height={651} className="object-cover w-full h-auto" />
           <div className="mt-4 text-center">
             <Link href={`/anime/detail/${anime.slug}`} className="text-blue-600 hover:underline">
-              <div className="text-lg mb-2 font-bold">
-                {anime.title}
-              </div>
+              <div className="text-lg mb-2 font-bold">{anime.title}</div>
             </Link>
-            {anime.episode_count && (
-              <div className="text-gray-500 mb-2">
-                Episodes: {anime.episode_count}
-              </div>
-            )}
-            {anime.rating && (
-              <div className="text-gray-500 mb-2">
-                Rating: {anime.rating}
-              </div>
-            )}
+            {anime.episode_count && <div className="text-gray-500 mb-2">Episodes: {anime.episode_count}</div>}
+            {anime.rating && <div className="text-gray-500 mb-2">Rating: {anime.rating}</div>}
           </div>
         </Card>
       ))}
