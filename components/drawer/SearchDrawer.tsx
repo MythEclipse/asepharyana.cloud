@@ -1,20 +1,13 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Button, Drawer, Sidebar, TextInput } from 'flowbite-react';
+import { Button, Drawer, TextInput } from 'flowbite-react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import {
-  HiChartPie,
-  HiClipboard,
-  HiCollection,
-  HiInformationCircle,
   HiHome,
-  HiLogin,
-  HiPencil,
+  HiCollection,
   HiSearch,
-  HiShoppingBag,
-  HiUsers,
   HiMenu
 } from 'react-icons/hi';
 
@@ -48,29 +41,38 @@ const SearchDrawer: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOp
               Search
             </Button>
           </form>
-          <Sidebar
-            aria-label="Sidebar with multi-level dropdown example"
-            className="[&>div]:bg-transparent [&>div]:p-0 flex-1"
-          >
-            <Sidebar.Items>
-              <Sidebar.ItemGroup>
-                <Sidebar.Item href="/anime" icon={HiHome}>
-                  Home
-                </Sidebar.Item>
-                <Sidebar.Item href="/anime/ongoing-anime/1" icon={HiCollection}>
-                  Ongoing Anime
-                </Sidebar.Item>
-                <Sidebar.Item href="/anime/complete-anime/1" icon={HiCollection}>
-                  Complete Anime
-                </Sidebar.Item>
-              </Sidebar.ItemGroup>
-              <Sidebar.ItemGroup>
-                <Sidebar.Item href="/anime/genre" icon={HiCollection}>
-                  Genre
-                </Sidebar.Item>
-              </Sidebar.ItemGroup>
-            </Sidebar.Items>
-          </Sidebar>
+          <div className="flex-1 p-4">
+            <ul className="space-y-2">
+              <li>
+                <Link href="/anime">
+                  <Button color="light" className="w-full text-left">
+                    <HiHome className="inline-block mr-2" /> Home
+                  </Button>
+                </Link>
+              </li>
+              <li>
+                <Link href="/anime/ongoing-anime/1">
+                  <Button color="light" className="w-full text-left">
+                    <HiCollection className="inline-block mr-2" /> Ongoing Anime
+                  </Button>
+                </Link>
+              </li>
+              <li>
+                <Link href="/anime/complete-anime/1">
+                  <Button color="light" className="w-full text-left">
+                    <HiCollection className="inline-block mr-2" /> Complete Anime
+                  </Button>
+                </Link>
+              </li>
+              <li>
+                <Link href="/anime/genre">
+                  <Button color="light" className="w-full text-left">
+                    <HiCollection className="inline-block mr-2" /> Genre
+                  </Button>
+                </Link>
+              </li>
+            </ul>
+          </div>
         </div>
       </Drawer.Items>
     </Drawer>

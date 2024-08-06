@@ -4,6 +4,7 @@ import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 import { Button, TextInput, Label, Checkbox, Alert } from 'flowbite-react';
+import Link from 'next/link';
 
 export default function LoginPage({ searchParams }: any) {
   const { push } = useRouter();
@@ -88,12 +89,12 @@ export default function LoginPage({ searchParams }: any) {
                           Remember me
                         </Label>
                       </div>
-                      <a
+                      <Link
                         href="/"
                         className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
                       >
                         Forgot password?
-                      </a>
+                      </Link>
                     </div>
                     <Button
                       type="submit"
@@ -112,12 +113,12 @@ export default function LoginPage({ searchParams }: any) {
                     </Button>
                     <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                       Don’t have an account yet?{' '}
-                      <a
+                      <Link
                         href="/register"
                         className="font-medium text-primary-600 hover:underline dark:text-primary-500"
                       >
                         Sign up
-                      </a>
+                      </Link>
                     </p>
                   </form>
                 </div>
