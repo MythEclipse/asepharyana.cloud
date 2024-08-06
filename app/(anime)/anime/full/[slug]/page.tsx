@@ -1,6 +1,5 @@
 import { getData } from '../../../../../components/core/GetData/GetData';
 import Link from 'next/link';
-import { Button, Grid } from '@radix-ui/themes';
 import ClientPlayer from '@/components/ClientPlayer';
 
 interface AnimeResponse {
@@ -62,7 +61,7 @@ export default async function DetailAnimePage(props: DetailAnimePageProps) {
   }
 
   return (
-    <div className="p-4 max-w-screen-md mx-auto bg-white-100 dark:bg-darkb rounded-lg shadow-lg">
+    <div className="p-4 max-w-screen-md mx-auto bg-lightb dark:text-lighta dark:bg-darkb rounded-lg shadow-lg">
       <h1 className="text-4xl font-bold text-white-900">{Anime.data.episode}</h1>
       <hr className="my-4 border-white-300" />
 
@@ -87,19 +86,19 @@ export default async function DetailAnimePage(props: DetailAnimePageProps) {
                 href={`/anime/full/${Anime.data.previous_episode.slug}`}
                 className="text-blue-600 underline hover:text-blue-800"
               >
-                <Button size="3">Previous Episode</Button>
+                Previous Episode
               </Link>
             </p>
           )}
           {Anime.data.next_episode && (
-            <Link
-              href={`/anime/full/${Anime.data.next_episode.slug}`}
-              className="text-blue-600 underline hover:text-blue-800"
-            >
-              <p className="text-lg text-white-700">
-                <Button size="3">Next Episode</Button>
-              </p>
-            </Link>
+            <p className="text-lg text-white-700">
+              <Link
+                href={`/anime/full/${Anime.data.next_episode.slug}`}
+                className="text-blue-600 underline hover:text-blue-800"
+              >
+                Next Episode
+              </Link>
+            </p>
           )}
         </div>
       </div>
@@ -109,23 +108,26 @@ export default async function DetailAnimePage(props: DetailAnimePageProps) {
       <h2 className="text-3xl font-semibold mt-4 text-white-900">Download Links</h2>
       <div className="flex flex-col gap-4 mt-4">
         {Object.entries(Anime.data.download_urls).map(([format, resolutions]) => (
-          <div key={format} className="bg-white dark:bg-dark p-4 rounded-lg shadow-lg">
+          <div key={format} className="bg-lighta dark:bg-dark p-4 rounded-lg shadow-lg">
             <p className="text-lg font-semibold text-gray-900 dark:text-gray-100">{format.toUpperCase()}</p>
             <div className="flex flex-col gap-3 mt-3">
               {resolutions.map((resolution: VideoResolution, resolutionIdx: number) => (
                 <div key={resolutionIdx}>
                   <p className="text-md text-gray-800 dark:text-gray-300">{resolution.resolution}</p>
-                  <Grid columns={{ sm: '1', md: '3', lg: '5' }} gap="4">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-4">
                     {resolution.urls.map((urlObj: DownloadUrl, urlIdx: number) => (
                       <p key={urlIdx} className="text-sm">
-                        <Button size="3">
-                          <a href={urlObj.url} target="_blank" rel="noopener noreferrer" className="">
-                            {urlObj.provider}
-                          </a>
-                        </Button>
+                        <a
+                          href={urlObj.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="block p-2 bg-blue-600 text-darkc rounded text-center"
+                        >
+                          {urlObj.provider}
+                        </a>
                       </p>
                     ))}
-                  </Grid>
+                  </div>
                 </div>
               ))}
             </div>

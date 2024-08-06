@@ -1,8 +1,5 @@
-// DetailAnimePage.tsx
 import { getData } from '../../../../../components/core/GetData/GetData';
 import Image from 'next/image';
-import ModalWrapper from '../../../../../components/core/modal';
-import { Box, Text, Heading, Separator, Flex } from '@radix-ui/themes';
 import Link from 'next/link';
 
 interface Genre {
@@ -76,65 +73,25 @@ export default async function DetailAnimePage(props: DetailAnimePageProps) {
         />
       </div>
 
-      <Box className="mb-4">
-        <Heading as="h3" size="3" className="mb-2">
-          {Anime.data.title}
-        </Heading>
+      <div className="mb-4 dark:text-lighta">
+        <h3 className="text-2xl font-bold mb-2">{Anime.data.title}</h3>
         <ul className="list-disc ml-6">
-          <li className="mb-1">
-            <Text size="2" weight="bold" className="mb-1">
-              Japanese Title: {Anime.data.japanese_title}
-            </Text>
-          </li>
-          <li className="mb-1">
-            <Text size="2" weight="bold" className="mb-1">
-              Rating: {Anime.data.rating}
-            </Text>
-          </li>
-          <li className="mb-1">
-            <Text size="2" className="mb-1">
-              Produser: {Anime.data.produser}
-            </Text>
-          </li>
-          <li className="mb-1">
-            <Text size="2" className="mb-1">
-              Type: {Anime.data.type}
-            </Text>
-          </li>
-          <li className="mb-1">
-            <Text size="2" className="mb-1">
-              Status: {Anime.data.status}
-            </Text>
-          </li>
-          <li className="mb-1">
-            <Text size="2" className="mb-1">
-              Episode Count: {Anime.data.episode_count}
-            </Text>
-          </li>
-          <li className="mb-1">
-            <Text size="2" className="mb-1">
-              Duration: {Anime.data.duration}
-            </Text>
-          </li>
-          <li className="mb-1">
-            <Text size="2" className="mb-1">
-              Release Date: {Anime.data.release_date}
-            </Text>
-          </li>
-          <li className="mb-1">
-            <Text size="2" className="mb-4">
-              Studio: {Anime.data.studio}
-            </Text>
-          </li>
+          <li className="mb-1"><strong>Japanese Title:</strong> {Anime.data.japanese_title}</li>
+          <li className="mb-1"><strong>Rating:</strong> {Anime.data.rating}</li>
+          <li className="mb-1"><strong>Produser:</strong> {Anime.data.produser}</li>
+          <li className="mb-1"><strong>Type:</strong> {Anime.data.type}</li>
+          <li className="mb-1"><strong>Status:</strong> {Anime.data.status}</li>
+          <li className="mb-1"><strong>Episode Count:</strong> {Anime.data.episode_count}</li>
+          <li className="mb-1"><strong>Duration:</strong> {Anime.data.duration}</li>
+          <li className="mb-1"><strong>Release Date:</strong> {Anime.data.release_date}</li>
+          <li className="mb-1"><strong>Studio:</strong> {Anime.data.studio}</li>
         </ul>
-      </Box>
+      </div>
 
-      <Separator className="my-4" />
+      <hr className="my-4" />
 
-      <Box className="mb-4">
-        <Text size="2" weight="bold" className="mb-2">
-          Genres:
-        </Text>
+      <div className="mb-4 dark:text-lighta">
+        <strong className="block mb-2">Genres:</strong>
         <div className="flex flex-wrap gap-2 mb-4">
           {Anime.data.genres.map((genre) => (
             <Link key={genre.slug} href={`/anime/genre/${genre.slug}`} className="text-blue-500 underline">
@@ -142,39 +99,31 @@ export default async function DetailAnimePage(props: DetailAnimePageProps) {
             </Link>
           ))}
         </div>
-      </Box>
+      </div>
 
-      <Separator className="my-4" />
+      <hr className="my-4" />
 
-      <Box className="mb-4">
-        <Text size="2" weight="bold" className="mb-2">
-          Synopsis:
-        </Text>
-        <Text size="2" className="mb-4">
-          {Anime.data.synopsis}
-        </Text>
-      </Box>
+      <div className="mb-4 dark:text-lighta">
+        <strong className="block mb-2">Synopsis:</strong>
+        <p>{Anime.data.synopsis}</p>
+      </div>
 
       {Anime.data.batch && (
-        <Box className="mb-4">
-          <Text size="2" weight="bold" className="mb-2">
-            Batch:
-          </Text>
-          <Text size="2">
+        <div className="mb-4 dark:text-lighta">
+          <strong className="block mb-2">Batch:</strong>
+          <p>
             <Link href={Anime.data.batch.otakudesu_url} className="text-blue-500 underline">
               {Anime.data.batch.slug}
             </Link>{' '}
             - {Anime.data.batch.uploaded_at}
-          </Text>
-        </Box>
+          </p>
+        </div>
       )}
 
-      <Separator className="my-4" />
+      <hr className="my-4" />
 
-      <Box className="mb-4">
-        <Text size="2" weight="bold" className="mb-2">
-          Episodes:
-        </Text>
+      <div className="mb-4 dark:text-lighta">
+        <strong className="block mb-2">Episodes:</strong>
         <ul className="list-disc ml-6">
           {Anime.data.episode_lists.map((episode) => (
             <li key={episode.slug} className="mb-1">
@@ -184,17 +133,15 @@ export default async function DetailAnimePage(props: DetailAnimePageProps) {
             </li>
           ))}
         </ul>
-      </Box>
+      </div>
 
-      <Separator className="my-4" />
+      <hr className="my-4" />
 
-      <Box>
-        <Text size="2" weight="bold" className="mb-2">
-          Recommendations:
-        </Text>
+      <div className="mb-4 dark:text-lighta">
+        <strong className="block mb-2">Recommendations:</strong>
         <div className="flex flex-wrap gap-4">
           {Anime.data.recommendations.map((recommendation) => (
-            <Flex key={recommendation.slug} className="flex flex-col items-center space-y-2">
+            <div key={recommendation.slug} className="flex flex-col items-center space-y-2">
               <Image
                 className="object-cover rounded-lg"
                 src={recommendation.poster}
@@ -202,19 +149,13 @@ export default async function DetailAnimePage(props: DetailAnimePageProps) {
                 width={240}
                 height={320}
               />
-              <Link
-                key={recommendation.slug}
-                href={`/anime/detail/${recommendation.slug}`}
-                className="text-blue-600 hover:underline"
-              >
-                <Text size="2" className="text-center">
-                  {recommendation.title}
-                </Text>
+              <Link key={recommendation.slug} href={`/anime/detail/${recommendation.slug}`} className="text-blue-600 hover:underline text-center">
+                {recommendation.title}
               </Link>
-            </Flex>
+            </div>
           ))}
         </div>
-      </Box>
+      </div>
     </div>
   );
 }

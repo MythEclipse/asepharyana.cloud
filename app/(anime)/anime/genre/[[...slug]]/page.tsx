@@ -1,6 +1,5 @@
 import React from 'react';
 import Image from 'next/image';
-import { Card, Box, Flex, Text, Grid, Button } from '@radix-ui/themes';
 import Link from 'next/link';
 import { getData } from '@/components/core/GetData/GetData';
 import AnimeGrid from '@/components/AnimeGrid2';
@@ -83,20 +82,20 @@ const GenrePage = async ({ params }: DetailAnimePageProps) => {
 
     return (
       <main className="p-6">
-        <h1 className="text-2xl font-bold mb-4">Genres</h1>
-        <Grid columns={{ sm: '3', md: '5', lg: '7' }} gap="4">
+        <h1 className="text-2xl font-bold mb-4 dark:text-lighta">Genres</h1>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {homeData.data.map((genre) => (
-            <Card key={genre.slug} className="shadow-lg rounded-lg overflow-hidden flex flex-col items-center p-4">
-              <Box className="mt-4 text-center">
-                <Link key={genre.slug} href={`/anime/genre/${genre.slug}`} className="text-blue-600 hover:underline">
-                  <Text as="div" size="2" weight="bold" className="text-lg mb-2">
+            <div key={genre.slug} className="shadow-lg rounded-lg overflow-hidden flex flex-col items-center p-4 bg-white dark:bg-darka">
+              <div className="mt-4 text-center">
+                <Link href={`/anime/genre/${genre.slug}`} className="text-blue-600 hover:underline">
+                  <div className="text-lg font-bold mb-2">
                     {genre.name}
-                  </Text>
+                  </div>
                 </Link>
-              </Box>
-            </Card>
+              </div>
+            </div>
           ))}
-        </Grid>
+        </div>
       </main>
     );
   }
@@ -123,7 +122,7 @@ const GenrePage = async ({ params }: DetailAnimePageProps) => {
 
   return (
     <main className="p-6">
-      <h1 className="text-2xl font-bold mt-8 mb-4">Genre: {slug[0]}</h1>
+      <h1 className="text-2xl font-bold mt-8 mb-4 dark:text-lighta">Genre: {slug[0]}</h1>
       <AnimeGrid animes={genreDetailData.data.anime} />
       <PaginationComponent pagination={genreDetailData.data.pagination} params={params} />
     </main>
@@ -142,21 +141,21 @@ const PaginationComponent = ({
   const currentPage = slug[1] ? parseInt(slug[1], 10) : 1;
 
   return (
-    <div className="flex justify-between mt-8">
+    <div className="flex justify-between mt-8 dark:text-lighta">
       {pagination.has_previous_page && pagination.previous_page !== null && (
-        <div className="text-2xl font-bold mt-8 mb-4">
+        <div className="text-2xl font-bold mt-8 mb-4 dark:text-lighta">
           <Link
             href={`/anime/genre/${genreSlug}${currentPage > 2 ? `/${currentPage - 1}` : ''}`}
             className="text-blue-600 hover:underline"
           >
-            <Button size="3">Previous</Button>
+            <button className="px-4 py-2 bg-blue-600 text-white rounded">Previous</button>
           </Link>
         </div>
       )}
       {pagination.has_next_page && pagination.next_page !== null && (
         <div className="text-2xl font-bold mt-8 mb-4">
           <Link href={`/anime/genre/${genreSlug}/${currentPage + 1}`} className="text-blue-600 hover:underline">
-            <Button size="3">Next</Button>
+            <button className="px-4 py-2 bg-blue-600 text-white rounded">Next</button>
           </Link>
         </div>
       )}

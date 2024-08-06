@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Button } from '@radix-ui/themes';
+import { Button } from 'flowbite-react';
 import Link from 'next/link';
 
 interface Feedback {

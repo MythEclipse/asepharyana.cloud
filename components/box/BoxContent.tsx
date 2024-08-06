@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import React from 'react';
 import Image from 'next/image';
-import { Box } from '@radix-ui/themes';
+import { Card } from 'flowbite-react';
 
 // Define the type for the props
 type BoxContentProps = {
@@ -14,7 +14,7 @@ type BoxContentProps = {
 // Functional component
 const BoxContent: React.FC<BoxContentProps> = ({ gambar, judul, description, href }) => {
   return (
-    <Box className="m-4 p-4 rounded-lg shadow-lg dark:bg-darkb">
+    <Card className="m-4 p-4 rounded-lg shadow-lg dark:bg-darkb">
       <Image
         src={gambar}
         alt="porto"
@@ -29,7 +29,7 @@ const BoxContent: React.FC<BoxContentProps> = ({ gambar, judul, description, hre
         </h3>
       </Link>
       <p className="m-3 text-base font-medium text-secondary">{description}</p>
-    </Box>
+    </Card>
   );
 };
 

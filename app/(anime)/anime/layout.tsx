@@ -1,10 +1,9 @@
+import DrawerWrapper from '@/components/drawer/DrawerWrapper';
 import React from 'react';
-import SearchComponent from '../../../components/Search';
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <>
-      <SearchComponent />
+    <DrawerWrapper>
       <div className="p-5">{children}</div>
-    </>
+    </DrawerWrapper>
   );
 }

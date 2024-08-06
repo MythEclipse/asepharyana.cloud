@@ -3,7 +3,7 @@ import React from 'react';
 import { getData } from '@/components/core/GetData/GetData';
 import AnimeGrid from '@/components/AnimeGrid';
 import Link from 'next/link';
-import { Button } from '@radix-ui/themes';
+import { Button } from 'flowbite-react';
 
 interface HomeData {
   status: string;
@@ -63,7 +63,7 @@ export default async function AnimePage({ params }: DetailAnimePageProps) {
 
   return (
     <main className="p-6">
-      <h1 className="text-2xl font-bold mt-8 mb-4">Ongoing Anime</h1>
+      <h1 className="dark:text-lighta text-2xl font-bold mt-8 mb-4">Ongoing Anime</h1>
       <AnimeGrid animes={homeData.data} />
       <PaginationComponent pagination={homeData.pagination} />
     </main>
@@ -76,14 +76,14 @@ const PaginationComponent = ({ pagination }: { pagination: Pagination }) => {
       {pagination.has_previous_page && pagination.previous_page !== null && (
         <div className="text-2xl font-bold mt-8 mb-4">
           <Link href={`/anime/ongoing-anime/${pagination.previous_page}`} className="text-blue-600 hover:underline">
-            <Button size="3">Previous</Button>
+          <Button size="lg">Previous</Button>
           </Link>
         </div>
       )}
       {pagination.has_next_page && pagination.next_page !== null && (
         <div className="text-2xl font-bold mt-8 mb-4">
           <Link href={`/anime/ongoing-anime/${pagination.next_page}`} className="text-blue-600 hover:underline">
-            <Button size="3">Next</Button>
+            <Button size="lg">Next</Button>
           </Link>
         </div>
       )}

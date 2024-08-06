@@ -5,7 +5,7 @@ import { useSession, signOut } from 'next-auth/react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Button, DropdownMenu } from '@radix-ui/themes';
+import { Button, Dropdown, Avatar } from 'flowbite-react';
 
 export default function Navbar() {
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -35,36 +35,29 @@ export default function Navbar() {
         </Link>
         <div className="relative flex items-center space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse">
           {status === 'authenticated' ? (
-            <DropdownMenu.Root>
-              <DropdownMenu.Trigger>
-                <button>
-                  <Image
-                    className="rounded-full text-dark dark:fill-current dark:text-gray-100"
-                    alt="profile"
-                    src={session?.user?.image ?? '/profile-circle-svgrepo-com.svg'}
-                    width={50}
-                    height={50}
-                  />
-                </button>
-              </DropdownMenu.Trigger>
-              <DropdownMenu.Content>
-                <DropdownMenu.Item>{session?.user?.name ?? session?.user?.fullName ?? 'Guest'}</DropdownMenu.Item>
-                <DropdownMenu.Item>{session?.user?.email ?? 'Guest'}</DropdownMenu.Item>
-                <DropdownMenu.Separator />
-                <DropdownMenu.Item asChild>
-                  <Link href="/dashboard">Dashboard</Link>
-                </DropdownMenu.Item>
-                <DropdownMenu.Item asChild>
-                  <Link href="/settings">Settings</Link>
-                </DropdownMenu.Item>
-                <DropdownMenu.Item onSelect={() => signOut()} color="red">
-                  Sign out
-                </DropdownMenu.Item>
-              </DropdownMenu.Content>
-            </DropdownMenu.Root>
+            <Dropdown arrowIcon={false} inline label={<Avatar alt="profile" img={session?.user?.image ?? '/profile-circle-svgrepo-com.svg'} rounded />}>
+              <Dropdown.Header>
+                <span className="block text-sm">
+                  {session?.user?.name ?? session?.user?.fullName ?? 'Guest'}
+                </span>
+                <span className="block text-sm font-medium truncate">
+                  {session?.user?.email ?? 'Guest'}
+                </span>
+              </Dropdown.Header>
+              <Dropdown.Item>
+                <Link href="/dashboard">Dashboard</Link>
+              </Dropdown.Item>
+              <Dropdown.Item>
+                <Link href="/settings">Settings</Link>
+              </Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item onClick={() => signOut()} className="text-red-600">
+                Sign out
+              </Dropdown.Item>
+            </Dropdown>
           ) : (
             <Link href="/login" className="mr-3">
-              <Button variant="solid" color="blue">
+              <Button color="info">
                 Login
               </Button>
             </Link>
@@ -109,13 +102,13 @@ export default function Navbar() {
               </Link>
             </li>
             <li>
-              <Link href="/portfolio">
+              <Link href="/project">
                 <span
                   className={`${
-                    pathname === '/portfolio' ? 'font-semibold text-primary-600' : 'text-gray-900 dark:text-gray-100'
+                    pathname === '/project' ? 'font-semibold text-primary-600' : 'text-gray-900 dark:text-gray-100'
                   } block rounded px-3 py-2 transition duration-300 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:text-white`}
                 >
-                  Portfolio
+                  Project
                 </span>
               </Link>
             </li>

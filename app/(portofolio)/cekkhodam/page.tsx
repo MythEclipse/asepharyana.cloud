@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import * as Yup from 'yup';
-import { Button } from '@radix-ui/themes';
+import { Button } from 'flowbite-react';
+
 const khodamList: { name: string; meaning: string }[] = [
   {
     name: 'Harimau Putih',

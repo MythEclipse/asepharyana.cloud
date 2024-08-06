@@ -1,4 +1,3 @@
-import '@radix-ui/themes/styles.css';
 import type { Metadata } from 'next';
 import React, { Suspense } from 'react';
 import './globals.css';
@@ -8,11 +7,18 @@ import SessionWrapper from '../components/SessionWrapper';
 import { ThemeModeScript } from 'flowbite-react';
 import { DarkThemeToggle, Flowbite } from 'flowbite-react';
 import ContextAppProvider from '../components/ContextApp';
-import { Theme } from '@radix-ui/themes';
 import { Inter } from 'next/font/google';
-import Providers from './providers'; // Import Providers
 import Loading from '@/components/loading';
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+import type { CustomFlowbiteTheme } from "flowbite-react";
+
+const customTheme: CustomFlowbiteTheme = {
+  button: {
+    color: {
+      primary: "bg-red-500 hover:bg-red-600",
+    },
+  },
+};
 
 export const metadata: Metadata = {
   title: 'Asep Haryana Saputra',
@@ -72,19 +78,13 @@ export default function RootLayout({
           <html suppressHydrationWarning lang="id" className={inter.className}>
             <head>{ThemeModeScript && <ThemeModeScript />}</head>
             <body className="h-screen dark:bg-dark">
-              <Theme accentColor="blue" grayColor="gray" panelBackground="solid" radius="large">
                 <NavbarWrapper />
-                <Flowbite>
-                  <Providers>
-                    {' '}
-                    {/* Wrap children with Providers */}
+                <Flowbite theme={{ theme: customTheme }}>
                     <div className="mt-5 max-w-full px-3 pb-10 pt-56 sm:px-6 lg:px-8">
                       <Suspense fallback={<Loading />}>{children}</Suspense>
                       <DarkThemeToggle className="fixed bottom-0 z-10" />
                     </div>
-                  </Providers>
                 </Flowbite>
-              </Theme>
             </body>
           </html>
         </SessionWrapper>

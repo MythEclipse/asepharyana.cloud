@@ -1,5 +1,4 @@
 import React from 'react';
-import { Card, Box, Text, Grid, Button } from '@radix-ui/themes'; // Ensure the import path is correct
 import Link from 'next/link';
 import Image from 'next/image';
 import { getData } from '@/components/core/GetData/GetData';
@@ -53,14 +52,14 @@ const SearchPage = async ({ params }: DetailAnimePageProps) => {
   return (
     <main className="p-6">
       <h1 className="text-2xl font-bold mb-4">Search Results</h1>
-      <Grid columns={{ sm: '3', md: '5', lg: '7' }} gap="4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-7 gap-4">
         {homeData.data.map((anime: Anime) => (
-          <Card key={anime.slug} className="shadow-lg rounded-lg overflow-hidden flex flex-col items-center p-4">
-            <Box className="mt-4 text-center">
+          <div key={anime.slug} className="shadow-lg rounded-lg overflow-hidden flex flex-col items-center p-4 bg-white dark:bg-gray-800">
+            <div className="mt-4 text-center">
               <Link href={`/anime/detail/${anime.slug}`} className="text-blue-600 hover:underline">
-                <Text as="div" size="2" weight="bold" className="text-lg mb-2">
+                <div className="text-lg font-bold mb-2">
                   {anime.title || 'No Title'}
-                </Text>
+                </div>
               </Link>
               {anime.poster && (
                 <Image
@@ -74,19 +73,19 @@ const SearchPage = async ({ params }: DetailAnimePageProps) => {
               {anime.genres && (
                 <div className="text-sm mb-2">
                   {anime.genres.map((genre) => (
-                    <Link href={`/anime/genre/${genre.slug}`} key={genre.slug}>
-                      <Button key={genre.slug} className="">
+                    <Link href={`/anime/genre/${genre.slug}`} key={genre.slug} className="inline-block mr-2">
+                      <span className="px-2 py-1 bg-blue-100 text-blue-600 rounded">
                         {genre.name}
-                      </Button>
+                      </span>
                     </Link>
                   ))}
                 </div>
               )}
               {anime.rating && <div className="text-sm text-gray-600 mb-2">Rating: {anime.rating}</div>}
-            </Box>
-          </Card>
+            </div>
+          </div>
         ))}
-      </Grid>
+      </div>
     </main>
   );
 };
