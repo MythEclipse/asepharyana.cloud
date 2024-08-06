@@ -57,10 +57,10 @@ const SearchDrawer: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOp
                 <Sidebar.Item href="/anime" icon={HiHome}>
                   Home
                 </Sidebar.Item>
-                <Sidebar.Item href="/anime/ongoing-anime" icon={HiCollection}>
+                <Sidebar.Item href="/anime/ongoing-anime/1" icon={HiCollection}>
                   Ongoing Anime
                 </Sidebar.Item>
-                <Sidebar.Item href="/anime/complete-anime" icon={HiCollection}>
+                <Sidebar.Item href="/anime/complete-anime/1" icon={HiCollection}>
                   Complete Anime
                 </Sidebar.Item>
               </Sidebar.ItemGroup>

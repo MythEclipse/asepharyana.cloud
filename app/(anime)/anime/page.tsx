@@ -73,7 +73,7 @@ export default async function AnimePage() {
           </Button>
         </Link>
       </div>
-      <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-7 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
         {homeData.data.complete_anime.map((anime) => (
           <Card key={anime.slug} className="shadow-lg rounded-lg overflow-hidden flex flex-col items-center p-4">
             <Image
