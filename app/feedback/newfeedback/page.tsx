@@ -3,7 +3,6 @@
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { useState } from 'react';
-import { Button, TextArea, TextField } from '@radix-ui/themes';
 
 export default function NewFeedback() {
   const router = useRouter();
@@ -57,26 +56,34 @@ export default function NewFeedback() {
                 <label htmlFor="name" className="mb-2 block text-sm font-medium text-darkb dark:text-white">
                   Name
                 </label>
-                <TextField.Root id="name" placeholder="Nama" value={name} onChange={(e) => setName(e.target.value)} />
+                <input
+                  id="name"
+                  type="text"
+                  placeholder="Nama"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                />
               </div>
               <div>
                 <label htmlFor="message" className="mb-2 block text-sm font-medium text-darkb dark:text-white">
                   Message
                 </label>
-                <TextArea
+                <textarea
                   id="message"
                   placeholder="Pesan"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
+                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                 />
               </div>
-              <Button
+              <button
                 type="submit"
                 disabled={isLoading}
                 className="w-full rounded-lg bg-primary-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               >
                 {isLoading ? 'Submitting...' : 'Submit Feedback'}
-              </Button>
+              </button>
             </form>
           </div>
         </div>
