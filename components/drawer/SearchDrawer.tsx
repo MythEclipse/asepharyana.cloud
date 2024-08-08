@@ -4,12 +4,7 @@ import React, { useState } from 'react';
 import { Button, Drawer, TextInput } from 'flowbite-react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import {
-  HiHome,
-  HiCollection,
-  HiSearch,
-  HiMenu
-} from 'react-icons/hi';
+import { HiHome, HiCollection, HiSearch, HiMenu } from 'react-icons/hi';
 
 const SearchDrawer: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onClose }) => {
   const [query, setQuery] = useState('');

@@ -136,7 +136,7 @@ importers:
         version: 3.23.8
     devDependencies:
       '@next/eslint-plugin-next':
-        specifier: ^14.2.4
+        specifier: ^14.2.5
         version: 14.2.5
       '@types/cors':
         specifier: ^2.8.17

@@ -21,7 +21,7 @@ export default function Home() {
             <h2 className="mb-5 text-lg font-medium text-secondary lg:text-2xl">
               Saya adalah seorang <span className="text-dark dark:text-gray-100">Programmer</span>
             </h2>
-            <p className="font-medium text-slate-400">Nah,i'd win</p>
+            <p className="font-medium text-slate-400">Okelah</p>
             <link
               href="#"
               className="rounded-full bg-primary-600 px-8 py-3 text-base font-semibold text-white transition duration-300 ease-in-out hover:opacity-80 hover:shadow-lg"
