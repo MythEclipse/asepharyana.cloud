@@ -55,7 +55,7 @@ export default function RegisterPage() {
                     id="name"
                     className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-primary-600 focus:ring-primary-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
                     placeholder="namecompany"
-                    required={true}
+                    required
                   />
                 </div>
                 <div>
@@ -68,7 +68,7 @@ export default function RegisterPage() {
                     id="email"
                     className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-primary-600 focus:ring-primary-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
                     placeholder="name@company.com"
-                    required={true}
+                    required
                   />
                 </div>
                 <div>
@@ -81,7 +81,7 @@ export default function RegisterPage() {
                     id="password"
                     placeholder="••••••••"
                     className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-primary-600 focus:ring-primary-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
-                    required={true}
+                    required
                   />
                 </div>
                 <div className="flex items-start">
@@ -91,7 +91,7 @@ export default function RegisterPage() {
                       aria-describedby="terms"
                       type="checkbox"
                       className="focus:ring-3 size-4 rounded border border-gray-300 bg-gray-50 focus:ring-primary-300 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
-                      required={true}
+                      required
                     />
                   </div>
                   <div className="ml-3 text-sm">
