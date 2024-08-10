@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import { Card, Button } from 'flowbite-react';
 import Link from 'next/link';
+import { getData } from '@/app/lib/GetData/GetData';
 
 interface HomeData {
   status: string;
@@ -21,19 +22,10 @@ interface Anime {
   otakudesu_url: string;
 }
 
-async function fetchHomeData(): Promise<HomeData> {
-  const BASEURL = process.env.ANIME || 'https://otakudesu-unofficial-api.vercel.app/';
-  const res = await fetch(`${BASEURL}/v1/home`, { next: { revalidate: 3600 } });
-
-  if (!res.ok) {
-    throw new Error('Failed to fetch data');
-  }
-
-  return res.json();
-}
 
 export default async function AnimePage() {
-  const homeData = await fetchHomeData();
+  const BASEURL = process.env.ANIME || 'https://otakudesu-unofficial-api.vercel.app/';
+  const homeData  : HomeData = await getData(`${BASEURL}/v1/home`);
 
   return (
     <main className="p-6">

@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getData } from '@/components/core/GetData/GetData';
+import { getData } from '@/app/lib/GetData/GetData';
 
 interface Genre {
   name: string;
