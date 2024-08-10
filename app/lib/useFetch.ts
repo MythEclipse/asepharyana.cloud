@@ -12,7 +12,7 @@ interface Payload {
 export const useFetch = async (url: string, method: string = 'GET', pyld?: Payload) => {
   try {
     const agent = new https.Agent({
-      rejectUnauthorized: false,
+      rejectUnauthorized: false
     });
     if (method === 'POST') {
       const from = new FormData();
@@ -25,13 +25,12 @@ export const useFetch = async (url: string, method: string = 'GET', pyld?: Paylo
       // console.log(JSON.stringify(from));
       const response = await axios.post(url, from, {
         headers: {
-          'Content-Type': 'multipart/form-data', // Important for sending FormData
-        },
+          'Content-Type': 'multipart/form-data' // Important for sending FormData
+        }
       });
 
-      console.log(response.status);
       return {
-        data: response.data,
+        data: response.data
       };
     }
 
@@ -40,7 +39,7 @@ export const useFetch = async (url: string, method: string = 'GET', pyld?: Paylo
     const data = await response.text();
     return {
       data,
-      status: response.status,
+      status: response.status
     };
   } catch (error: any) {
     throw new Error(error);

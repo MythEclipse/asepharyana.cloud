@@ -86,10 +86,7 @@ const GenrePage = async ({ params }: DetailAnimePageProps) => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {homeData.data.map((genre) => (
             <Link key={genre.slug} href={`/anime/genre/${genre.slug}`} className="text-blue-600 hover:underline">
-              <div
-                
-                className="shadow-lg rounded-lg overflow-hidden flex flex-col items-center p-4 bg-white dark:bg-darka"
-              >
+              <div className="shadow-lg rounded-lg overflow-hidden flex flex-col items-center p-4 bg-white dark:bg-darka">
                 <div className="mt-4 text-center">
                   <div className="text-lg font-bold mb-2">{genre.name}</div>
                 </div>

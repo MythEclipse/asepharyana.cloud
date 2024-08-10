@@ -3,7 +3,6 @@ import axios from 'axios';
 import { NextRequest, NextResponse } from 'next/server';
 import cheerio from 'cheerio';
 
-
 export async function GET(req: NextRequest, { params }: { params: { page: string } }) {
   const { page } = params;
 
@@ -32,7 +31,7 @@ export async function GET(req: NextRequest, { params }: { params: { page: string
           id: temp?.[temp.length - 2],
           title,
           thumbnail,
-          episode,
+          episode
         };
       })
       .get();

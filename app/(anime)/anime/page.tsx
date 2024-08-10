@@ -22,10 +22,9 @@ interface Anime {
   otakudesu_url: string;
 }
 
-
 export default async function AnimePage() {
   const BASEURL = process.env.ANIME || 'https://otakudesu-unofficial-api.vercel.app/';
-  const homeData  : HomeData = await getData(`${BASEURL}/v1/home`);
+  const homeData: HomeData = await getData(`${BASEURL}/v1/home`);
 
   return (
     <main className="p-6">
