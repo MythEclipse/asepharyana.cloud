@@ -9,7 +9,7 @@ interface Payload {
   action?: '2a3505c93b0035d3f455df82bf976b84';
 }
 
-export const useFetch = async (url: string, method: string = 'GET', pyld?: Payload) => {
+export const useFetch = async (url: string, method = 'GET', pyld?: Payload) => {
   try {
     const agent = new https.Agent({
       rejectUnauthorized: false
