@@ -41,7 +41,7 @@
     "easymde": "^2.18.0",
     "firebase": "^10.12.2",
     "firebase-admin": "^12.2.0",
-    "flowbite": "^2.3.0",
+    "flowbite": "^2.5.1",
     "flowbite-react": "^0.10.1",
     "formik": "^2.4.6",
     "joi": "^17.13.3",
