@@ -64,7 +64,7 @@
     "react-simplemde-editor": "^5.2.0",
     "sharp": "^0.33.4",
     "simplemde": "^1.11.2",
-    "tailwind-merge": "^2.3.0",
+    "tailwind-merge": "^2.5.2",
     "uuid": "^10.0.0",
     "yup": "^1.4.0",
     "zod": "^3.23.8"
