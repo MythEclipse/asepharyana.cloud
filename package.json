@@ -47,7 +47,7 @@
     "joi": "^17.13.3",
     "js-beautify": "^1.15.1",
     "mongoose": "^8.5.1",
-    "next": "14.2.3",
+    "next": "14.2.5",
     "next-auth": "^4.24.7",
     "next-intl": "^3.15.3",
     "next-view-transitions": "^0.1.1",
