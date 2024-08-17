@@ -28,7 +28,7 @@ const BoxContent: React.FC<BoxContentProps> = ({ gambar, judul, description, hre
           {judul}
         </h3>
       </Link>
-      <p className="m-3 text-base font-medium text-secondary">{description}</p>
+      <p className="m-3 text-base font-medium text-secondary dark:text-gray-400">{description}</p>
     </Card>
   );
 };
