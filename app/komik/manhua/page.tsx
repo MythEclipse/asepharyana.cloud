@@ -55,12 +55,18 @@ export default async function manhuaPage() {
       <div className="flex justify-between mt-8">
         {/* Previous and Next Page Links */}
         <Link href={`/komik/manhua/page/${komikData.prevPage ? 'prev' : '1'}`}>
-          <Button className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700" disabled={!komikData.prevPage}>
+          <Button
+            className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
+            disabled={!komikData.prevPage}
+          >
             Previous Page
           </Button>
         </Link>
         <Link href={`/komik/manhua/page/${komikData.nextPage ? '2' : '2'}`}>
-          <Button className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700" disabled={!komikData.nextPage}>
+          <Button
+            className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
+            disabled={!komikData.nextPage}
+          >
             Next Page
           </Button>
         </Link>

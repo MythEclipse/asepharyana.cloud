@@ -77,15 +77,33 @@ export default async function DetailAnimePage(props: DetailAnimePageProps) {
           <div className="w-full md:w-2/3 md:pl-6">
             <h1 className="text-3xl font-bold mb-4 dark:text-white">{anime.data.title}</h1>
             <div className="text-gray-800 dark:text-gray-200 mb-4">
-              <p className="mb-2"><strong>Japanese Title:</strong> {anime.data.japanese_title}</p>
-              <p className="mb-2"><strong>Rating:</strong> {anime.data.rating}</p>
-              <p className="mb-2"><strong>Producer:</strong> {anime.data.produser}</p>
-              <p className="mb-2"><strong>Type:</strong> {anime.data.type}</p>
-              <p className="mb-2"><strong>Status:</strong> {anime.data.status}</p>
-              <p className="mb-2"><strong>Episode Count:</strong> {anime.data.episode_count}</p>
-              <p className="mb-2"><strong>Duration:</strong> {anime.data.duration}</p>
-              <p className="mb-2"><strong>Release Date:</strong> {anime.data.release_date}</p>
-              <p className="mb-4"><strong>Studio:</strong> {anime.data.studio}</p>
+              <p className="mb-2">
+                <strong>Japanese Title:</strong> {anime.data.japanese_title}
+              </p>
+              <p className="mb-2">
+                <strong>Rating:</strong> {anime.data.rating}
+              </p>
+              <p className="mb-2">
+                <strong>Producer:</strong> {anime.data.produser}
+              </p>
+              <p className="mb-2">
+                <strong>Type:</strong> {anime.data.type}
+              </p>
+              <p className="mb-2">
+                <strong>Status:</strong> {anime.data.status}
+              </p>
+              <p className="mb-2">
+                <strong>Episode Count:</strong> {anime.data.episode_count}
+              </p>
+              <p className="mb-2">
+                <strong>Duration:</strong> {anime.data.duration}
+              </p>
+              <p className="mb-2">
+                <strong>Release Date:</strong> {anime.data.release_date}
+              </p>
+              <p className="mb-4">
+                <strong>Studio:</strong> {anime.data.studio}
+              </p>
             </div>
             <hr className="my-4 border-gray-300 dark:border-gray-600" />
             <div className="mb-4 dark:text-gray-200">

@@ -51,14 +51,30 @@ export default async function DetailPage({ params }: { params: { komikId: string
           <div className="w-full md:w-2/3 md:pl-6">
             <h1 className="text-3xl font-bold mb-4 dark:text-white">{manga.title}</h1>
             <div className="text-gray-800 dark:text-gray-200 mb-4">
-              <p className="mb-2"><strong>Alternative Title:</strong> {manga.alternativeTitle}</p>
-              <p className="mb-2"><strong>Score:</strong> {manga.score}</p>
-              <p className="mb-2"><strong>Status:</strong> {manga.status}</p>
-              <p className="mb-2"><strong>Author:</strong> {manga.author}</p>
-              <p className="mb-2"><strong>Type:</strong> {manga.type}</p>
-              <p className="mb-2"><strong>Released:</strong> {manga.released}</p>
-              <p className="mb-4"><strong>Genres:</strong> {manga.genres.join(', ')}</p>
-              <p className="mb-4"><strong>Synopsis:</strong> {manga.synopsis}</p>
+              <p className="mb-2">
+                <strong>Alternative Title:</strong> {manga.alternativeTitle}
+              </p>
+              <p className="mb-2">
+                <strong>Score:</strong> {manga.score}
+              </p>
+              <p className="mb-2">
+                <strong>Status:</strong> {manga.status}
+              </p>
+              <p className="mb-2">
+                <strong>Author:</strong> {manga.author}
+              </p>
+              <p className="mb-2">
+                <strong>Type:</strong> {manga.type}
+              </p>
+              <p className="mb-2">
+                <strong>Released:</strong> {manga.released}
+              </p>
+              <p className="mb-4">
+                <strong>Genres:</strong> {manga.genres.join(', ')}
+              </p>
+              <p className="mb-4">
+                <strong>Synopsis:</strong> {manga.synopsis}
+              </p>
             </div>
             <div className="mt-6">
               <h2 className="text-2xl font-semibold mb-2 dark:text-white">Chapters</h2>

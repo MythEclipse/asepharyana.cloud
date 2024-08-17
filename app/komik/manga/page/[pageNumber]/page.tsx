@@ -60,12 +60,18 @@ export default async function Page({ params }: { params: { pageNumber: string } 
       </div>
       <div className="flex justify-between mt-8">
         <Link href={`/komik/manga/page/${komikData.prevPage ? pageNumber - 1 : '1'}`}>
-          <Button className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700" disabled={!komikData.prevPage}>
+          <Button
+            className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
+            disabled={!komikData.prevPage}
+          >
             Previous Page
           </Button>
         </Link>
         <Link href={`/komik/manga/page/${komikData.nextPage ? pageNumber + 1 : '1'}`}>
-          <Button className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700" disabled={!komikData.nextPage}>
+          <Button
+            className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
+            disabled={!komikData.nextPage}
+          >
             Next Page
           </Button>
         </Link>

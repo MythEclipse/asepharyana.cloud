@@ -32,19 +32,20 @@ export default async function ChapterPage({ params }: { params: { chapterId: str
           {chapter.prev_chapter_id && (
             <Link href={`/komik/chapter/${chapter.prev_chapter_id}`}>
               <Button size="md" className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
-              Previous Chapter
-          </Button>
+                Previous Chapter
+              </Button>
             </Link>
           )}
           {chapter.next_chapter_id && (
             <Link href={`/komik/chapter/${chapter.next_chapter_id}`}>
               <Button size="md" className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
-              Next Chapter
-          </Button>
+                Next Chapter
+              </Button>
             </Link>
           )}
         </div>
-      </div><Suspense fallback={<Loading />}></Suspense>
+      </div>
+      <Suspense fallback={<Loading />}></Suspense>
       <div className="flex flex-col items-center">
         {chapter.images.map((image, index) => (
           <Image
@@ -58,21 +59,21 @@ export default async function ChapterPage({ params }: { params: { chapterId: str
         ))}
       </div>
       <div className="mt-4 flex justify-between gap-4">
-          {chapter.prev_chapter_id && (
-            <Link href={`/komik/chapter/${chapter.prev_chapter_id}`}>
-              <Button size="md" className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
+        {chapter.prev_chapter_id && (
+          <Link href={`/komik/chapter/${chapter.prev_chapter_id}`}>
+            <Button size="md" className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
               Previous Chapter
-          </Button>
-            </Link>
-          )}
-          {chapter.next_chapter_id && (
-            <Link href={`/komik/chapter/${chapter.next_chapter_id}`}>
-              <Button size="md" className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
+            </Button>
+          </Link>
+        )}
+        {chapter.next_chapter_id && (
+          <Link href={`/komik/chapter/${chapter.next_chapter_id}`}>
+            <Button size="md" className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
               Next Chapter
-          </Button>
-            </Link>
-          )}
-        </div>
+            </Button>
+          </Link>
+        )}
+      </div>
     </main>
   );
 }
