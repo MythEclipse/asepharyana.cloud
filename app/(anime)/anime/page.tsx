@@ -35,27 +35,33 @@ export default async function AnimePage() {
           </Button>
         </Link>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
-        {homeData.data.ongoing_anime.map((anime) => (
-          <Card key={anime.slug} className="shadow-lg rounded-lg overflow-hidden flex flex-col items-center p-4">
-            <Image
-              src={anime.poster}
-              alt={anime.title}
-              width={460}
-              height={651}
-              className="object-cover w-full h-auto"
-            />
-            <div className="mt-4 text-center">
-              <Link href={`/anime/detail/${anime.slug}`} className="text-blue-600 hover:underline">
-                <div className="text-lg font-bold mb-2">{anime.title}</div>
-              </Link>
-              <div className="text-gray-600 dark:text-gray-400 mb-2">{anime.current_episode}</div>
-              <div className="text-gray-600 dark:text-gray-400 mb-2">
-                {anime.release_day} - {anime.newest_release_date}
-              </div>
+      <div className="overflow-x-auto py-4">
+        <div className="flex space-x-4">
+          {homeData.data.ongoing_anime.map((anime) => (
+            <div key={anime.slug} className="flex-shrink-0 w-48">
+              <Card className="shadow-lg rounded-lg overflow-hidden flex flex-col items-center p-4">
+                <div className="relative w-full h-64">
+                  <Image
+                    src={anime.poster}
+                    alt={anime.title}
+                    fill
+                    style={{ objectFit: 'cover' }}
+                    className="object-cover w-full h-full rounded-md"
+                  />
+                </div>
+                <div className="mt-4 text-center">
+                  <Link href={`/anime/detail/${anime.slug}`} className="text-blue-600 hover:underline">
+                    <div className="text-lg font-bold mb-2">{anime.title}</div>
+                  </Link>
+                  <div className="text-gray-600 dark:text-gray-400 mb-2">{anime.current_episode}</div>
+                  <div className="text-gray-600 dark:text-gray-400 mb-2">
+                    {anime.release_day} - {anime.newest_release_date}
+                  </div>
+                </div>
+              </Card>
             </div>
-          </Card>
-        ))}
+          ))}
+        </div>
       </div>
       <div className="text-2xl font-bold mt-8 mb-4">
         <Link href={'/anime/complete-anime/1'}>
@@ -64,27 +70,33 @@ export default async function AnimePage() {
           </Button>
         </Link>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
-        {homeData.data.complete_anime.map((anime) => (
-          <Card key={anime.slug} className="shadow-lg rounded-lg overflow-hidden flex flex-col items-center p-4">
-            <Image
-              src={anime.poster}
-              alt={anime.title}
-              width={460}
-              height={651}
-              className="object-cover w-full h-auto"
-            />
-            <div className="mt-4 text-center">
-              <Link href={`/anime/detail/${anime.slug}`} className="text-blue-600 hover:underline">
-                <div className="text-lg font-bold mb-2">{anime.title}</div>
-              </Link>
-              <div className="text-gray-600 dark:text-gray-400 mb-2">{anime.current_episode}</div>
-              <div className="text-gray-600 dark:text-gray-400 mb-2">
-                {anime.release_day} - {anime.newest_release_date}
-              </div>
+      <div className="overflow-x-auto py-4">
+        <div className="flex space-x-4">
+          {homeData.data.complete_anime.map((anime) => (
+            <div key={anime.slug} className="flex-shrink-0 w-48">
+              <Card className="shadow-lg rounded-lg overflow-hidden flex flex-col items-center p-4">
+                <div className="relative w-full h-64">
+                  <Image
+                    src={anime.poster}
+                    alt={anime.title}
+                    fill
+                    style={{ objectFit: 'cover' }}
+                    className="object-cover w-full h-full rounded-md"
+                  />
+                </div>
+                <div className="mt-4 text-center">
+                  <Link href={`/anime/detail/${anime.slug}`} className="text-blue-600 hover:underline">
+                    <div className="text-lg font-bold mb-2">{anime.title}</div>
+                  </Link>
+                  <div className="text-gray-600 dark:text-gray-400 mb-2">{anime.current_episode}</div>
+                  <div className="text-gray-600 dark:text-gray-400 mb-2">
+                    {anime.release_day} - {anime.newest_release_date}
+                  </div>
+                </div>
+              </Card>
             </div>
-          </Card>
-        ))}
+          ))}
+        </div>
       </div>
     </main>
   );

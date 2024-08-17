@@ -58,126 +58,101 @@ interface DetailAnimePageProps {
 export default async function DetailAnimePage(props: DetailAnimePageProps) {
   const { params } = props;
   const BASEURL = process.env.ANIME || 'https://otakudesu-unofficial-api.vercel.app/';
-  const Anime: AnimeData = await getData(`${BASEURL}/v1/anime/${params.slug}`);
+  const anime: AnimeData = await getData(`${BASEURL}/v1/anime/${params.slug}`);
 
   return (
-    <div className="p-4">
-      <div className="relative w-full h-60 md:h-80 lg:h-[32rem] mb-4">
-        <Image
-          className="object-cover rounded-lg w-full h-full"
-          src={Anime.data.poster}
-          alt={Anime.data.title}
-          fill
-          quality={100}
-          priority
-        />
-      </div>
-
-      <div className="mb-4 dark:text-lighta">
-        <h3 className="text-2xl font-bold mb-2">{Anime.data.title}</h3>
-        <ul className="list-disc ml-6">
-          <li className="mb-1">
-            <strong>Japanese Title:</strong> {Anime.data.japanese_title}
-          </li>
-          <li className="mb-1">
-            <strong>Rating:</strong> {Anime.data.rating}
-          </li>
-          <li className="mb-1">
-            <strong>Produser:</strong> {Anime.data.produser}
-          </li>
-          <li className="mb-1">
-            <strong>Type:</strong> {Anime.data.type}
-          </li>
-          <li className="mb-1">
-            <strong>Status:</strong> {Anime.data.status}
-          </li>
-          <li className="mb-1">
-            <strong>Episode Count:</strong> {Anime.data.episode_count}
-          </li>
-          <li className="mb-1">
-            <strong>Duration:</strong> {Anime.data.duration}
-          </li>
-          <li className="mb-1">
-            <strong>Release Date:</strong> {Anime.data.release_date}
-          </li>
-          <li className="mb-1">
-            <strong>Studio:</strong> {Anime.data.studio}
-          </li>
-        </ul>
-      </div>
-
-      <hr className="my-4" />
-
-      <div className="mb-4 dark:text-lighta">
-        <strong className="block mb-2">Genres:</strong>
-        <div className="flex flex-wrap gap-2 mb-4">
-          {Anime.data.genres.map((genre) => (
-            <Link key={genre.slug} href={`/anime/genre/${genre.slug}`} className="text-blue-500 underline">
-              {genre.name}
-            </Link>
-          ))}
-        </div>
-      </div>
-
-      <hr className="my-4" />
-
-      <div className="mb-4 dark:text-lighta">
-        <strong className="block mb-2">Synopsis:</strong>
-        <p>{Anime.data.synopsis}</p>
-      </div>
-
-      {Anime.data.batch && (
-        <div className="mb-4 dark:text-lighta">
-          <strong className="block mb-2">Batch:</strong>
-          <p>
-            <Link href={Anime.data.batch.otakudesu_url} className="text-blue-500 underline">
-              {Anime.data.batch.slug}
-            </Link>{' '}
-            - {Anime.data.batch.uploaded_at}
-          </p>
-        </div>
-      )}
-
-      <hr className="my-4" />
-
-      <div className="mb-4 dark:text-lighta">
-        <strong className="block mb-2">Episodes:</strong>
-        <ul className="list-disc ml-6">
-          {Anime.data.episode_lists.map((episode) => (
-            <li key={episode.slug} className="mb-1">
-              <Link key={episode.slug} href={`/anime/full/${episode.slug}`} className="text-blue-600 hover:underline">
-                {episode.slug}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <hr className="my-4" />
-
-      <div className="mb-4 dark:text-lighta">
-        <strong className="block mb-2">Recommendations:</strong>
-        <div className="flex flex-wrap gap-4">
-          {Anime.data.recommendations.map((recommendation) => (
-            <div key={recommendation.slug} className="flex flex-col items-center space-y-2">
-              <Image
-                className="object-cover rounded-lg"
-                src={recommendation.poster}
-                alt={recommendation.title}
-                width={240}
-                height={320}
-              />
-              <Link
-                key={recommendation.slug}
-                href={`/anime/detail/${recommendation.slug}`}
-                className="text-blue-600 hover:underline text-center"
-              >
-                {recommendation.title}
-              </Link>
+    <main className="p-6 bg-gray-100 dark:bg-gray-900 min-h-screen">
+      <div className="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+        <div className="flex flex-col md:flex-row items-center md:items-start">
+          <div className="w-full md:w-1/3 mb-6 md:mb-0">
+            <Image
+              src={anime.data.poster}
+              alt={anime.data.title}
+              width={330}
+              height={450}
+              className="object-cover rounded-lg shadow-md"
+              priority
+            />
+          </div>
+          <div className="w-full md:w-2/3 md:pl-6">
+            <h1 className="text-3xl font-bold mb-4 dark:text-white">{anime.data.title}</h1>
+            <div className="text-gray-800 dark:text-gray-200 mb-4">
+              <p className="mb-2"><strong>Japanese Title:</strong> {anime.data.japanese_title}</p>
+              <p className="mb-2"><strong>Rating:</strong> {anime.data.rating}</p>
+              <p className="mb-2"><strong>Producer:</strong> {anime.data.produser}</p>
+              <p className="mb-2"><strong>Type:</strong> {anime.data.type}</p>
+              <p className="mb-2"><strong>Status:</strong> {anime.data.status}</p>
+              <p className="mb-2"><strong>Episode Count:</strong> {anime.data.episode_count}</p>
+              <p className="mb-2"><strong>Duration:</strong> {anime.data.duration}</p>
+              <p className="mb-2"><strong>Release Date:</strong> {anime.data.release_date}</p>
+              <p className="mb-4"><strong>Studio:</strong> {anime.data.studio}</p>
             </div>
-          ))}
+            <hr className="my-4 border-gray-300 dark:border-gray-600" />
+            <div className="mb-4 dark:text-gray-200">
+              <strong className="block mb-2 text-lg">Genres:</strong>
+              <div className="flex flex-wrap gap-2 mb-4">
+                {anime.data.genres.map((genre) => (
+                  <Link key={genre.slug} href={`/anime/genre/${genre.slug}`} className="text-blue-500 hover:underline">
+                    {genre.name}
+                  </Link>
+                ))}
+              </div>
+            </div>
+            <hr className="my-4 border-gray-300 dark:border-gray-600" />
+            <div className="mb-4 dark:text-gray-200">
+              <strong className="block mb-2 text-lg">Synopsis:</strong>
+              <p>{anime.data.synopsis}</p>
+            </div>
+            {anime.data.batch && (
+              <div className="mb-4 dark:text-gray-200">
+                <strong className="block mb-2 text-lg">Batch:</strong>
+                <p>
+                  <Link href={anime.data.batch.otakudesu_url} className="text-blue-500 hover:underline">
+                    {anime.data.batch.slug}
+                  </Link>{' '}
+                  - {anime.data.batch.uploaded_at}
+                </p>
+              </div>
+            )}
+            <hr className="my-4 border-gray-300 dark:border-gray-600" />
+            <div className="mb-4 dark:text-gray-200">
+              <strong className="block mb-2 text-lg">Episodes:</strong>
+              <ul className="list-disc ml-6 space-y-1">
+                {anime.data.episode_lists.map((episode) => (
+                  <li key={episode.slug}>
+                    <Link href={`/anime/full/${episode.slug}`} className="text-blue-600 hover:underline">
+                      {episode.episode}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <hr className="my-4 border-gray-300 dark:border-gray-600" />
+            <div className="mb-4 dark:text-gray-200">
+              <strong className="block mb-2 text-lg">Recommendations:</strong>
+              <div className="flex flex-wrap gap-4">
+                {anime.data.recommendations.map((recommendation) => (
+                  <div key={recommendation.slug} className="flex flex-col items-center space-y-2">
+                    <Image
+                      src={recommendation.poster}
+                      alt={recommendation.title}
+                      width={240}
+                      height={320}
+                      className="object-cover rounded-lg shadow-md"
+                    />
+                    <Link
+                      href={`/anime/detail/${recommendation.slug}`}
+                      className="text-blue-600 hover:underline text-center"
+                    >
+                      {recommendation.title}
+                    </Link>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 }

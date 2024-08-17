@@ -4,6 +4,10 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
+        hostname: '*.wp.com', // Menangani semua subdomain dari wp.com
+      },
+      {
+        protocol: 'https',
         hostname: 'source.unsplash.com'
       },
       {
@@ -24,7 +28,27 @@ const nextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'yuucdn.net'
+      },
+      {
+        protocol: 'https',
+        hostname: 'i3.wp.com'
+      },
+      {
+        protocol: 'https',
+        hostname: 'mangakita.id'
+      },
+      {
+        protocol: 'https',
+        hostname: 'i0.wp.com'
+      },
+      {
+        protocol: 'https',
         hostname: 'upload.wikimedia.org'
+      },
+      {
+        protocol: 'http',
+        hostname: 'yuucdn.net'
       },
       {
         protocol: 'https',
