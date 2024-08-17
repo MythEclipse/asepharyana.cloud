@@ -2,6 +2,7 @@ import React from 'react';
 import { notFound } from 'next/navigation';
 import { getData } from '@/app/lib/GetData/GetData';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface MangaDetail {
   title: string;
@@ -81,12 +82,12 @@ export default async function DetailPage({ params }: { params: { komikId: string
               <ul className="space-y-2">
                 {manga.chapterList.map((chapter) => (
                   <li key={chapter.chapter_id}>
-                    <a
+                    <Link
                       href={`/komik/chapter/${chapter.chapter_id}`}
                       className="text-blue-600 hover:underline dark:text-blue-400"
                     >
                       {chapter.title} - {chapter.date}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
