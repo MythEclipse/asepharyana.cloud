@@ -14,7 +14,6 @@ You can view the live demo of the project here: [asepharyana](https://asepharyan
 - **Full-Stack Support:** Includes Prisma, Firebase, and MongoDB for comprehensive data management.
 - **Enhanced User Interface:** Utilizes Tailwind CSS, Flowbite, and various React components for a polished look.
 - **Internationalization:** Supports multiple languages with Next-Intl for a global audience.
-- **Rich Text Editing:** Integrated with SimpleMDE and other markdown editors.
 
 ### Installation
 
