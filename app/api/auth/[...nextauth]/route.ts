@@ -1,82 +1,106 @@
-import { PrismaClient, User } from '@prisma/client';
+import { PrismaClient, User as PrismaUser } from '@prisma/client';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import { NextAuthOptions } from 'next-auth';
 import NextAuth from 'next-auth/next';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import bcrypt from 'bcrypt';
 import GoogleProvider from 'next-auth/providers/google';
+import { loginWithGoogle } from '@/app/lib/prisma/service';
+
+// Define the User type expected by NextAuth
+interface User extends PrismaUser {
+  role: NonNullable<PrismaUser['role']>; // Ensure role is non-nullable
+}
 
 const prisma = new PrismaClient();
 
-const authOption: NextAuthOptions = {
+const authOptions: NextAuthOptions = {
+  session: { strategy: 'jwt' },
   secret: process.env.SECRET,
-  session: {
-    strategy: 'jwt'
-  },
   adapter: PrismaAdapter(prisma),
+  pages: {
+    signIn: '/login',
+  },
   providers: [
     CredentialsProvider({
-      type: 'credentials',
-      name: 'credentials',
+      name: 'Sign in',
+      id: 'credentials',
       credentials: {
-        email: { label: 'Email', type: 'email' },
-        password: { label: 'Password', type: 'password' }
+        email: {
+          label: 'Email',
+          type: 'email',
+          placeholder: 'example@example.com',
+        },
+        password: { label: 'Password', type: 'password' },
       },
-      async authorize(credentials, req) {
-        if (!credentials) {
+      async authorize(credentials) {
+        if (!credentials?.email || !credentials.password) {
           return null;
         }
-        const { email, password } = credentials;
 
-        const user = await prisma.user.findUnique({ where: { email } });
-        if (user?.password) {
-          const passwordConfirm = await bcrypt.compare(password, user.password);
-          if (passwordConfirm) {
-            return user;
-          }
+        const user = await prisma.user.findUnique({
+          where: {
+            email: credentials.email,
+          },
+        });
+
+        if (!user || !user.password || !(await bcrypt.compare(credentials.password, user.password))) {
+          return null;
         }
-        return null;
-      }
+
+        // Cast to User type to ensure types align with the expected return type
+        return {
+          ...user,
+          role: user.role ?? 'member', // Default role if missing
+        } as User;
+      },
     }),
     GoogleProvider({
       clientId: process.env.GOOGLE_OAUTH_CLIENT_ID || '',
-      clientSecret: process.env.GOOGLE_OAUTH_CLIENT_SECRET || ''
-    })
+      clientSecret: process.env.GOOGLE_OAUTH_CLIENT_SECRET || '',
+    }),
   ],
   callbacks: {
-    async jwt({ token, account, user }) {
-      if (account?.provider === 'credentials' && user) {
-        token.email = user.email ?? ''; // Perbaikan di sini
-        token.fullName = user.fullName ?? ''; // Perbaikan di sini
-        token.role = user.role ?? ''; // Perbaikan di sini
+    async jwt({ token, user, account }) {
+      if (user) {
+        token.id = user.id;
+        token.email = user.email;
+        token.role = (user as User).role;
+        token.fullName = user.fullname || user.name || '';
       }
+
       if (account?.provider === 'google' && user) {
-        const dbUser = await prisma.user.upsert({
-          where: { email: user.email ?? '' }, // Perbaikan di sini
-          update: {},
-          create: {
-            email: user.email ?? '',
-            fullName: user.name ?? '',
-            role: 'member',
-            type: 'google',
-            password: '' // or any default value as per your requirement
+        const data = {
+          email: user.email!,
+          fullName: user.name || '',
+          emailVerified: true,
+          role: 'member',
+          type: 'google',
+        };
+
+        await loginWithGoogle(data, (result) => {
+          if (result.status) {
+            token.email = result.data.email;
+            token.role = result.data.role;
+            token.fullname = result.data.fullname;
           }
         });
-        token.email = dbUser.email ?? ''; // Perbaikan di sini
-        token.fullName = dbUser.fullName ?? ''; // Perbaikan di sini
-        token.role = dbUser.role ?? ''; // Perbaikan di sini
       }
+
       return token;
     },
     async session({ session, token }) {
-      session.user.email = token.email as string; // Perbaikan di sini
-      session.user.role = token.role as string; // Perbaikan di sini
-      session.user.fullName = token.fullName as string | undefined; // Perbaikan di sini
+      if (session.user) {
+        session.user.id = token.id as string;
+        session.user.email = token.email as string;
+        session.user.role = token.role as string;
+        session.user.fullname = token.fullname as string;
+      }
       return session;
-    }
-  }
+    },
+  },
 };
 
-const handler = NextAuth(authOption);
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };

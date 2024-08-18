@@ -41,7 +41,7 @@ export default function Navbar() {
               label={<Avatar alt="profile" img={session?.user?.image ?? '/profile-circle-svgrepo-com.svg'} rounded />}
             >
               <Dropdown.Header>
-                <span className="block text-sm">{session?.user?.name ?? session?.user?.fullName ?? 'Guest'}</span>
+                <span className="block text-sm">{session?.user?.name ?? session?.user?.fullname ?? 'Guest'}</span>
                 <span className="block text-sm font-medium truncate">{session?.user?.email ?? 'Guest'}</span>
               </Dropdown.Header>
               <Dropdown.Item>

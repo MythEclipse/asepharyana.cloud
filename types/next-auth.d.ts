@@ -1,27 +1,34 @@
-import { DefaultSession } from 'next-auth'
+// next-auth.d.ts
+import NextAuth, { DefaultSession, DefaultUser } from 'next-auth';
 
 declare module 'next-auth' {
-  interface User {
+  /**
+   * Extended User object that includes custom properties.
+   */
+  interface User extends DefaultUser {
     id: string;
-    email: string;
-    name?: string | null;
+    fullname?: string | null; // Add fullname property
     role: string;
-    type: string;
-    fullName?: string | null;
-    avatar?: string | null;
-    bio?: string | null;
-    password: string;
-    createdAt: Date;
-    updatedAt: Date;
   }
 
-  interface Session extends DefaultSession {
-    user: User & DefaultSession['user']
+  /**
+   * Extended Session object to include additional properties from the User.
+   */
+  interface Session {
+    user: {
+      id: string;
+      email: string;
+      role: string;
+      fullname?: string | null;
+    } & DefaultSession['user'];
   }
 
+  /**
+   * Extended JWT to include custom properties.
+   */
   interface JWT {
-    email: string;
-    fullName?: string;
+    id: string;
     role: string;
+    fullName?: string | null;
   }
 }

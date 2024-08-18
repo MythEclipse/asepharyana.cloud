@@ -1,1 +1,1 @@
-npx prisma db push &&pnpm install && pnpm run dev
+npx prisma generate &&pnpm install && pnpm run dev
