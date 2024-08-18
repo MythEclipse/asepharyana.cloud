@@ -2,7 +2,7 @@
 # see: https://developers.google.com/idx/guides/customize-idx-env
 
 { pkgs, ... }: {
-  # Which nixpkgs channel to use.
+  # Which nixpkgs channel to ause.
   channel = "unstable"; # or "unstable"
 
   # Use https://search.nixos.org/packages to find packages
@@ -62,7 +62,7 @@
     #       manager = "web";
     #       env = {
     #         # Environment variables to set for your server
-    #         PORT = "3090";
+    #         PORT = "3000";
     #       };
     #     };
     #   };

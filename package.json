@@ -10,7 +10,7 @@
     "registry": "https://npm.pkg.github.com"
   },
   "scripts": {
-    "dev": "next dev --turbo --port 3090",
+    "dev": "next dev --turbo --port 3000",
     "build": "next build",
     "start": "next start --port 3090",
     "lint": "next lint",
