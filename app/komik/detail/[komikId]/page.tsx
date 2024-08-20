@@ -29,7 +29,7 @@ interface MangaDetail {
 
 export default async function DetailPage({ params }: { params: { komikId: string } }) {
   const { komikId } = params;
-  const manga: MangaDetail = await getData(`http://127.0.0.1:3090/api/komik/detail?komik_id=${komikId}`);
+  const manga: MangaDetail = await getData(`http://localhost:3090/api/komik/detail?komik_id=${komikId}`);
 
   if (!manga) {
     notFound();

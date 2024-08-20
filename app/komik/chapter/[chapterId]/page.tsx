@@ -17,7 +17,7 @@ interface ChapterDetail {
 
 export default async function ChapterPage({ params }: { params: { chapterId: string } }) {
   const { chapterId } = params;
-  const chapter: ChapterDetail = await getData(`http://127.0.0.1:3090/api/komik/chapter?chapter_url=${chapterId}`);
+  const chapter: ChapterDetail = await getData(`http://localhost:3090/api/komik/chapter?chapter_url=${chapterId}`);
 
   if (!chapter) {
     notFound();
