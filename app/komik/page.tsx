@@ -2,6 +2,7 @@ import { FC } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Card, Button } from 'flowbite-react';
+import axios from 'axios';
 
 interface Comic {
   komik_id: string;
@@ -12,19 +13,19 @@ interface Comic {
   type: string;
 }
 
-// Function to fetch data from the API
+// Function to fetch data from the API using axios
 const fetchComics = async () => {
   try {
     const [mangaRes, manhuaRes, manhwaRes] = await Promise.all([
-      fetch(`http://localhost:3090/api/komik/manga?page=1&order=update`).then((res) => res.json()),
-      fetch(`http://localhost:3090/api/komik/manhua?page=1&order=update`).then((res) => res.json()),
-      fetch(`http://localhost:3090/api/komik/manhwa?page=1&order=update`).then((res) => res.json())
+      axios.get(`http://localhost:3090/api/komik/manga?page=1&order=update`),
+      axios.get(`http://localhost:3090/api/komik/manhua?page=1&order=update`),
+      axios.get(`http://localhost:3090/api/komik/manhwa?page=1&order=update`)
     ]);
 
     // Extract the data from the API responses
-    const manga = mangaRes.data || [];
-    const manhua = manhuaRes.data || [];
-    const manhwa = manhwaRes.data || [];
+    const manga = mangaRes.data.data || [];
+    const manhua = manhuaRes.data.data || [];
+    const manhwa = manhwaRes.data.data || [];
 
     return { manga, manhua, manhwa };
   } catch (error) {
