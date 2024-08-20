@@ -46,6 +46,25 @@ interface MangaData {
   komik_id: string;
 }
 
+interface MangaDetail {
+  title: string;
+  image: string;
+  description: string;
+  status: string;
+  type: string;
+  releaseDate: string;
+  author: string;
+  totalChapter: string;
+  updatedOn: string;
+  genres: string[];
+  chapters: { chapter: string; link: string }[];
+}
+
+interface MangaChapter {
+  title: string;
+  images: string[];
+}
+
 // Utility function to parse manga data
 const parseMangaData = ($: cheerio.CheerioAPI): MangaData[] => {
   const data: MangaData[] = [];
@@ -72,35 +91,118 @@ const parseMangaData = ($: cheerio.CheerioAPI): MangaData[] => {
   return data;
 };
 
+// Function to get manga detail
+const getDetail = async (komik_id: string): Promise<MangaDetail> => {
+  try {
+    const { data: body } = await axiosInstance.get(`${baseURL}/komik/${komik_id}`);
+    const $ = cheerio.load(body);
+
+    const title = $('.komik_info-content-body-title').text() || '';
+    let image =
+      $(
+        '#content > div > div > div:nth-child(2) > div.komik_info-content > div.komik_info-content-thumbnail > img'
+      ).attr('src') || '';
+    image = image.split('?')[0]; // Remove query parameters from image URL
+    const description =
+      $('#content > div > div > div:nth-child(2) > div.komik_info-description > div > p').text().trim() || '';
+    const status = $(".komik_info-content-info:contains('Status')").text().replace('Status:', '').trim() || '';
+    const genres: string[] = [];
+    $('.komik_info-content-genre a').each((i, el) => {
+      genres.push($(el).text());
+    });
+    const releaseDate = $('.komik_info-content-info-release').text().replace('Released:', '').trim();
+    const author = $(".komik_info-content-info:contains('Author')").text().replace('Author:', '').trim();
+    const type = $('.komik_info-content-info-type a').text().trim();
+    const totalChapter = $(".komik_info-content-info:contains('Total Chapter')")
+      .text()
+      .replace('Total Chapter:', '')
+      .trim();
+    const updatedOn = $('.komik_info-content-update time').text().trim();
+    const chapters: { chapter: string; link: string }[] = [];
+    $('.komik_info-chapters-wrapper li').each((i, el) => {
+      const chapter = $(el).find('a').text().trim();
+      const link = $(el).find('a').attr('href')?.split('/')[4] || '';
+      chapters.push({ chapter, link });
+    });
+
+    return {
+      title,
+      image,
+      description,
+      status,
+      type,
+      releaseDate,
+      author,
+      totalChapter,
+      updatedOn,
+      genres,
+      chapters
+    };
+  } catch (error) {
+    logError(error);
+    throw new Error('Failed to fetch manga detail');
+  }
+};
+
+// Function to get manga chapter
+const getChapter = async (chapter_url: string): Promise<MangaChapter> => {
+  try {
+    const { data: body } = await axiosInstance.get(`${baseURL}/chapter/${chapter_url}`);
+    const $ = cheerio.load(body);
+
+    const title = $('#content > div > div > div.chapter_headpost > h1').text() || '';
+    const images: string[] = [];
+    $('.main-reading-area img').each((i, el) => {
+      const image = $(el).attr('src') || '';
+      images.push(image);
+    });
+
+    return { title, images };
+  } catch (error) {
+    logError(error);
+    throw new Error('Failed to fetch manga chapter');
+  }
+};
+
 // Main function to handle GET requests
 export const GET = async (req: Request) => {
   const url = new URL(req.url);
   const page = url.searchParams.get('page') || '1';
   const order = url.searchParams.get('order') || 'update';
-  const type = url.pathname.split('/')[3] as 'manga' | 'manhwa' | 'manhua' | 'search';
+  const type = url.pathname.split('/')[3] as 'manga' | 'manhwa' | 'manhua' | 'search' | 'detail' | 'chapter';
 
   try {
-    let apiUrl = `${baseURL}/daftar-komik/page/${page}/?type=${type}&sortby=${order}`;
-    if (type === 'search') {
-      const query = url.searchParams.get('query') || '';
-      apiUrl = `${baseURL}/page/${page}/?s=${query}`;
+    if (type === 'detail') {
+      const komik_id = url.searchParams.get('komik_id') || 'one-piece';
+      const detailData = await getDetail(komik_id);
+      return NextResponse.json(detailData, { status: 200 });
+    } else if (type === 'chapter') {
+      const chapter_url = url.searchParams.get('chapter_url') || '';
+      const chapterData = await getChapter(chapter_url);
+      return NextResponse.json(chapterData, { status: 200 });
+    } else {
+      let apiUrl = `${baseURL}/daftar-komik/page/${page}/?type=${type}&sortby=${order}`;
+      if (type === 'search') {
+        const query = url.searchParams.get('query') || '';
+        apiUrl = `${baseURL}/page/${page}/?s=${query}`;
+      }
+      const { data: body } = await axiosInstance.get(apiUrl);
+
+      const $ = cheerio.load(body);
+      const data = parseMangaData($);
+
+      const prevPage = $('.prev').length > 0;
+      const nextPage = $('.next').length > 0;
+
+      return NextResponse.json(
+        {
+          data,
+          prevPage,
+          nextPage
+        },
+        { status: 200 }
+      );
     }
-    const { data: body } = await axiosInstance.get(apiUrl);
-
-    const $ = cheerio.load(body);
-    const data = parseMangaData($);
-
-    const prevPage = $('.prev').length > 0;
-    const nextPage = $('.next').length > 0;
-
-    return NextResponse.json(
-      {
-        data,
-        prevPage,
-        nextPage
-      },
-      { status: 200 }
-    );
   } catch (error: any) {
     logError(error);
     return NextResponse.json(
