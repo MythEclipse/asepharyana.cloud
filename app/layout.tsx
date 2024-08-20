@@ -76,9 +76,8 @@ export default function RootLayout({
       <ViewTransitions>
         <SessionWrapper>
           <html suppressHydrationWarning lang="id" className={inter.className}>
-            <head>{ThemeModeScript && <ThemeModeScript />}
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3773538760237081"
-     crossOrigin="anonymous"></script>
+            <head>
+              {ThemeModeScript && <ThemeModeScript />}
             </head>
             <body className="h-screen dark:bg-dark">
               <NavbarWrapper />
