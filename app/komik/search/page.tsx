@@ -3,7 +3,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Card, Button, TextInput } from 'flowbite-react';
 
-
 interface Comic {
   komik_id: string;
   title: string;
