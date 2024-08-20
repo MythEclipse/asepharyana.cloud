@@ -1,1 +1,1 @@
-git pull && pnpm install && npx prisma generate  && pnpm run build && pm2 restart 0
+git pull && pnpm install && npx prisma generate  && nvm run 22 build && pm2 restart 0
