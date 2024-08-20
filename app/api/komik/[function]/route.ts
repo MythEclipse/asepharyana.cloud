@@ -48,8 +48,8 @@ interface MangaData {
 
 interface MangaDetail {
   title: string;
-  alternativeTitle:string;
-  score:string;
+  alternativeTitle: string;
+  score: string;
   image: string;
   description: string;
   status: string;
@@ -59,13 +59,13 @@ interface MangaDetail {
   totalChapter: string;
   updatedOn: string;
   genres: string[];
-  chapters: { chapter: string; date:string; chapter_id: string }[];
+  chapters: { chapter: string; date: string; chapter_id: string }[];
 }
 
 interface MangaChapter {
   title: string;
-  next_chapter_id:string;
-  prev_chapter_id:string;
+  next_chapter_id: string;
+  prev_chapter_id: string;
   images: string[];
 }
 
@@ -102,8 +102,11 @@ const getDetail = async (komik_id: string): Promise<MangaDetail> => {
     const $ = cheerio.load(body);
 
     const title = $('.komik_info-content-body-title').text() || '';
-    const alternativeTitle = $(".komik_info-content-native").text() || '';
-    const score = $('#content > div > div > div:nth-child(2) > div.komik_info-content > div.komik_info-content-rating > div > div.data-rating > strong').text() || '';
+    const alternativeTitle = $('.komik_info-content-native').text() || '';
+    const score =
+      $(
+        '#content > div > div > div:nth-child(2) > div.komik_info-content > div.komik_info-content-rating > div > div.data-rating > strong'
+      ).text() || '';
     let image =
       $(
         '#content > div > div > div:nth-child(2) > div.komik_info-content > div.komik_info-content-thumbnail > img'
@@ -124,12 +127,12 @@ const getDetail = async (komik_id: string): Promise<MangaDetail> => {
       .replace('Total Chapter:', '')
       .trim();
     const updatedOn = $('.komik_info-content-update time').text().trim();
-    const chapters: { chapter: string; date:string; chapter_id: string }[] = [];
+    const chapters: { chapter: string; date: string; chapter_id: string }[] = [];
     $('.komik_info-chapters-wrapper li').each((i, el) => {
       const chapter = $(el).find('a').text().trim();
       const date = $(el).find('.chapter-link-time').text().trim();
       const chapter_id = $(el).find('a').attr('href')?.split('/')[4] || '';
-      chapters.push({ chapter,date, chapter_id });
+      chapters.push({ chapter, date, chapter_id });
     });
 
     return {
@@ -160,15 +163,19 @@ const getChapter = async (chapter_url: string): Promise<MangaChapter> => {
     const $ = cheerio.load(body);
 
     const title = $('#content > div > div > div.chapter_headpost > h1').text() || '';
-    const prev_chapter_id= $('#chapter_body > div:nth-child(2) > div.right-control > div > a:nth-child(1)').attr('href')?.split('/')[4] || ''
-    const next_chapter_id= $('#chapter_body > div:nth-child(2) > div.right-control > div > a:nth-child(2)').attr('href')?.split('/')[4] || ''
+    const prev_chapter_id =
+      $('#chapter_body > div:nth-child(2) > div.right-control > div > a:nth-child(1)').attr('href')?.split('/')[4] ||
+      '';
+    const next_chapter_id =
+      $('#chapter_body > div:nth-child(2) > div.right-control > div > a:nth-child(2)').attr('href')?.split('/')[4] ||
+      '';
     const images: string[] = [];
     $('.main-reading-area img').each((i, el) => {
       const image = $(el).attr('src') || '';
       images.push(image);
     });
 
-    return { title,next_chapter_id,prev_chapter_id, images };
+    return { title, next_chapter_id, prev_chapter_id, images };
   } catch (error) {
     logError(error);
     throw new Error('Failed to fetch manga chapter');
