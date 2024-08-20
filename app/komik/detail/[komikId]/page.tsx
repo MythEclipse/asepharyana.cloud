@@ -29,7 +29,7 @@ interface MangaDetail {
 
 export default async function DetailPage({ params }: { params: { komikId: string } }) {
   const { komikId } = params;
-  const BASEURL = process.env.KOMIK;
+  const BASEURL = process.env.NEXT_PUBLIC_KOMIK;
   const manga: MangaDetail = await getData(`${BASEURL}/komik/detail?komik_id=${komikId}`);
 
   if (!manga) {
