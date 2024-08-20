@@ -16,9 +16,9 @@ interface Comic {
 const fetchComics = async () => {
   try {
     const [mangaRes, manhuaRes, manhwaRes] = await Promise.all([
-      fetch(`http://localhost:3090/api/komik/manga/page/1`).then((res) => res.json()),
-      fetch(`http://localhost:3090/api/komik/manhua/page/1`).then((res) => res.json()),
-      fetch(`http://localhost:3090/api/komik/manhwa/page/1`).then((res) => res.json())
+      fetch(`http://localhost:3090/api/komik/manga?page=1&order=update`).then((res) => res.json()),
+      fetch(`http://localhost:3090/api/komik/manhua?page=1&order=update`).then((res) => res.json()),
+      fetch(`http://localhost:3090/api/komik/manhwa?page=1&order=update`).then((res) => res.json())
     ]);
 
     // Extract the data from the API responses
