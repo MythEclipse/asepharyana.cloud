@@ -4,7 +4,7 @@ import axios from 'axios';
 export async function getData(url: string) {
   try {
     const res = await axios.get(url);
-    
+
     // Axios response does not have an `ok` property
     // Check for successful status codes (200-299)
     if (res.status >= 200 && res.status < 300) {
@@ -22,7 +22,7 @@ export async function getData(url: string) {
 export async function getDataNC(url: string) {
   try {
     const res = await axios.get(url);
-    
+
     // Axios response does not have an `ok` property
     // Check for successful status codes (200-299)
     if (res.status >= 200 && res.status < 300) {
