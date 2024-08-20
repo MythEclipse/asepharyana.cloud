@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Card, Button, TextInput } from 'flowbite-react';
 
-const API_BASE_URL = process.env.KOMIK || 'https://api-otaku.vercel.app/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_KOMIK;
 
 interface Comic {
   komik_id: string;

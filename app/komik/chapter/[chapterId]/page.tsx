@@ -17,7 +17,7 @@ interface ChapterDetail {
 
 export default async function ChapterPage({ params }: { params: { chapterId: string } }) {
   const { chapterId } = params;
-  const BASEURL = process.env.KOMIK;
+  const BASEURL = process.env.NEXT_PUBLIC_KOMIK;
   const chapter: ChapterDetail = await getData(`${BASEURL}/komik/chapter?chapter_url=${chapterId}`);
 
   if (!chapter) {

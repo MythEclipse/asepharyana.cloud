@@ -20,7 +20,7 @@ interface manhua {
 }
 
 export default async function manhuaPage() {
-  const BASEURL = process.env.KOMIK;
+  const BASEURL = process.env.NEXT_PUBLIC_KOMIK;
   const komikData: KomikData = await getData(`${BASEURL}/komik/manhua`);
 
   return (

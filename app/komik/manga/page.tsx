@@ -20,7 +20,7 @@ interface Manga {
 }
 
 export default async function MangaPage() {
-  const BASEURL = process.env.KOMIK || 'https://api-otaku.vercel.app/api';
+  const BASEURL = process.env.NEXT_PUBLIC_KOMIK;
   const komikData: KomikData = await getData(`${BASEURL}/komik/manga`);
 
   return (

@@ -26,7 +26,7 @@ export default async function Page({ params }: { params: { pageNumber: string } 
     notFound();
   }
 
-  const BASEURL = process.env.KOMIK;
+  const BASEURL = process.env.NEXT_PUBLIC_KOMIK;
   const komikData: KomikData = await getData(`${BASEURL}/komik/manhwa?page=${pageNumber}&order=update`);
 
   return (
