@@ -3,7 +3,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Card, Button, TextInput } from 'flowbite-react';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_KOMIK;
 
 interface Comic {
   komik_id: string;
@@ -23,7 +22,7 @@ interface SearchResult {
 // Function to fetch search results from the API
 const fetchSearchResults = async (query: string) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/komik/search?query=${encodeURIComponent(query)}`);
+    const response = await fetch(`http://127.0.0.1:3090/api/komik/search?query=${encodeURIComponent(query)}`);
     const result: SearchResult = await response.json();
     return result;
   } catch (error) {

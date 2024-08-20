@@ -20,8 +20,7 @@ interface manhwa {
 }
 
 export default async function manhwaPage() {
-  const BASEURL = process.env.NEXT_PUBLIC_KOMIK;
-  const komikData: KomikData = await getData(`${BASEURL}/komik/manhwa`);
+  const komikData: KomikData = await getData(`http://127.0.0.1:3090/api/komik/manhwa`);
 
   return (
     <main className="p-6">

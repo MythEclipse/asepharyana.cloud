@@ -20,8 +20,7 @@ interface Manga {
 }
 
 export default async function MangaPage() {
-  const BASEURL = process.env.NEXT_PUBLIC_KOMIK;
-  const komikData: KomikData = await getData(`${BASEURL}/komik/manga`);
+  const komikData: KomikData = await getData(`http://127.0.0.1:3090/api/komik/manga`);
 
   return (
     <main className="p-6">
