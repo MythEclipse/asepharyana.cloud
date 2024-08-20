@@ -76,9 +76,7 @@ export default function RootLayout({
       <ViewTransitions>
         <SessionWrapper>
           <html suppressHydrationWarning lang="id" className={inter.className}>
-            <head>
-              {ThemeModeScript && <ThemeModeScript />}
-            </head>
+            <head>{ThemeModeScript && <ThemeModeScript />}</head>
             <body className="h-screen dark:bg-dark">
               <NavbarWrapper />
               <Flowbite theme={{ theme: customTheme }}>
