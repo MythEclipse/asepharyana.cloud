@@ -27,7 +27,7 @@ export default async function Page({ params }: { params: { pageNumber: string } 
   }
 
   const BASEURL = process.env.KOMIK || 'https://api-otaku.vercel.app/api';
-  const komikData: KomikData = await getData(`${BASEURL}/komik/manhua?page=${pageNumber}`);
+  const komikData: KomikData = await getData(`${BASEURL}/komik/manhua?page=${pageNumber}&order=update`);
 
   return (
     <main className="p-6">

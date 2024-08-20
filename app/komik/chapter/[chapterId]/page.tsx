@@ -17,8 +17,8 @@ interface ChapterDetail {
 
 export default async function ChapterPage({ params }: { params: { chapterId: string } }) {
   const { chapterId } = params;
-  const BASEURL = process.env.KOMIK || 'https://api-otaku.vercel.app/api';
-  const chapter: ChapterDetail = await getData(`${BASEURL}/komik/chapter/${chapterId}`);
+  const BASEURL = process.env.KOMIK;
+  const chapter: ChapterDetail = await getData(`${BASEURL}/komik/chapter?chapter_url=${chapterId}`);
 
   if (!chapter) {
     notFound();

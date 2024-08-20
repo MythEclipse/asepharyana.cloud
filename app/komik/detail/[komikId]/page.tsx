@@ -9,10 +9,10 @@ interface MangaDetail {
   alternativeTitle: string;
   image: string;
   score: string;
-  synopsis: string;
+  description: string;
   status: string;
   type: string;
-  released: string;
+  releaseDate: string;
   author: string;
   artist: string;
   serialization: string;
@@ -20,8 +20,8 @@ interface MangaDetail {
   postedOn: string;
   updatedOn: string;
   genres: string[];
-  chapterList: {
-    title: string;
+  chapters: {
+    chapter: string;
     date: string;
     chapter_id: string;
   }[];
@@ -29,8 +29,8 @@ interface MangaDetail {
 
 export default async function DetailPage({ params }: { params: { komikId: string } }) {
   const { komikId } = params;
-  const BASEURL = process.env.KOMIK || 'https://api-otaku.vercel.app/api';
-  const manga: MangaDetail = await getData(`${BASEURL}/komik/${komikId}`);
+  const BASEURL = process.env.KOMIK;
+  const manga: MangaDetail = await getData(`${BASEURL}/komik/detail?komik_id=${komikId}`);
 
   if (!manga) {
     notFound();
@@ -68,28 +68,32 @@ export default async function DetailPage({ params }: { params: { komikId: string
                 <strong>Type:</strong> {manga.type}
               </p>
               <p className="mb-2">
-                <strong>Released:</strong> {manga.released}
+                <strong>Release Date:</strong> {manga.releaseDate}
               </p>
               <p className="mb-4">
-                <strong>Genres:</strong> {manga.genres.join(', ')}
+                <strong>Genres:</strong> {manga.genres ? manga.genres.join(', ') : 'N/A'}
               </p>
               <p className="mb-4">
-                <strong>Synopsis:</strong> {manga.synopsis}
+                <strong>Description:</strong> {manga.description}
               </p>
             </div>
             <div className="mt-6">
               <h2 className="text-2xl font-semibold mb-2 dark:text-white">Chapters</h2>
               <ul className="space-y-2">
-                {manga.chapterList.map((chapter) => (
-                  <li key={chapter.chapter_id}>
-                    <Link
-                      href={`/komik/chapter/${chapter.chapter_id}`}
-                      className="text-blue-600 hover:underline dark:text-blue-400"
-                    >
-                      {chapter.title} - {chapter.date}
-                    </Link>
-                  </li>
-                ))}
+                {manga.chapters && Array.isArray(manga.chapters) && manga.chapters.length > 0 ? (
+                  manga.chapters.map((chapter) => (
+                    <li key={chapter.chapter_id}>
+                      <Link
+                        href={`/komik/chapter/${chapter.chapter_id}`}
+                        className="text-blue-600 hover:underline dark:text-blue-400"
+                      >
+                        {chapter.chapter} - {chapter.date}
+                      </Link>
+                    </li>
+                  ))
+                ) : (
+                  <li>No chapters available</li>
+                )}
               </ul>
             </div>
           </div>

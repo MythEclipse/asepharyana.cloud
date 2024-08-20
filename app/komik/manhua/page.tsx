@@ -20,7 +20,7 @@ interface manhua {
 }
 
 export default async function manhuaPage() {
-  const BASEURL = process.env.KOMIK || 'https://api-otaku.vercel.app/api';
+  const BASEURL = process.env.KOMIK ;
   const komikData: KomikData = await getData(`${BASEURL}/komik/manhua`);
 
   return (
