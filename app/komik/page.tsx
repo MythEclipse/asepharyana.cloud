@@ -72,7 +72,7 @@ const renderSection = (title: string, comics: Comic[], loading: boolean) => (
     </div>
     <div className="flex overflow-x-auto space-x-4 pb-4">
       {loading ? (
-        <Loading/>
+        <Loading />
       ) : comics.length > 0 ? (
         comics.map((comic) => (
           <div key={comic.komik_id} className="flex-shrink-0 w-48">

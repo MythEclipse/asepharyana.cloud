@@ -44,11 +44,11 @@ export default function AnimePage() {
     'user-agent':
       'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36',
     referer: `${BASEURL}`,
-    origin: `${BASEURL}`,
+    origin: `${BASEURL}`
   };
 
   const axiosInstance = axios.create({
-    headers: DEFAULT_HEADERS,
+    headers: DEFAULT_HEADERS
   });
 
   const getEpisodes = async () => {
@@ -79,7 +79,7 @@ export default function AnimePage() {
       </div>
 
       {loadingOngoing ? (
-        <Loading/>
+        <Loading />
       ) : (
         <div className="overflow-x-auto py-4">
           <div className="flex space-x-4">
@@ -120,7 +120,7 @@ export default function AnimePage() {
       </div>
 
       {loadingComplete ? (
-        <Loading/>
+        <Loading />
       ) : (
         <div className="overflow-x-auto py-4">
           <div className="flex space-x-4">
