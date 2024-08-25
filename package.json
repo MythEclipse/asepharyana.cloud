@@ -31,7 +31,6 @@
     "@next-auth/prisma-adapter": "^1.0.7",
     "@next/third-parties": "^14.2.4",
     "@prisma/client": "^5.18.0",
-    "prisma": "^5.18.0",
     "@types/bcrypt": "^5.0.2",
     "@uiw/react-md-editor": "^4.0.4",
     "axios": "^1.7.2",
@@ -54,6 +53,7 @@
     "next-view-transitions": "^0.1.1",
     "pino": "^9.3.1",
     "pino-pretty": "^11.2.1",
+    "prisma": "^5.18.0",
     "puppeteer": "^22.15.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -72,6 +72,7 @@
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^14.2.5",
+    "@types/cheerio": "^0.22.35",
     "@types/cors": "^2.8.17",
     "@types/js-beautify": "^1.14.3",
     "@types/node": "^20.14.9",

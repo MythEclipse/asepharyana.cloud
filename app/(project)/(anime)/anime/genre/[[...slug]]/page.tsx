@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { getData } from '@/app/lib/GetData/GetData';
+import { getData } from '@/lib/GetData/GetData';
 import AnimeGrid from '@/components/AnimeGrid2';
 
 interface HomeData {

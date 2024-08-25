@@ -1,4 +1,4 @@
-import { getComments, postComment } from '../../lib/firebase/service';
+import { getComments, postComment } from '../../../lib/firebase/service';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(request: NextRequest) {

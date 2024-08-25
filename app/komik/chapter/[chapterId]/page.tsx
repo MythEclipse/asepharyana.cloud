@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import { notFound } from 'next/navigation';
-import { getData } from '@/app/lib/GetData/GetData';
+import { getData } from '@/lib/GetData/GetData';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from 'flowbite-react';

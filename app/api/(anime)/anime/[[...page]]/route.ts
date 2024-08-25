@@ -1,4 +1,4 @@
-import { useFetch } from './../../../../lib/useFetch';
+import { useFetch } from '../../../../../lib/useFetch';
 import axios from 'axios';
 import { NextRequest, NextResponse } from 'next/server';
 import cheerio from 'cheerio';

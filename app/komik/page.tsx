@@ -27,9 +27,9 @@ const HomePage: React.FC = () => {
   const fetchComics = async () => {
     try {
       const [mangaRes, manhuaRes, manhwaRes] = await Promise.all([
-        axios.get(`http://localhost:3090/api/komik/manga?page=1&order=update`),
-        axios.get(`http://localhost:3090/api/komik/manhua?page=1&order=update`),
-        axios.get(`http://localhost:3090/api/komik/manhwa?page=1&order=update`)
+        axios.get(`/api/komik/manga?page=1&order=update`),
+        axios.get(`/api/komik/manhua?page=1&order=update`),
+        axios.get(`/api/komik/manhwa?page=1&order=update`)
       ]);
 
       // Extract the data from the API responses

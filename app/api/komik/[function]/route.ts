@@ -1,8 +1,5 @@
-// app/api/komik/[function]/route.ts
-import axios from 'axios';
-import * as cheerio from 'cheerio';
 import { NextResponse } from 'next/server';
-
+import cheerio from 'cheerio'
 const baseUrl = {
   anime: 'https://kuramanime.boo',
   komik: 'https://komikcast.cz'
@@ -20,20 +17,16 @@ const DEFAULT_HEADERS = {
   'sec-fetch-mode': 'cors',
   'sec-fetch-site': 'same-origin',
   'user-agent':
-    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36',
-  referer: `${baseURL}`,
-  origin: `${baseURL}`
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36'
 };
 
-const axiosInstance = axios.create({
-  headers: DEFAULT_HEADERS
-});
+// In-memory cache
+const cache: { [key: string]: { data: any; timestamp: number } } = {};
+const CACHE_DURATION = 60 * 1000; // 60 seconds
 
 // Logging Function
 const logError = (error: any) => {
-  console.error('Error Status:', error.response?.status);
-  console.error('Error Headers:', error.response?.headers);
-  console.error('Error Data:', error.response?.data);
+  console.error('Error:', error.message);
 };
 
 // Type Definitions
@@ -70,7 +63,8 @@ interface MangaChapter {
 }
 
 // Utility function to parse manga data
-const parseMangaData = ($: cheerio.CheerioAPI): MangaData[] => {
+const parseMangaData = (body: string): MangaData[] => {
+  const $ = cheerio.load(body);
   const data: MangaData[] = [];
 
   $('.list-update_items-wrapper .list-update_item').each((i: number, e: cheerio.Element) => {
@@ -95,10 +89,34 @@ const parseMangaData = ($: cheerio.CheerioAPI): MangaData[] => {
   return data;
 };
 
+// Function to fetch data with caching
+const fetchWithCache = async (url: string): Promise<any> => {
+  const cacheKey = url;
+
+  // Check cache
+  if (cache[cacheKey] && (Date.now() - cache[cacheKey].timestamp < CACHE_DURATION)) {
+    return cache[cacheKey].data;
+  }
+
+  try {
+    const res = await fetch(url, { headers: DEFAULT_HEADERS });
+    if (!res.ok) {
+      throw new Error('Failed to fetch data');
+    }
+    const data = await res.text(); // Fetch as text to parse later
+    // Cache the response
+    cache[cacheKey] = { data, timestamp: Date.now() };
+    return data;
+  } catch (error) {
+    logError(error);
+    throw new Error('Failed to fetch data');
+  }
+};
+
 // Function to get manga detail
 const getDetail = async (komik_id: string): Promise<MangaDetail> => {
   try {
-    const { data: body } = await axiosInstance.get(`${baseURL}/komik/${komik_id}`);
+    const body = await fetchWithCache(`${baseURL}/komik/${komik_id}`);
     const $ = cheerio.load(body);
 
     const title = $('.komik_info-content-body-title').text() || '';
@@ -159,7 +177,7 @@ const getDetail = async (komik_id: string): Promise<MangaDetail> => {
 // Function to get manga chapter
 const getChapter = async (chapter_url: string): Promise<MangaChapter> => {
   try {
-    const { data: body } = await axiosInstance.get(`${baseURL}/chapter/${chapter_url}`);
+    const body = await fetchWithCache(`${baseURL}/chapter/${chapter_url}`);
     const $ = cheerio.load(body);
 
     const title = $('#content > div > div > div.chapter_headpost > h1').text() || '';
@@ -188,39 +206,40 @@ export const GET = async (req: Request) => {
   const page = url.searchParams.get('page') || '1';
   const order = url.searchParams.get('order') || 'update';
   const type = url.pathname.split('/')[3] as 'manga' | 'manhwa' | 'manhua' | 'search' | 'detail' | 'chapter';
+  const cacheKey = `${type}-${page}-${order}-${url.searchParams.get('query') || ''}`;
+
+  // Check cache
+  if (cache[cacheKey] && (Date.now() - cache[cacheKey].timestamp < CACHE_DURATION)) {
+    return NextResponse.json(cache[cacheKey].data, { status: 200 });
+  }
 
   try {
+    let data: any;
     if (type === 'detail') {
       const komik_id = url.searchParams.get('komik_id') || 'one-piece';
-      const detailData = await getDetail(komik_id);
-      return NextResponse.json(detailData, { status: 200 });
+      data = await getDetail(komik_id);
     } else if (type === 'chapter') {
       const chapter_url = url.searchParams.get('chapter_url') || '';
-      const chapterData = await getChapter(chapter_url);
-      return NextResponse.json(chapterData, { status: 200 });
+      data = await getChapter(chapter_url);
     } else {
       let apiUrl = `${baseURL}/daftar-komik/page/${page}/?type=${type}&sortby=${order}`;
       if (type === 'search') {
         const query = url.searchParams.get('query') || '';
         apiUrl = `${baseURL}/page/${page}/?s=${query}`;
       }
-      const { data: body } = await axiosInstance.get(apiUrl);
-
+      const body = await fetchWithCache(apiUrl);
       const $ = cheerio.load(body);
-      const data = parseMangaData($);
-
-      const prevPage = $('.prev').length > 0;
-      const nextPage = $('.next').length > 0;
-
-      return NextResponse.json(
-        {
-          data,
-          prevPage,
-          nextPage
-        },
-        { status: 200 }
-      );
+      data = {
+        data: parseMangaData(body),
+        prevPage: $('.prev').length > 0,
+        nextPage: $('.next').length > 0
+      };
     }
+
+    // Cache the response
+    cache[cacheKey] = { data, timestamp: Date.now() };
+
+    return NextResponse.json(data, { status: 200 });
   } catch (error: any) {
     logError(error);
     return NextResponse.json(
