@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import cheerio from 'cheerio'
+import cheerio from 'cheerio';
 const baseUrl = {
   anime: 'https://kuramanime.boo',
   komik: 'https://komikcast.cz'
@@ -94,7 +94,7 @@ const fetchWithCache = async (url: string): Promise<any> => {
   const cacheKey = url;
 
   // Check cache
-  if (cache[cacheKey] && (Date.now() - cache[cacheKey].timestamp < CACHE_DURATION)) {
+  if (cache[cacheKey] && Date.now() - cache[cacheKey].timestamp < CACHE_DURATION) {
     return cache[cacheKey].data;
   }
 
@@ -209,7 +209,7 @@ export const GET = async (req: Request) => {
   const cacheKey = `${type}-${page}-${order}-${url.searchParams.get('query') || ''}`;
 
   // Check cache
-  if (cache[cacheKey] && (Date.now() - cache[cacheKey].timestamp < CACHE_DURATION)) {
+  if (cache[cacheKey] && Date.now() - cache[cacheKey].timestamp < CACHE_DURATION) {
     return NextResponse.json(cache[cacheKey].data, { status: 200 });
   }
 
