@@ -1,8 +1,11 @@
-import { FC } from 'react';
+'use client';
+
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Card, Button } from 'flowbite-react';
 import axios from 'axios';
+import Loading from '@/components/loading';
 
 interface Comic {
   komik_id: string;
@@ -13,46 +16,52 @@ interface Comic {
   type: string;
 }
 
-// Function to fetch data from the API using axios
-const fetchComics = async () => {
-  try {
-    const [mangaRes, manhuaRes, manhwaRes] = await Promise.all([
-      axios.get(`http://localhost:3090/api/komik/manga?page=1&order=update`),
-      axios.get(`http://localhost:3090/api/komik/manhua?page=1&order=update`),
-      axios.get(`http://localhost:3090/api/komik/manhwa?page=1&order=update`)
-    ]);
+// Client component
+const HomePage: React.FC = () => {
+  const [manga, setManga] = useState<Comic[]>([]);
+  const [manhua, setManhua] = useState<Comic[]>([]);
+  const [manhwa, setManhwa] = useState<Comic[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
-    // Extract the data from the API responses
-    const manga = mangaRes.data.data || [];
-    const manhua = manhuaRes.data.data || [];
-    const manhwa = manhwaRes.data.data || [];
+  // Function to fetch data from the API using axios
+  const fetchComics = async () => {
+    try {
+      const [mangaRes, manhuaRes, manhwaRes] = await Promise.all([
+        axios.get(`http://localhost:3090/api/komik/manga?page=1&order=update`),
+        axios.get(`http://localhost:3090/api/komik/manhua?page=1&order=update`),
+        axios.get(`http://localhost:3090/api/komik/manhwa?page=1&order=update`)
+      ]);
 
-    return { manga, manhua, manhwa };
-  } catch (error) {
-    console.error('Error fetching comics:', error);
-    return { manga: [], manhua: [], manhwa: [] }; // Return empty arrays on error
-  }
-};
+      // Extract the data from the API responses
+      setManga(mangaRes.data.data || []);
+      setManhua(manhuaRes.data.data || []);
+      setManhwa(manhwaRes.data.data || []);
+    } catch (error) {
+      console.error('Error fetching comics:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-// Server Component for rendering
-const HomePage: FC = async () => {
-  const { manga, manhua, manhwa } = await fetchComics();
+  useEffect(() => {
+    fetchComics();
+  }, []);
 
   return (
     <div className="p-6">
       <h1 className="text-3xl font-bold mb-6 dark:text-white">Komik Manga, Manhua, dan Manhwa</h1>
 
       <div className="space-y-8">
-        {renderSection('Manga', manga)}
-        {renderSection('Manhua', manhua)}
-        {renderSection('Manhwa', manhwa)}
+        {renderSection('Manga', manga, loading)}
+        {renderSection('Manhua', manhua, loading)}
+        {renderSection('Manhwa', manhwa, loading)}
       </div>
     </div>
   );
 };
 
 // Function to render each section
-const renderSection = (title: string, comics: Comic[]) => (
+const renderSection = (title: string, comics: Comic[], loading: boolean) => (
   <section className="mb-8">
     <div className="text-2xl font-bold mt-8 mb-4">
       <Link href={`/komik/${title.toLowerCase()}/page/1`}>
@@ -62,7 +71,9 @@ const renderSection = (title: string, comics: Comic[]) => (
       </Link>
     </div>
     <div className="flex overflow-x-auto space-x-4 pb-4">
-      {comics.length > 0 ? (
+      {loading ? (
+        <Loading/>
+      ) : comics.length > 0 ? (
         comics.map((comic) => (
           <div key={comic.komik_id} className="flex-shrink-0 w-48">
             <Card className="shadow-lg rounded-lg overflow-hidden flex flex-col items-center">

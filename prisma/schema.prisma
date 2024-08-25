@@ -4,7 +4,156 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("POSTGRES_URL")
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id                String  @id @default(cuid()) @db.Text
+  userId            String  @map("user_id")
+  type              String?
+  provider          String
+  providerAccountId String  @map("provider_account_id")
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid()) @db.Text
+  userId       String?  @map("user_id")
+  sessionToken String   @unique @map("session_token") @db.Text
+  accessToken  String?  @map("access_token") @db.Text
+  expires      DateTime
+  user         User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("sessions")
+}
+
+model User {
+  id               String         @id @default(cuid()) @db.Text
+  name             String?
+  email            String?        @unique
+  password         String?
+  emailVerified    Boolean?
+  image            String?
+  role             String         @default("member")  // Added role field
+  type String
+  fullname         String?                            // Added fullname field
+  createdTopics    Topics[]       @relation("CreatedBy")
+  accounts         Account[]
+  sessions         Session[]
+  comments         Comments[]     @relation("UserComments")
+  likes            Likes[]
+  posts            Posts[]        @relation("UserPosts")
+  replies          Replies[]
+  subscription     Subscription[]
+  authoredPosts    Post[]         @relation("AuthoredPosts") // Relasi berlawanan dengan author di Post
+  authoredComments Comment[]      @relation("AuthoredComments") // Relasi berlawanan dengan author di Comment
+}
+
+
+model VerificationRequest {
+  id         String   @id @default(cuid())
+  identifier String
+  token      String   @unique
+  expires    DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([identifier, token])
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Comments {
+  id         String    @id @default(cuid()) @db.Text
+  userId     String    @map("user_id") @db.Text
+  postId     String    @map("post_id") @db.Text
+  content    String    @db.Text
+  created_at DateTime  @default(now())
+  user       User      @relation("UserComments", fields: [userId], references: [id])
+  posts      Posts     @relation("PostComments", fields: [postId], references: [id])
+  replies    Replies[]
+
+  @@index([postId], map: "postId_Comments")
+  @@index([userId], map: "userId_Comments")
+}
+
+model Likes {
+  userId String @map("user_id") @db.Text
+  postId String @map("post_id") @db.Text
+  user   User   @relation(fields: [userId], references: [id])
+  posts  Posts  @relation(fields: [postId], references: [id])
+
+  @@id([userId, postId])
+}
+
+model Posts {
+  id         String     @id @default(cuid()) @db.Text
+  userId     String     @map("user_id") @db.Text
+  content    String     @db.Text
+  image_url  String?    @db.VarChar(255)
+  topicId    String     @map("topic_id") @db.Text
+  created_at DateTime   @default(now())
+  updated_at DateTime   @default(now())
+  comments   Comments[] @relation("PostComments")
+  likes      Likes[]
+  user       User       @relation("UserPosts", fields: [userId], references: [id])
+  topics     Topics?    @relation(fields: [topicId], references: [id])
+
+  @@index([topicId], map: "topicId_Posts")
+  @@index([userId], map: "userId_Posts")
+}
+
+model Replies {
+  id         String   @id @default(cuid()) @db.Text
+  userId     String   @map("user_id") @db.Text
+  commentId  String   @map("comment_id") @db.Text
+  content    String   @db.Text
+  created_at DateTime @default(now())
+  user       User     @relation(fields: [userId], references: [id])
+  comments   Comments @relation(fields: [commentId], references: [id])
+
+  @@index([commentId], map: "commentId_Replies")
+  @@index([userId], map: "userId_Replies")
+}
+
+model Topics {
+  id    String  @id @default(cuid()) @db.Text
+  name  String  @unique(map: "name") @db.VarChar(255)
+  posts Posts[]
+
+  creatorId   String?        @db.Text
+  Creator     User?          @relation("CreatedBy", fields: [creatorId], references: [id])
+  subscribers Subscription[]
+
+  @@index([name])
+}
+
+model Subscription {
+  user    User   @relation(fields: [userId], references: [id])
+  userId  String @db.Text
+  topics  Topics @relation(fields: [topicId], references: [id])
+  topicId String @db.Text
+
+  @@id([userId, topicId])
 }
 
 model Feedback {
@@ -21,7 +170,7 @@ model Post {
   title     String
   content   String
   authorId  String
-  author    User      @relation("UserPosts", fields: [authorId], references: [id])
+  author    User      @relation("AuthoredPosts", fields: [authorId], references: [id]) // Relasi ke User
   comments  Comment[] @relation("PostComments")
   published Boolean?  @default(false)
   createdAt DateTime  @default(now())
@@ -34,55 +183,7 @@ model Comment {
   postId    String
   post      Post     @relation("PostComments", fields: [postId], references: [id])
   authorId  String
-  author    User     @relation("UserComments", fields: [authorId], references: [id])
+  author    User     @relation("AuthoredComments", fields: [authorId], references: [id]) // Relasi ke User
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-}
-
-model User {
-  id        String    @id @default(cuid())
-  email     String    @unique
-  password  String?
-  emailVerified     Boolean  @default(false)
-  image     String?
-  fullname  String?
-  name      String?
-  type      String?
-  role      String?
-  accounts  Account[]
-  sessions  Session[]
-  posts     Post[]    @relation("UserPosts")
-  comments  Comment[] @relation("UserComments")
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-}
-
-model Account {
-  id                String   @id @default(cuid())
-  userId            String
-  provider          String
-  providerAccountId String
-  type              String
-  refresh_token     String?
-  access_token      String?
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String?
-  session_state     String?
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  user              User     @relation(fields: [userId], references: [id])
-
-  @@unique([provider, providerAccountId])
-}
-
-model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id])
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
 }

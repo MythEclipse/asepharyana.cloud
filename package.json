@@ -16,7 +16,7 @@
     "lint": "next lint",
     "lint:debug": "next lint  --debug",
     "lint:fix": "next lint --fix",
-    "migrate": "prisma migrate dev",
+    "migrate": "prisma migrate dev && prisma generate",
     "studio": "prisma studio",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
     "prepare": "husky",

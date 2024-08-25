@@ -81,7 +81,7 @@ export default function RootLayout({
               <NavbarWrapper />
               <Flowbite theme={{ theme: customTheme }}>
                 <div className="mt-5 max-w-full px-3 pb-10 pt-56 sm:px-6 lg:px-8">
-                  <Suspense fallback={<Loading />}>{children}</Suspense>
+                  {children}
                   <DarkThemeToggle className="fixed bottom-0 z-10" />
                 </div>
               </Flowbite>
