@@ -1,36 +1,3 @@
-/*
-  Warnings:
-
-  - You are about to drop the column `createdAt` on the `User` table. All the data in the column will be lost.
-  - You are about to drop the column `updatedAt` on the `User` table. All the data in the column will be lost.
-  - You are about to drop the `Account` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `Session` table. If the table is not empty, all the data it contains will be lost.
-  - Made the column `type` on table `User` required. This step will fail if there are existing NULL values in that column.
-  - Made the column `role` on table `User` required. This step will fail if there are existing NULL values in that column.
-
-*/
--- DropForeignKey
-ALTER TABLE "Account" DROP CONSTRAINT "Account_userId_fkey";
-
--- DropForeignKey
-ALTER TABLE "Session" DROP CONSTRAINT "Session_userId_fkey";
-
--- AlterTable
-ALTER TABLE "User" DROP COLUMN "createdAt",
-DROP COLUMN "updatedAt",
-ALTER COLUMN "email" DROP NOT NULL,
-ALTER COLUMN "type" SET NOT NULL,
-ALTER COLUMN "role" SET NOT NULL,
-ALTER COLUMN "role" SET DEFAULT 'member',
-ALTER COLUMN "emailVerified" DROP NOT NULL,
-ALTER COLUMN "emailVerified" DROP DEFAULT;
-
--- DropTable
-DROP TABLE "Account";
-
--- DropTable
-DROP TABLE "Session";
-
 -- CreateTable
 CREATE TABLE "accounts" (
     "id" TEXT NOT NULL,
@@ -60,6 +27,21 @@ CREATE TABLE "sessions" (
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "sessions_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "User" (
+    "id" TEXT NOT NULL,
+    "name" TEXT,
+    "email" TEXT,
+    "password" TEXT,
+    "emailVerified" BOOLEAN,
+    "image" TEXT,
+    "role" TEXT NOT NULL DEFAULT 'member',
+    "type" TEXT NOT NULL,
+    "fullname" TEXT,
+
+    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -141,11 +123,51 @@ CREATE TABLE "Subscription" (
     CONSTRAINT "Subscription_pkey" PRIMARY KEY ("userId","topicId")
 );
 
+-- CreateTable
+CREATE TABLE "Feedback" (
+    "email" TEXT NOT NULL,
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "message" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Feedback_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Post" (
+    "id" TEXT NOT NULL,
+    "title" TEXT NOT NULL,
+    "content" TEXT NOT NULL,
+    "authorId" TEXT NOT NULL,
+    "published" BOOLEAN DEFAULT false,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Post_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Comment" (
+    "id" TEXT NOT NULL,
+    "content" TEXT NOT NULL,
+    "postId" TEXT NOT NULL,
+    "authorId" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Comment_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "accounts_provider_provider_account_id_key" ON "accounts"("provider", "provider_account_id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "sessions_session_token_key" ON "sessions"("session_token");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "VerificationRequest_token_key" ON "VerificationRequest"("token");
@@ -182,6 +204,9 @@ CREATE UNIQUE INDEX "name" ON "Topics"("name");
 
 -- CreateIndex
 CREATE INDEX "Topics_name_idx" ON "Topics"("name");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Feedback_email_key" ON "Feedback"("email");
 
 -- AddForeignKey
 ALTER TABLE "accounts" ADD CONSTRAINT "accounts_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -221,3 +246,12 @@ ALTER TABLE "Subscription" ADD CONSTRAINT "Subscription_userId_fkey" FOREIGN KEY
 
 -- AddForeignKey
 ALTER TABLE "Subscription" ADD CONSTRAINT "Subscription_topicId_fkey" FOREIGN KEY ("topicId") REFERENCES "Topics"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Post" ADD CONSTRAINT "Post_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Comment" ADD CONSTRAINT "Comment_postId_fkey" FOREIGN KEY ("postId") REFERENCES "Post"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Comment" ADD CONSTRAINT "Comment_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

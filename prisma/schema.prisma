@@ -48,7 +48,7 @@ model User {
   emailVerified    Boolean?
   image            String?
   role             String         @default("member")  // Added role field
-  type String
+  type String? // Added type field
   fullname         String?                            // Added fullname field
   createdTopics    Topics[]       @relation("CreatedBy")
   accounts         Account[]
