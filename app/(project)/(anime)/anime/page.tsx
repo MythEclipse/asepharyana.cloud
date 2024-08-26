@@ -86,7 +86,6 @@ const AnimeList = ({ animeList, isLoading }: { animeList: Anime[]; isLoading: bo
   </div>
 );
 
-
 export default function AnimePage() {
   const [episodeData, setEpisodeData] = useState<HomeData | null>(null);
   const [loadingOngoing, setLoadingOngoing] = useState<boolean>(true);

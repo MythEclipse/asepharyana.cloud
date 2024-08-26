@@ -97,17 +97,21 @@ const HomePage: React.FC = () => {
               {loading ? (
                 <Loading />
               ) : type === 'Manga' ? (
-                manga.length > 0 ? manga.map(comic => <ComicCard key={comic.komik_id} comic={comic} />) : (
+                manga.length > 0 ? (
+                  manga.map((comic) => <ComicCard key={comic.komik_id} comic={comic} />)
+                ) : (
                   <p className="text-gray-600 dark:text-white">No manga available</p>
                 )
               ) : type === 'Manhua' ? (
-                manhua.length > 0 ? manhua.map(comic => <ComicCard key={comic.komik_id} comic={comic} />) : (
+                manhua.length > 0 ? (
+                  manhua.map((comic) => <ComicCard key={comic.komik_id} comic={comic} />)
+                ) : (
                   <p className="text-gray-600 dark:text-white">No manhua available</p>
                 )
+              ) : manhwa.length > 0 ? (
+                manhwa.map((comic) => <ComicCard key={comic.komik_id} comic={comic} />)
               ) : (
-                manhwa.length > 0 ? manhwa.map(comic => <ComicCard key={comic.komik_id} comic={comic} />) : (
-                  <p className="text-gray-600 dark:text-white">No manhwa available</p>
-                )
+                <p className="text-gray-600 dark:text-white">No manhwa available</p>
               )}
             </div>
           </section>

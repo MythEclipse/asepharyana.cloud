@@ -45,10 +45,14 @@ export default function Navbar() {
                 <span className="block text-sm font-medium truncate">{session?.user?.email ?? 'Guest'}</span>
               </Dropdown.Header>
               <Dropdown.Item>
-                <Link scroll={true} href="/dashboard">Dashboard</Link>
+                <Link scroll={true} href="/dashboard">
+                  Dashboard
+                </Link>
               </Dropdown.Item>
               <Dropdown.Item>
-                <Link scroll={true} href="/settings">Settings</Link>
+                <Link scroll={true} href="/settings">
+                  Settings
+                </Link>
               </Dropdown.Item>
               <Dropdown.Divider />
               <Dropdown.Item onClick={() => signOut()} className="text-red-600">
@@ -87,9 +91,11 @@ export default function Navbar() {
           </button>
         </div>
         <div className={`${isNavOpen ? 'block' : 'hidden'} w-full md:flex md:items-center md:w-auto`} id="navbar-user">
-          <ul className={`mt-4 flex flex-col rounded-lg border border-gray-100 bg-gray-50 p-4 font-medium dark:border-gray-700 dark:bg-darka md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-transparent rtl:space-x-reverse transition-all duration-300 ease-in-out transform ${
-            isNavOpen ? 'translate-y-0 opacity-100' : '-translate-y-5 opacity-0'
-          } md:transform-none md:opacity-100`}>
+          <ul
+            className={`mt-4 flex flex-col rounded-lg border border-gray-100 bg-gray-50 p-4 font-medium dark:border-gray-700 dark:bg-darka md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-transparent rtl:space-x-reverse transition-all duration-300 ease-in-out transform ${
+              isNavOpen ? 'translate-y-0 opacity-100' : '-translate-y-5 opacity-0'
+            } md:transform-none md:opacity-100`}
+          >
             <li>
               <Link scroll={true} href="/about">
                 <span
