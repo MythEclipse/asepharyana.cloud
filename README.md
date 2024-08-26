@@ -1,4 +1,4 @@
-# @MythEclipse/asepharyana.my.id
+# @asepharyana/asepharyana.my.id
 
 ## Overview
 
@@ -93,7 +93,7 @@ To get started with this project locally, follow these steps:
 - `lint` - Run ESLint for code linting.
 - `lint:debug` - Run ESLint with debug mode enabled.
 - `lint:fix` - Automatically fix linting issues.
-- `migrate` - Run Prisma database migrations.
+- `migrate` - Run Prisma database migrations and generate the Prisma client.
 - `studio` - Open Prisma Studio for database management.
 - `format` - Format code using Prettier.
 - `prepare` - Set up Husky for Git hooks.

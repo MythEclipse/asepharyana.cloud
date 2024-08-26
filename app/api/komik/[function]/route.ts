@@ -3,7 +3,7 @@ import cheerio from 'cheerio';
 
 const baseUrl = {
   anime: 'https://kuramanime.boo',
-  komik: 'https://komikcast.cz',
+  komik: 'https://komikcast.cz'
 };
 const baseURL = baseUrl.komik;
 
@@ -18,7 +18,7 @@ const DEFAULT_HEADERS = {
   'sec-fetch-mode': 'cors',
   'sec-fetch-site': 'same-origin',
   'user-agent':
-    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36',
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36'
 };
 
 // Logging Function
@@ -79,7 +79,7 @@ const parseMangaData = (body: string): MangaData[] => {
       chapter,
       score,
       type,
-      komik_id,
+      komik_id
     });
   });
 
@@ -91,7 +91,7 @@ const fetchWithCache = async (url: string): Promise<any> => {
   try {
     const res = await fetch(url, {
       headers: DEFAULT_HEADERS,
-      next: { revalidate: 3600 }, // Cache response for 60 seconds
+      next: { revalidate: 3600 } // Cache response for 60 seconds
     });
     if (!res.ok) {
       throw new Error('Failed to fetch data');
@@ -156,7 +156,7 @@ const getDetail = async (komik_id: string): Promise<MangaDetail> => {
       totalChapter,
       updatedOn,
       genres,
-      chapters,
+      chapters
     };
   } catch (error) {
     logError(error);
@@ -216,7 +216,7 @@ export const GET = async (req: Request) => {
       data = {
         data: parseMangaData(body),
         prevPage: $('.prev').length > 0,
-        nextPage: $('.next').length > 0,
+        nextPage: $('.next').length > 0
       };
     }
 
@@ -226,7 +226,7 @@ export const GET = async (req: Request) => {
     return NextResponse.json(
       {
         status: false,
-        message: error.message,
+        message: error.message
       },
       { status: 500 }
     );
