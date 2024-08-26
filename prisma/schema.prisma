@@ -50,7 +50,6 @@ model User {
   role             String         @default("member") // Added role field
   type             String? // Added type field
   fullname         String? // Added fullname field
-  createdTopics    Topics[]       @relation("CreatedBy")
   accounts         Account[]
   sessions         Session[]
   comments         Comments[]     @relation("UserComments")
@@ -109,15 +108,12 @@ model Posts {
   userId     String     @map("user_id") @db.Text
   content    String     @db.Text
   image_url  String?    @db.VarChar(255)
-  topicId    String     @map("topic_id") @db.Text
   created_at DateTime   @default(now())
   updated_at DateTime   @default(now())
   comments   Comments[] @relation("PostComments")
   likes      Likes[]
   user       User       @relation("UserPosts", fields: [userId], references: [id])
-  topics     Topics?    @relation(fields: [topicId], references: [id])
 
-  @@index([topicId], map: "topicId_Posts")
   @@index([userId], map: "userId_Posts")
 }
 
@@ -134,22 +130,9 @@ model Replies {
   @@index([userId], map: "userId_Replies")
 }
 
-model Topics {
-  id    String  @id @default(cuid()) @db.Text
-  name  String  @unique(map: "name") @db.VarChar(255)
-  posts Posts[]
-
-  creatorId   String?        @db.Text
-  Creator     User?          @relation("CreatedBy", fields: [creatorId], references: [id])
-  subscribers Subscription[]
-
-  @@index([name])
-}
-
 model Subscription {
   user    User   @relation(fields: [userId], references: [id])
   userId  String @db.Text
-  topics  Topics @relation(fields: [topicId], references: [id])
   topicId String @db.Text
 
   @@id([userId, topicId])
