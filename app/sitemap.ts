@@ -21,7 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8
     },
     {
-      url: 'https://asepharyana.my.id/cekkhodam',
+      url: 'https://asepharyana.my.id/komik',
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.5
