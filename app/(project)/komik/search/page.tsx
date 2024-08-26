@@ -50,7 +50,7 @@ const SearchPage: FC<{ searchParams: { query: string } }> = async ({ searchParam
         {searchResults.data.length > 0 ? (
           <div className="flex flex-wrap gap-4">
             {searchResults.data.map((comic) => (
-              <Link key={comic.komik_id} href={`/komik/${comic.komik_id}`} className="block w-48 flex-shrink-0">
+              <Link key={comic.komik_id} href={`/komik/detail/${comic.komik_id}`} className="block w-48 flex-shrink-0">
                 <Card className="shadow-lg rounded-lg overflow-hidden flex flex-col items-center">
                   <div className="relative w-full h-64">
                     <Image

@@ -1,8 +1,9 @@
 import { NextResponse } from 'next/server';
 import cheerio from 'cheerio';
+
 const baseUrl = {
   anime: 'https://kuramanime.boo',
-  komik: 'https://komikcast.cz'
+  komik: 'https://komikcast.cz',
 };
 const baseURL = baseUrl.komik;
 
@@ -17,12 +18,8 @@ const DEFAULT_HEADERS = {
   'sec-fetch-mode': 'cors',
   'sec-fetch-site': 'same-origin',
   'user-agent':
-    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36'
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36',
 };
-
-// In-memory cache
-const cache: { [key: string]: { data: any; timestamp: number } } = {};
-const CACHE_DURATION = 60 * 1000; // 60 seconds
 
 // Logging Function
 const logError = (error: any) => {
@@ -67,7 +64,7 @@ const parseMangaData = (body: string): MangaData[] => {
   const $ = cheerio.load(body);
   const data: MangaData[] = [];
 
-  $('.list-update_items-wrapper .list-update_item').each((i: number, e: cheerio.Element) => {
+  $('.list-update_items-wrapper .list-update_item').each((i, e) => {
     const title = $(e).find('.title').text() || '';
     let image = $(e).find('img').attr('src') || '';
     image = image.split('?')[0]; // Remove query parameters from image URL
@@ -82,31 +79,24 @@ const parseMangaData = (body: string): MangaData[] => {
       chapter,
       score,
       type,
-      komik_id
+      komik_id,
     });
   });
 
   return data;
 };
 
-// Function to fetch data with caching
+// Function to fetch data with Next.js 14 caching
 const fetchWithCache = async (url: string): Promise<any> => {
-  const cacheKey = url;
-
-  // Check cache
-  if (cache[cacheKey] && Date.now() - cache[cacheKey].timestamp < CACHE_DURATION) {
-    return cache[cacheKey].data;
-  }
-
   try {
-    const res = await fetch(url, { headers: DEFAULT_HEADERS });
+    const res = await fetch(url, {
+      headers: DEFAULT_HEADERS,
+      next: { revalidate: 3600 }, // Cache response for 60 seconds
+    });
     if (!res.ok) {
       throw new Error('Failed to fetch data');
     }
-    const data = await res.text(); // Fetch as text to parse later
-    // Cache the response
-    cache[cacheKey] = { data, timestamp: Date.now() };
-    return data;
+    return await res.text(); // Fetch as text to parse later
   } catch (error) {
     logError(error);
     throw new Error('Failed to fetch data');
@@ -166,7 +156,7 @@ const getDetail = async (komik_id: string): Promise<MangaDetail> => {
       totalChapter,
       updatedOn,
       genres,
-      chapters
+      chapters,
     };
   } catch (error) {
     logError(error);
@@ -206,12 +196,6 @@ export const GET = async (req: Request) => {
   const page = url.searchParams.get('page') || '1';
   const order = url.searchParams.get('order') || 'update';
   const type = url.pathname.split('/')[3] as 'manga' | 'manhwa' | 'manhua' | 'search' | 'detail' | 'chapter';
-  const cacheKey = `${type}-${page}-${order}-${url.searchParams.get('query') || ''}`;
-
-  // Check cache
-  if (cache[cacheKey] && Date.now() - cache[cacheKey].timestamp < CACHE_DURATION) {
-    return NextResponse.json(cache[cacheKey].data, { status: 200 });
-  }
 
   try {
     let data: any;
@@ -232,12 +216,9 @@ export const GET = async (req: Request) => {
       data = {
         data: parseMangaData(body),
         prevPage: $('.prev').length > 0,
-        nextPage: $('.next').length > 0
+        nextPage: $('.next').length > 0,
       };
     }
-
-    // Cache the response
-    cache[cacheKey] = { data, timestamp: Date.now() };
 
     return NextResponse.json(data, { status: 200 });
   } catch (error: any) {
@@ -245,7 +226,7 @@ export const GET = async (req: Request) => {
     return NextResponse.json(
       {
         status: false,
-        message: error.message
+        message: error.message,
       },
       { status: 500 }
     );
