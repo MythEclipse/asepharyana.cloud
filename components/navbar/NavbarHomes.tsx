@@ -13,12 +13,12 @@ export default function Navbar() {
   const { data: session, status } = useSession();
 
   return (
-    <nav className="fixed top-0 z-10 w-full bg-white dark:bg-darkb shadow-md">
+    <nav className="fixed top-0 z-10 w-full bg-white dark:bg-darkb shadow-md transition-all duration-300 ease-in-out">
       <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4">
-        <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
+        <Link href="/" scroll={true} className="flex items-center space-x-3 rtl:space-x-reverse">
           <Image
             src="/Logo.svg"
-            className="cursor-pointer transition duration-300 ease-in-out hover:scale-110"
+            className="cursor-pointer transition-transform duration-300 ease-in-out hover:scale-110"
             alt="Logo"
             quality={100}
             loading="eager"
@@ -28,7 +28,7 @@ export default function Navbar() {
           <span
             className={`${
               pathname === '/' ? 'font-semibold text-primary-600' : 'text-gray-900 dark:text-gray-100'
-            } text-lg transition duration-300`}
+            } text-lg transition-colors duration-300`}
           >
             Asep Haryana
           </span>
@@ -45,10 +45,10 @@ export default function Navbar() {
                 <span className="block text-sm font-medium truncate">{session?.user?.email ?? 'Guest'}</span>
               </Dropdown.Header>
               <Dropdown.Item>
-                <Link href="/dashboard">Dashboard</Link>
+                <Link scroll={true} href="/dashboard">Dashboard</Link>
               </Dropdown.Item>
               <Dropdown.Item>
-                <Link href="/settings">Settings</Link>
+                <Link scroll={true} href="/settings">Settings</Link>
               </Dropdown.Item>
               <Dropdown.Divider />
               <Dropdown.Item onClick={() => signOut()} className="text-red-600">
@@ -56,7 +56,7 @@ export default function Navbar() {
               </Dropdown.Item>
             </Dropdown>
           ) : (
-            <Link href="/login" className="mr-3">
+            <Link scroll={true} href="/login" className="mr-3">
               <Button color="info">Login</Button>
             </Link>
           )}
@@ -87,24 +87,26 @@ export default function Navbar() {
           </button>
         </div>
         <div className={`${isNavOpen ? 'block' : 'hidden'} w-full md:flex md:items-center md:w-auto`} id="navbar-user">
-          <ul className="mt-4 flex flex-col rounded-lg border border-gray-100 bg-gray-50 p-4 font-medium dark:border-gray-700 dark:bg-darka md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-transparent rtl:space-x-reverse">
+          <ul className={`mt-4 flex flex-col rounded-lg border border-gray-100 bg-gray-50 p-4 font-medium dark:border-gray-700 dark:bg-darka md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-transparent rtl:space-x-reverse transition-all duration-300 ease-in-out transform ${
+            isNavOpen ? 'translate-y-0 opacity-100' : '-translate-y-5 opacity-0'
+          } md:transform-none md:opacity-100`}>
             <li>
-              <Link href="/about">
+              <Link scroll={true} href="/about">
                 <span
                   className={`${
                     pathname === '/about' ? 'font-semibold text-primary-600' : 'text-gray-900 dark:text-gray-100'
-                  } block rounded px-3 py-2 transition duration-300 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:text-white`}
+                  } block rounded px-3 py-2 transition-colors duration-300 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:text-white`}
                 >
                   About
                 </span>
               </Link>
             </li>
             <li>
-              <Link href="/project">
+              <Link scroll={true} href="/project">
                 <span
                   className={`${
                     pathname === '/project' ? 'font-semibold text-primary-600' : 'text-gray-900 dark:text-gray-100'
-                  } block rounded px-3 py-2 transition duration-300 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:text-white`}
+                  } block rounded px-3 py-2 transition-colors duration-300 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:text-white`}
                 >
                   Project
                 </span>
