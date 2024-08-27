@@ -15,7 +15,7 @@ const prisma = new PrismaClient();
 
 const authOptions: NextAuthOptions = {
   session: { strategy: 'jwt' },
-  secret: process.env.SECRET,
+  secret: process.env.SECRET!,
   adapter: PrismaAdapter(prisma),
   pages: {
     signIn: '/login'
@@ -55,8 +55,8 @@ const authOptions: NextAuthOptions = {
       }
     }),
     GoogleProvider({
-      clientId: process.env.GOOGLE_OAUTH_CLIENT_ID || '',
-      clientSecret: process.env.GOOGLE_OAUTH_CLIENT_SECRET || ''
+      clientId: process.env.GOOGLE_OAUTH_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_OAUTH_CLIENT_SECRET!
     })
   ],
   callbacks: {
@@ -65,13 +65,13 @@ const authOptions: NextAuthOptions = {
         token.id = user.id;
         token.email = user.email;
         token.role = (user as User).role;
-        token.fullName = user.fullname || user.name || '';
+        token.fullname = user.fullname || user.name || '';
       }
 
       if (account?.provider === 'google' && user) {
         const data = {
           email: user.email!,
-          fullName: user.name || '',
+          fullname: user.name || '',
           emailVerified: true,
           role: 'member',
           type: 'google'
@@ -93,7 +93,7 @@ const authOptions: NextAuthOptions = {
         session.user.id = token.id as string;
         session.user.email = token.email as string;
         session.user.role = token.role as string;
-        session.user.fullname = token.fullname as string;
+        session.user.fullname = token.fullname as string; // Ensure consistency with `jwt` callback
       }
       return session;
     }
