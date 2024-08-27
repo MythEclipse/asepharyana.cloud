@@ -56,15 +56,17 @@ export default function PostPage() {
         const commentsPromises = postsWithComments.map((post: Post) =>
           axios.get(`/api/comments?postId=${post.id}`).then((response) => ({
             ...post,
-            comments: response.data.comments,
+            comments: response.data.comments
           }))
         );
 
         const postsWithCommentsData = await Promise.all(commentsPromises);
-        setPosts(postsWithCommentsData.map((post: Post) => ({
-          ...post,
-          likes: post.likes || [],
-        })));
+        setPosts(
+          postsWithCommentsData.map((post: Post) => ({
+            ...post,
+            likes: post.likes || []
+          }))
+        );
       } catch (error) {
         console.error('Error fetching posts and comments:', error);
       }
@@ -99,8 +101,8 @@ export default function PostPage() {
 
         const uploadResponse = await axios.post('/api/upload', formData, {
           headers: {
-            'Content-Type': 'multipart/form-data',
-          },
+            'Content-Type': 'multipart/form-data'
+          }
         });
 
         const fileName = uploadResponse.data.fileName;
@@ -109,7 +111,7 @@ export default function PostPage() {
 
       const postData = {
         content,
-        imageUrl: imageUrl || null,  // Use null if no image
+        imageUrl: imageUrl || null // Use null if no image
       };
 
       await axios.post('/api/posts', postData);
@@ -138,17 +140,17 @@ export default function PostPage() {
 
       setPosts((prevPosts) =>
         prevPosts.map((post) =>
-          post.id === postId
-            ? { ...post, likes: [...post.likes, { userId: response.data.userId, postId }] }
-            : post
+          post.id === postId ? { ...post, likes: [...post.likes, { userId: response.data.userId, postId }] } : post
         )
       );
 
       const updatedPosts = await axios.get('/api/posts');
-      setPosts(updatedPosts.data.posts.map((post: Post) => ({
-        ...post,
-        likes: post.likes || [],
-      })));
+      setPosts(
+        updatedPosts.data.posts.map((post: Post) => ({
+          ...post,
+          likes: post.likes || []
+        }))
+      );
     } catch (error) {
       console.error('Error liking post:', error);
     }
@@ -168,7 +170,7 @@ export default function PostPage() {
     try {
       const commentData = {
         content: newComment,
-        postId,
+        postId
       };
 
       await axios.post('/api/comments', commentData);
@@ -179,10 +181,8 @@ export default function PostPage() {
       setPosts(
         updatedPostsResponse.data.posts.map((post: Post) => ({
           ...post,
-          comments: commentsResponse.data.comments.filter(
-            (comment: Comment) => comment.postId === post.id
-          ),
-          likes: post.likes || [],
+          comments: commentsResponse.data.comments.filter((comment: Comment) => comment.postId === post.id),
+          likes: post.likes || []
         }))
       );
       setNewComment('');
@@ -194,7 +194,7 @@ export default function PostPage() {
   const toggleComments = (postId: string) => {
     setShowComments((prev) => ({
       ...prev,
-      [postId]: !prev[postId],
+      [postId]: !prev[postId]
     }));
   };
 
@@ -234,10 +234,7 @@ export default function PostPage() {
                     <HiHeart className="w-5 h-5 text-red-500 mr-1" />
                     {post.likes.length}
                   </Button>
-                  <Button
-                    onClick={() => toggleComments(post.id)}
-                    className="flex items-center"
-                  >
+                  <Button onClick={() => toggleComments(post.id)} className="flex items-center">
                     <HiChatAlt className="w-5 h-5 text-blue-500 mr-1" />
                     {post.comments.length} {showComments[post.id] ? 'Hide' : 'Show'}
                   </Button>
