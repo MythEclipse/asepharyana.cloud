@@ -13,7 +13,7 @@ export async function POST(request: Request) {
     const userId = session?.user?.id; // Extract user ID from session
 
     // Parse the JSON request body
-    const { content, imageUrl, topicId } = await request.json();
+    const { content, imageUrl } = await request.json();
 
     // Validate request data
     if (!content || typeof content !== 'string') {
