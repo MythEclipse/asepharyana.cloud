@@ -100,13 +100,13 @@ export default function Navbar() {
             } md:transform-none md:opacity-100`}
           >
             <li>
-              <Link scroll={true} href="/about">
+              <Link scroll={true} href="/docs">
                 <span
                   className={`${
-                    pathname === '/about' ? 'font-semibold text-primary-600' : 'text-gray-900 dark:text-gray-100'
+                    pathname === '/docs' ? 'font-semibold text-primary-600' : 'text-gray-900 dark:text-gray-100'
                   } block rounded px-3 py-2 transition-colors duration-300 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:text-white`}
                 >
-                  About
+                  Docs
                 </span>
               </Link>
             </li>
