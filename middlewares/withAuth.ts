@@ -2,7 +2,7 @@ import { getToken } from 'next-auth/jwt';
 import { NextFetchEvent, NextMiddleware, NextRequest, NextResponse } from 'next/server';
 
 const onlyAdminPage = ['/profile', '/settings'];
-const authPage = ['/login', '/register'];
+const authPage = ['/login', '/register', '/sosmed'];
 export default function withAuth(middleware: NextMiddleware, requireAuth: string[] = []) {
   return async (req: NextRequest, next: NextFetchEvent) => {
     const pathname = req.nextUrl.pathname;

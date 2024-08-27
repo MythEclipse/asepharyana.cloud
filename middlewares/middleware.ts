@@ -8,4 +8,4 @@ export function mainMiddleware(request: NextRequest) {
   return res;
 }
 
-export default withAuth(mainMiddleware, ['/dashboard', '/profile', '/settings', '/login', '/register']);
+export default withAuth(mainMiddleware, ['/dashboard', '/profile', '/settings', '/login', '/register','/sosmed']);
