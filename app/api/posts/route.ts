@@ -61,19 +61,19 @@ export async function GET() {
     });
 
     // Remove sensitive information from the response
-    const sanitizedPosts = posts.map(post => ({
+    const sanitizedPosts = posts.map((post) => ({
       ...post,
       user: {
         id: post.user.id,
         name: post.user.name,
-        image: post.user.image, // Preserve image URL if needed
+        image: post.user.image // Preserve image URL if needed
         // Avoid sending sensitive info like email, password, etc.
       },
-      comments: post.comments.map(comment => ({
-        ...comment,
+      comments: post.comments.map((comment) => ({
+        ...comment
         // You can also sanitize comment data if needed
       })),
-      likes: post.likes.map(like => ({
+      likes: post.likes.map((like) => ({
         userId: like.userId, // Keep only non-sensitive info
         postId: like.postId
       }))

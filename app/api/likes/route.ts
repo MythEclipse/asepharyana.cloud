@@ -18,9 +18,9 @@ export async function POST(req: NextRequest) {
       where: {
         userId_postId: {
           userId: session.user.id,
-          postId,
-        },
-      },
+          postId
+        }
+      }
     });
 
     if (existingLike) {
@@ -31,8 +31,8 @@ export async function POST(req: NextRequest) {
     const like = await prisma.likes.create({
       data: {
         postId,
-        userId: session.user.id,
-      },
+        userId: session.user.id
+      }
     });
     return NextResponse.json({ like }, { status: 201 });
   } catch (error) {

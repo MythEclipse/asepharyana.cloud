@@ -22,8 +22,8 @@ export async function POST(req: NextRequest) {
         postId,
         content,
         userId: session.user.id,
-        authorId: session.user.id,
-      },
+        authorId: session.user.id
+      }
     });
     return NextResponse.json({ comment }, { status: 201 });
   } catch (error) {
@@ -33,22 +33,22 @@ export async function POST(req: NextRequest) {
 }
 
 export async function GET(req: NextRequest) {
-    const { searchParams } = new URL(req.url);
-    const postId = searchParams.get('postId');
-  
-    if (!postId) {
-      return NextResponse.json({ message: 'Post ID is required' }, { status: 400 });
-    }
-  
-    try {
-      const comments = await prisma.comments.findMany({
-        where: { postId: postId as string },
-        include: { user: true },
-        orderBy: { created_at: 'desc' },
-      });
-      return NextResponse.json({ comments }, { status: 200 });
-    } catch (error) {
-      console.error('Error fetching comments:', error);
-      return NextResponse.json({ message: 'Failed to fetch comments' }, { status: 500 });
-    }
+  const { searchParams } = new URL(req.url);
+  const postId = searchParams.get('postId');
+
+  if (!postId) {
+    return NextResponse.json({ message: 'Post ID is required' }, { status: 400 });
   }
+
+  try {
+    const comments = await prisma.comments.findMany({
+      where: { postId: postId as string },
+      include: { user: true },
+      orderBy: { created_at: 'desc' }
+    });
+    return NextResponse.json({ comments }, { status: 200 });
+  } catch (error) {
+    console.error('Error fetching comments:', error);
+    return NextResponse.json({ message: 'Failed to fetch comments' }, { status: 500 });
+  }
+}

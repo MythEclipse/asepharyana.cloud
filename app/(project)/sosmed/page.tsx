@@ -49,10 +49,12 @@ export default function PostPage() {
     const fetchPosts = async () => {
       try {
         const response = await axios.get('/api/posts');
-        setPosts(response.data.posts.map((post: Post) => ({
-          ...post,
-          likes: post.likes || [],
-        })));
+        setPosts(
+          response.data.posts.map((post: Post) => ({
+            ...post,
+            likes: post.likes || []
+          }))
+        );
       } catch (error) {
         console.error('Error fetching posts:', error);
       }
@@ -93,16 +95,18 @@ export default function PostPage() {
 
       const postData = {
         content,
-        imageUrl,
+        imageUrl
       };
 
       await axios.post('/api/posts', postData);
 
       const response = await axios.get('/api/posts');
-      setPosts(response.data.posts.map((post: Post) => ({
-        ...post,
-        likes: post.likes || [],
-      })));
+      setPosts(
+        response.data.posts.map((post: Post) => ({
+          ...post,
+          likes: post.likes || []
+        }))
+      );
 
       setMessage('Post created successfully!');
       setContent('');
@@ -126,17 +130,17 @@ export default function PostPage() {
 
       setPosts((prevPosts) =>
         prevPosts.map((post) =>
-          post.id === postId
-            ? { ...post, likes: [...post.likes, { userId: response.data.userId, postId }] }
-            : post
+          post.id === postId ? { ...post, likes: [...post.likes, { userId: response.data.userId, postId }] } : post
         )
       );
 
       const updatedPosts = await axios.get('/api/posts');
-      setPosts(updatedPosts.data.posts.map((post: Post) => ({
-        ...post,
-        likes: post.likes || [],
-      })));
+      setPosts(
+        updatedPosts.data.posts.map((post: Post) => ({
+          ...post,
+          likes: post.likes || []
+        }))
+      );
     } catch (error) {
       console.error('Error liking post:', error);
     }
@@ -147,14 +151,16 @@ export default function PostPage() {
     try {
       const commentData = {
         content: newComment,
-        postId,
+        postId
       };
       await axios.post('/api/comments', commentData);
       const response = await axios.get('/api/posts');
-      setPosts(response.data.posts.map((post: Post) => ({
-        ...post,
-        likes: post.likes || [],
-      })));
+      setPosts(
+        response.data.posts.map((post: Post) => ({
+          ...post,
+          likes: post.likes || []
+        }))
+      );
       setNewComment('');
     } catch (error) {
       console.error('Error adding comment:', error);
@@ -164,23 +170,9 @@ export default function PostPage() {
   return (
     <div className="container mx-auto py-8">
       <h1 className="text-2xl font-bold mb-4">Create a Post</h1>
-      <Textarea
-        value={content}
-        onChange={handleContentChange}
-        placeholder="What's on your mind?"
-        className="mb-4"
-      />
-      <input
-        type="file"
-        onChange={handleFileChange}
-        accept="image/*"
-        className="mb-4"
-      />
-      <Button
-        onClick={handlePost}
-        disabled={posting}
-        className="bg-blue-500 text-white"
-      >
+      <Textarea value={content} onChange={handleContentChange} placeholder="What's on your mind?" className="mb-4" />
+      <input type="file" onChange={handleFileChange} accept="image/*" className="mb-4" />
+      <Button onClick={handlePost} disabled={posting} className="bg-blue-500 text-white">
         {posting ? <Spinner /> : 'Post'}
       </Button>
       {message && (
@@ -198,29 +190,16 @@ export default function PostPage() {
             posts.map((post) => (
               <Card key={post.id} className="mb-4">
                 <div className="flex items-center mb-4">
-                  <img
-                    src={post.user.image}
-                    alt={post.user.name}
-                    className="w-10 h-10 rounded-full"
-                  />
+                  <img src={post.user.image} alt={post.user.name} className="w-10 h-10 rounded-full" />
                   <div className="ml-4">
                     <p className="font-semibold">{post.user.name}</p>
                     <p className="text-sm text-gray-600">{new Date(post.created_at).toLocaleString()}</p>
                   </div>
                 </div>
                 <p className="mb-4">{post.content}</p>
-                {post.image_url && (
-                  <img
-                    src={post.image_url}
-                    alt="Post Image"
-                    className="mb-4 max-w-full h-auto"
-                  />
-                )}
+                {post.image_url && <img src={post.image_url} alt="Post Image" className="mb-4 max-w-full h-auto" />}
                 <div className="flex items-center mb-4">
-                  <Button
-                    onClick={() => handleLike(post.id)}
-                    className="mr-2 flex items-center"
-                  >
+                  <Button onClick={() => handleLike(post.id)} className="mr-2 flex items-center">
                     <HiHeart className="w-5 h-5 text-red-500 mr-1" />
                     {post.likes.length}
                   </Button>
@@ -245,10 +224,7 @@ export default function PostPage() {
                     placeholder="Add a comment..."
                     className="mt-2 mb-2"
                   />
-                  <Button
-                    onClick={() => handleAddComment(post.id)}
-                    className="bg-green-500 text-white"
-                  >
+                  <Button onClick={() => handleAddComment(post.id)} className="bg-green-500 text-white">
                     Comment
                   </Button>
                 </div>
