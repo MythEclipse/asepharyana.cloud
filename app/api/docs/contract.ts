@@ -52,11 +52,12 @@ const ErrorResponseSchema = z.object({
 export const contract = c.router({
   fetchMangaList: {
     method: 'GET',
-    path: '/api/komik',
+    path: '/api/komik/[type]',
     query: z.object({
       type: z.enum(['manga', 'manhwa', 'manhua', 'search']),
       page: z.string().optional(),
-      order: z.enum(['update', 'latest']).optional()
+      order: z.enum(['update', 'popular','titleasc','titledesc']).optional(),
+      query: z.string().optional() // Optional for search
     }),
     responses: {
       200: z.object({
@@ -67,7 +68,10 @@ export const contract = c.router({
       500: ErrorResponseSchema
     },
     summary: 'Fetch a list of manga',
-    description: 'Fetches a list of manga based on type and other query parameters.'
+    description: 'Fetches a list of manga based on type (manga, manhwa, manhua, search) and other query parameters. Supports pagination and ordering. Example URLs:\n' +
+      '- `/api/komik/manga?page=1&order=update`\n' +
+      '- `/api/komik/manhua?page=1&order=update`\n' +
+      '- `/api/komik/manhwa?page=1&order=update`'
   },
 
   fetchMangaDetail: {
@@ -85,7 +89,8 @@ export const contract = c.router({
       500: ErrorResponseSchema
     },
     summary: 'Fetch manga details',
-    description: 'Fetches details of a specific manga by its ID.'
+    description: 'Fetches details of a specific manga by its ID. Example URL:\n' +
+      '- `/api/komik/detail?komik_id=${komikId}`'
   },
 
   fetchMangaChapter: {
@@ -103,6 +108,7 @@ export const contract = c.router({
       500: ErrorResponseSchema
     },
     summary: 'Fetch manga chapter images',
-    description: 'Fetches images for a specific manga chapter by its URL.'
+    description: 'Fetches images for a specific manga chapter by its URL. Example URL:\n' +
+      '- `/api/komik/chapter?chapter_url=${chapterId}`'
   }
 });
