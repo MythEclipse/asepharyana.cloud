@@ -91,7 +91,7 @@ const fetchWithCache = async (url: string): Promise<any> => {
   try {
     const res = await fetch(url, {
       headers: DEFAULT_HEADERS,
-      next: { revalidate: 3600 } // Cache response for 60 seconds
+      next: { revalidate: 3600 } // Cache response for 60 minutes
     });
     if (!res.ok) {
       throw new Error('Failed to fetch data');
@@ -171,12 +171,19 @@ const getChapter = async (chapter_url: string): Promise<MangaChapter> => {
     const $ = cheerio.load(body);
 
     const title = $('#content > div > div > div.chapter_headpost > h1').text() || '';
-    const prev_chapter_id =
-      $('#chapter_body > div:nth-child(2) > div.right-control > div > a:nth-child(1)').attr('href')?.split('/')[4] ||
-      '';
-    const next_chapter_id =
-      $('#chapter_body > div:nth-child(2) > div.right-control > div > a:nth-child(2)').attr('href')?.split('/')[4] ||
-      '';
+
+    // Handling previous chapter ID
+    const prev_chapter_element = $('#chapter_body > div:nth-child(2) > div.right-control > div > a[rel="prev"]');
+    const prev_chapter_id = prev_chapter_element.length
+      ? prev_chapter_element.attr('href')?.split('/')[4] || ''
+      : '';
+
+    // Handling next chapter ID
+    const next_chapter_element = $('#chapter_body > div:nth-child(2) > div.right-control > div > a[rel="next"]');
+    const next_chapter_id = next_chapter_element.length
+      ? next_chapter_element.attr('href')?.split('/')[4] || ''
+      : '';
+
     const images: string[] = [];
     $('.main-reading-area img').each((i, el) => {
       const image = $(el).attr('src') || '';
@@ -190,45 +197,109 @@ const getChapter = async (chapter_url: string): Promise<MangaChapter> => {
   }
 };
 
-// Main function to handle GET requests
-export const GET = async (req: Request) => {
-  const url = new URL(req.url);
-  const page = url.searchParams.get('page') || '1';
-  const order = url.searchParams.get('order') || 'update';
-  const type = url.pathname.split('/')[3] as 'manga' | 'manhwa' | 'manhua' | 'search' | 'detail' | 'chapter';
+/**
+ * @swagger
+ * /api/komik:
+ *   get:
+ *     summary: Fetch manga details or chapters
+ *     description: Fetches either manga details or chapter images based on query parameters.
+ *     parameters:
+ *       - in: query
+ *         name: type
+ *         schema:
+ *           type: string
+ *           enum: [manga, manhwa, manhua, search, detail, chapter]
+ *         required: true
+ *         description: Type of content to fetch.
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: string
+ *         required: false
+ *         description: The page number to fetch.
+ *       - in: query
+ *         name: order
+ *         schema:
+ *           type: string
+ *           enum: [update, latest]
+ *         required: false
+ *         description: The order in which to fetch content.
+ *       - in: query
+ *         name: komik_id
+ *         schema:
+ *           type: string
+ *         required: false
+ *         description: The ID of the manga to fetch details for (used when type is 'detail').
+ *       - in: query
+ *         name: chapter_url
+ *         schema:
+ *           type: string
+ *         required: false
+ *         description: The URL of the chapter to fetch images for (used when type is 'chapter').
+ *     responses:
+ *       200:
+ *         description: A JSON object containing the requested data.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Success"
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     example: []
+ *       400:
+ *         description: Missing or invalid query parameters.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Missing type or other required query parameters."
+ *       500:
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "An error occurred while processing the request."
+ */
+export async function GET(req: Request) {
+  const { searchParams } = new URL(req.url);
+  const type = searchParams.get('type');
+  const page = searchParams.get('page') || '1';
+  const order = searchParams.get('order');
+  const komik_id = searchParams.get('komik_id');
+  const chapter_url = searchParams.get('chapter_url');
+
+  if (!type) {
+    return NextResponse.json({ message: 'Missing type or other required query parameters.' }, { status: 400 });
+  }
 
   try {
-    let data: any;
-    if (type === 'detail') {
-      const komik_id = url.searchParams.get('komik_id') || 'one-piece';
+    let data;
+    if (type === 'detail' && komik_id) {
       data = await getDetail(komik_id);
-    } else if (type === 'chapter') {
-      const chapter_url = url.searchParams.get('chapter_url') || '';
+    } else if (type === 'chapter' && chapter_url) {
       data = await getChapter(chapter_url);
     } else {
-      let apiUrl = `${baseURL}/daftar-komik/page/${page}/?type=${type}&sortby=${order}`;
-      if (type === 'search') {
-        const query = url.searchParams.get('query') || '';
-        apiUrl = `${baseURL}/page/${page}/?s=${query}`;
-      }
-      const body = await fetchWithCache(apiUrl);
-      const $ = cheerio.load(body);
-      data = {
-        data: parseMangaData(body),
-        prevPage: $('.prev').length > 0,
-        nextPage: $('.next').length > 0
-      };
+      const url = `${baseURL}/page/${page}/?orderby=${order}`;
+      const body = await fetchWithCache(url);
+      data = parseMangaData(body);
     }
 
-    return NextResponse.json(data, { status: 200 });
-  } catch (error: any) {
+    return NextResponse.json({ message: 'Success', data });
+  } catch (error) {
     logError(error);
-    return NextResponse.json(
-      {
-        status: false,
-        message: error.message
-      },
-      { status: 500 }
-    );
+    return NextResponse.json({ message: 'An error occurred while processing the request.' }, { status: 500 });
   }
-};
+}

@@ -12,6 +12,9 @@ export default function Navbar() {
   const pathname = usePathname();
   const { data: session, status } = useSession();
 
+  // Encode the current path as the callback URL
+  const loginUrl = `/login?callbackUrl=${encodeURIComponent(pathname)}`;
+
   return (
     <nav className="fixed top-0 z-10 w-full bg-white dark:bg-darkb shadow-md transition-all duration-300 ease-in-out">
       <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4">
@@ -60,7 +63,7 @@ export default function Navbar() {
               </Dropdown.Item>
             </Dropdown>
           ) : (
-            <Link scroll={true} href="/login" className="mr-3">
+            <Link scroll={true} href={loginUrl} className="mr-3">
               <Button color="info">Login</Button>
             </Link>
           )}
