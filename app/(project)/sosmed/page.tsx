@@ -57,21 +57,20 @@ export default function PostPage() {
       // Upload the image first
       const uploadResponse = await axios.post('/api/upload', formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+          'Content-Type': 'multipart/form-data'
+        }
       });
 
       const fileName = uploadResponse.data.fileName;
       const imageUrl = `https://files.zey.moe/${fileName}`;
       console.log('Uploaded image URL:', imageUrl);
-      
 
       // Now create the post
       const postData = {
         content,
         imageUrl,
         userId: 'your-user-id', // Replace with actual user ID from your authentication system
-        topicId: '', // Replace with actual topic ID if applicable
+        topicId: '' // Replace with actual topic ID if applicable
       };
 
       await axios.post('/api/posts', postData);
@@ -100,12 +99,7 @@ export default function PostPage() {
         placeholder="What's on your mind?"
         className="w-full h-32 mb-4 p-2 border rounded"
       />
-      <input
-        type="file"
-        onChange={handleFileChange}
-        accept="image/*"
-        className="mb-4"
-      />
+      <input type="file" onChange={handleFileChange} accept="image/*" className="mb-4" />
       <button
         onClick={handlePost}
         disabled={posting}

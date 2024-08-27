@@ -32,8 +32,8 @@ export async function POST(request: Request) {
         image_url: imageUrl || '', // Use the image URL returned from the upload API or default to empty string
         userId, // Use user ID from the session
         created_at: new Date(), // Set the created_at field to the current date
-        updated_at: new Date(), // Set the updated_at field to the current date
-      },
+        updated_at: new Date() // Set the updated_at field to the current date
+      }
     });
 
     return NextResponse.json({ message: 'Post created successfully!', post: newPost }, { status: 201 });
@@ -51,11 +51,11 @@ export async function GET() {
     const posts = await prisma.posts.findMany({
       include: {
         user: true, // Include user data if needed
-        comments: true, // Include comments if needed
+        comments: true // Include comments if needed
       },
       orderBy: {
-        created_at: 'desc', // Order by most recent first
-      },
+        created_at: 'desc' // Order by most recent first
+      }
     });
 
     return NextResponse.json({ posts }, { status: 200 });
