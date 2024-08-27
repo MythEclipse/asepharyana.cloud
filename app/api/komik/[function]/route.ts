@@ -174,15 +174,11 @@ const getChapter = async (chapter_url: string): Promise<MangaChapter> => {
 
     // Handling previous chapter ID
     const prev_chapter_element = $('#chapter_body > div:nth-child(2) > div.right-control > div > a[rel="prev"]');
-    const prev_chapter_id = prev_chapter_element.length
-      ? prev_chapter_element.attr('href')?.split('/')[4] || ''
-      : '';
+    const prev_chapter_id = prev_chapter_element.length ? prev_chapter_element.attr('href')?.split('/')[4] || '' : '';
 
     // Handling next chapter ID
     const next_chapter_element = $('#chapter_body > div:nth-child(2) > div.right-control > div > a[rel="next"]');
-    const next_chapter_id = next_chapter_element.length
-      ? next_chapter_element.attr('href')?.split('/')[4] || ''
-      : '';
+    const next_chapter_id = next_chapter_element.length ? next_chapter_element.attr('href')?.split('/')[4] || '' : '';
 
     const images: string[] = [];
     $('.main-reading-area img').each((i, el) => {

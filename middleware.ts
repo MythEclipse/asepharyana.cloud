@@ -26,5 +26,5 @@ export async function middleware(req: NextRequest) {
 
 // Specify the routes that should trigger this middleware
 export const config = {
-  matcher: ['/profile', '/settings', '/sosmed', '/login', '/register'],
+  matcher: ['/profile', '/settings', '/sosmed', '/login', '/register']
 };
