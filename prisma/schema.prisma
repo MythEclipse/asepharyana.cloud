@@ -47,9 +47,9 @@ model User {
   password         String?
   emailVerified    Boolean?
   image            String?
-  role             String         @default("member") // Added role field
-  type             String? // Added type field
-  fullname         String? // Added fullname field
+  role             String         @default("member")
+  type             String?
+  fullname         String?
   accounts         Account[]
   sessions         Session[]
   comments         Comments[]     @relation("UserComments")
@@ -57,8 +57,8 @@ model User {
   posts            Posts[]        @relation("UserPosts")
   replies          Replies[]
   subscription     Subscription[]
-  authoredPosts    Post[]         @relation("AuthoredPosts") // Relasi berlawanan dengan author di Post
-  authoredComments Comment[]      @relation("AuthoredComments") // Relasi berlawanan dengan author di Comment
+  authoredPosts    Posts[]        @relation("AuthoredPosts")
+  authoredComments Comments[]     @relation("AuthoredComments")
 }
 
 model VerificationRequest {
@@ -86,8 +86,10 @@ model Comments {
   postId     String    @map("post_id") @db.Text
   content    String    @db.Text
   created_at DateTime  @default(now())
+  authorId   String    @db.Text  // Field untuk relasi dengan User
   user       User      @relation("UserComments", fields: [userId], references: [id])
   posts      Posts     @relation("PostComments", fields: [postId], references: [id])
+  author     User      @relation("AuthoredComments", fields: [authorId], references: [id])
   replies    Replies[]
 
   @@index([postId], map: "postId_Comments")
@@ -110,9 +112,11 @@ model Posts {
   image_url  String?    @db.VarChar(255)
   created_at DateTime   @default(now())
   updated_at DateTime   @default(now())
+  authorId   String     @db.Text  // Field untuk relasi dengan User
+  user       User       @relation("UserPosts", fields: [userId], references: [id])
+  author     User       @relation("AuthoredPosts", fields: [authorId], references: [id])
   comments   Comments[] @relation("PostComments")
   likes      Likes[]
-  user       User       @relation("UserPosts", fields: [userId], references: [id])
 
   @@index([userId], map: "userId_Posts")
 }
@@ -143,29 +147,6 @@ model Feedback {
   id        String   @id @default(uuid())
   name      String
   message   String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model Post {
-  id        String    @id @default(uuid())
-  title     String
-  content   String
-  authorId  String
-  author    User      @relation("AuthoredPosts", fields: [authorId], references: [id]) // Relasi ke User
-  comments  Comment[] @relation("PostComments")
-  published Boolean?  @default(false)
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-}
-
-model Comment {
-  id        String   @id @default(uuid())
-  content   String
-  postId    String
-  post      Post     @relation("PostComments", fields: [postId], references: [id])
-  authorId  String
-  author    User     @relation("AuthoredComments", fields: [authorId], references: [id]) // Relasi ke User
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
