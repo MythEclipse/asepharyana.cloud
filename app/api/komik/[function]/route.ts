@@ -193,33 +193,44 @@ const getChapter = async (chapter_url: string): Promise<MangaChapter> => {
   }
 };
 
-export async function GET(req: Request) {
-  const { searchParams } = new URL(req.url);
-  const type = searchParams.get('type');
-  const page = searchParams.get('page') || '1';
-  const order = searchParams.get('order');
-  const komik_id = searchParams.get('komik_id');
-  const chapter_url = searchParams.get('chapter_url');
-
-  if (!type) {
-    return NextResponse.json({ message: 'Missing type or other required query parameters.' }, { status: 400 });
-  }
+export const GET = async (req: Request) => {
+  const url = new URL(req.url);
+  const page = url.searchParams.get('page') || '1';
+  const order = url.searchParams.get('order') || 'update';
+  const type = url.pathname.split('/')[3] as 'manga' | 'manhwa' | 'manhua' | 'search' | 'detail' | 'chapter';
 
   try {
-    let data;
-    if (type === 'detail' && komik_id) {
+    let data: any;
+    if (type === 'detail') {
+      const komik_id = url.searchParams.get('komik_id') || 'one-piece';
       data = await getDetail(komik_id);
-    } else if (type === 'chapter' && chapter_url) {
+    } else if (type === 'chapter') {
+      const chapter_url = url.searchParams.get('chapter_url') || '';
       data = await getChapter(chapter_url);
     } else {
-      const url = `${baseURL}/page/${page}/?orderby=${order}`;
-      const body = await fetchWithCache(url);
-      data = parseMangaData(body);
+      let apiUrl = `${baseURL}/daftar-komik/page/${page}/?type=${type}&sortby=${order}`;
+      if (type === 'search') {
+        const query = url.searchParams.get('query') || '';
+        apiUrl = `${baseURL}/page/${page}/?s=${query}`;
+      }
+      const body = await fetchWithCache(apiUrl);
+      const $ = cheerio.load(body);
+      data = {
+        data: parseMangaData(body),
+        prevPage: $('.prev').length > 0,
+        nextPage: $('.next').length > 0
+      };
     }
 
-    return NextResponse.json({ message: 'Success', data });
-  } catch (error) {
+    return NextResponse.json(data, { status: 200 });
+  } catch (error: any) {
     logError(error);
-    return NextResponse.json({ message: 'An error occurred while processing the request.' }, { status: 500 });
+    return NextResponse.json(
+      {
+        status: false,
+        message: error.message
+      },
+      { status: 500 }
+    );
   }
-}
+};
