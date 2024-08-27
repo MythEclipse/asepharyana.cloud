@@ -27,6 +27,9 @@ export default function Page() {
         <div>
           <BoxContent gambar="/webKomik.png" href="/komik" judul="Komik" description="Komik" />
         </div>
+        <div>
+          <BoxContent gambar="/webKomik.png" href="/komik" judul="Komik" description="Komik" />
+        </div>
         {/* <div>
           <BoxContent gambar="/Project1.png" href="/feedback" judul="crudtest" description="Crudtest" />
         </div> */}
