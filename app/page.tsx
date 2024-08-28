@@ -24,7 +24,7 @@ export default function Home() {
                   Asep haryana saputra
                 </span>
               </h1>
-              <h2 className="mb-5 text-lg font-medium text-secondary lg:text-2xl">
+              <h2 className="mb-5 text-lg font-medium text-secondary lg:text-2xl text-dark dark:text-lime-300">
                 Saya adalah seorang <span className="text-dark dark:text-gray-100">Programmer</span>
               </h2>
               <p className="font-medium text-slate-400">Okelah</p>

@@ -69,6 +69,7 @@
     "sharp": "^0.33.4",
     "simplemde": "^1.11.2",
     "swagger-ui-react": "^5.17.14",
+    "swagger-ui-themes": "^3.0.1",
     "tailwind-merge": "^2.3.0",
     "uuid": "^10.0.0",
     "yup": "^1.4.0",

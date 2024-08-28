@@ -6,5 +6,11 @@ export const OpenAPIV1 = generateOpenApi(contract, {
     title: 'Freefire',
     version: '9.9.9',
     description: 'api gratis'
-  }
+  },
+  servers: [
+    {
+      url: 'https://asepharyana.my.id',
+      description: 'Production'
+    }
+  ]
 });
