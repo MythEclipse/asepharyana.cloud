@@ -1,0 +1,9 @@
+
+/* Dark mode styling */
+@media (prefers-color-scheme: dark) {
+  .scheme-container,
+.schemes-server-container,
+.servers {
+  background-color: transparent !important; /* Background transparan */
+}
+}

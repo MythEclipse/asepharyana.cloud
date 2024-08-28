@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import { OpenAPIV1 } from './openapi';
+import OpenApiJson from './OpenApiJson';
 
 export async function GET(req: Request) {
-  return NextResponse.json(OpenAPIV1);
+  return NextResponse.json(OpenApiJson);
 }
