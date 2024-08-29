@@ -1,1 +1,1 @@
-npx prisma generate &&pnpm install && pnpm run dev
+npm run migrate &&pnpm install && pnpm run dev
