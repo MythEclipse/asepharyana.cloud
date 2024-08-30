@@ -25,4 +25,4 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
       { status: 500 }
     );
   }
-};
+}

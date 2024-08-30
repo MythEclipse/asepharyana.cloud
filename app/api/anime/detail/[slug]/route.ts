@@ -9,7 +9,7 @@ const logError = (error: any) => {
 export async function GET(req: NextRequest, { params }: { params: { slug: string } }) {
   const { slug } = params;
   const url = new URL(req.url);
-  const anime = url.searchParams.get('anime')|| slug || 'log-horiz-subtitle-indonesia';
+  const anime = url.searchParams.get('anime') || slug || 'log-horiz-subtitle-indonesia';
   let OngoingAnimeData: any;
 
   try {
@@ -25,4 +25,4 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
       { status: 500 }
     );
   }
-};
+}

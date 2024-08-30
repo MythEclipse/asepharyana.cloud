@@ -31,7 +31,6 @@ interface DetailAnimePageProps {
   };
 }
 
-
 const fetchSearchData = async ({ params }: DetailAnimePageProps) => {
   try {
     const data = await getData(`${ANIMEAPI}/v1/search/${params.slug}`);

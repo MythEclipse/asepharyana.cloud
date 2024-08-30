@@ -26,10 +26,6 @@ interface Anime {
   otakudesu_url: string;
 }
 
-
-
-
-
 const fetchEpisodes = async (): Promise<HomeData> => {
   const { data } = await axios.get(`/api/anime/`);
   return data;

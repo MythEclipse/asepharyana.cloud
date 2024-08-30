@@ -52,7 +52,6 @@ interface DetailAnimePageProps {
   };
 }
 
-
 const fetchHomeData = async (): Promise<HomeData> => {
   const res = await fetch(`${ANIMEAPI}/v1/genres`, { next: { revalidate: 3600 } });
 
