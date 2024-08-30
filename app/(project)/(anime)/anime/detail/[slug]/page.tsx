@@ -121,17 +121,6 @@ export default async function DetailAnimePage(props: DetailAnimePageProps) {
               <strong className="block mb-2 text-lg">Synopsis:</strong>
               <p>{anime.data.synopsis}</p>
             </div>
-            {anime.data.batch && (
-              <div className="mb-4 dark:text-gray-200">
-                <strong className="block mb-2 text-lg">Batch:</strong>
-                <p>
-                  <Link href={anime.data.batch.otakudesu_url} className="text-blue-500 hover:underline">
-                    {anime.data.batch.slug}
-                  </Link>{' '}
-                  - {anime.data.batch.uploaded_at}
-                </p>
-              </div>
-            )}
             <hr className="my-4 border-gray-300 dark:border-gray-600" />
             <div className="mb-4 dark:text-gray-200">
               <strong className="block mb-2 text-lg">Episodes:</strong>
