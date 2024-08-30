@@ -8,6 +8,8 @@ const logError = (error: any) => {
 
 export const GET = async (req: NextRequest) => {
   let OngoingAnimeData: any;
+  const { searchParams } = new URL(req.url);
+  const queryParam = searchParams.get('someParam');
 
   try {
     OngoingAnimeData = await getData(`${ANIMEAPI}/v1/home/`);
