@@ -1,6 +1,7 @@
 import { getData } from '@/lib/GetData/GetData';
 import Link from 'next/link';
 import ClientPlayer from '@/components/ClientPlayer';
+import { Local } from '@/lib/url';
 
 interface AnimeResponse {
   status: string;
@@ -49,8 +50,7 @@ interface DetailAnimePageProps {
 
 export default async function DetailAnimePage(props: DetailAnimePageProps) {
   const { params } = props;
-  const BASEURL = process.env.ANIME || 'https://otakudesu-unofficial-api.vercel.app/';
-  const Anime: AnimeResponse = await getData(`${BASEURL}/v1/episode/${params.slug}`);
+  const Anime: AnimeResponse = await getData(`${Local}/api/anime/full/${params.slug}`);
 
   if (Anime.status !== 'Ok') {
     return (
@@ -64,18 +64,6 @@ export default async function DetailAnimePage(props: DetailAnimePageProps) {
     <div className="p-4 max-w-screen-md mx-auto bg-lightb dark:text-lighta dark:bg-darkb rounded-lg shadow-lg">
       <h1 className="text-4xl font-bold text-white-900">{Anime.data.episode}</h1>
       <hr className="my-4 border-white-300" />
-
-      <p className="text-lg text-white-700">
-        Anime:{' '}
-        <Link
-          href={`/anime/detail/${Anime.data.anime.slug}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-blue-600 underline hover:text-blue-800"
-        >
-          {Anime.data.anime.slug}
-        </Link>
-      </p>
 
       <div className="flex flex-col gap-2 mt-4">
         {Anime.data.stream_url && <ClientPlayer url={Anime.data.stream_url} />}

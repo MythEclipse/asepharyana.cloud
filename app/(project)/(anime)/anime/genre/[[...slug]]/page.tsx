@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { getData } from '@/lib/GetData/GetData';
 import AnimeGrid from '@/components/AnimeGrid2';
+import { ANIMEAPI } from '@/lib/url';
 
 interface HomeData {
   status: string;
@@ -51,10 +52,9 @@ interface DetailAnimePageProps {
   };
 }
 
-const BASEURL = process.env.ANIME || 'https://otakudesu-unofficial-api.vercel.app';
 
 const fetchHomeData = async (): Promise<HomeData> => {
-  const res = await fetch(`${BASEURL}/v1/genres`, { next: { revalidate: 3600 } });
+  const res = await fetch(`${ANIMEAPI}/v1/genres`, { next: { revalidate: 3600 } });
 
   if (!res.ok) {
     throw new Error('Failed to fetch data');
@@ -66,7 +66,7 @@ const fetchHomeData = async (): Promise<HomeData> => {
 const fetchGenreData = async (slug: string[]): Promise<GenreDetailData | null> => {
   const genreSlug = slug.join('/');
   try {
-    const data = await getData(`${BASEURL}/v1/genres/${genreSlug}`);
+    const data = await getData(`${ANIMEAPI}/v1/genres/${genreSlug}`);
     return data;
   } catch (error) {
     console.error('Failed to fetch data:', error);

@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { getData } from '@/lib/GetData/GetData';
+import { ANIMEAPI } from '@/lib/url';
 
 interface Genre {
   name: string;
@@ -30,11 +31,10 @@ interface DetailAnimePageProps {
   };
 }
 
-const BASEURL = process.env.ANIME || 'https://otakudesu-unofficial-api.vercel.app';
 
 const fetchSearchData = async ({ params }: DetailAnimePageProps) => {
   try {
-    const data = await getData(`${BASEURL}/v1/search/${params.slug}`);
+    const data = await getData(`${ANIMEAPI}/v1/search/${params.slug}`);
     return data as SearchDetailData; // Cast the fetched data to SearchDetailData
   } catch (error) {
     console.error('Failed to fetch data:', error);

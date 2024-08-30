@@ -1,4 +1,5 @@
 import { getData } from '@/lib/GetData/GetData';
+import { Local } from '@/lib/url';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -57,8 +58,7 @@ interface DetailAnimePageProps {
 
 export default async function DetailAnimePage(props: DetailAnimePageProps) {
   const { params } = props;
-  const BASEURL = process.env.ANIME || 'https://otakudesu-unofficial-api.vercel.app/';
-  const anime: AnimeData = await getData(`${BASEURL}/v1/anime/${params.slug}`);
+  const anime: AnimeData = await getData(`${Local}/api/anime/detail/${params.slug}`);
 
   return (
     <main className="p-6 bg-gray-100 dark:bg-gray-900 min-h-screen">

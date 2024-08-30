@@ -4,6 +4,7 @@ import { getData } from '@/lib/GetData/GetData';
 import AnimeGrid from '@/components/AnimeGrid';
 import Link from 'next/link';
 import { Button } from 'flowbite-react';
+import { Local } from '@/lib/url';
 
 interface OngoingAnimeData {
   status: string;
@@ -37,11 +38,10 @@ interface DetailAnimePageProps {
 }
 
 export default async function AnimePage({ params }: DetailAnimePageProps) {
-  const BASEURL = process.env.ANIME || 'https://otakudesu-unofficial-api.vercel.app';
   let OngoingAnimeData: OngoingAnimeData;
 
   try {
-    OngoingAnimeData = await getData(`${BASEURL}/v1/ongoing-anime/${params.slug}`);
+    OngoingAnimeData = await getData(`${Local}/api/anime/ongoing-anime/${params.slug}`);
   } catch (error) {
     console.error('Failed to fetch data:', error);
     return (
