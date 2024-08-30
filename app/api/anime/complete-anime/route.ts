@@ -1,5 +1,5 @@
-import { NextRequest, NextResponse } from "next/server";
-import { getData } from "@/lib/GetData/GetData";
+import { NextRequest, NextResponse } from 'next/server';
+import { getData } from '@/lib/GetData/GetData';
 
 const logError = (error: any) => {
   console.error('Error:', error.message);
