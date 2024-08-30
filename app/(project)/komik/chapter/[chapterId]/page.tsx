@@ -44,7 +44,7 @@ export default async function ChapterPage({ params }: { params: { chapterId: str
           )}
         </div>
       </div>
-      <Suspense fallback={<Loading />}></Suspense>
+      <Suspense fallback={<Loading />}>
       <div className="flex flex-col items-center">
         {chapter.images.map((image, index) => (
           <Image
@@ -54,9 +54,12 @@ export default async function ChapterPage({ params }: { params: { chapterId: str
             width={600}
             height={900}
             className="my-2 object-cover"
+            quality={100}
+            priority
           />
         ))}
       </div>
+      </Suspense>
       <div className="mt-4 flex justify-between gap-4">
         {chapter.prev_chapter_id && (
           <Link href={`/komik/chapter/${chapter.prev_chapter_id}`}>
