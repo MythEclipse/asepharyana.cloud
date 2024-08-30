@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import cheerio from 'cheerio';
 
 const baseUrl = {
-  anime: 'https://otakudesu.cloud',
+  anime: 'https://otakudesu.cloud'
 };
 const baseURL = baseUrl.anime;
 
