@@ -45,20 +45,20 @@ export default async function ChapterPage({ params }: { params: { chapterId: str
         </div>
       </div>
       <Suspense fallback={<Loading />}>
-      <div className="flex flex-col items-center">
-        {chapter.images.map((image, index) => (
-          <Image
-            key={index}
-            src={image}
-            alt={`Chapter ${chapter.title} - page ${index + 1}`}
-            width={600}
-            height={900}
-            className="my-2 object-cover"
-            quality={100}
-            priority
-          />
-        ))}
-      </div>
+        <div className="flex flex-col items-center">
+          {chapter.images.map((image, index) => (
+            <Image
+              key={index}
+              src={image}
+              alt={`Chapter ${chapter.title} - page ${index + 1}`}
+              width={600}
+              height={900}
+              className="my-2 object-cover"
+              quality={100}
+              priority
+            />
+          ))}
+        </div>
       </Suspense>
       <div className="mt-4 flex justify-between gap-4">
         {chapter.prev_chapter_id && (
