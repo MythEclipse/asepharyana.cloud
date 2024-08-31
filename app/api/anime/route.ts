@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getData } from '@/lib/GetData/GetData';
+import { getData } from '@/lib/GetData';
 import { ANIMEAPI } from '@/lib/url';
 
 const logError = (error: any) => {

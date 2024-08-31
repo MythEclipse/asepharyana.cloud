@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Card } from 'flowbite-react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getData } from '@/lib/GetData/GetData';
+import { getData } from '@/lib/GetData';
 import { notFound } from 'next/navigation';
 
 interface KomikData {

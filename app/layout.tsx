@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import React, { Suspense } from 'react';
+import React from 'react';
 import './globals.css';
 import NavbarWrapper from '../components/navbar/NavbarHomes';
 import { ViewTransitions } from 'next-view-transitions';
@@ -8,7 +8,6 @@ import { ThemeModeScript } from 'flowbite-react';
 import { DarkThemeToggle, Flowbite } from 'flowbite-react';
 import ContextAppProvider from '../components/ContextApp';
 import { Inter } from 'next/font/google';
-import Loading from '@/components/loading';
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 import type { CustomFlowbiteTheme } from 'flowbite-react';
 
@@ -23,6 +22,7 @@ const customTheme: CustomFlowbiteTheme = {
 export const metadata: Metadata = {
   title: 'Asep Haryana Saputra',
   description: 'Website pribadi milik Asep Haryana Saputra,ini adalah halaman utama pada website ini',
+  keywords:'protofolio, nextjs, api, free, anime, manga',
   openGraph: {
     title: 'Website pribadi milik Asep Haryana Saputra',
     description: 'Website pribadi milik Asep Haryana Saputra,ini adalah halaman utama pada website ini',

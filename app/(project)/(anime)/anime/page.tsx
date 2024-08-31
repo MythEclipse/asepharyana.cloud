@@ -6,7 +6,7 @@ import { Card, Button } from 'flowbite-react';
 import Link from 'next/link';
 import axios from 'axios';
 import Loading from '@/components/loading';
-import { getData } from '@/lib/GetData/GetData';
+import { getData } from '@/lib/GetData';
 
 interface HomeData {
   status: string;

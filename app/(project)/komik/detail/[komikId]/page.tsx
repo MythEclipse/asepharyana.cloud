@@ -1,6 +1,6 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
-import { getData } from '@/lib/GetData/GetData';
+import { getData } from '@/lib/GetData';
 import Image from 'next/image';
 import Link from 'next/link';
 

@@ -1,4 +1,4 @@
-import { getData } from '@/lib/GetData/GetData';
+import { getData } from '@/lib/GetData';
 import { Local } from '@/lib/url';
 import Image from 'next/image';
 import Link from 'next/link';

@@ -1,6 +1,6 @@
 // app/(anime)/complete-anime/[page]/page.tsx
 import React from 'react';
-import { getData } from '@/lib/GetData/GetData';
+import { getData } from '@/lib/GetData';
 import AnimeGrid from '@/components/AnimeGrid';
 import Link from 'next/link';
 import { Button } from 'flowbite-react';

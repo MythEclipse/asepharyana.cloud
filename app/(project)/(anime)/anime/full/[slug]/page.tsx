@@ -1,4 +1,4 @@
-import { getData } from '@/lib/GetData/GetData';
+import { getData } from '@/lib/GetData';
 import Link from 'next/link';
 import ClientPlayer from '@/components/ClientPlayer';
 import { Local } from '@/lib/url';
