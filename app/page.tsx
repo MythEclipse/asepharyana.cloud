@@ -67,13 +67,13 @@ const Home = () => {
               <h2 className="mb-5 max-w-md text-3xl font-bold text-dark dark:text-gray-100">
                 Saya adalah seorang programmer
               </h2>
-              <p className="max-w-xl text-base font-medium text-secondary">
+              <p className="max-w-xl text-base font-medium text-secondary text-dark dark:text-gray-100">
                 Saya adalah mahasiswa di Universitas Kuningan
               </p>
             </div>
             <div className={`w-full lg:w-1/2 ${isAboutVisible ? animationClasses.slideIn : ''}`}>
               <h3 className="mb-4 text-2xl font-semibold text-dark dark:text-gray-100">Mari Berteman</h3>
-              <p className="mb-6 text-base font-medium text-secondary">
+              <p className="mb-6 text-base font-medium text-secondary text-dark dark:text-gray-100">
                 Berikut adalah beberapa sosial media yang saya punya
               </p>
               <div className="flex space-x-4">
