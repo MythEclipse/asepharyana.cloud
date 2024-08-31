@@ -222,20 +222,28 @@ export default function PostPage() {
             posts.map((post) => (
               <Card key={post.id} className="mb-4">
                 <div className="flex items-center mb-4">
-                  <Image src={post.user.image} alt={post.user.name}
-                    width={40} height={
-                      40
-                    }
-                    className="w-10 h-10 rounded-full" />
+                  <Image
+                    src={post.user.image}
+                    alt={post.user.name}
+                    width={40}
+                    height={40}
+                    className="w-10 h-10 rounded-full"
+                  />
                   <div className="ml-4">
                     <p className="font-semibold">{post.user.name}</p>
                     <p className="text-sm text-gray-600">{new Date(post.created_at).toLocaleString()}</p>
                   </div>
                 </div>
                 <p className="mb-4">{post.content}</p>
-                {post.image_url && <Image src={post.image_url} alt="Post Image"
-                  width={400} height={400}
-                  className="mb-4 max-w-full h-auto" />}
+                {post.image_url && (
+                  <Image
+                    src={post.image_url}
+                    alt="Post Image"
+                    width={400}
+                    height={400}
+                    className="mb-4 max-w-full h-auto"
+                  />
+                )}
                 <div className="flex items-center mb-4">
                   <Button onClick={() => handleLike(post.id)} className="mr-2 flex items-center">
                     <HiHeart className="w-5 h-5 text-red-500 mr-1" />
@@ -252,8 +260,13 @@ export default function PostPage() {
                     {post.comments.map((comment) => (
                       <div key={comment.id} className="border-t mt-2 pt-2">
                         <div className="flex items-center mb-2">
-                          <Image src={comment.user.image} alt={comment.user.name}
-                            width={32} height={32} className="w-8 h-8 rounded-full" />
+                          <Image
+                            src={comment.user.image}
+                            alt={comment.user.name}
+                            width={32}
+                            height={32}
+                            className="w-8 h-8 rounded-full"
+                          />
                           <div className="ml-2">
                             <p className="font-semibold">{comment.user.name}</p>
                             <p>{comment.content}</p>
