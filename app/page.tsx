@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React from 'react';
 import Image from 'next/image';
@@ -13,13 +13,13 @@ import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 // Custom animation classes
 const animationClasses = {
   fadeIn: 'animate-fadeIn',
-  slideIn: 'animate-slideIn',
+  slideIn: 'animate-slideIn'
 };
 
 const Home = () => {
   const [isHeroVisible, heroRef] = useIntersectionObserver();
   const [isAboutVisible, aboutRef] = useIntersectionObserver();
-  
+
   return (
     <main className="bg-lighta dark:bg-darkb">
       {/* Hero Section */}
@@ -41,7 +41,9 @@ const Home = () => {
             </h2>
             <p className="font-medium text-slate-400">Okelah</p>
           </div>
-          <div className={`w-full lg:w-1/2 ${isHeroVisible ? animationClasses.fadeIn : ''} flex justify-center lg:justify-end`}>
+          <div
+            className={`w-full lg:w-1/2 ${isHeroVisible ? animationClasses.fadeIn : ''} flex justify-center lg:justify-end`}
+          >
             <div className="relative pt-20">
               <Image
                 src="/profil.jpg"
@@ -57,11 +59,7 @@ const Home = () => {
       </section>
 
       {/* About Section */}
-      <section
-        id="about"
-        ref={aboutRef}
-        className={`pb-32 pt-36 ${isAboutVisible ? animationClasses.slideIn : ''}`}
-      >
+      <section id="about" ref={aboutRef} className={`pb-32 pt-36 ${isAboutVisible ? animationClasses.slideIn : ''}`}>
         <div className="container mx-auto px-4 lg:px-8">
           <div className="flex flex-wrap">
             <div className={`mb-7 w-full lg:w-1/2 ${isAboutVisible ? animationClasses.slideIn : ''}`}>

@@ -16,9 +16,9 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const customTheme: CustomFlowbiteTheme = {
   button: {
     color: {
-      primary: 'bg-red-500 hover:bg-red-600',
-    },
-  },
+      primary: 'bg-red-500 hover:bg-red-600'
+    }
+  }
 };
 
 // Metadata configuration for the page
@@ -33,19 +33,19 @@ export const metadata: Metadata = {
       {
         url: 'https://imgur.com/cuUbKXh',
         width: 800,
-        height: 600,
+        height: 600
       },
       {
         url: 'https://imgur.com/cuUbKXh',
         width: 1800,
         height: 1600,
-        alt: 'My custom alt',
-      },
+        alt: 'My custom alt'
+      }
     ],
     type: 'article',
     url: 'https://asepharyana.my.id/',
     siteName: 'Website pribadi milik Asep Haryana Saputra',
-    locale: 'id_ID',
+    locale: 'id_ID'
   },
   twitter: {
     card: 'summary',
@@ -56,33 +56,27 @@ export const metadata: Metadata = {
       {
         url: 'https://imgur.com/cuUbKXh',
         width: 800,
-        height: 600,
+        height: 600
       },
       {
         url: 'https://imgur.com/cuUbKXh',
         width: 1800,
         height: 1600,
-        alt: 'My custom alt',
-      },
+        alt: 'My custom alt'
+      }
     ],
-    creator: '@asepharyana71',
-  },
+    creator: '@asepharyana71'
+  }
 };
 
 // RootLayout component
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <ContextAppProvider>
       <ViewTransitions>
         <SessionWrapper>
           <html suppressHydrationWarning lang="id" className={inter.className}>
-            <head>
-              {ThemeModeScript && <ThemeModeScript />}
-            </head>
+            <head>{ThemeModeScript && <ThemeModeScript />}</head>
             <body className="h-screen dark:bg-dark">
               <NavbarWrapper />
               <Flowbite theme={{ theme: customTheme }}>

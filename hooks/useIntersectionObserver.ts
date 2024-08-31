@@ -6,12 +6,9 @@ const useIntersectionObserver = (options?: IntersectionObserverInit) => {
   const elementRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsVisible(entry.isIntersecting);
-      },
-      options
-    );
+    const observer = new IntersectionObserver(([entry]) => {
+      setIsVisible(entry.isIntersecting);
+    }, options);
 
     if (elementRef.current) {
       observer.observe(elementRef.current);
