@@ -22,7 +22,7 @@ const customTheme: CustomFlowbiteTheme = {
 export const metadata: Metadata = {
   title: 'Asep Haryana Saputra',
   description: 'Website pribadi milik Asep Haryana Saputra,ini adalah halaman utama pada website ini',
-  keywords:'protofolio, nextjs, api, free, anime, manga',
+  keywords: 'protofolio, nextjs, api, free, anime, manga',
   openGraph: {
     title: 'Website pribadi milik Asep Haryana Saputra',
     description: 'Website pribadi milik Asep Haryana Saputra,ini adalah halaman utama pada website ini',
