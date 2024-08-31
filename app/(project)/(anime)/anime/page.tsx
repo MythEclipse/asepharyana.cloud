@@ -44,7 +44,8 @@ const AnimeList = ({ animeList, isLoading }: { animeList: Anime[]; isLoading: bo
                 <Image
                   src={anime.poster}
                   alt={anime.title}
-                  fill
+                  width={400}
+                  height={600}
                   style={{ objectFit: 'cover' }}
                   className="object-cover w-full h-full rounded-md"
                 />

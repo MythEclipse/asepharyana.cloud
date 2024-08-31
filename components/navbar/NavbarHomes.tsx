@@ -27,6 +27,7 @@ export default function Navbar() {
             loading="eager"
             width={75}
             height={100}
+            priority
           />
           <span
             className={`${
