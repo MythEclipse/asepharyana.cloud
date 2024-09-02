@@ -51,7 +51,7 @@ export default function PostPage() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const postsResponse = await axios.get('/api/posts');
+        const postsResponse = await axios.get('/api/sosmed/posts');
         const postsWithComments = postsResponse.data.posts;
 
         const commentsPromises = postsWithComments.map((post: Post) =>
@@ -100,7 +100,7 @@ export default function PostPage() {
         const formData = new FormData();
         formData.append('file', file as Blob);
 
-        const uploadResponse = await axios.post('/api/upload', formData, {
+        const uploadResponse = await axios.post('/api/sosmed/upload', formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
@@ -115,7 +115,7 @@ export default function PostPage() {
         imageUrl: imageUrl || null // Use null if no image
       };
 
-      await axios.post('/api/posts', postData);
+      await axios.post('/api/sosmed/posts', postData);
 
       window.location.reload();
 
@@ -132,7 +132,7 @@ export default function PostPage() {
 
   const handleLike = async (postId: string) => {
     try {
-      const response = await axios.post('/api/likes', { postId });
+      const response = await axios.post('/api/sosmed/likes', { postId });
 
       if (response.status === 409) {
         console.log('You have already liked this post');
@@ -145,7 +145,7 @@ export default function PostPage() {
         )
       );
 
-      const updatedPosts = await axios.get('/api/posts');
+      const updatedPosts = await axios.get('/api/sosmed/posts');
       setPosts(
         updatedPosts.data.posts.map((post: Post) => ({
           ...post,
@@ -174,10 +174,10 @@ export default function PostPage() {
         postId
       };
 
-      await axios.post('/api/comments', commentData);
+      await axios.post('/api/sosmed/comments', commentData);
 
-      const commentsResponse = await axios.get(`/api/comments?postId=${postId}`);
-      const updatedPostsResponse = await axios.get('/api/posts');
+      const commentsResponse = await axios.get(`/api/sosmed/comments?postId=${postId}`);
+      const updatedPostsResponse = await axios.get('/api/sosmed/posts');
 
       setPosts(
         updatedPostsResponse.data.posts.map((post: Post) => ({
