@@ -55,7 +55,7 @@ export default function PostPage() {
         const postsWithComments = postsResponse.data.posts;
 
         const commentsPromises = postsWithComments.map((post: Post) =>
-          axios.get(`/api/comments?postId=${post.id}`).then((response) => ({
+          axios.get(`/api/sosmed/comments?postId=${post.id}`).then((response) => ({
             ...post,
             comments: response.data.comments
           }))
