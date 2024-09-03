@@ -2,6 +2,7 @@ import { getData } from '@/lib/GetData';
 import Link from 'next/link';
 import ClientPlayer from '@/components/ClientPlayer';
 import { Local } from '@/lib/url';
+import { Button } from 'flowbite-react';
 
 interface AnimeResponse {
   status: string;
@@ -72,9 +73,9 @@ export default async function DetailAnimePage(props: DetailAnimePageProps) {
             <p className="text-lg text-white-700">
               <Link
                 href={`/anime/full/${Anime.data.previous_episode.slug}`}
-                className="text-blue-600 underline hover:text-blue-800"
-              >
-                Previous Episode
+              ><Button className="w-full my-3 text-left">
+                  Previous Episode
+                </Button>
               </Link>
             </p>
           )}
@@ -82,9 +83,10 @@ export default async function DetailAnimePage(props: DetailAnimePageProps) {
             <p className="text-lg text-white-700">
               <Link
                 href={`/anime/full/${Anime.data.next_episode.slug}`}
-                className="text-blue-600 underline hover:text-blue-800"
               >
-                Next Episode
+                <Button className="w-full my-3 text-left">
+                  Next Episode
+                </Button>
               </Link>
             </p>
           )}

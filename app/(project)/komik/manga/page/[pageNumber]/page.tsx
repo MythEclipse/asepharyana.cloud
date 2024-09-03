@@ -29,7 +29,7 @@ export default async function Page({ params }: { params: { pageNumber: string } 
   const komikData: KomikData = await getData(`http://localhost:3090/api/komik/manga?page=${pageNumber}&order=update`);
 
   return (
-    <main className="p-6">
+    <main className="">
       <div className="text-2xl font-bold mt-8 mb-4">
         <Link href={`/komik/manga/page/${pageNumber}`}>
           <Button size="lg" className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">

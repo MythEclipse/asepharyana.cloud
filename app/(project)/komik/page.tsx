@@ -80,7 +80,7 @@ const HomePage: React.FC = () => {
   }, []);
 
   return (
-    <div className="p-6">
+    <div className="p-3">
       <h1 className="text-3xl font-bold mb-6 dark:text-white">Komik Manga, Manhua, dan Manhwa</h1>
 
       <div className="space-y-8">

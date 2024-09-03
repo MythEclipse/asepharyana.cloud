@@ -14,8 +14,8 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <main>
-      <section id="hero" className="pt-35 bg-lighta dark:bg-darkb lg:px-3 h-screen w-full">
-        <div className="container">
+      <section id="hero" className="pt-10 bg-lighta dark:bg-darkb lg:px-3 h-screen w-full">
+        <div className="container px-6 mt-10">
           <div className="flex flex-wrap">
             <div className="w-full self-center px-2 lg:w-1/2">
               <h1 className="text-base font-semibold text-primary-600 lg:text-xl">

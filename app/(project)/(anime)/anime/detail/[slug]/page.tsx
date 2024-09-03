@@ -2,6 +2,7 @@ import { getData } from '@/lib/GetData';
 import { Local } from '@/lib/url';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Button } from 'flowbite-react';
 
 interface Genre {
   name: string;
@@ -56,8 +57,7 @@ interface DetailAnimePageProps {
   };
 }
 
-export default async function DetailAnimePage(props: DetailAnimePageProps) {
-  const { params } = props;
+export default async function DetailAnimePage({ params }: DetailAnimePageProps) {
   const anime: AnimeData = await getData(`${Local}/api/anime/detail/${params.slug}`);
 
   return (
@@ -124,15 +124,19 @@ export default async function DetailAnimePage(props: DetailAnimePageProps) {
             <hr className="my-4 border-gray-300 dark:border-gray-600" />
             <div className="mb-4 dark:text-gray-200">
               <strong className="block mb-2 text-lg">Episodes:</strong>
-              <ul className="list-disc ml-6 space-y-1">
-                {anime.data.episode_lists.map((episode) => (
-                  <li key={episode.slug}>
-                    <Link href={`/anime/full/${episode.slug}`} className="text-blue-600 hover:underline">
-                      {episode.episode}
+              <div className="space-y-2">
+                {anime.data.episode_lists.map((episode) => {
+                  const episodeNumber = episode.episode.match(/Episode (\d+)/)?.[1] || episode.episode;
+
+                  return (
+                    <Link key={episode.slug} href={`/anime/full/${episode.slug}`}>
+                      <Button className="w-full my-3 text-left">
+                        Episode {episodeNumber}
+                      </Button>
                     </Link>
-                  </li>
-                ))}
-              </ul>
+                  );
+                })}
+              </div>
             </div>
             <hr className="my-4 border-gray-300 dark:border-gray-600" />
             <div className="mb-4 dark:text-gray-200">

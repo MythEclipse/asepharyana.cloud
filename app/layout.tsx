@@ -80,7 +80,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <body className="h-screen dark:bg-dark">
               <NavbarWrapper />
               <Flowbite theme={{ theme: customTheme }}>
-                <div className="mt-5 max-w-full px-3 pb-10 pt-56 sm:px-6 lg:px-8">
+                <div className="mt-28 max-w-full px-0.5 pb-10 pt-38 sm:px-6 lg:px-8">
                   {children}
                   <DarkThemeToggle className="fixed bottom-0 z-10" />
                 </div>

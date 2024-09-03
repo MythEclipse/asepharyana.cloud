@@ -37,7 +37,7 @@ export default async function DetailPage({ params }: { params: { komikId: string
 
   return (
     <main className="p-6 bg-gray-100 dark:bg-gray-900 min-h-screen">
-      <div className="max-w-3xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+      <div className="max-w-3xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg">
         <div className="flex flex-col md:flex-row items-center md:items-start">
           <div className="w-full md:w-1/3 mb-6 md:mb-0">
             <Image
