@@ -130,9 +130,7 @@ export default async function DetailAnimePage({ params }: DetailAnimePageProps) 
 
                   return (
                     <Link key={episode.slug} href={`/anime/full/${episode.slug}`}>
-                      <Button className="w-full my-3 text-left">
-                        Episode {episodeNumber}
-                      </Button>
+                      <Button className="w-full my-3 text-left">Episode {episodeNumber}</Button>
                     </Link>
                   );
                 })}

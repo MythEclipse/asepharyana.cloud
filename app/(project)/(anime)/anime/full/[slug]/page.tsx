@@ -71,22 +71,15 @@ export default async function DetailAnimePage(props: DetailAnimePageProps) {
         <div className="flex justify-between mt-8">
           {Anime.data.previous_episode && (
             <p className="text-lg text-white-700">
-              <Link
-                href={`/anime/full/${Anime.data.previous_episode.slug}`}
-              ><Button className="w-full my-3 text-left">
-                  Previous Episode
-                </Button>
+              <Link href={`/anime/full/${Anime.data.previous_episode.slug}`}>
+                <Button className="w-full my-3 text-left">Previous Episode</Button>
               </Link>
             </p>
           )}
           {Anime.data.next_episode && (
             <p className="text-lg text-white-700">
-              <Link
-                href={`/anime/full/${Anime.data.next_episode.slug}`}
-              >
-                <Button className="w-full my-3 text-left">
-                  Next Episode
-                </Button>
+              <Link href={`/anime/full/${Anime.data.next_episode.slug}`}>
+                <Button className="w-full my-3 text-left">Next Episode</Button>
               </Link>
             </p>
           )}
