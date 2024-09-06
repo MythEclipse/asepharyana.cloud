@@ -23,6 +23,7 @@ const customTheme: CustomFlowbiteTheme = {
 
 // Metadata configuration for the page
 export const metadata: Metadata = {
+  metadataBase: new URL('https://asepharyana.my.id'),
   title: 'Asep Haryana Saputra',
   description: 'Website pribadi milik Asep Haryana Saputra, ini adalah halaman utama pada website ini',
   keywords: 'portfolio, nextjs, api, free, anime, manga',
