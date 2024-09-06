@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { getData } from '@/lib/GetData';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Button } from 'flowbite-react';
 
 interface MangaDetail {
   title: string;
@@ -37,9 +38,9 @@ export default async function DetailPage({ params }: { params: { komikId: string
 
   return (
     <main className="p-6 bg-gray-100 dark:bg-gray-900 min-h-screen">
-      <div className="max-w-3xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+      <div className="max-w-3xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4">
         <div className="flex flex-col md:flex-row items-center md:items-start">
-          <div className="w-full md:w-1/3 mb-6 md:mb-0">
+          <div className="w-full md:w-1/3 mb-6 md:mb-0 flex justify-center md:justify-start">
             <Image
               src={manga.image}
               alt={manga.title}
@@ -49,7 +50,7 @@ export default async function DetailPage({ params }: { params: { komikId: string
             />
           </div>
           <div className="w-full md:w-2/3 md:pl-6">
-            <h1 className="text-3xl font-bold mb-4 dark:text-white">{manga.title}</h1>
+            <h1 className="text-3xl font-bold mb-4 dark:text-white text-center md:text-left">{manga.title}</h1>
             <div className="text-gray-800 dark:text-gray-200 mb-4">
               <p className="mb-2">
                 <strong>Alternative Title:</strong> {manga.alternativeTitle}
@@ -78,22 +79,21 @@ export default async function DetailPage({ params }: { params: { komikId: string
             </div>
             <div className="mt-6">
               <h2 className="text-2xl font-semibold mb-2 dark:text-white">Chapters</h2>
-              <ul className="space-y-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {manga.chapters && Array.isArray(manga.chapters) && manga.chapters.length > 0 ? (
                   manga.chapters.map((chapter) => (
-                    <li key={chapter.chapter_id}>
-                      <Link
-                        href={`/komik/chapter/${chapter.chapter_id}`}
-                        className="text-blue-600 hover:underline dark:text-blue-400"
-                      >
-                        {chapter.chapter} - {chapter.date}
-                      </Link>
-                    </li>
+                    <Link
+                      key={chapter.chapter_id}
+                      href={`/komik/chapter/${chapter.chapter_id}`}
+                      className="text-blue-600 hover:underline dark:text-blue-400"
+                    >
+                      <Button className='w-full truncate'> {chapter.chapter} - {chapter.date} </Button>
+                    </Link>
                   ))
                 ) : (
-                  <li>No chapters available</li>
+                  <p className="col-span-full text-center dark:text-white">No chapters available</p>
                 )}
-              </ul>
+              </div>
             </div>
           </div>
         </div>

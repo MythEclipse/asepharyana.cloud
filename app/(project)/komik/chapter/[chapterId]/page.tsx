@@ -1,7 +1,7 @@
-import React, { Suspense } from 'react';
+/* eslint-disable @next/next/no-img-element */
+import React, { useState, useEffect } from 'react';
 import { notFound } from 'next/navigation';
 import { getData } from '@/lib/GetData';
-import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from 'flowbite-react';
 import Loading from '@/components/loading';
@@ -13,6 +13,39 @@ interface ChapterDetail {
   next_chapter_id: string;
   downloadUrl: string;
   images: string[];
+}
+
+function ImageWithPlaceholder({ src, alt }: { src: string; alt: string }) {
+  const [isLoading, setIsLoading] = useState(true);
+
+  const handleImageLoad = () => {
+    setIsLoading(false);
+  };
+
+  return (
+    <div
+      style={{
+        position: 'relative',
+        width: '100%',
+        minHeight: '300px', // Placeholder height, adjust as needed
+        backgroundColor: '#f0f0f0', // Placeholder background color
+      }}
+      className="my-2"
+    >
+      {isLoading && (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <Loading /> {/* Loading spinner */}
+        </div>
+      )}
+      <img
+        src={src}
+        alt={alt}
+        onLoad={handleImageLoad}
+        className={`object-cover w-full h-full transition-opacity duration-300 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
+        loading="lazy"
+      />
+    </div>
+  );
 }
 
 export default async function ChapterPage({ params }: { params: { chapterId: string } }) {
@@ -44,22 +77,17 @@ export default async function ChapterPage({ params }: { params: { chapterId: str
           )}
         </div>
       </div>
-      <Suspense fallback={<Loading />}>
-        <div className="flex flex-col items-center">
-          {chapter.images.map((image, index) => (
-            <Image
-              key={index}
-              src={image}
-              alt={`Chapter ${chapter.title} - page ${index + 1}`}
-              width={600}
-              height={900}
-              className="my-2 object-cover"
-              quality={100}
-              priority
-            />
-          ))}
-        </div>
-      </Suspense>
+
+      <div className="flex flex-col items-center">
+        {chapter.images.map((image, index) => (
+          <ImageWithPlaceholder
+            key={index}
+            src={image}
+            alt={`Chapter ${chapter.title} - page ${index + 1}`}
+          />
+        ))}
+      </div>
+
       <div className="mt-4 flex justify-between gap-4">
         {chapter.prev_chapter_id && (
           <Link href={`/komik/chapter/${chapter.prev_chapter_id}`}>

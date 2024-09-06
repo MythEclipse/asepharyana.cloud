@@ -39,7 +39,7 @@ const fetchComics = async () => {
 // Render individual comic cards
 const ComicCard = ({ comic }: { comic: Comic }) => (
   <div key={comic.komik_id} className="flex-shrink-0 w-64">
-    <Card className="shadow-lg rounded-lg overflow-hidden flex flex-col items-center p-4">
+    <Card className="shadow-lg rounded-lg overflow-hidden flex flex-col p-4">
       <div className="relative w-full h-64">
         <Image
           src={comic.image}

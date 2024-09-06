@@ -39,22 +39,29 @@ export default async function Page({ params }: { params: { pageNumber: string } 
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
         {komikData.data.map((manga) => (
-          <Card key={manga.komik_id} className="shadow-lg rounded-lg overflow-hidden flex flex-col items-center p-4">
-            <Image
-              src={manga.image}
-              alt={manga.title}
-              width={165}
-              height={225}
-              className="object-cover w-full h-auto"
-            />
+          <div key={manga.komik_id} className="flex-shrink-0 w-64">
+          <Card className="shadow-lg rounded-lg overflow-hidden flex flex-col p-4">
+            <div className="relative w-full h-64">
+              <Image
+                src={manga.image}
+                alt={manga.title}
+                fill
+                style={{ objectFit: 'cover' }}
+                className="object-cover w-full h-full rounded-md"
+              />
+            </div>
             <div className="mt-4 text-center">
               <Link href={`/komik/detail/${manga.komik_id}`} className="text-blue-600 hover:underline">
-                <div className="text-lg font-bold mb-2">{manga.title}</div>
+                <div className="text-lg font-bold mb-2 overflow-hidden whitespace-nowrap text-overflow-ellipsis">
+                  {manga.title}
+                </div>
               </Link>
               <div className="text-gray-600 dark:text-gray-400 mb-2">{manga.chapter}</div>
               <div className="text-gray-600 dark:text-gray-400 mb-2">Score: {manga.score}</div>
             </div>
           </Card>
+        </div>
+        
         ))}
       </div>
       <div className="flex justify-between mt-8">
