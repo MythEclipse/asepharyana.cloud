@@ -25,7 +25,7 @@ interface Anime {
 // Fetch episodes data
 const fetchEpisodes = async (): Promise<HomeData> => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/anime/`, {
-    next: { revalidate: 60 }, // Use revalidate for ISR
+    next: { revalidate: 60 } // Use revalidate for ISR
   });
   if (!res.ok) {
     throw new Error('Failed to fetch episodes');
@@ -86,11 +86,7 @@ export default async function AnimePage() {
         </Link>
       </div>
 
-      {episodeData ? (
-        <AnimeList animeList={episodeData.data.ongoing_anime} />
-      ) : (
-        <Loading />
-      )}
+      {episodeData ? <AnimeList animeList={episodeData.data.ongoing_anime} /> : <Loading />}
 
       <div className="text-2xl font-bold mt-8 mb-4">
         <Link href={'/anime/complete-anime/1'}>
@@ -100,11 +96,7 @@ export default async function AnimePage() {
         </Link>
       </div>
 
-      {episodeData ? (
-        <AnimeList animeList={episodeData.data.complete_anime} />
-      ) : (
-        <Loading />
-      )}
+      {episodeData ? <AnimeList animeList={episodeData.data.complete_anime} /> : <Loading />}
     </main>
   );
 }
