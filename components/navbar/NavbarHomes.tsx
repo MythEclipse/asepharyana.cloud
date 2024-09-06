@@ -18,7 +18,11 @@ export default function Navbar() {
   return (
     <nav className="fixed top-0 z-10 w-full bg-white dark:bg-darkb shadow-md transition-all duration-300 ease-in-out">
       <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4">
-        <Link href="/" scroll={true} className="flex items-center space-x-3 rtl:space-x-reverse cursor-pointer transition-transform duration-300 ease-in-out hover:scale-110">
+        <Link
+          href="/"
+          scroll={true}
+          className="flex items-center space-x-3 rtl:space-x-reverse cursor-pointer transition-transform duration-300 ease-in-out hover:scale-110"
+        >
           <Image
             src="/Logo.svg"
             alt="Logo"

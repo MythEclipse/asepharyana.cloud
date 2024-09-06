@@ -61,7 +61,8 @@ export default async function ChapterPage({ params }: { params: { chapterId: str
               src={image}
               alt={`Chapter ${chapter.title} - page ${index + 1}`}
               className="object-cover transition-opacity duration-300"
-              width="725" height="1024"
+              width="725"
+              height="1024"
             />
           </div>
         ))}
