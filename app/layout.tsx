@@ -31,12 +31,12 @@ export const metadata: Metadata = {
     description: 'Website pribadi milik Asep Haryana Saputra, ini adalah halaman utama pada website ini',
     images: [
       {
-        url: 'https://imgur.com/cuUbKXh',
+        url: '/Logo.svg',
         width: 800,
         height: 600
       },
       {
-        url: 'https://imgur.com/cuUbKXh',
+        url: '/Logo.svg',
         width: 1800,
         height: 1600,
         alt: 'My custom alt'
@@ -54,12 +54,12 @@ export const metadata: Metadata = {
     description: 'Website pribadi milik Asep Haryana Saputra, ini adalah halaman utama pada website ini',
     images: [
       {
-        url: 'https://imgur.com/cuUbKXh',
+        url: '/Logo.svg',
         width: 800,
         height: 600
       },
       {
-        url: 'https://imgur.com/cuUbKXh',
+        url: '/Logo.svg',
         width: 1800,
         height: 1600,
         alt: 'My custom alt'

@@ -64,7 +64,7 @@ export default async function DetailAnimePage({ params }: DetailAnimePageProps) 
     <main className="p-6 bg-gray-100 dark:bg-gray-900 min-h-screen">
       <div className="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
         <div className="flex flex-col md:flex-row items-center md:items-start">
-          <div className="w-full md:w-1/3 mb-6 md:mb-0">
+          <div className="w-full md:w-1/3 mb-6 md:mb-0 flex justify-center md:justify-start">
             <Image
               src={anime.data.poster}
               alt={anime.data.title}
@@ -139,24 +139,26 @@ export default async function DetailAnimePage({ params }: DetailAnimePageProps) 
             <hr className="my-4 border-gray-300 dark:border-gray-600" />
             <div className="mb-4 dark:text-gray-200">
               <strong className="block mb-2 text-lg">Recommendations:</strong>
-              <div className="flex flex-wrap gap-4">
-                {anime.data.recommendations.map((recommendation) => (
-                  <div key={recommendation.slug} className="flex flex-col items-center space-y-2">
-                    <Image
-                      src={recommendation.poster}
-                      alt={recommendation.title}
-                      width={240}
-                      height={320}
-                      className="object-cover rounded-lg shadow-md"
-                    />
-                    <Link
-                      href={`/anime/detail/${recommendation.slug}`}
-                      className="text-blue-600 hover:underline text-center"
-                    >
-                      {recommendation.title}
-                    </Link>
-                  </div>
-                ))}
+              <div className="overflow-x-auto py-4">
+                <div className="flex space-x-4 w-max">
+                  {anime.data.recommendations.map((recommendation) => (
+                    <div key={recommendation.slug} className="flex-shrink-0">
+                      <Image
+                        src={recommendation.poster}
+                        alt={recommendation.title}
+                        width={240}
+                        height={320}
+                        className="object-cover rounded-lg shadow-md"
+                      />
+                      <Link
+                        href={`/anime/detail/${recommendation.slug}`}
+                        className="text-blue-600 hover:underline text-center block mt-2"
+                      >
+                        {recommendation.title}
+                      </Link>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>

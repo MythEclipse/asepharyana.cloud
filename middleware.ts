@@ -6,8 +6,15 @@ const authPage = ['/login', '/register'];
 const protectedRoutes = ['/profile', '/settings', '/sosmed'];
 
 export async function middleware(req: NextRequest) {
-  const { pathname } = req.nextUrl;
+  const { pathname, searchParams } = req.nextUrl;
   const token = await getToken({ req, secret: process.env.SECRET });
+
+  // Tambahkan X-Robots-Tag jika ada callbackUrl di query parameters
+  if (searchParams.has('callbackUrl')) {
+    const response = NextResponse.next();
+    response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+    return response;
+  }
 
   // Redirect to login if trying to access a protected route without a token
   if (protectedRoutes.includes(pathname) && !token) {

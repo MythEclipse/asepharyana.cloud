@@ -52,9 +52,9 @@ export async function getDataNext(url: string) {
 
   try {
     const res = await fetch(url, {
-      next: { revalidate: 3600 }, // Ensure this is supported in your environment
       headers: DEFAULT_HEADERS,
-      method: 'GET'
+      method: 'GET',
+      next: { revalidate: 3600 }, // Ensure this is supported in your environment
     });
 
     if (!res.ok) {

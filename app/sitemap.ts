@@ -9,12 +9,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1
     },
     {
-      url: 'https://asepharyana.my.id/about',
-      lastModified: new Date(),
-      changeFrequency: 'daily',
-      priority: 0.8
-    },
-    {
       url: 'https://asepharyana.my.id/anime',
       lastModified: new Date(),
       changeFrequency: 'daily',

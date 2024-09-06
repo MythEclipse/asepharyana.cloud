@@ -1,10 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { notFound } from 'next/navigation';
 import { getData } from '@/lib/GetData';
 import Link from 'next/link';
 import { Button } from 'flowbite-react';
-import Loading from '@/components/loading';
+import Image from 'next/image';
 
 interface ChapterDetail {
   title: string;
@@ -13,39 +13,6 @@ interface ChapterDetail {
   next_chapter_id: string;
   downloadUrl: string;
   images: string[];
-}
-
-function ImageWithPlaceholder({ src, alt }: { src: string; alt: string }) {
-  const [isLoading, setIsLoading] = useState(true);
-
-  const handleImageLoad = () => {
-    setIsLoading(false);
-  };
-
-  return (
-    <div
-      style={{
-        position: 'relative',
-        width: '100%',
-        minHeight: '300px', // Placeholder height, adjust as needed
-        backgroundColor: '#f0f0f0' // Placeholder background color
-      }}
-      className="my-2"
-    >
-      {isLoading && (
-        <div className="absolute inset-0 flex items-center justify-center">
-          <Loading /> {/* Loading spinner */}
-        </div>
-      )}
-      <img
-        src={src}
-        alt={alt}
-        onLoad={handleImageLoad}
-        className={`object-cover w-full h-full transition-opacity duration-300 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
-        loading="lazy"
-      />
-    </div>
-  );
 }
 
 export default async function ChapterPage({ params }: { params: { chapterId: string } }) {
@@ -78,9 +45,25 @@ export default async function ChapterPage({ params }: { params: { chapterId: str
         </div>
       </div>
 
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col md:w-1/2 md:mx-auto">
         {chapter.images.map((image, index) => (
-          <ImageWithPlaceholder key={index} src={image} alt={`Chapter ${chapter.title} - page ${index + 1}`} />
+          <div
+            key={index}
+            style={{
+              position: 'relative',
+              width: '100%',
+              minHeight: '300px', // Placeholder height, adjust as needed
+              backgroundColor: '#f0f0f0' // Placeholder background color
+            }}
+            className="my-2"
+          >
+            <Image
+              src={image}
+              alt={`Chapter ${chapter.title} - page ${index + 1}`}
+              className="object-cover transition-opacity duration-300"
+              width="725" height="1024"
+            />
+          </div>
         ))}
       </div>
 
