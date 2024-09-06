@@ -28,7 +28,7 @@ function ImageWithPlaceholder({ src, alt }: { src: string; alt: string }) {
         position: 'relative',
         width: '100%',
         minHeight: '300px', // Placeholder height, adjust as needed
-        backgroundColor: '#f0f0f0', // Placeholder background color
+        backgroundColor: '#f0f0f0' // Placeholder background color
       }}
       className="my-2"
     >
@@ -80,11 +80,7 @@ export default async function ChapterPage({ params }: { params: { chapterId: str
 
       <div className="flex flex-col items-center">
         {chapter.images.map((image, index) => (
-          <ImageWithPlaceholder
-            key={index}
-            src={image}
-            alt={`Chapter ${chapter.title} - page ${index + 1}`}
-          />
+          <ImageWithPlaceholder key={index} src={image} alt={`Chapter ${chapter.title} - page ${index + 1}`} />
         ))}
       </div>
 

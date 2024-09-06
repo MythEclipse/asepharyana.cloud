@@ -87,7 +87,10 @@ export default async function DetailPage({ params }: { params: { komikId: string
                       href={`/komik/chapter/${chapter.chapter_id}`}
                       className="text-blue-600 hover:underline dark:text-blue-400"
                     >
-                      <Button className='w-full truncate'> {chapter.chapter} - {chapter.date} </Button>
+                      <Button className="w-full truncate">
+                        {' '}
+                        {chapter.chapter} - {chapter.date}{' '}
+                      </Button>
                     </Link>
                   ))
                 ) : (
