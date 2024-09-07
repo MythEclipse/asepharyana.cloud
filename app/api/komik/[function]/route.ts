@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server';
 import * as cheerio from 'cheerio';
 
 const baseUrl = {
-
   komik: 'https://komikindo.tv'
 };
 const baseURL = baseUrl.komik;
@@ -79,13 +78,12 @@ const parseMangaData = (body: string): MangaData[] => {
       chapter,
       score,
       type,
-      komik_id,
+      komik_id
     });
   });
 
   return data;
 };
-
 
 // Function to fetch data with Next.js 14 caching
 const fetchWithCache = async (url: string): Promise<any> => {
@@ -114,15 +112,11 @@ const getDetail = async (komik_id: string): Promise<MangaDetail> => {
     const title = $('h1.entry-title').text().trim() || '';
 
     // Alternative Title
-    const alternativeTitle = $(".spe span:contains('Judul Alternatif:')")
-      .text()
-      .replace('Judul Alternatif:', '')
-      .trim() || '';
+    const alternativeTitle =
+      $(".spe span:contains('Judul Alternatif:')").text().replace('Judul Alternatif:', '').trim() || '';
 
     // Score
-    const score = $('.rtg > div > i')
-      .text()
-      .trim() || '';
+    const score = $('.rtg > div > i').text().trim() || '';
 
     // Image
     let image = $('.thumb img').attr('src') || '';
@@ -132,10 +126,7 @@ const getDetail = async (komik_id: string): Promise<MangaDetail> => {
     const description = $('.shortcsc').text().trim() || '';
 
     // Status
-    const status = $(".spe span:contains('Status:')")
-      .text()
-      .replace('Status:', '')
-      .trim() || '';
+    const status = $(".spe span:contains('Status:')").text().replace('Status:', '').trim() || '';
 
     // Genres
     const genres: string[] = [];
@@ -147,15 +138,10 @@ const getDetail = async (komik_id: string): Promise<MangaDetail> => {
     const releaseDate = ''; // Not provided in the new HTML, keep empty or fetch from another source
 
     // Author
-    const author = $(".spe span:contains('Pengarang:')")
-      .text()
-      .replace('Pengarang:', '')
-      .trim();
+    const author = $(".spe span:contains('Pengarang:')").text().replace('Pengarang:', '').trim();
 
     // Type
-    const type = $(".spe span:contains('Jenis Komik:') a")
-      .text()
-      .trim();
+    const type = $(".spe span:contains('Jenis Komik:') a").text().trim();
 
     // Total Chapter (if available, otherwise remove this field)
     const totalChapter = ''; // Not provided in the new HTML, keep empty or fetch from another source
@@ -185,14 +171,13 @@ const getDetail = async (komik_id: string): Promise<MangaDetail> => {
       totalChapter,
       updatedOn,
       genres,
-      chapters,
+      chapters
     };
   } catch (error) {
     logError(error);
     throw new Error('Failed to fetch manga detail');
   }
 };
-
 
 // Function to get manga chapter
 const getChapter = async (chapter_url: string): Promise<MangaChapter> => {
@@ -223,7 +208,6 @@ const getChapter = async (chapter_url: string): Promise<MangaChapter> => {
     throw new Error('Failed to fetch manga chapter');
   }
 };
-
 
 export const GET = async (req: Request) => {
   const url = new URL(req.url);
