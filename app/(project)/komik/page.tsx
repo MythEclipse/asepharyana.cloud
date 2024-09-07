@@ -1,9 +1,10 @@
-// app/page.tsx
+'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Card, Button } from 'flowbite-react';
+import axios from 'axios';
 import Loading from '@/components/loading';
 
 interface Comic {
@@ -17,23 +18,17 @@ interface Comic {
 
 // Fetch comics from the API
 const fetchComics = async () => {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL; // Ensure this is defined in your environment variables
-
   try {
     const [mangaRes, manhuaRes, manhwaRes] = await Promise.all([
-      fetch(`${baseUrl}/api/komik/manga?page=1&order=update`, { next: { revalidate: 60 } }),
-      fetch(`${baseUrl}/api/komik/manhua?page=1&order=update`, { next: { revalidate: 60 } }),
-      fetch(`${baseUrl}/api/komik/manhwa?page=1&order=update`, { next: { revalidate: 60 } })
+      axios.get(`/api/komik/manga?page=1&order=update`),
+      axios.get(`/api/komik/manhua?page=1&order=update`),
+      axios.get(`/api/komik/manhwa?page=1&order=update`)
     ]);
 
-    const mangaData = await mangaRes.json();
-    const manhuaData = await manhuaRes.json();
-    const manhwaData = await manhwaRes.json();
-
     return {
-      manga: mangaData.data || [],
-      manhua: manhuaData.data || [],
-      manhwa: manhwaData.data || []
+      manga: mangaRes.data.data || [],
+      manhua: manhuaRes.data.data || [],
+      manhwa: manhwaRes.data.data || []
     };
   } catch (error) {
     console.error('Error fetching comics:', error);
@@ -65,9 +60,24 @@ const ComicCard = ({ comic }: { comic: Comic }) => (
   </div>
 );
 
-// Server component
-const HomePage = async () => {
-  const { manga, manhua, manhwa } = await fetchComics();
+// Client component
+const HomePage: React.FC = () => {
+  const [manga, setManga] = useState<Comic[]>([]);
+  const [manhua, setManhua] = useState<Comic[]>([]);
+  const [manhwa, setManhwa] = useState<Comic[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const loadComics = async () => {
+      const { manga, manhua, manhwa } = await fetchComics();
+      setManga(manga);
+      setManhua(manhua);
+      setManhwa(manhwa);
+      setLoading(false);
+    };
+
+    loadComics();
+  }, []);
 
   return (
     <div className="p-3">
@@ -84,20 +94,22 @@ const HomePage = async () => {
               </Link>
             </div>
             <div className="flex overflow-x-auto space-x-4 pb-4">
-              {type === 'Manga' ? (
+              {loading ? (
+                <Loading />
+              ) : type === 'Manga' ? (
                 manga.length > 0 ? (
-                  manga.map((comic: Comic) => <ComicCard key={comic.komik_id} comic={comic} />)
+                  manga.map((comic) => <ComicCard key={comic.komik_id} comic={comic} />)
                 ) : (
                   <p className="text-gray-600 dark:text-white">No manga available</p>
                 )
               ) : type === 'Manhua' ? (
                 manhua.length > 0 ? (
-                  manhua.map((comic: Comic) => <ComicCard key={comic.komik_id} comic={comic} />)
+                  manhua.map((comic) => <ComicCard key={comic.komik_id} comic={comic} />)
                 ) : (
                   <p className="text-gray-600 dark:text-white">No manhua available</p>
                 )
               ) : manhwa.length > 0 ? (
-                manhwa.map((comic: Comic) => <ComicCard key={comic.komik_id} comic={comic} />)
+                manhwa.map((comic) => <ComicCard key={comic.komik_id} comic={comic} />)
               ) : (
                 <p className="text-gray-600 dark:text-white">No manhwa available</p>
               )}

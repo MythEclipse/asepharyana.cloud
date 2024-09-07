@@ -39,7 +39,7 @@ export default async function Page({ params }: { params: { pageNumber: string } 
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
         {komikData.data.map((manhua) => (
-          <div key={manhua.komik_id} className="flex-shrink-0 w-64">
+          <div key={manhua.komik_id} className="flex-shrink-0 w-64 mx-auto md:mx-0">
             <Card className="shadow-lg rounded-lg overflow-hidden flex flex-col p-4">
               <div className="relative w-full h-64">
                 <Image
