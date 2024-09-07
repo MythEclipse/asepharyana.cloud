@@ -3,7 +3,7 @@ import * as cheerio from 'cheerio';
 
 const baseUrl = {
 
-  komik: 'https://komikindo.tv'
+  komik: 'https://komikcast.cz'
 };
 const baseURL = baseUrl.komik;
 
@@ -64,13 +64,13 @@ const parseMangaData = (body: string): MangaData[] => {
   const $ = cheerio.load(body);
   const data: MangaData[] = [];
 
-  $('.film-list .animepost').each((i, e) => {
-    const title = $(e).find('.tt h4').text().trim() || '';
+  $('.list-update_items-wrapper .list-update_item').each((i, e) => {
+    const title = $(e).find('.title').text() || '';
     let image = $(e).find('img').attr('src') || '';
     image = image.split('?')[0]; // Remove query parameters from image URL
-    const chapter = $(e).find('.lsch a').text().trim().replace('Ch.', '') || ''; // Keep only the numeric part
-    const score = ''; // Assuming no score is provided in this structure
-    const type = $(e).find('.typeflag').text().trim() || '';
+    const chapter = $(e).find('.chapter').text().trim().replace('Ch.', ''); // Keep only the numeric part
+    const score = $(e).find('.numscore').text() || '';
+    const type = $(e).find('.type').text() || '';
     const komik_id = $(e).find('a').attr('href')?.split('/')[4] || '';
 
     data.push({
@@ -79,13 +79,12 @@ const parseMangaData = (body: string): MangaData[] => {
       chapter,
       score,
       type,
-      komik_id,
+      komik_id
     });
   });
 
   return data;
 };
-
 
 // Function to fetch data with Next.js 14 caching
 const fetchWithCache = async (url: string): Promise<any> => {
@@ -110,65 +109,37 @@ const getDetail = async (komik_id: string): Promise<MangaDetail> => {
     const body = await fetchWithCache(`${baseURL}/komik/${komik_id}`);
     const $ = cheerio.load(body);
 
-    // Title
-    const title = $('h1.entry-title').text().trim() || '';
-
-    // Alternative Title
-    const alternativeTitle = $(".spe span:contains('Judul Alternatif:')")
-      .text()
-      .replace('Judul Alternatif:', '')
-      .trim() || '';
-
-    // Score
-    const score = $('.rtg > div > i')
-      .text()
-      .trim() || '';
-
-    // Image
-    let image = $('.thumb img').attr('src') || '';
+    const title = $('.komik_info-content-body-title').text() || '';
+    const alternativeTitle = $('.komik_info-content-native').text() || '';
+    const score =
+      $(
+        '#content > div > div > div:nth-child(2) > div.komik_info-content > div.komik_info-content-rating > div > div.data-rating > strong'
+      ).text() || '';
+    let image =
+      $(
+        '#content > div > div > div:nth-child(2) > div.komik_info-content > div.komik_info-content-thumbnail > img'
+      ).attr('src') || '';
     image = image.split('?')[0]; // Remove query parameters from image URL
-
-    // Description
-    const description = $('.shortcsc').text().trim() || '';
-
-    // Status
-    const status = $(".spe span:contains('Status:')")
-      .text()
-      .replace('Status:', '')
-      .trim() || '';
-
-    // Genres
+    const description =
+      $('#content > div > div > div:nth-child(2) > div.komik_info-description > div > p').text().trim() || '';
+    const status = $(".komik_info-content-info:contains('Status')").text().replace('Status:', '').trim() || '';
     const genres: string[] = [];
-    $('.genre-info a').each((i, el) => {
-      genres.push($(el).text().trim());
+    $('.komik_info-content-genre a').each((i, el) => {
+      genres.push($(el).text());
     });
-
-    // Release Date (if available, assuming it's in the same location as before)
-    const releaseDate = ''; // Not provided in the new HTML, keep empty or fetch from another source
-
-    // Author
-    const author = $(".spe span:contains('Pengarang:')")
+    const releaseDate = $('.komik_info-content-info-release').text().replace('Released:', '').trim();
+    const author = $(".komik_info-content-info:contains('Author')").text().replace('Author:', '').trim();
+    const type = $('.komik_info-content-info-type a').text().trim();
+    const totalChapter = $(".komik_info-content-info:contains('Total Chapter')")
       .text()
-      .replace('Pengarang:', '')
+      .replace('Total Chapter:', '')
       .trim();
-
-    // Type
-    const type = $(".spe span:contains('Jenis Komik:') a")
-      .text()
-      .trim();
-
-    // Total Chapter (if available, otherwise remove this field)
-    const totalChapter = ''; // Not provided in the new HTML, keep empty or fetch from another source
-
-    // Updated On (if available, otherwise remove this field)
-    const updatedOn = ''; // Not provided in the new HTML, keep empty or fetch from another source
-
-    // Chapters list from the `#chapter_list` element
+    const updatedOn = $('.komik_info-content-update time').text().trim();
     const chapters: { chapter: string; date: string; chapter_id: string }[] = [];
-    $('#chapter_list ul li').each((i, el) => {
-      const chapter = $(el).find('.lchx a').text().trim();
-      const date = $(el).find('.dt a').text().trim();
-      const chapter_id = $(el).find('.lchx a').attr('href')?.split('/')[3] || '';
+    $('.komik_info-chapters-wrapper li').each((i, el) => {
+      const chapter = $(el).find('a').text().trim();
+      const date = $(el).find('.chapter-link-time').text().trim();
+      const chapter_id = $(el).find('a').attr('href')?.split('/')[4] || '';
       chapters.push({ chapter, date, chapter_id });
     });
 
@@ -185,7 +156,7 @@ const getDetail = async (komik_id: string): Promise<MangaDetail> => {
       totalChapter,
       updatedOn,
       genres,
-      chapters,
+      chapters
     };
   } catch (error) {
     logError(error);
@@ -193,26 +164,24 @@ const getDetail = async (komik_id: string): Promise<MangaDetail> => {
   }
 };
 
-
 // Function to get manga chapter
 const getChapter = async (chapter_url: string): Promise<MangaChapter> => {
   try {
     const body = await fetchWithCache(`${baseURL}/chapter/${chapter_url}`);
     const $ = cheerio.load(body);
 
-    const title = $('.entry-title').text().trim() || '';
+    const title = $('#content > div > div > div.chapter_headpost > h1').text() || '';
 
     // Handling previous chapter ID
-    const prev_chapter_element = $('.nextprev a[rel="prev"]');
-    const prev_chapter_id = prev_chapter_element.length ? prev_chapter_element.attr('href')?.split('/')[3] || '' : '';
+    const prev_chapter_element = $('#chapter_body > div:nth-child(2) > div.right-control > div > a[rel="prev"]');
+    const prev_chapter_id = prev_chapter_element.length ? prev_chapter_element.attr('href')?.split('/')[4] || '' : '';
 
     // Handling next chapter ID
-    const next_chapter_element = $('.nextprev a[rel="next"]');
-    const next_chapter_id = next_chapter_element.length ? next_chapter_element.attr('href')?.split('/')[3] || '' : '';
+    const next_chapter_element = $('#chapter_body > div:nth-child(2) > div.right-control > div > a[rel="next"]');
+    const next_chapter_id = next_chapter_element.length ? next_chapter_element.attr('href')?.split('/')[4] || '' : '';
 
-    // Extracting images
     const images: string[] = [];
-    $('#chimg-auh img').each((i, el) => {
+    $('.main-reading-area img').each((i, el) => {
       const image = $(el).attr('src') || '';
       images.push(image);
     });
@@ -223,7 +192,6 @@ const getChapter = async (chapter_url: string): Promise<MangaChapter> => {
     throw new Error('Failed to fetch manga chapter');
   }
 };
-
 
 export const GET = async (req: Request) => {
   const url = new URL(req.url);
@@ -240,7 +208,7 @@ export const GET = async (req: Request) => {
       const chapter_url = url.searchParams.get('chapter_url') || '';
       data = await getChapter(chapter_url);
     } else {
-      let apiUrl = `${baseURL}/${type}/page/${page}/`;
+      let apiUrl = `${baseURL}/daftar-komik/page/${page}/?type=${type}&sortby=${order}`;
       if (type === 'search') {
         const query = url.searchParams.get('query') || '';
         apiUrl = `${baseURL}/page/${page}/?s=${query}`;

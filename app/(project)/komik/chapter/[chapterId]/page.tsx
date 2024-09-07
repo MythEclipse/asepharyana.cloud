@@ -55,7 +55,7 @@ export default async function ChapterPage({ params }: { params: { chapterId: str
               minHeight: '300px', // Placeholder height, adjust as needed
               backgroundColor: '#f0f0f0' // Placeholder background color
             }}
-            className="my-2"
+            className=""
           >
             <Image
               src={image}

@@ -28,6 +28,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "jest.config.ts"
-  ],
+, "app/api/komik/[function]/route.ts.bak"  ],
   "exclude": ["node_modules", "!node_modules/.prisma"]
 }
