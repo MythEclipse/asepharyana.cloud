@@ -46,28 +46,32 @@ const SearchPage: FC<{ searchParams: { query: string } }> = async ({ searchParam
         </Button>
       </form>
 
-      <div className="space-y-6">
+      <div className="">
         {searchResults.data.length > 0 ? (
-          <div className="flex flex-wrap gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
             {searchResults.data.map((comic) => (
-              <Link key={comic.komik_id} href={`/komik/detail/${comic.komik_id}`} className="block w-48 flex-shrink-0">
-                <Card className="shadow-lg rounded-lg overflow-hidden flex flex-col items-center">
-                  <div className="relative w-full h-64">
-                    <Image
-                      src={comic.image}
-                      alt={comic.title}
-                      fill
-                      style={{ objectFit: 'cover' }}
-                      className="rounded-t-lg"
-                    />
-                  </div>
-                  <div className="p-4 text-center">
-                    <h3 className="text-lg font-bold mb-2 dark:text-white">{comic.title}</h3>
-                    <p className="text-sm text-gray-600">{comic.chapter}</p>
-                    <p className="text-sm text-gray-600">Score: {comic.score}</p>
-                  </div>
-                </Card>
-              </Link>
+              <div key={comic.komik_id} className="flex-shrink-0 w-64 mx-auto md:mx-0">
+              <Card className="shadow-lg rounded-lg overflow-hidden flex flex-col p-4">
+                <div className="relative w-full h-64">
+                  <Image
+                    src={comic.image}
+                    alt={comic.title}
+                    fill
+                    style={{ objectFit: 'cover' }}
+                    className="object-cover w-full h-full rounded-md"
+                  />
+                </div>
+                <div className="mt-4 text-center">
+                  <Link href={`/komik/detail/${comic.komik_id}`} className="text-blue-600 hover:underline">
+                    <div className="text-lg font-bold mb-2 overflow-hidden whitespace-nowrap text-overflow-ellipsis">
+                      {comic.title}
+                    </div>
+                  </Link>
+                  <div className="text-gray-600 dark:text-gray-400 mb-2">{comic.chapter}</div>
+                  <div className="text-gray-600 dark:text-gray-400 mb-2">Score: {comic.score}</div>
+                </div>
+              </Card>
+            </div>
             ))}
           </div>
         ) : (

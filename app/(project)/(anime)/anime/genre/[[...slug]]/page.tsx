@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { getData } from '@/lib/GetData';
 import AnimeGrid from '@/components/AnimeGrid2';
 import { ANIMEAPI } from '@/lib/url';
+import { Button } from 'flowbite-react';
 
 interface HomeData {
   status: string;
@@ -145,14 +146,14 @@ const PaginationComponent = ({
             href={`/anime/genre/${genreSlug}${currentPage > 2 ? `/${currentPage - 1}` : ''}`}
             className="text-blue-600 hover:underline"
           >
-            <button className="px-4 py-2 bg-blue-600 text-white rounded">Previous</button>
+            <Button>Previous</Button>
           </Link>
         </div>
       )}
       {pagination.has_next_page && pagination.next_page !== null && (
         <div className="text-2xl font-bold mt-8 mb-4">
           <Link href={`/anime/genre/${genreSlug}/${currentPage + 1}`} className="text-blue-600 hover:underline">
-            <button className="px-4 py-2 bg-blue-600 text-white rounded">Next</button>
+            <Button>Next</Button>
           </Link>
         </div>
       )}
