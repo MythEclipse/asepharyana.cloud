@@ -73,12 +73,8 @@ const SearchPage = async ({ params }: DetailAnimePageProps) => {
               <Link href={`/anime/detail/${anime.slug}`} className="text-blue-600 hover:underline">
                 <div className="text-lg mb-2 font-bold">{anime.title}</div>
               </Link>
-              {anime.episode_count && (
-                <div className="text-gray-500 mb-2">Episodes: {anime.episode_count}</div>
-              )}
-              {anime.rating && (
-                <div className="text-gray-500 mb-2">Rating: {anime.rating}</div>
-              )}
+              {anime.episode_count && <div className="text-gray-500 mb-2">Episodes: {anime.episode_count}</div>}
+              {anime.rating && <div className="text-gray-500 mb-2">Rating: {anime.rating}</div>}
               {anime.last_release_date && (
                 <div className="text-gray-500 mb-2">Last Release Date: {anime.last_release_date}</div>
               )}
