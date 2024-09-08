@@ -90,7 +90,7 @@ const fetchWithCache = async (url: string): Promise<any> => {
   try {
     const res = await fetch(url, {
       headers: DEFAULT_HEADERS,
-      next: { revalidate: 3600 } // Cache response for 60 minutes
+      next: { revalidate: 360 } // Cache response for 60 minutes
     });
     if (!res.ok) {
       throw new Error('Failed to fetch data');

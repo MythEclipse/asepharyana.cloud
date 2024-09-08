@@ -1,8 +1,9 @@
 import { getData } from '@/lib/GetData';
-import { Local } from '@/lib/url';
+import { Local, PRODUCTION } from '@/lib/url';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from 'flowbite-react';
+import { Metadata } from 'next';
 
 interface Genre {
   name: string;
@@ -54,6 +55,28 @@ interface AnimeData {
 interface DetailAnimePageProps {
   params: {
     slug: string;
+  };
+}
+
+export async function generateMetadata({ params }: DetailAnimePageProps): Promise<Metadata> {
+  const anime: AnimeData = await getData(`${Local}/api/anime/detail/${params.slug}`);
+
+  return {
+    title: anime.data.title,
+    description: anime.data.synopsis,
+    keywords: `nextjs, anime, anime sub, anime sub indo, anime sub indo terbaru, anime sub terbaru, anime sub indo terlengkap, anime sub terlengkap, ${anime.data.title}`,
+    openGraph: {
+      title: anime.data.title,
+      description: anime.data.synopsis,
+      images: [anime.data.poster],
+      url: `${PRODUCTION}/anime/detail/${params.slug}`
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: anime.data.title,
+      description: anime.data.synopsis,
+      images: [anime.data.poster]
+    }
   };
 }
 

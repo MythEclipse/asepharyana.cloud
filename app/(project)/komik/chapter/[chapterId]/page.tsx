@@ -5,6 +5,7 @@ import { getData } from '@/lib/GetData';
 import Link from 'next/link';
 import { Button } from 'flowbite-react';
 import Image from 'next/image';
+import { Local } from '@/lib/url';
 
 interface ChapterDetail {
   title: string;
@@ -17,7 +18,7 @@ interface ChapterDetail {
 
 export default async function ChapterPage({ params }: { params: { chapterId: string } }) {
   const { chapterId } = params;
-  const chapter: ChapterDetail = await getData(`http://localhost:3090/api/komik/chapter?chapter_url=${chapterId}`);
+  const chapter: ChapterDetail = await getData(`${Local}/api/komik/chapter?chapter_url=${chapterId}`);
 
   if (!chapter) {
     notFound();

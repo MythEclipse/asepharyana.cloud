@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { getData } from '@/lib/GetData';
 import { notFound } from 'next/navigation';
+import { Local } from '@/lib/url';
 
 interface KomikData {
   data: Manga[];
@@ -26,7 +27,7 @@ export default async function Page({ params }: { params: { pageNumber: string } 
     notFound();
   }
 
-  const komikData: KomikData = await getData(`http://localhost:3090/api/komik/manga?page=${pageNumber}&order=update`);
+  const komikData: KomikData = await getData(`${Local}/api/komik/manga?page=${pageNumber}&order=update`);
 
   return (
     <main className="">

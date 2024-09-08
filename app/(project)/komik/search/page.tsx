@@ -21,7 +21,7 @@ interface SearchResult {
 // Function to fetch search results from the API
 const fetchSearchResults = async (query: string) => {
   try {
-    const response = await fetch(`http://localhost:3090/api/komik/search?query=${encodeURIComponent(query)}`);
+    const response = await fetch(`${Local}/api/komik/search?query=${encodeURIComponent(query)}`);
     const result: SearchResult = await response.json();
     return result;
   } catch (error) {

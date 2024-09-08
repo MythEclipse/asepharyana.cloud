@@ -1,9 +1,10 @@
-import React from 'react';
-import { notFound } from 'next/navigation';
 import { getData } from '@/lib/GetData';
-import Image from 'next/image';
+import { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
+import { notFound } from 'next/navigation';
 import { Button } from 'flowbite-react';
+import { Local, PRODUCTION } from '@/lib/url';
 
 interface MangaDetail {
   title: string;
@@ -28,9 +29,41 @@ interface MangaDetail {
   }[];
 }
 
-export default async function DetailPage({ params }: { params: { komikId: string } }) {
+interface DetailPageProps {
+  params: {
+    komikId: string;
+  };
+}
+
+export async function generateMetadata({ params }: DetailPageProps): Promise<Metadata> {
   const { komikId } = params;
-  const manga: MangaDetail = await getData(`http://localhost:3090/api/komik/detail?komik_id=${komikId}`);
+  const manga: MangaDetail = await getData(`${Local}/api/komik/detail?komik_id=${komikId}`);
+
+  if (!manga) {
+    notFound();
+  }
+
+  return {
+    title: manga.title,
+    description: manga.description,
+    openGraph: {
+      title: manga.title,
+      description: manga.description,
+      images: [manga.image],
+      url: `http://${PRODUCTION}/komik/detail/${komikId}`,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: manga.title,
+      description: manga.description,
+      images: [manga.image],
+    },
+  };
+}
+
+export default async function DetailPage({ params }: DetailPageProps) {
+  const { komikId } = params;
+  const manga: MangaDetail = await getData(`${Local}/api/komik/detail?komik_id=${komikId}`);
 
   if (!manga) {
     notFound();
@@ -88,8 +121,7 @@ export default async function DetailPage({ params }: { params: { komikId: string
                       className="text-blue-600 hover:underline dark:text-blue-400"
                     >
                       <Button className="w-full truncate">
-                        {' '}
-                        {chapter.chapter} - {chapter.date}{' '}
+                        {chapter.chapter} - {chapter.date}
                       </Button>
                     </Link>
                   ))

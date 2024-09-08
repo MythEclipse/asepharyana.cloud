@@ -7,7 +7,7 @@ export const metadata = {
     template: '%s - Tempat baca komik'
   },
   description: 'Tempat baca komik',
-  keywords: 'nextjs, manga, manhua, manhwa, free'
+  keywords: 'nextjs, manga, manhua, manhwa, Baca online One Piece, Baca Online Solo Leveling, Baca Online Apotheois, Baca Online Star Martial God Technique, Baca Komik lengkap, Baca Manga, Baca Manhua, Baca Manhwa'
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
