@@ -1,1 +1,1 @@
-pnpm install && pnpm run start
+pnpm run start
