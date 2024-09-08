@@ -13,6 +13,7 @@ const Loading: React.FC = () => {
           height={150}
           className="h-full w-full rounded-full"
           priority
+          unoptimized
         />
       </div>
     </div>
