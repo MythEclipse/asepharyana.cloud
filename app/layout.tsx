@@ -77,13 +77,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <ViewTransitions>
         <SessionWrapper>
           <html suppressHydrationWarning lang="id" className={inter.className}>
-            <head>{ThemeModeScript && <ThemeModeScript />}</head>
+            <head>
+              {ThemeModeScript && <ThemeModeScript />}
+              <link rel="canonical" href="https://asepharyana.my.id" />
+            </head>
             <body className="h-screen dark:bg-dark">
               <NavbarWrapper />
               <Flowbite theme={{ theme: customTheme }}>
                 <div className="mt-28 max-w-full px-0.5 pb-10 pt-38 sm:px-6 lg:px-8">
                   {children}
-                  <DarkThemeToggle className="fixed bottom-0 z-10" />
+                  <DarkThemeToggle className="fixed bottom-0 right-0 z-10 m-4" aria-label="Toggle Dark Mode" />
                 </div>
               </Flowbite>
             </body>
