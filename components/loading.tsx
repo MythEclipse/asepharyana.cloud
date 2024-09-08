@@ -12,7 +12,7 @@ const Loading: React.FC = () => {
           width={150}
           height={150}
           className="h-full w-full rounded-full"
-          loading="lazy"
+          priority
         />
       </div>
     </div>

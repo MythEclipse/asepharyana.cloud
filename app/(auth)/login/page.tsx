@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import React from 'react';
 import { Button, TextInput, Label, Checkbox, Alert } from 'flowbite-react';
 import Link from 'next/link';
-
+import { FaGoogle } from "react-icons/fa";
 export default function LoginPage({ searchParams }: any) {
   const { push } = useRouter();
   const [error, setError] = React.useState<string>('');
@@ -107,10 +107,12 @@ export default function LoginPage({ searchParams }: any) {
                     <Button
                       type="button"
                       onClick={() => signIn('google', { callbackUrl, redirect: false })}
-                      className="w-full bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                      className="flex items-center justify-center w-full bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                     >
+                      <FaGoogle className="w-6 h-6 mr-2" />
                       Login with Google
                     </Button>
+
                     <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                       Don’t have an account yet?{' '}
                       <Link

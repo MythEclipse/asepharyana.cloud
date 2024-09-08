@@ -11,7 +11,8 @@
   },
   "scripts": {
     "dev": "next dev --turbo --port 3090",
-    "build": "next build",
+    "build": "next-sitemap && next build",
+    "postbuild": "next-sitemap",
     "start": "next start --port 3090",
     "lint": "next lint",
     "lint:debug": "next lint  --debug",
@@ -55,6 +56,7 @@
     "next": "14.2.7",
     "next-auth": "^4.24.7",
     "next-intl": "^3.19.0",
+    "next-sitemap": "^4.2.3",
     "next-view-transitions": "^0.3.0",
     "pino": "^9.3.2",
     "pino-pretty": "^11.2.2",
