@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import React from 'react';
 import { Button, TextInput, Label, Checkbox, Alert } from 'flowbite-react';
 import Link from 'next/link';
-import { FaGoogle } from "react-icons/fa";
+import { FaGoogle } from 'react-icons/fa';
 export default function LoginPage({ searchParams }: any) {
   const { push } = useRouter();
   const [error, setError] = React.useState<string>('');

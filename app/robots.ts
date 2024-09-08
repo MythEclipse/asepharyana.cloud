@@ -25,20 +25,20 @@ export default function robots(): MetadataRoute.Robots {
           '/*.jpg$',
           '/*.png$',
           '/*.gif$'
-        ],
+        ]
       },
       {
         // Googlebot-specific rules: Explicitly allow access to entire site
         userAgent: 'Googlebot',
-        allow: ['/'],
+        allow: ['/']
       },
       {
         // Block specific bots entirely
         userAgent: 'BadBot',
-        disallow: ['/'],
-      },
+        disallow: ['/']
+      }
     ],
-    sitemap: 'https://asepharyana.my.id/sitemap.xml',  // Provide the location of the sitemap
-    host: 'https://asepharyana.my.id',
+    sitemap: 'https://asepharyana.my.id/sitemap.xml', // Provide the location of the sitemap
+    host: 'https://asepharyana.my.id'
   };
 }
