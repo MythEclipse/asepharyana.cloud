@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Local } from '@/lib/url';
 import { Card, Button, TextInput } from 'flowbite-react';
 
 interface Comic {

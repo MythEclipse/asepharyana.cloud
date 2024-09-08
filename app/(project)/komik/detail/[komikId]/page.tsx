@@ -50,14 +50,14 @@ export async function generateMetadata({ params }: DetailPageProps): Promise<Met
       title: manga.title,
       description: manga.description,
       images: [manga.image],
-      url: `http://${PRODUCTION}/komik/detail/${komikId}`,
+      url: `http://${PRODUCTION}/komik/detail/${komikId}`
     },
     twitter: {
       card: 'summary_large_image',
       title: manga.title,
       description: manga.description,
-      images: [manga.image],
-    },
+      images: [manga.image]
+    }
   };
 }
 
