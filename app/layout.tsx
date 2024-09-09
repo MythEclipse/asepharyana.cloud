@@ -53,7 +53,8 @@ export const metadata: Metadata = {
     card: 'summary',
     site: '@asepharyana',
     title: 'Website pribadi milik Asep Haryana Saputra',
-    description: 'Website pribadi milik Asep Haryana Saputra, berisi berbagai project seperti API, Anime, Manga, dan lainnya',
+    description:
+      'Website pribadi milik Asep Haryana Saputra, berisi berbagai project seperti API, Anime, Manga, dan lainnya',
     images: [
       {
         url: '/logo.png',
