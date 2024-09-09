@@ -33,12 +33,12 @@ export const metadata: Metadata = {
     description: 'Website pribadi milik Asep Haryana Saputra, ini adalah halaman utama pada website ini',
     images: [
       {
-        url: '/Logo.svg',
+        url: '/logo.png',
         width: 800,
         height: 600
       },
       {
-        url: '/Logo.svg',
+        url: '/logo.png',
         width: 1800,
         height: 1600,
         alt: 'My custom alt'
@@ -53,15 +53,15 @@ export const metadata: Metadata = {
     card: 'summary',
     site: '@asepharyana',
     title: 'Website pribadi milik Asep Haryana Saputra',
-    description: 'Website pribadi milik Asep Haryana Saputra, ini adalah halaman utama pada website ini',
+    description: 'Website pribadi milik Asep Haryana Saputra, berisi berbagai project seperti API, Anime, Manga, dan lainnya',
     images: [
       {
-        url: '/Logo.svg',
+        url: '/logo.png',
         width: 800,
         height: 600
       },
       {
-        url: '/Logo.svg',
+        url: '/logo.png',
         width: 1800,
         height: 1600,
         alt: 'My custom alt'
