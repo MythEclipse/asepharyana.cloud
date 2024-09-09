@@ -8,6 +8,7 @@ import ContextAppProvider from '../components/ContextApp';
 import { ViewTransitions } from 'next-view-transitions';
 import { ThemeModeScript, DarkThemeToggle, Flowbite } from 'flowbite-react';
 import type { CustomFlowbiteTheme } from 'flowbite-react';
+import { PRODUCTION } from '@/lib/url';
 
 // Google font setup
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
@@ -23,7 +24,7 @@ const customTheme: CustomFlowbiteTheme = {
 
 // Metadata configuration for the page
 export const metadata: Metadata = {
-  metadataBase: new URL('https://asepharyana.my.id'),
+  metadataBase: new URL(`${PRODUCTION}`),
   title: 'Asep Haryana Saputra',
   description: 'Website pribadi milik Asep Haryana Saputra, ini adalah halaman utama pada website ini',
   keywords: 'portfolio, nextjs, api, free, anime, manga',
@@ -44,7 +45,7 @@ export const metadata: Metadata = {
       }
     ],
     type: 'article',
-    url: 'https://asepharyana.my.id/',
+    url: `${PRODUCTION}`,
     siteName: 'Website pribadi milik Asep Haryana Saputra',
     locale: 'id_ID'
   },
@@ -79,14 +80,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <html suppressHydrationWarning lang="id" className={inter.className}>
             <head>
               {ThemeModeScript && <ThemeModeScript />}
-              <link rel="canonical" href="https://asepharyana.my.id" />
+              <link rel="canonical" href={`${PRODUCTION}`} />
             </head>
             <body className="h-screen dark:bg-dark">
               <NavbarWrapper />
               <Flowbite theme={{ theme: customTheme }}>
                 <div className="mt-28 max-w-full px-0.5 pb-10 pt-38 sm:px-6 lg:px-8">
                   {children}
-                  <DarkThemeToggle className="fixed bottom-0 right-0 z-10 m-4" aria-label="Toggle Dark Mode" />
+                  <DarkThemeToggle className="fixed bottom-0 left-0 z-10 m-4" aria-label="Toggle Dark Mode" />
                 </div>
               </Flowbite>
             </body>

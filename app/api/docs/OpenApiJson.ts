@@ -1537,19 +1537,9 @@ const OpenApiJson = {
   },
   info: {
     title: 'Freefire',
-    version: '9.9.9',
+    version: '0.0.1',
     description: 'api gratis'
-  },
-  servers: [
-    {
-      url: 'https://asepharyana.my.id',
-      description: 'Produksi'
-    },
-    {
-      url: 'http://localhost:3090',
-      description: 'Pengembangan'
-    }
-  ]
+  }
 };
 
 export default OpenApiJson;
