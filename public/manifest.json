@@ -1,0 +1,17 @@
+{
+    "name": "asepharyana.my.id",
+    "short_name": "NextApp",
+    "description": "My personal website",
+    "icons": [
+      {
+        "src": "/logo.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      }
+    ],
+    "start_url": "/",
+    "background_color": "#ffffff",
+    "theme_color": "#000000",
+    "display": "standalone"
+  }
+  

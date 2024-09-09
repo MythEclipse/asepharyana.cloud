@@ -2,9 +2,9 @@ import React from 'react';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import NavbarWrapper from '../components/navbar/NavbarHomes';
-import SessionWrapper from '../components/SessionWrapper';
-import ContextAppProvider from '../components/ContextApp';
+import NavbarWrapper from '@/components/navbar/NavbarHomes';
+import SessionWrapper from '@/components/SessionWrapper';
+import ContextAppProvider from '@/components/ContextApp';
 import { ViewTransitions } from 'next-view-transitions';
 import { ThemeModeScript, DarkThemeToggle, Flowbite } from 'flowbite-react';
 import type { CustomFlowbiteTheme } from 'flowbite-react';
@@ -82,6 +82,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <head>
               {ThemeModeScript && <ThemeModeScript />}
               <link rel="canonical" href={`${PRODUCTION}`} />
+              <link rel="manifest" href="/manifest.json" />
+              <link rel="icon" href="/favicon.ico" />
             </head>
             <body className="h-screen dark:bg-dark">
               <NavbarWrapper />
