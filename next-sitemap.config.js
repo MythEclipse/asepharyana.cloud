@@ -5,11 +5,11 @@ module.exports = {
   generateRobotsTxt: true,
   generateIndexSitemap: false,
   robotsTxtOptions: {
-      policies: [
-          {
-              userAgent: '*',
-              allow: '/',
-          }
-      ]
+    policies: [
+      {
+        userAgent: '*',
+        allow: '/'
+      }
+    ]
   }
-}
+};
