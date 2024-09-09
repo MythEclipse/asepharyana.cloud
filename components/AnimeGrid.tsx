@@ -34,7 +34,7 @@ const AnimeGrid: React.FC<AnimeGridProps> = ({ animes }) => {
             />
           </div>
           <div className="mt-4 text-center">
-            <Link href={`/anime/detail/${anime.slug}`} className="text-blue-600 hover:underline">
+            <Link scroll href={`/anime/detail/${anime.slug}`} className="text-blue-600 hover:underline">
               <div className="text-lg mb-2 font-bold">{anime.title}</div>
             </Link>
             <div className="text-gray-500 mb-2">Episodes: {anime.episode_count}</div>

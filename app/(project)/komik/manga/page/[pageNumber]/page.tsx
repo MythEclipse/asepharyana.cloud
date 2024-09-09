@@ -32,7 +32,7 @@ export default async function Page({ params }: { params: { pageNumber: string } 
   return (
     <main className="">
       <div className="text-2xl font-bold mt-8 mb-4">
-        <Link href={`/komik/manga/page/${pageNumber}`}>
+        <Link scroll href={`/komik/manga/page/${pageNumber}`}>
           <Button size="lg" className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
             Latest Manga
           </Button>
@@ -52,7 +52,7 @@ export default async function Page({ params }: { params: { pageNumber: string } 
                 />
               </div>
               <div className="mt-4 text-center">
-                <Link href={`/komik/detail/${manga.komik_id}`} className="text-blue-600 hover:underline">
+                <Link scroll href={`/komik/detail/${manga.komik_id}`} className="text-blue-600 hover:underline">
                   <div className="text-lg font-bold mb-2 overflow-hidden whitespace-nowrap text-overflow-ellipsis">
                     {manga.title}
                   </div>
@@ -65,7 +65,7 @@ export default async function Page({ params }: { params: { pageNumber: string } 
         ))}
       </div>
       <div className="flex justify-between mt-8">
-        <Link href={`/komik/manga/page/${komikData.prevPage ? pageNumber - 1 : '1'}`}>
+        <Link scroll href={`/komik/manga/page/${komikData.prevPage ? pageNumber - 1 : '1'}`}>
           <Button
             className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
             disabled={!komikData.prevPage}
@@ -73,7 +73,7 @@ export default async function Page({ params }: { params: { pageNumber: string } 
             Previous Page
           </Button>
         </Link>
-        <Link href={`/komik/manga/page/${komikData.nextPage ? pageNumber + 1 : '1'}`}>
+        <Link scroll href={`/komik/manga/page/${komikData.nextPage ? pageNumber + 1 : '1'}`}>
           <Button
             className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
             disabled={!komikData.nextPage}

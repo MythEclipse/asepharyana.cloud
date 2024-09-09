@@ -117,6 +117,7 @@ export default async function DetailPage({ params }: DetailPageProps) {
                 {manga.chapters && Array.isArray(manga.chapters) && manga.chapters.length > 0 ? (
                   manga.chapters.map((chapter) => (
                     <Link
+                    scroll
                       key={chapter.chapter_id}
                       href={`/komik/chapter/${chapter.chapter_id}`}
                       className="text-blue-600 hover:underline dark:text-blue-400"

@@ -63,7 +63,7 @@ const SearchPage: FC<{ searchParams: { query: string } }> = async ({ searchParam
                     />
                   </div>
                   <div className="mt-4 text-center">
-                    <Link href={`/komik/detail/${comic.komik_id}`} className="text-blue-600 hover:underline">
+                    <Link scroll href={`/komik/detail/${comic.komik_id}`} className="text-blue-600 hover:underline">
                       <div className="text-lg font-bold mb-2 overflow-hidden whitespace-nowrap text-overflow-ellipsis">
                         {comic.title}
                       </div>

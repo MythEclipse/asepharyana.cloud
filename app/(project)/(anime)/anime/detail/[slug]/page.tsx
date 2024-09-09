@@ -133,7 +133,7 @@ export default async function DetailAnimePage({ params }: DetailAnimePageProps) 
               <strong className="block mb-2 text-lg">Genres:</strong>
               <div className="flex flex-wrap gap-2 mb-4">
                 {anime.data.genres.map((genre) => (
-                  <Link key={genre.slug} href={`/anime/genre/${genre.slug}`} className="text-blue-500 hover:underline">
+                  <Link scroll key={genre.slug} href={`/anime/genre/${genre.slug}`} className="text-blue-500 hover:underline">
                     {genre.name}
                   </Link>
                 ))}
@@ -152,7 +152,7 @@ export default async function DetailAnimePage({ params }: DetailAnimePageProps) 
                   const episodeNumber = episode.episode.match(/Episode (\d+)/)?.[1] || episode.episode;
 
                   return (
-                    <Link key={episode.slug} href={`/anime/full/${episode.slug}`}>
+                    <Link scroll key={episode.slug} href={`/anime/full/${episode.slug}`}>
                       <Button className="w-full my-3 text-left">Episode {episodeNumber}</Button>
                     </Link>
                   );
@@ -174,6 +174,7 @@ export default async function DetailAnimePage({ params }: DetailAnimePageProps) 
                         className="object-cover rounded-lg shadow-md"
                       />
                       <Link
+                      scroll
                         href={`/anime/detail/${recommendation.slug}`}
                         className="text-blue-600 hover:underline text-center block mt-2"
                       >

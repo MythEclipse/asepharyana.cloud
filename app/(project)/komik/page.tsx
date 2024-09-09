@@ -50,7 +50,7 @@ const ComicCard = ({ comic }: { comic: Comic }) => (
         />
       </div>
       <div className="mt-4 text-center">
-        <Link href={`/komik/detail/${comic.komik_id}`} className="text-blue-600 hover:underline">
+        <Link scroll href={`/komik/detail/${comic.komik_id}`} className="text-blue-600 hover:underline">
           <div className="text-lg font-bold mb-2 truncate">{comic.title}</div>
         </Link>
         <div className="text-gray-600 dark:text-gray-400 mb-2">{comic.chapter}</div>
@@ -87,7 +87,7 @@ const HomePage: React.FC = () => {
         {['Manga', 'Manhua', 'Manhwa'].map((type) => (
           <section key={type} className="mb-8">
             <div className="text-2xl font-bold mb-4">
-              <Link href={`/komik/${type.toLowerCase()}/page/1`}>
+              <Link scroll href={`/komik/${type.toLowerCase()}/page/1`}>
                 <Button size="lg" className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
                   {type}
                 </Button>

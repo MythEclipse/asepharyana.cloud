@@ -143,6 +143,7 @@ const PaginationComponent = ({
       {pagination.has_previous_page && pagination.previous_page !== null && (
         <div className="text-2xl font-bold mt-8 mb-4 dark:text-lighta">
           <Link
+          scroll
             href={`/anime/genre/${genreSlug}${currentPage > 2 ? `/${currentPage - 1}` : ''}`}
             className="text-blue-600 hover:underline"
           >
@@ -152,7 +153,7 @@ const PaginationComponent = ({
       )}
       {pagination.has_next_page && pagination.next_page !== null && (
         <div className="text-2xl font-bold mt-8 mb-4">
-          <Link href={`/anime/genre/${genreSlug}/${currentPage + 1}`} className="text-blue-600 hover:underline">
+          <Link scroll href={`/anime/genre/${genreSlug}/${currentPage + 1}`} className="text-blue-600 hover:underline">
             <Button>Next</Button>
           </Link>
         </div>

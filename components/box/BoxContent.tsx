@@ -23,7 +23,7 @@ const BoxContent: React.FC<BoxContentProps> = ({ gambar, judul, description, hre
         height="0"
         sizes="100vw"
       />
-      <Link href={href}>
+      <Link scroll href={href}>
         <h3 className="m-3 mt-5 text-xl font-semibold text-dark hover:text-primary-600 dark:text-gray-100 dark:hover:text-primary-600">
           {judul}
         </h3>

@@ -89,7 +89,7 @@ export default async function AnimePage() {
       {episodeData ? <AnimeList animeList={episodeData.data.ongoing_anime} /> : <Loading />}
 
       <div className="text-2xl font-bold mt-8 mb-4">
-        <Link href={'/anime/complete-anime/1'}>
+        <Link scroll href={'/anime/complete-anime/1'}>
           <Button size="lg" className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
             Latest Complete Anime
           </Button>
