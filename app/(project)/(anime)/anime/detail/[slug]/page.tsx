@@ -133,7 +133,12 @@ export default async function DetailAnimePage({ params }: DetailAnimePageProps) 
               <strong className="block mb-2 text-lg">Genres:</strong>
               <div className="flex flex-wrap gap-2 mb-4">
                 {anime.data.genres.map((genre) => (
-                  <Link scroll key={genre.slug} href={`/anime/genre/${genre.slug}`} className="text-blue-500 hover:underline">
+                  <Link
+                    scroll
+                    key={genre.slug}
+                    href={`/anime/genre/${genre.slug}`}
+                    className="text-blue-500 hover:underline"
+                  >
                     {genre.name}
                   </Link>
                 ))}
@@ -174,7 +179,7 @@ export default async function DetailAnimePage({ params }: DetailAnimePageProps) 
                         className="object-cover rounded-lg shadow-md"
                       />
                       <Link
-                      scroll
+                        scroll
                         href={`/anime/detail/${recommendation.slug}`}
                         className="text-blue-600 hover:underline text-center block mt-2"
                       >

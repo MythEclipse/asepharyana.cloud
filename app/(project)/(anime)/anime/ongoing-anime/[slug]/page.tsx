@@ -75,7 +75,11 @@ const PaginationComponent = ({ pagination }: { pagination: Pagination }) => {
     <div className="flex justify-between mt-8">
       {pagination.has_previous_page && pagination.previous_page !== null && (
         <div className="text-2xl font-bold mt-8 mb-4">
-          <Link scroll href={`/anime/ongoing-anime/${pagination.previous_page}`} className="text-blue-600 hover:underline">
+          <Link
+            scroll
+            href={`/anime/ongoing-anime/${pagination.previous_page}`}
+            className="text-blue-600 hover:underline"
+          >
             <Button size="lg">Previous</Button>
           </Link>
         </div>
