@@ -13,12 +13,12 @@ interface Comic {
   score: string;
   type: string;
 }
-const BaseUrl = process.env.NEXT_PUBLIC_BASE_URL
+const BaseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 // Individual fetch functions using Next.js fetch and caching
 const fetchManga = async (): Promise<Comic[]> => {
   try {
     const res = await fetch(`${BaseUrl}/api/komik/manga?page=1&order=update`, {
-      next: { revalidate: 10 }, // Cache for 10 seconds
+      next: { revalidate: 10 } // Cache for 10 seconds
     });
     const data = await res.json();
     return data.data || [];
@@ -31,7 +31,7 @@ const fetchManga = async (): Promise<Comic[]> => {
 const fetchManhua = async (): Promise<Comic[]> => {
   try {
     const res = await fetch(`${BaseUrl}/api/komik/manhua?page=1&order=update`, {
-      next: { revalidate: 10 },
+      next: { revalidate: 10 }
     });
     const data = await res.json();
     return data.data || [];
@@ -44,7 +44,7 @@ const fetchManhua = async (): Promise<Comic[]> => {
 const fetchManhwa = async (): Promise<Comic[]> => {
   try {
     const res = await fetch(`${BaseUrl}/api/komik/manhwa?page=1&order=update`, {
-      next: { revalidate: 10 },
+      next: { revalidate: 10 }
     });
     const data = await res.json();
     return data.data || [];
