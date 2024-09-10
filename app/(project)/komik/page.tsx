@@ -1,11 +1,9 @@
-'use client';
+'use server';
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Card, Button } from 'flowbite-react';
-import axios from 'axios';
-import Loading from '@/components/loading';
+import { Button, Card } from 'flowbite-react';
 
 interface Comic {
   komik_id: string;
@@ -15,28 +13,48 @@ interface Comic {
   score: string;
   type: string;
 }
-
-// Fetch comics from the API
-const fetchComics = async () => {
+const BaseUrl = process.env.NEXT_PUBLIC_BASE_URL
+// Individual fetch functions using Next.js fetch and caching
+const fetchManga = async (): Promise<Comic[]> => {
   try {
-    const [mangaRes, manhuaRes, manhwaRes] = await Promise.all([
-      axios.get(`/api/komik/manga?page=1&order=update`),
-      axios.get(`/api/komik/manhua?page=1&order=update`),
-      axios.get(`/api/komik/manhwa?page=1&order=update`)
-    ]);
-
-    return {
-      manga: mangaRes.data.data || [],
-      manhua: manhuaRes.data.data || [],
-      manhwa: manhwaRes.data.data || []
-    };
+    const res = await fetch(`${BaseUrl}/api/komik/manga?page=1&order=update`, {
+      next: { revalidate: 10 }, // Cache for 10 seconds
+    });
+    const data = await res.json();
+    return data.data || [];
   } catch (error) {
-    console.error('Error fetching comics:', error);
-    return { manga: [], manhua: [], manhwa: [] };
+    console.error('Error fetching manga:', error);
+    return [];
   }
 };
 
-// Render individual comic cards
+const fetchManhua = async (): Promise<Comic[]> => {
+  try {
+    const res = await fetch(`${BaseUrl}/api/komik/manhua?page=1&order=update`, {
+      next: { revalidate: 10 },
+    });
+    const data = await res.json();
+    return data.data || [];
+  } catch (error) {
+    console.error('Error fetching manhua:', error);
+    return [];
+  }
+};
+
+const fetchManhwa = async (): Promise<Comic[]> => {
+  try {
+    const res = await fetch(`${BaseUrl}/api/komik/manhwa?page=1&order=update`, {
+      next: { revalidate: 10 },
+    });
+    const data = await res.json();
+    return data.data || [];
+  } catch (error) {
+    console.error('Error fetching manhwa:', error);
+    return [];
+  }
+};
+
+// ComicCard component
 const ComicCard = ({ comic }: { comic: Comic }) => (
   <div key={comic.komik_id} className="flex-shrink-0 w-64">
     <Card className="shadow-lg rounded-lg overflow-hidden flex flex-col p-4">
@@ -60,24 +78,11 @@ const ComicCard = ({ comic }: { comic: Comic }) => (
   </div>
 );
 
-// Client component
-const HomePage: React.FC = () => {
-  const [manga, setManga] = useState<Comic[]>([]);
-  const [manhua, setManhua] = useState<Comic[]>([]);
-  const [manhwa, setManhwa] = useState<Comic[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    const loadComics = async () => {
-      const { manga, manhua, manhwa } = await fetchComics();
-      setManga(manga);
-      setManhua(manhua);
-      setManhwa(manhwa);
-      setLoading(false);
-    };
-
-    loadComics();
-  }, []);
+// HomePage server component
+const HomePage = async () => {
+  const manga = await fetchManga();
+  const manhua = await fetchManhua();
+  const manhwa = await fetchManhwa();
 
   return (
     <div className="p-3">
@@ -94,24 +99,14 @@ const HomePage: React.FC = () => {
               </Link>
             </div>
             <div className="flex overflow-x-auto space-x-4 pb-4">
-              {loading ? (
-                <Loading />
-              ) : type === 'Manga' ? (
-                manga.length > 0 ? (
-                  manga.map((comic) => <ComicCard key={comic.komik_id} comic={comic} />)
-                ) : (
-                  <p className="text-gray-600 dark:text-white">No manga available</p>
-                )
-              ) : type === 'Manhua' ? (
-                manhua.length > 0 ? (
-                  manhua.map((comic) => <ComicCard key={comic.komik_id} comic={comic} />)
-                ) : (
-                  <p className="text-gray-600 dark:text-white">No manhua available</p>
-                )
-              ) : manhwa.length > 0 ? (
+              {type === 'Manga' && manga.length > 0 ? (
+                manga.map((comic) => <ComicCard key={comic.komik_id} comic={comic} />)
+              ) : type === 'Manhua' && manhua.length > 0 ? (
+                manhua.map((comic) => <ComicCard key={comic.komik_id} comic={comic} />)
+              ) : type === 'Manhwa' && manhwa.length > 0 ? (
                 manhwa.map((comic) => <ComicCard key={comic.komik_id} comic={comic} />)
               ) : (
-                <p className="text-gray-600 dark:text-white">No manhwa available</p>
+                <p className="text-gray-600 dark:text-white">No {type.toLowerCase()} available</p>
               )}
             </div>
           </section>
