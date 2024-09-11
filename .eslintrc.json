@@ -16,7 +16,7 @@
     "sourceType": "module"
   },
   "plugins": ["@typescript-eslint"],
-  "ignorePatterns": ["**/build/*", "**/node_modules/*", "**/public/*"],
+  "ignorePatterns": ["**/build/*", "**/node_modules/*", "**/public/*","components.json"],
   "rules": {
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/restrict-template-expressions": "off",

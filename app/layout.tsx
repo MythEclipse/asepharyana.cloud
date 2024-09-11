@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import NavbarWrapper from '@/components/navbar/NavbarHomes';
 import SessionWrapper from '@/components/SessionWrapper';
+import Bg from '@/components/Bg';
 import ContextAppProvider from '@/components/ContextApp';
 import { ViewTransitions } from 'next-view-transitions';
 import { ThemeModeScript, DarkThemeToggle, Flowbite } from 'flowbite-react';
