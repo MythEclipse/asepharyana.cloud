@@ -13,7 +13,7 @@
     "dev": "next dev --turbo --port 3090",
     "build": "node --max-old-space-size=4096 ./node_modules/next/dist/bin/next build",
     "postbuild": "next-sitemap",
-    "start": ".next/standalone/server.js start --port 3090",
+    "start": "next start --port 3090",
     "lint": "next lint",
     "lint:debug": "next lint  --debug",
     "lint:fix": "next lint --fix",
