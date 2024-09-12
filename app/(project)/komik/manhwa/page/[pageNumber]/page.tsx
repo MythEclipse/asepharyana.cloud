@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { getData } from '@/lib/GetData';
 import { notFound } from 'next/navigation';
 import { Local } from '@/lib/url';
+import MiniTildCard from '@/components/MiniTildCard';
 
 interface KomikData {
   data: manhwa[];
@@ -40,30 +41,16 @@ export default async function Page({ params }: { params: { pageNumber: string } 
         </Link>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
-        {komikData.data.map((manhwa) => (
-          <div key={manhwa.komik_id} className="flex-shrink-0 w-64 mx-auto md:mx-0">
-            <Card key={manhwa.komik_id} className="shadow-lg rounded-lg overflow-hidden flex flex-col p-4">
-              <div className="relative w-full h-64">
-                <Image
-                  src={manhwa.image}
-                  alt={manhwa.title}
-                  fill
-                  style={{ objectFit: 'cover' }}
-                  className="object-cover w-full h-full rounded-md"
-                />
-              </div>
-              <div className="mt-4 text-center">
-                <Link scroll href={`/komik/detail/${manhwa.komik_id}`} className="text-blue-600 hover:underline">
-                  <div className="text-lg font-bold mb-2 overflow-hidden whitespace-nowrap text-overflow-ellipsis">
-                    {manhwa.title}
-                  </div>
-                </Link>
-                <div className="text-gray-600 dark:text-gray-400 mb-2">{manhwa.chapter}</div>
-                <div className="text-gray-600 dark:text-gray-400 mb-2">Score: {manhwa.score}</div>
-              </div>
-            </Card>
-          </div>
-        ))}
+      {komikData.data.map((manhwa) => (
+        <div key={manhwa.komik_id} className="flex-shrink-0 w-64 mx-auto md:mx-0">
+          <MiniTildCard
+            title={manhwa.title}
+            description={`Chapter: ${manhwa.chapter} - Score: ${manhwa.score}`}
+            imageUrl={manhwa.image}
+            linkUrl={`/komik/detail/${manhwa.komik_id}`}
+          />
+        </div>
+      ))}
       </div>
       <div className="flex justify-between mt-8">
         <Link scroll href={`/komik/manhwa/page/${komikData.prevPage ? pageNumber - 1 : '1'}`}>

@@ -1,3 +1,4 @@
+import DockKomik from '@/components/DockKomik';
 import DrawerWrapper from '@/components/drawerKomik/DrawerWrapper';
 import React from 'react';
 
@@ -13,8 +14,9 @@ export const metadata = {
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <DrawerWrapper>
+    <>
       <div className="">{children}</div>
-    </DrawerWrapper>
+      <DockKomik />
+    </>
   );
 }

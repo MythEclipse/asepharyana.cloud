@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Card } from '@/components/ui/card'; // Adjust the path as necessary
 import { Button } from '@/components/ui/button';
+import MiniTildCard from '@/components/MiniTildCard';
 
 interface Comic {
   komik_id: string;
@@ -60,24 +61,12 @@ const fetchManhwa = async (): Promise<Comic[]> => {
 // ComicCard component
 const ComicCard = ({ comic }: { comic: Comic }) => (
   <div key={comic.komik_id} className="flex-shrink-0 w-64">
-    <Card className="shadow-lg rounded-lg overflow-hidden flex flex-col p-4">
-      <div className="relative w-full h-64">
-        <Image
-          src={comic.image}
-          alt={comic.title}
-          fill
-          style={{ objectFit: 'cover' }}
-          className="object-cover w-full h-full rounded-md"
-        />
-      </div>
-      <div className="mt-4 text-center">
-        <Link scroll href={`/komik/detail/${comic.komik_id}`} className="text-blue-600 hover:underline">
-          <div className="text-lg font-bold mb-2 truncate">{comic.title}</div>
-        </Link>
-        <div className="text-gray-600 dark:text-gray-400 mb-2">{comic.chapter}</div>
-        <div className="text-gray-600 dark:text-gray-400">Score: {comic.score}</div>
-      </div>
-    </Card>
+    <MiniTildCard
+      title={comic.title}
+      description={`Chapter: ${comic.chapter} | Score: ${comic.score}`}
+      imageUrl={comic.image}
+      linkUrl={`/komik/detail/${comic.komik_id}`}
+    />
   </div>
 );
 

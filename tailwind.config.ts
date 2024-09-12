@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 import type { Config } from 'tailwindcss'
+import flowbite from "flowbite-react/tailwind";
 
 const config: Config = {
   darkMode: ['class'],
@@ -8,6 +9,7 @@ const config: Config = {
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
     './src/**/*.{ts,tsx}',
+    flowbite.content(),
   ],
   prefix: '',
   theme: {
@@ -142,6 +144,7 @@ const config: Config = {
   },
   plugins: [
     require('tailwindcss-animate'),
+    flowbite.plugin(),
   ],
 }
 
