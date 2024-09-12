@@ -29,7 +29,11 @@ export default function ModeToggle({ className }: ModeToggleProps) {
   return (
     <div className={className}>
       <Button variant="outline" size="icon" onClick={toggleTheme}>
-        {resolvedTheme === 'dark' ? <Sun className="h-[1.2rem] w-[1.2rem]" /> : <Moon className="h-[1.2rem] w-[1.2rem]" />}
+        {resolvedTheme === 'dark' ? (
+          <Sun className="h-[1.2rem] w-[1.2rem]" />
+        ) : (
+          <Moon className="h-[1.2rem] w-[1.2rem]" />
+        )}
         <span className="sr-only">Toggle theme</span>
       </Button>
     </div>

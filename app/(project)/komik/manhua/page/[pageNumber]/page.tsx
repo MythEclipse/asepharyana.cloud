@@ -41,16 +41,16 @@ export default async function Page({ params }: { params: { pageNumber: string } 
         </Link>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
-      {komikData.data.map((manhua) => (
-        <div key={manhua.komik_id} className="flex-shrink-0 w-64 mx-auto md:mx-0">
-          <MiniTildCard
-            title={manhua.title}
-            description={`Chapter: ${manhua.chapter} - Score: ${manhua.score}`}
-            imageUrl={manhua.image}
-            linkUrl={`/komik/detail/${manhua.komik_id}`}
-          />
-        </div>
-      ))}
+        {komikData.data.map((manhua) => (
+          <div key={manhua.komik_id} className="flex-shrink-0 w-64 mx-auto md:mx-0">
+            <MiniTildCard
+              title={manhua.title}
+              description={`Chapter: ${manhua.chapter} - Score: ${manhua.score}`}
+              imageUrl={manhua.image}
+              linkUrl={`/komik/detail/${manhua.komik_id}`}
+            />
+          </div>
+        ))}
       </div>
       <div className="flex justify-between mt-8">
         <Link scroll href={`/komik/manhua/page/${komikData.prevPage ? pageNumber - 1 : '1'}`}>

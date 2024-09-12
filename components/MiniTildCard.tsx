@@ -20,7 +20,11 @@ const ThreeDCard: React.FC<ThreeDCardProps> = ({ title, description, imageUrl, l
           <CardItem translateZ="50" className="text-lg font-semibold text-neutral-600 dark:text-white truncate">
             {title}
           </CardItem>
-          <CardItem as="p" translateZ="60" className="text-neutral-500 text-xs mt-2 overflow-hidden overflow-ellipsis whitespace-nowrap dark:text-neutral-300">
+          <CardItem
+            as="p"
+            translateZ="60"
+            className="text-neutral-500 text-xs mt-2 overflow-hidden overflow-ellipsis whitespace-nowrap dark:text-neutral-300"
+          >
             {description}
           </CardItem>
           <CardItem translateZ="100" className="w-full h-[60%] mt-2">
