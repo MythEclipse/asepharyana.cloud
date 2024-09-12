@@ -1,15 +1,13 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 import type { Config } from 'tailwindcss'
-import flowbite from 'flowbite-react/tailwind'
+
 const config: Config = {
   darkMode: ['class'],
   content: [
-    './node_modules/flowbite-react/lib/**/*.js',
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
     './src/**/*.{ts,tsx}',
-    flowbite.content(),
   ],
   prefix: '',
   theme: {
@@ -68,8 +66,6 @@ const config: Config = {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         primary: {
-          DEFAULT: 'hsl(var(--primary))',
-          foreground: 'hsl(var(--primary-foreground))',
           '50': '#eff6ff',
           '100': '#dbeafe',
           '200': '#bfdbfe',
@@ -81,6 +77,8 @@ const config: Config = {
           '800': '#1e40af',
           '900': '#1e3a8a',
           '950': '#172554',
+          DEFAULT: 'hsl(var(--primary))',
+          foreground: 'hsl(var(--primary-foreground))',
         },
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',
@@ -106,15 +104,9 @@ const config: Config = {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
-        // lighta: '#E2E8F0',
-        // lightb: '#cbd5e1',
-        // lightc: '#94a3b8',
         lighta: '#FFFFFF',
         lightb: '#FFFFFF',
         lightc: '#FFFFFF',
-        // dark: '#111827',
-        // darka: '#374151',
-        // darkb: '#1f2937',
         dark: '#000000',
         darka: '#000000',
         darkb: '#000000',
@@ -126,12 +118,20 @@ const config: Config = {
       },
       keyframes: {
         'accordion-down': {
-          from: { height: '0' },
-          to: { height: 'var(--radix-accordion-content-height)' },
+          from: {
+            height: '0',
+          },
+          to: {
+            height: 'var(--radix-accordion-content-height)',
+          },
         },
         'accordion-up': {
-          from: { height: 'var(--radix-accordion-content-height)' },
-          to: { height: '0' },
+          from: {
+            height: 'var(--radix-accordion-content-height)',
+          },
+          to: {
+            height: '0',
+          },
         },
       },
       animation: {
@@ -141,7 +141,6 @@ const config: Config = {
     },
   },
   plugins: [
-    require('flowbite/plugin'),
     require('tailwindcss-animate'),
   ],
 }

@@ -2,8 +2,8 @@
 'use client';
 
 import React from 'react';
-import { Button } from 'flowbite-react';
 import { HiMenu } from 'react-icons/hi';
+import { Button } from '../ui/button';
 
 interface DrawerButtonProps {
   onOpen: () => void;

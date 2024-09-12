@@ -2,7 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Button, Textarea, Card, Spinner } from 'flowbite-react';
+import { Button } from '@/components/ui/button'; // Shadcn UI Button
+import { Textarea } from '@/components/ui/textarea'; // Shadcn UI Textarea
+import { Card } from '@/components/ui/card'; // Shadcn UI Card
 import { HiHeart, HiChatAlt } from 'react-icons/hi';
 import Image from 'next/image';
 
@@ -205,14 +207,13 @@ export default function PostPage() {
       <Textarea value={content} onChange={handleContentChange} placeholder="What's on your mind?" className="mb-4" />
       <input type="file" onChange={handleFileChange} accept="image/*" className="mb-4" />
       <Button onClick={handlePost} disabled={posting} className="bg-blue-500 text-white">
-        {posting ? <Spinner /> : 'Post'}
+        {posting ? 'Loading...' : 'Post'}
       </Button>
       {message && (
         <div className="mt-4">
           <p>{message}</p>
         </div>
       )}
-
       <div className="mt-8">
         <h2 className="text-xl font-bold mb-4">All Posts</h2>
         <div>
@@ -277,15 +278,18 @@ export default function PostPage() {
                         </div>
                       </div>
                     ))}
-                    <Textarea
-                      value={newComment}
-                      onChange={(e) => setNewComment(e.target.value)}
-                      placeholder="Add a comment..."
-                      className="mt-2 mb-2"
-                    />
-                    <Button onClick={() => handleAddComment(post.id)} className="bg-green-500 text-white">
-                      Comment
-                    </Button>
+                    <div
+                      className="mt-4"
+                    >
+                      <Textarea
+                        value={newComment}
+                        onChange={(e) => setNewComment(e.target.value)}
+                        placeholder="Add a comment..."
+                      />
+                      <Button onClick={() => handleAddComment(post.id)} className="mt-2 bg-blue-500 text-white">
+                        Add Comment
+                      </Button>
+                    </div>
                   </div>
                 )}
               </Card>

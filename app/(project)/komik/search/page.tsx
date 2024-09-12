@@ -2,7 +2,8 @@ import { FC } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Local } from '@/lib/url';
-import { Card, Button, TextInput } from 'flowbite-react';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
 
 interface Comic {
   komik_id: string;
@@ -20,9 +21,12 @@ interface SearchResult {
 }
 
 // Function to fetch search results from the API
-const fetchSearchResults = async (query: string) => {
+const fetchSearchResults = async (query: string): Promise<SearchResult> => {
   try {
     const response = await fetch(`${Local}/api/komik/search?query=${encodeURIComponent(query)}`);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
     const result: SearchResult = await response.json();
     return result;
   } catch (error) {
@@ -40,14 +44,24 @@ const SearchPage: FC<{ searchParams: { query: string } }> = async ({ searchParam
     <div className="p-6">
       <h1 className="text-3xl font-bold mb-6 dark:text-white">Search Comics</h1>
 
-      <form action={`/komik/search?page=1&query=${encodeURIComponent(query)}`} method="get" className="mb-6">
-        <TextInput name="query" defaultValue={query} placeholder="Search for comics..." className="mb-4" />
+      <form
+        action={`/komik/search?page=1&query=${encodeURIComponent(query)}`}
+        method="get"
+        className="mb-6"
+      >
+        <input
+          type="text"
+          name="query"
+          defaultValue={query}
+          placeholder="Search for comics..."
+          className="mb-4 p-2 border border-gray-300 rounded dark:bg-gray-800 dark:border-gray-600 dark:text-white"
+        />
         <Button type="submit" className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
           Search
         </Button>
       </form>
 
-      <div className="">
+      <div>
         {searchResults.data.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
             {searchResults.data.map((comic) => (

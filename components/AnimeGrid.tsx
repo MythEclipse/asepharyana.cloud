@@ -1,8 +1,8 @@
 // components/AnimeGrid.tsx
 import React from 'react';
 import Image from 'next/image';
-import { Card } from 'flowbite-react';
 import Link from 'next/link';
+import { Card } from './ui/card';
 
 interface Anime {
   title: string;

@@ -3,7 +3,7 @@ import React from 'react';
 import { notFound } from 'next/navigation';
 import { getData } from '@/lib/GetData';
 import Link from 'next/link';
-import { Button } from 'flowbite-react';
+import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { Local } from '@/lib/url';
 
@@ -31,14 +31,14 @@ export default async function ChapterPage({ params }: { params: { chapterId: str
         <div className="mt-4 flex justify-between gap-4">
           {chapter.prev_chapter_id && (
             <Link scroll href={`/komik/chapter/${chapter.prev_chapter_id}`}>
-              <Button size="md" className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
+              <Button  className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
                 Previous Chapter
               </Button>
             </Link>
           )}
           {chapter.next_chapter_id && (
             <Link scroll href={`/komik/chapter/${chapter.next_chapter_id}`}>
-              <Button size="md" className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
+              <Button  className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
                 Next Chapter
               </Button>
             </Link>
@@ -72,14 +72,14 @@ export default async function ChapterPage({ params }: { params: { chapterId: str
       <div className="mt-4 flex justify-between gap-4">
         {chapter.prev_chapter_id && (
           <Link scroll href={`/komik/chapter/${chapter.prev_chapter_id}`}>
-            <Button size="md" className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
+            <Button  className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
               Previous Chapter
             </Button>
           </Link>
         )}
         {chapter.next_chapter_id && (
           <Link scroll href={`/komik/chapter/${chapter.next_chapter_id}`}>
-            <Button size="md" className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
+            <Button  className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
               Next Chapter
             </Button>
           </Link>

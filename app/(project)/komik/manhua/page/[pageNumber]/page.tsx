@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, Card } from 'flowbite-react';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
 import Link from 'next/link';
 import Image from 'next/image';
 import { getData } from '@/lib/GetData';

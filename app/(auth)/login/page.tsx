@@ -3,9 +3,14 @@
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import React from 'react';
-import { Button, TextInput, Label, Checkbox, Alert } from 'flowbite-react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert'; // Updated import
 import Link from 'next/link';
 import { FaGoogle } from 'react-icons/fa';
+
 export default function LoginPage({ searchParams }: any) {
   const { push } = useRouter();
   const [error, setError] = React.useState<string>('');
@@ -46,8 +51,9 @@ export default function LoginPage({ searchParams }: any) {
           <div className="w-full self-center px-2">
             <div className="mx-auto flex flex-col items-center justify-center px-6 py-8 md:h-screen lg:py-0">
               {error !== '' && (
-                <Alert color="failure" className="mb-3">
-                  {error}
+                <Alert variant="destructive" className="mb-3">
+                  <AlertTitle>Error</AlertTitle>
+                  <AlertDescription>{error}</AlertDescription>
                 </Alert>
               )}
               <div className="w-full rounded-lg bg-white shadow dark:border dark:border-gray-700 dark:bg-darkb sm:max-w-md md:mt-0 xl:p-0">
@@ -60,7 +66,7 @@ export default function LoginPage({ searchParams }: any) {
                       <Label htmlFor="email" className="block text-sm font-medium text-gray-900 dark:text-white">
                         Your email
                       </Label>
-                      <TextInput
+                      <Input
                         id="email"
                         name="email"
                         type="email"
@@ -73,7 +79,7 @@ export default function LoginPage({ searchParams }: any) {
                       <Label htmlFor="password" className="block text-sm font-medium text-gray-900 dark:text-white">
                         Password
                       </Label>
-                      <TextInput
+                      <Input
                         id="password"
                         name="password"
                         type="password"

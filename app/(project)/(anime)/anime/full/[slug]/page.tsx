@@ -2,7 +2,7 @@ import { getData } from '@/lib/GetData';
 import Link from 'next/link';
 import ClientPlayer from '@/components/ClientPlayer';
 import { Local } from '@/lib/url';
-import { Button } from 'flowbite-react';
+import { Button } from '@/components/ui/button';
 
 interface AnimeResponse {
   status: string;

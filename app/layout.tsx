@@ -2,26 +2,19 @@ import React from 'react';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import NavbarWrapper from '@/components/navbar/NavbarHomes';
+import NavbarWrapper from '@/components/NavbarHomes';
 import SessionWrapper from '@/components/SessionWrapper';
 import Bg from '@/components/Bg';
+import { ThemeProvider } from '@/components/theme-provider';
 import ContextAppProvider from '@/components/ContextApp';
 import { ViewTransitions } from 'next-view-transitions';
-import { ThemeModeScript, DarkThemeToggle, Flowbite } from 'flowbite-react';
-import type { CustomFlowbiteTheme } from 'flowbite-react';
 import { PRODUCTION } from '@/lib/url';
+import DarkThemeToggle from '@/components/DarkThemeToggle';
 
 // Google font setup
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
 // Custom Flowbite theme configuration
-const customTheme: CustomFlowbiteTheme = {
-  button: {
-    color: {
-      primary: 'bg-red-500 hover:bg-red-600'
-    }
-  }
-};
 
 // Metadata configuration for the page
 export const metadata: Metadata = {
@@ -81,19 +74,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SessionWrapper>
           <html suppressHydrationWarning lang="id" className={inter.className}>
             <head>
-              {ThemeModeScript && <ThemeModeScript />}
               <link rel="canonical" href={`${PRODUCTION}`} />
               <link rel="manifest" href="/manifest.json" />
               <link rel="icon" href="/favicon.ico" />
             </head>
-            <body className="h-screen dark:bg-dark">
-              <NavbarWrapper />
-              <Flowbite theme={{ theme: customTheme }}>
+            <body className="h-screen bg-lighta dark:bg-darkb">
+              <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+                <NavbarWrapper />
                 <div className="mt-28 max-w-full px-0.5 pb-10 pt-38 sm:px-6 lg:px-8">
                   {children}
                   <DarkThemeToggle className="fixed bottom-0 left-0 z-10 m-4" aria-label="Toggle Dark Mode" />
                 </div>
-              </Flowbite>
+              </ThemeProvider>
             </body>
           </html>
         </SessionWrapper>

@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { getData } from '@/lib/GetData';
 import AnimeGrid from '@/components/AnimeGrid2';
 import { ANIMEAPI } from '@/lib/url';
-import { Button } from 'flowbite-react';
+import { Button } from '@/components/ui/button';
 
 interface HomeData {
   status: string;

@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import * as cheerio from 'cheerio';
 
 const baseUrl = {
-  komik: 'https://komikindo.tv'
+  komik: 'https://komikindo.ws'
 };
 const baseURL = baseUrl.komik;
 

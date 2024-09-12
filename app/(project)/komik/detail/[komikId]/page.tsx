@@ -3,7 +3,8 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { Button } from 'flowbite-react';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
 import { Local, PRODUCTION } from '@/lib/url';
 
 interface MangaDetail {

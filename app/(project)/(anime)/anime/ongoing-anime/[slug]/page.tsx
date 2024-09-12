@@ -3,7 +3,7 @@ import React from 'react';
 import { getData } from '@/lib/GetData';
 import AnimeGrid from '@/components/AnimeGrid';
 import Link from 'next/link';
-import { Button } from 'flowbite-react';
+import { Button } from '@/components/ui/button';
 import { Local } from '@/lib/url';
 
 interface OngoingAnimeData {

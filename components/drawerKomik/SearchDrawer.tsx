@@ -1,10 +1,12 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Button, Drawer, TextInput } from 'flowbite-react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { HiHome, HiCollection, HiSearch, HiMenu } from 'react-icons/hi';
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 
 const SearchDrawer: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onClose }) => {
   const [query, setQuery] = useState('');
@@ -18,21 +20,24 @@ const SearchDrawer: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOp
   };
 
   return (
-    <Drawer open={isOpen} onClose={onClose}>
-      <Drawer.Header title="MENU" titleIcon={() => <HiMenu />} />
-      <Drawer.Items>
+    <Sheet open={isOpen} onOpenChange={onClose}>
+      <SheetContent side="left">
+        <SheetHeader>
+          <SheetTitle>
+            <HiMenu className="inline-block mr-2" /> MENU
+          </SheetTitle>
+        </SheetHeader>
         <div className="flex h-full flex-col">
           <form onSubmit={handleSearch} className="p-4">
-            <TextInput
-              icon={HiSearch}
+            <Input
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Pencarian untuk komik..."
+              className="bg-transparent text-gray-900 dark:text-gray-100"
               required
-              className="border-none outline-none bg-transparent text-gray-900 dark:text-gray-100"
             />
-            <Button type="submit" color="blue" className="mt-2">
+            <Button type="submit" className="mt-2">
               Search
             </Button>
           </form>
@@ -40,28 +45,28 @@ const SearchDrawer: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOp
             <ul className="space-y-2">
               <li>
                 <Link href="/komik">
-                  <Button color="light" className="w-full text-left">
+                  <Button variant="outline" className="w-full text-left">
                     <HiHome className="inline-block mr-2" /> Home
                   </Button>
                 </Link>
               </li>
               <li>
                 <Link href="/komik/manga">
-                  <Button color="light" className="w-full text-left">
+                  <Button variant="outline" className="w-full text-left">
                     <HiCollection className="inline-block mr-2" /> Latest Manga
                   </Button>
                 </Link>
               </li>
               <li>
                 <Link href="/komik/manhua">
-                  <Button color="light" className="w-full text-left">
+                  <Button variant="outline" className="w-full text-left">
                     <HiCollection className="inline-block mr-2" /> Latest Manhua
                   </Button>
                 </Link>
               </li>
               <li>
                 <Link href="/komik/manhwa">
-                  <Button color="light" className="w-full text-left">
+                  <Button variant="outline" className="w-full text-left">
                     <HiCollection className="inline-block mr-2" /> Latest Manhwa
                   </Button>
                 </Link>
@@ -69,8 +74,8 @@ const SearchDrawer: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOp
             </ul>
           </div>
         </div>
-      </Drawer.Items>
-    </Drawer>
+      </SheetContent>
+    </Sheet>
   );
 };
 

@@ -6,14 +6,29 @@ import Facebook from '@/components/logo/Facebook';
 import Linkedln from '@/components/logo/LinkedIn';
 import Discord from '@/components/logo/Discord';
 import Link from 'next/link';
-import { Button } from 'flowbite-react';
 import Bg from '@/components/Bg';
+import { TypewriterEffectSmooth } from '@/components/ui/typewriter-effect';
+import { Button } from '@/components/ui/button';
 
 export const metadata: Metadata = {
   title: 'Home'
 };
 
 export default function Home() {
+  const Judul = [
+    {
+      text: 'Asep',
+      className: 'text-blue-500 dark:text-blue-500'
+    },
+    {
+      text: 'Haryana',
+      className: 'text-blue-500 dark:text-blue-500'
+    },
+    {
+      text: 'Saputra',
+      className: 'text-blue-500 dark:text-blue-500'
+    }
+  ];
   return (
     <main>
       <Bg>
@@ -24,13 +39,10 @@ export default function Home() {
                 <h1 className="text-base font-semibold text-dark lg:text-xl dark:text-lighta">
                   Halo semua 👋, saya{' '}
                   <span className="block text-4xl font-bold text-dark lg:text-5xl dark:text-lighta">
-                    Asep Haryana Saputra
+                    <TypewriterEffectSmooth words={Judul}></TypewriterEffectSmooth>
                   </span>
                 </h1>
                 <h2 className="mb-5 text-lg font-medium text-dark lg:text-2xl dark:text-lighta">Okelah</h2>
-                <Link href="/project" className=" px-8 py-3 text-base font-semibold text-lighta dark:text-dark ">
-                  <Button>Project</Button>
-                </Link>
               </div>
               <div className="w-full self-end px-4 pt-4 lg:w-1/2">
                 <div className="relative pt-20 lg:right-0 lg:mt-0">

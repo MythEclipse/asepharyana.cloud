@@ -38,7 +38,7 @@ export default function ModalWrapper({ children, title }: ModalWrapperProps) {
     <>
       {openModal && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-black bg-opacity-50"
+          className="fixed inset-0 z-51 flex items-center justify-center overflow-auto bg-black bg-opacity-50"
           onClick={handleOverlayClick}
           onKeyDown={handleKeyDown}
           tabIndex={0}

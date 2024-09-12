@@ -1,5 +1,6 @@
 import Image from 'next/image';
-import { Card, Button } from 'flowbite-react';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
 import Link from 'next/link';
 import Loading from '@/components/loading';
 

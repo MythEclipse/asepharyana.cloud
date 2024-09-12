@@ -2,7 +2,7 @@ import { getData } from '@/lib/GetData';
 import { Local, PRODUCTION } from '@/lib/url';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Button } from 'flowbite-react';
+import { Button } from '@/components/ui/button';
 import { Metadata } from 'next';
 
 interface Genre {

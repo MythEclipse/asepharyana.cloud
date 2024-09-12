@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { getData } from '@/lib/GetData';
 import { ANIMEAPI } from '@/lib/url';
-import { Card } from 'flowbite-react';
+import { Card } from '@/components/ui/card';
 
 interface Genre {
   name: string;
