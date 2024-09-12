@@ -26,7 +26,9 @@ const SearchComponent: React.FC = () => {
           <SheetTrigger asChild>
             <Button>Show Search Drawer</Button>
           </SheetTrigger>
-          <SheetContent side="right"> {/* Bisa diubah ke "left" untuk slide dari kiri */}
+          <SheetContent side="right">
+            {' '}
+            {/* Bisa diubah ke "left" untuk slide dari kiri */}
             <SheetHeader>
               <SheetTitle>Search for Anime</SheetTitle>
             </SheetHeader>

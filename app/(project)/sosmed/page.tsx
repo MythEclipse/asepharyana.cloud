@@ -278,9 +278,7 @@ export default function PostPage() {
                         </div>
                       </div>
                     ))}
-                    <div
-                      className="mt-4"
-                    >
+                    <div className="mt-4">
                       <Textarea
                         value={newComment}
                         onChange={(e) => setNewComment(e.target.value)}

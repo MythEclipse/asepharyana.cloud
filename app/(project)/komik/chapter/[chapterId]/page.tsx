@@ -31,14 +31,14 @@ export default async function ChapterPage({ params }: { params: { chapterId: str
         <div className="mt-4 flex justify-between gap-4">
           {chapter.prev_chapter_id && (
             <Link scroll href={`/komik/chapter/${chapter.prev_chapter_id}`}>
-              <Button  className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
+              <Button className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
                 Previous Chapter
               </Button>
             </Link>
           )}
           {chapter.next_chapter_id && (
             <Link scroll href={`/komik/chapter/${chapter.next_chapter_id}`}>
-              <Button  className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
+              <Button className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
                 Next Chapter
               </Button>
             </Link>
@@ -72,14 +72,14 @@ export default async function ChapterPage({ params }: { params: { chapterId: str
       <div className="mt-4 flex justify-between gap-4">
         {chapter.prev_chapter_id && (
           <Link scroll href={`/komik/chapter/${chapter.prev_chapter_id}`}>
-            <Button  className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
+            <Button className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
               Previous Chapter
             </Button>
           </Link>
         )}
         {chapter.next_chapter_id && (
           <Link scroll href={`/komik/chapter/${chapter.next_chapter_id}`}>
-            <Button  className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
+            <Button className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
               Next Chapter
             </Button>
           </Link>

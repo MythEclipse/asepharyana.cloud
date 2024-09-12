@@ -27,8 +27,8 @@ export default function RegisterPage() {
         body: JSON.stringify({
           name: formData.get('name'),
           email: formData.get('email'),
-          password: formData.get('password'),
-        }),
+          password: formData.get('password')
+        })
       });
 
       if (res.status === 200) {
@@ -64,14 +64,7 @@ export default function RegisterPage() {
                 <Label htmlFor="name" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
                   Your name
                 </Label>
-                <Input
-                  type="text"
-                  name="name"
-                  id="name"
-                  placeholder="namecompany"
-                  required
-                  className="w-full"
-                />
+                <Input type="text" name="name" id="name" placeholder="namecompany" required className="w-full" />
               </div>
               <div>
                 <Label htmlFor="email" className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">

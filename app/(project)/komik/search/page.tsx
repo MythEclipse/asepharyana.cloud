@@ -44,11 +44,7 @@ const SearchPage: FC<{ searchParams: { query: string } }> = async ({ searchParam
     <div className="p-6">
       <h1 className="text-3xl font-bold mb-6 dark:text-white">Search Comics</h1>
 
-      <form
-        action={`/komik/search?page=1&query=${encodeURIComponent(query)}`}
-        method="get"
-        className="mb-6"
-      >
+      <form action={`/komik/search?page=1&query=${encodeURIComponent(query)}`} method="get" className="mb-6">
         <input
           type="text"
           name="query"

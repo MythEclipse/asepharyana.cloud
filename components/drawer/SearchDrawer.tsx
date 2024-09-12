@@ -43,7 +43,7 @@ const SearchDrawer: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOp
           </form>
           <div className="flex-1 p-4">
             <ul className="space-y-2">
-              <li >
+              <li>
                 <Link href="/anime">
                   <Button variant="outline" className="w-full text-left">
                     <HiHome className="inline-block mr-2" /> Home
