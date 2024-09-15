@@ -7,6 +7,7 @@ import { getData } from '@/lib/GetData';
 import { notFound } from 'next/navigation';
 import { Local } from '@/lib/url';
 import MiniTildCard from '@/components/MiniTildCard';
+import CardA from '@/components/card/CardA';
 
 interface KomikData {
   data: manhwa[];
@@ -43,7 +44,7 @@ export default async function Page({ params }: { params: { pageNumber: string } 
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
         {komikData.data.map((manhwa) => (
           <div key={manhwa.komik_id} className="flex-shrink-0 w-64 mx-auto md:mx-0">
-            <MiniTildCard
+            <CardA
               title={manhwa.title}
               description={`Chapter: ${manhwa.chapter} - Score: ${manhwa.score}`}
               imageUrl={manhwa.image}

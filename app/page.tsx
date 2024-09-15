@@ -29,6 +29,7 @@ export default function Home() {
       className: 'text-blue-500 dark:text-blue-500'
     }
   ];
+
   return (
     <main>
       <Bg>
@@ -36,13 +37,13 @@ export default function Home() {
           <div className="container px-6 mt-10">
             <div className="flex flex-wrap">
               <div className="w-full self-center px-2 lg:w-1/2">
-                <h1 className="text-base font-semibold text-dark lg:text-xl dark:text-lighta">
+                <h4 className="text-xl sm:text-3xl md:text-4xl font-semibold text-dark dark:text-lighta">
                   Halo semua 👋, saya{' '}
-                  <span className="block text-4xl font-bold text-dark lg:text-5xl dark:text-lighta">
+                  <span className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-dark dark:text-lighta">
                     <TypewriterEffectSmooth words={Judul}></TypewriterEffectSmooth>
                   </span>
-                </h1>
-                <h2 className="mb-5 text-lg font-medium text-dark lg:text-2xl dark:text-lighta">Okelah</h2>
+                </h4>
+                <h2 className="mb-5 text-base sm:text-lg md:text-xl lg:text-2xl font-medium text-dark dark:text-lighta">Okelah</h2>
               </div>
               <div className="w-full self-end px-4 pt-4 lg:w-1/2">
                 <div className="relative pt-20 lg:right-0 lg:mt-0">
@@ -64,16 +65,16 @@ export default function Home() {
             <div className="flex flex-wrap">
               <div className="mb-7 w-full px-4 lg:w-1/2">
                 <h4 className="mb-3 text-lg font-bold uppercase text-dark dark:text-lighta">Tentang Saya</h4>
-                <h2 className="mb-5 max-w-md text-3xl font-bold text-dark dark:text-lighta">
+                <h2 className="mb-5 max-w-md text-2xl sm:text-3xl md:text-4xl font-bold text-dark dark:text-lighta">
                   Saya adalah seorang programmer
                 </h2>
-                <p className="max-w-xl text-base font-medium text-dark dark:text-lighta">
+                <p className="max-w-xl text-base sm:text-lg md:text-xl font-medium text-dark dark:text-lighta">
                   Saya adalah seorang mahasiswa di Universitas Kuningan
                 </p>
               </div>
               <div className="w-full px-4 lg:w-1/2">
                 <h3 className="mb-4 text-2xl font-semibold text-dark dark:text-lighta">Mari berteman</h3>
-                <p className="mb-6 text-base font-medium text-dark dark:text-lighta">
+                <p className="mb-6 text-base sm:text-lg md:text-xl font-medium text-dark dark:text-lighta">
                   Berikut adalah beberapa sosial media yang saya punya
                 </p>
                 <div className="flex items-center">
