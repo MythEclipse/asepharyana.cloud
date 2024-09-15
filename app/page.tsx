@@ -43,7 +43,9 @@ export default function Home() {
                     <TypewriterEffectSmooth words={Judul}></TypewriterEffectSmooth>
                   </span>
                 </h4>
-                <h2 className="mb-5 text-base sm:text-lg md:text-xl lg:text-2xl font-medium text-dark dark:text-lighta">Okelah</h2>
+                <h2 className="mb-5 text-base sm:text-lg md:text-xl lg:text-2xl font-medium text-dark dark:text-lighta">
+                  Okelah
+                </h2>
               </div>
               <div className="w-full self-end px-4 pt-4 lg:w-1/2">
                 <div className="relative pt-20 lg:right-0 lg:mt-0">

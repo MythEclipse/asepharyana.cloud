@@ -19,9 +19,7 @@ export default function CardA({ title, description, imageUrl, linkUrl }: CardPro
         transition={{ type: 'spring', stiffness: 260, damping: 25 }}
         className="cursor-pointer"
       >
-        <ShadcnCard
-          className="w-60 h-96 bg-white shadow-lg rounded-xl overflow-hidden transform transition-transform duration-300 hover:shadow-2xl"
-        >
+        <ShadcnCard className="w-60 h-96 bg-white shadow-lg rounded-xl overflow-hidden transform transition-transform duration-300 hover:shadow-2xl">
           <div className="relative">
             <motion.img
               src={imageUrl}
