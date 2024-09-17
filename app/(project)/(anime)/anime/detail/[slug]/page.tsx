@@ -101,9 +101,7 @@ export default async function DetailAnimePage({ params }: DetailAnimePageProps) 
               />
             </div>
             <div className="w-full md:w-2/3 md:pl-6">
-              <h1 className="text-3xl font-bold mb-4 text-primary-dark dark:text-primary">
-                {anime.data.title}
-              </h1>
+              <h1 className="text-3xl font-bold mb-4 text-primary-dark dark:text-primary">{anime.data.title}</h1>
               <div className="text-gray-800 dark:text-gray-200 mb-4">
                 <p className="mb-2">
                   <strong>Japanese Title:</strong> {anime.data.japanese_title}
@@ -133,18 +131,19 @@ export default async function DetailAnimePage({ params }: DetailAnimePageProps) 
                   <strong>Studio:</strong> {anime.data.studio}
                 </p>
                 <p className="mb-4">
-                  <strong>Genres:</strong> {anime.data.genres ? anime.data.genres.map(genre => genre.name).join(', ') : 'N/A'}
+                  <strong>Genres:</strong>{' '}
+                  {anime.data.genres ? anime.data.genres.map((genre) => genre.name).join(', ') : 'N/A'}
                 </p>
                 <p className="mb-4">
                   <strong>Synopsis:</strong> {anime.data.synopsis}
                 </p>
               </div>
               <div className="mt-6">
-                <h2 className="text-2xl font-semibold mb-2 text-primary-dark dark:text-primary">
-                  Episodes
-                </h2>
+                <h2 className="text-2xl font-semibold mb-2 text-primary-dark dark:text-primary">Episodes</h2>
                 <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {anime.data.episode_lists && Array.isArray(anime.data.episode_lists) && anime.data.episode_lists.length > 0 ? (
+                  {anime.data.episode_lists &&
+                  Array.isArray(anime.data.episode_lists) &&
+                  anime.data.episode_lists.length > 0 ? (
                     anime.data.episode_lists.map((episode) => {
                       const episodeNumber = episode.episode.match(/Episode (\d+)/)?.[1] || episode.episode;
                       return (
@@ -158,17 +157,19 @@ export default async function DetailAnimePage({ params }: DetailAnimePageProps) 
                       );
                     })
                   ) : (
-                    <p className="col-span-full text-center text-primary-dark dark:text-primary">No episodes available</p>
+                    <p className="col-span-full text-center text-primary-dark dark:text-primary">
+                      No episodes available
+                    </p>
                   )}
                 </div>
               </div>
               <div className="mt-6">
-                <h2 className="text-2xl font-semibold mb-2 text-primary-dark dark:text-primary">
-                  Recommendations
-                </h2>
+                <h2 className="text-2xl font-semibold mb-2 text-primary-dark dark:text-primary">Recommendations</h2>
                 <div className="overflow-x-auto py-4">
                   <div className="flex space-x-4 w-max">
-                    {anime.data.recommendations && Array.isArray(anime.data.recommendations) && anime.data.recommendations.length > 0 ? (
+                    {anime.data.recommendations &&
+                    Array.isArray(anime.data.recommendations) &&
+                    anime.data.recommendations.length > 0 ? (
                       anime.data.recommendations.map((recommendation) => (
                         <div key={recommendation.slug} className="flex-shrink-0">
                           <Image

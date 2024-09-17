@@ -18,7 +18,6 @@ interface Comic {
   type: string;
 }
 
-
 // Individual fetch functions using Next.js fetch and caching
 const fetchManga = async (): Promise<Comic[]> => {
   try {

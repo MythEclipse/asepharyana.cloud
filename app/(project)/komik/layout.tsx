@@ -39,8 +39,7 @@ export const metadata = {
     template: '%s - Tempat baca komik'
   },
   description: 'Tempat baca komik',
-  keywords:
-    'nextjs, asep, haryana, saputra, asep haryana, asep haryana saputra'
+  keywords: 'nextjs, asep, haryana, saputra, asep haryana, asep haryana saputra'
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {

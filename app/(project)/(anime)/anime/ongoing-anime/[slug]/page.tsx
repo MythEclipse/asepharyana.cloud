@@ -18,7 +18,7 @@ interface Anime {
   poster: string;
   current_episode: string;
   newest_release_date: string;
-  release_day:string;
+  release_day: string;
   otakudesu_url: string;
 }
 
