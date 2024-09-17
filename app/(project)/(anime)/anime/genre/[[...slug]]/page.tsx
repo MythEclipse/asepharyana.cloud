@@ -90,7 +90,7 @@ const GenrePage = async ({ params }: { params: { slug: string[] } }) => {
         <h1 className="text-2xl font-bold mb-4 dark:text-lighta">Genres</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {homeData.data.map((genre) => (
-            <GenreButton key={genre.slug} genre={genre} />
+            <GenreButton key={genre.slug} href={`/anime/genre/${genre.slug}`} genre={genre} />
           ))}
         </div>
       </main>

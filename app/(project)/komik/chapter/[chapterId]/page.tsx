@@ -3,7 +3,7 @@ import React from 'react';
 import { notFound } from 'next/navigation';
 import { getData } from '@/lib/GetData';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/moving-border';
 import Image from 'next/image';
 import { BaseUrl } from '@/lib/url';
 
