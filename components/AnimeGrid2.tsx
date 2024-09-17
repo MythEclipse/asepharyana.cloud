@@ -21,16 +21,18 @@ interface AnimeGridProps {
 
 const AnimeGrid: React.FC<AnimeGridProps> = ({ animes }) => {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
-      {animes.map((anime) => (
-        <CardA
-          key={anime.slug}
-          title={anime.title}
-          description={`Episodes: ${anime.episode_count} | Rating: ${anime.rating} | Last Release: ${anime.last_release_date}`}
-          imageUrl={anime.poster}
-          linkUrl={`/anime/detail/${anime.slug}`}
-        />
-      ))}
+    <div className="flex flex-col items-center p-4">
+      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+        {animes.map((anime) => (
+          <CardA
+            key={anime.slug}
+            title={anime.title}
+            description={`Episodes: ${anime.episode_count} | Rating: ${anime.rating} | Last Release: ${anime.last_release_date}`}
+            imageUrl={anime.poster}
+            linkUrl={`/anime/detail/${anime.slug}`}
+          />
+        ))}
+      </div>
     </div>
   );
 };

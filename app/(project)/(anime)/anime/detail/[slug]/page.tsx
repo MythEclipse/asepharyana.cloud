@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import ButtonBaris from '@/components/ButtonBaris';
 import { BackgroundGradient } from '@/components/ui/background-gradient';
 import { Metadata } from 'next';
+import CardA from '@/components/card/CardA';
 
 interface Genre {
   name: string;
@@ -172,20 +173,13 @@ export default async function DetailAnimePage({ params }: DetailAnimePageProps) 
                     anime.data.recommendations.length > 0 ? (
                       anime.data.recommendations.map((recommendation) => (
                         <div key={recommendation.slug} className="flex-shrink-0">
-                          <Image
-                            src={recommendation.poster}
-                            alt={recommendation.title}
-                            width={240}
-                            height={320}
-                            className="object-cover rounded-lg shadow-md"
+                          <CardA
+                            key={recommendation.slug}
+                            title={recommendation.title}
+                            description={``}
+                            imageUrl={recommendation.poster}
+                            linkUrl={`/anime/detail/${recommendation.slug}`}
                           />
-                          <Link
-                            scroll
-                            href={`/anime/detail/${recommendation.slug}`}
-                            className="text-primary-dark dark:text-primary hover:underline text-center block mt-2"
-                          >
-                            {recommendation.title}
-                          </Link>
                         </div>
                       ))
                     ) : (

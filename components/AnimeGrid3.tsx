@@ -55,16 +55,18 @@ interface GenreDetailData {
 
 const AnimeGrid2: React.FC<AnimeGrid2Props> = ({ animes }) => {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
-      {animes.map((anime) => (
-        <CardA
-          key={anime.slug}
-          title={anime.title}
-          description={`Episodes: ${anime.episode_count ?? 'N/A'} | Rating: ${anime.rating || 'N/A'} | Season: ${anime.season || 'N/A'} | Studio: ${anime.studio || 'N/A'}`}
-          imageUrl={anime.poster}
-          linkUrl={`/anime/detail/${anime.slug}`}
-        />
-      ))}
+    <div className="flex flex-col items-center p-4">
+      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+        {animes.map((anime) => (
+          <CardA
+            key={anime.slug}
+            title={anime.title}
+            description={`Episodes: ${anime.episode_count ?? 'N/A'} | Rating: ${anime.rating || 'N/A'} | Season: ${anime.season || 'N/A'} | Studio: ${anime.studio || 'N/A'}`}
+            imageUrl={anime.poster}
+            linkUrl={`/anime/detail/${anime.slug}`}
+          />
+        ))}
+      </div>
     </div>
   );
 };
