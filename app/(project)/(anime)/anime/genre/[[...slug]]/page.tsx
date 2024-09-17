@@ -1,43 +1,36 @@
+// components/GenrePage.tsx
 import React from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { getData } from '@/lib/GetData';
-import AnimeGrid from '@/components/AnimeGrid2';
+import AnimeGrid3 from '@/components/AnimeGrid3';
 import { ANIMEAPI } from '@/lib/url';
 import { Button } from '@/components/ui/button';
+import GenreButton from './genrebutton';
 
-interface HomeData {
-  status: string;
-  data: Genre[];
-}
+// types/types.d.ts
 
+// Define the Genre type
 interface Genre {
   name: string;
   slug: string;
   otakudesu_url: string;
 }
 
-interface GenreDetailData {
-  status: string;
-  data: {
-    anime: Anime[];
-    pagination: Pagination;
-  };
-}
-
+// Define the Anime type
 interface Anime {
   title: string;
   slug: string;
   poster: string;
-  episode_count: string;
-  rating: string;
-  season: string;
-  studio: string;
-  synopsis: string;
-  otakudesu_url: string;
+  rating: string | null;
+  episode_count: string | null;
+  season: string | null;
+  studio: string | null;
   genres: Genre[];
+  synopsis: string | null;
+  otakudesu_url: string;
 }
 
+// Define the Pagination type
 interface Pagination {
   current_page: number;
   last_visible_page: number;
@@ -47,34 +40,46 @@ interface Pagination {
   previous_page: number | null;
 }
 
-interface DetailAnimePageProps {
-  params: {
-    slug: string[];
+// Define the HomeData type
+interface HomeData {
+  status: string;
+  data: Genre[];
+}
+
+// Define the GenreDetailData type
+interface GenreDetailData {
+  status: string;
+  data: {
+    anime: Anime[];
+    pagination: Pagination;
   };
 }
 
+// Fetch home data for the genres list
 const fetchHomeData = async (): Promise<HomeData> => {
   const res = await fetch(`${ANIMEAPI}/v1/genres`, { next: { revalidate: 3600 } });
 
   if (!res.ok) {
-    throw new Error('Failed to fetch data');
+    throw new Error('Failed to fetch genre data');
   }
 
   return res.json();
 };
 
+// Fetch genre-specific data
 const fetchGenreData = async (slug: string[]): Promise<GenreDetailData | null> => {
   const genreSlug = slug.join('/');
   try {
     const data = await getData(`${ANIMEAPI}/v1/genres/${genreSlug}`);
     return data;
   } catch (error) {
-    console.error('Failed to fetch data:', error);
+    console.error('Failed to fetch genre data:', error);
     return null;
   }
 };
 
-const GenrePage = async ({ params }: DetailAnimePageProps) => {
+// Main genre page component
+const GenrePage = async ({ params }: { params: { slug: string[] } }) => {
   const { slug } = params;
 
   if (!slug || slug.length === 0) {
@@ -85,13 +90,7 @@ const GenrePage = async ({ params }: DetailAnimePageProps) => {
         <h1 className="text-2xl font-bold mb-4 dark:text-lighta">Genres</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {homeData.data.map((genre) => (
-            <Link key={genre.slug} href={`/anime/genre/${genre.slug}`} className="text-blue-600 hover:underline">
-              <div className="shadow-lg rounded-lg overflow-hidden flex flex-col items-center p-4 bg-white dark:bg-darka">
-                <div className="mt-4 text-center">
-                  <div className="text-lg font-bold mb-2">{genre.name}</div>
-                </div>
-              </div>
-            </Link>
+           <GenreButton key={genre.slug} genre={genre} />
           ))}
         </div>
       </main>
@@ -109,19 +108,10 @@ const GenrePage = async ({ params }: DetailAnimePageProps) => {
     );
   }
 
-  if (!Array.isArray(genreDetailData.data.anime)) {
-    console.error('Expected genreDetailData.data.anime to be an array');
-    return (
-      <main className="p-6">
-        <h1 className="text-2xl font-bold mt-8 mb-4">No Data Available</h1>
-      </main>
-    );
-  }
-
   return (
     <main className="p-6">
       <h1 className="text-2xl font-bold mt-8 mb-4 dark:text-lighta">Genre: {slug[0]}</h1>
-      <AnimeGrid animes={genreDetailData.data.anime} />
+      <AnimeGrid3 animes={genreDetailData.data.anime} />
       <PaginationComponent pagination={genreDetailData.data.pagination} params={params} />
     </main>
   );
@@ -132,7 +122,7 @@ const PaginationComponent = ({
   params
 }: {
   pagination: Pagination;
-  params: DetailAnimePageProps['params'];
+  params: { slug: string[] };
 }) => {
   const { slug } = params;
   const genreSlug = slug[0];
