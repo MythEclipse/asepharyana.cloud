@@ -3,9 +3,11 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Local, PRODUCTION } from '@/lib/url';
+import { Button } from '@/components/ui/button';
+import ButtonBaris from '@/components/ButtonBaris';
+import { BackgroundGradient } from '@/components/ui/background-gradient';
+import { PRODUCTION, BaseUrl } from '@/lib/url';
 
 interface MangaDetail {
   title: string;
@@ -38,7 +40,7 @@ interface DetailPageProps {
 
 export async function generateMetadata({ params }: DetailPageProps): Promise<Metadata> {
   const { komikId } = params;
-  const manga: MangaDetail = await getData(`${Local}/api/komik/detail?komik_id=${komikId}`);
+  const manga: MangaDetail = await getData(`${BaseUrl}/api/komik/detail?komik_id=${komikId}`);
 
   if (!manga) {
     notFound();
@@ -65,15 +67,16 @@ export async function generateMetadata({ params }: DetailPageProps): Promise<Met
 
 export default async function DetailPage({ params }: DetailPageProps) {
   const { komikId } = params;
-  const manga: MangaDetail = await getData(`${Local}/api/komik/detail?komik_id=${komikId}`);
+  const manga: MangaDetail = await getData(`${BaseUrl}/api/komik/detail?komik_id=${komikId}`);
 
   if (!manga) {
     notFound();
   }
 
   return (
-    <main className="p-6 bg-gray-100 dark:bg-gray-900 min-h-screen">
-      <div className="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+    <main className="p-6 bg-background dark:bg-dark min-h-screen">
+      <div className="max-w-4xl mx-auto bg-white dark:bg-dark rounded-lg shadow-lg">
+      <BackgroundGradient className="rounded-[22px] p-7 bg-white dark:bg-zinc-900">
         <div className="flex flex-col md:flex-row items-center md:items-start">
           <div className="w-full md:w-1/3 mb-6 md:mb-0 flex justify-center md:justify-start">
             <Image
@@ -85,7 +88,7 @@ export default async function DetailPage({ params }: DetailPageProps) {
             />
           </div>
           <div className="w-full md:w-2/3 md:pl-6">
-            <h1 className="text-3xl font-bold mb-4 dark:text-white text-center md:text-left">{manga.title}</h1>
+            <h1 className="text-3xl font-bold mb-4 text-primary-dark dark:text-primary">{manga.title}</h1>
             <div className="text-gray-800 dark:text-gray-200 mb-4">
               <p className="mb-2">
                 <strong>Alternative Title:</strong> {manga.alternativeTitle}
@@ -113,28 +116,25 @@ export default async function DetailPage({ params }: DetailPageProps) {
               </p>
             </div>
             <div className="mt-6">
-              <h2 className="text-2xl font-semibold mb-2 dark:text-white">Chapters</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <h2 className="text-2xl font-semibold mb-2 text-primary-dark dark:text-primary">Chapters</h2>
+              <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {manga.chapters && Array.isArray(manga.chapters) && manga.chapters.length > 0 ? (
                   manga.chapters.map((chapter) => (
-                    <Link
-                      scroll
-                      key={chapter.chapter_id}
-                      href={`/komik/chapter/${chapter.chapter_id}`}
-                      className="text-blue-600 hover:underline dark:text-blue-400"
-                    >
-                      <Button className="w-full truncate">
-                        {chapter.chapter} - {chapter.date}
-                      </Button>
+                    <Link scroll key={chapter.chapter_id} href={`/komik/chapter/${chapter.chapter_id}`} className="">
+                      <ButtonBaris>
+                        <span className="text-lg font-bold mb-1 text-center truncate text-primary-dark dark:text-primary">{chapter.chapter}</span>
+                        <span className="text-sm text-center truncate text-gray-500 dark:text-gray-400">{chapter.date}</span>
+                      </ButtonBaris>
                     </Link>
                   ))
                 ) : (
-                  <p className="col-span-full text-center dark:text-white">No chapters available</p>
+                  <p className="col-span-full text-center text-primary-dark dark:text-primary">No chapters available</p>
                 )}
               </div>
             </div>
           </div>
         </div>
+        </BackgroundGradient>
       </div>
     </main>
   );

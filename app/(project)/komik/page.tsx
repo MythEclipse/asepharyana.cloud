@@ -7,6 +7,7 @@ import { Card } from '@/components/ui/card'; // Adjust the path as necessary
 import { Button } from '@/components/ui/button';
 import MiniTildCard from '@/components/MiniTildCard';
 import CardA from '@/components/card/CardA';
+import { BaseUrl } from '@/lib/url';
 
 interface Comic {
   komik_id: string;
@@ -17,7 +18,6 @@ interface Comic {
   type: string;
 }
 
-const BaseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
 // Individual fetch functions using Next.js fetch and caching
 const fetchManga = async (): Promise<Comic[]> => {

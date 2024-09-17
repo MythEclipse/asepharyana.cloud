@@ -1,8 +1,8 @@
 import { getData } from '@/lib/GetData';
 import Link from 'next/link';
 import ClientPlayer from '@/components/ClientPlayer';
-import { Local } from '@/lib/url';
 import { Button } from '@/components/ui/button';
+import { BaseUrl } from '@/lib/url';
 
 interface AnimeResponse {
   status: string;
@@ -51,7 +51,7 @@ interface DetailAnimePageProps {
 
 export default async function DetailAnimePage(props: DetailAnimePageProps) {
   const { params } = props;
-  const Anime: AnimeResponse = await getData(`${Local}/api/anime/full/${params.slug}`);
+  const Anime: AnimeResponse = await getData(`${BaseUrl}/api/anime/full/${params.slug}`);
 
   if (Anime.status !== 'Ok') {
     return (

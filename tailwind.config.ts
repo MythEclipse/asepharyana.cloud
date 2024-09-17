@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
-import type { Config } from 'tailwindcss'
-import flowbite from "flowbite-react/tailwind";
+import type { Config } from 'tailwindcss';
+import flowbite from 'flowbite-react/tailwind';
+import tailwindcssAnimate from 'tailwindcss-animate';
 
 const config: Config = {
   darkMode: ['class'],
@@ -10,6 +11,9 @@ const config: Config = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
     './src/**/*.{ts,tsx}',
     flowbite.content(),
+    // Tambahkan konten aceternity-ui jika mereka memiliki direktori khusus
+    // Misalnya:
+    // './node_modules/aceternity-ui/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   prefix: '',
   theme: {
@@ -73,7 +77,7 @@ const config: Config = {
           '200': '#bfdbfe',
           '300': '#93c5fd',
           '400': '#60a5fa',
-          '500': '#3b82f6',
+          '500': '#3b82f6', // Primary Color
           '600': '#2563eb',
           '700': '#1d4ed8',
           '800': '#1e40af',
@@ -83,28 +87,30 @@ const config: Config = {
           foreground: 'hsl(var(--primary-foreground))',
         },
         secondary: {
-          DEFAULT: 'hsl(var(--secondary))',
-          foreground: 'hsl(var(--secondary-foreground))',
+          DEFAULT: '#6b7280', // Sesuaikan dengan warna yang Anda butuhkan
+          foreground: '#f9fafb', // Warna foreground untuk secondary
         },
-        destructive: {
-          DEFAULT: 'hsl(var(--destructive))',
-          foreground: 'hsl(var(--destructive-foreground))',
+        gray: {
+          100: '#f3f4f6',
+          200: '#e5e7eb',
+          300: '#d1d5db',
+          400: '#9ca3af',
+          500: '#6b7280', // Border color
+          600: '#4b5563',
+          700: '#374151',
+          800: '#1f2937',
+          900: '#111827',
         },
-        muted: {
-          DEFAULT: 'hsl(var(--muted))',
-          foreground: 'hsl(var(--muted-foreground))',
-        },
-        accent: {
-          DEFAULT: 'hsl(var(--accent))',
-          foreground: 'hsl(var(--accent-foreground))',
-        },
-        popover: {
-          DEFAULT: 'hsl(var(--popover))',
-          foreground: 'hsl(var(--popover-foreground))',
-        },
-        card: {
-          DEFAULT: 'hsl(var(--card))',
-          foreground: 'hsl(var(--card-foreground))',
+        neutral: {
+          100: '#f9fafb',
+          200: '#f3f4f6',
+          300: '#e5e7eb',
+          400: '#d1d5db',
+          500: '#9ca3af', // Text color
+          600: '#6b7280',
+          700: '#4b5563',
+          800: '#374151',
+          900: '#1f2937',
         },
         lighta: '#FFFFFF',
         lightb: '#FFFFFF',
@@ -143,9 +149,10 @@ const config: Config = {
     },
   },
   plugins: [
-    require('tailwindcss-animate'),
+    tailwindcssAnimate,
     flowbite.plugin(),
+    // Tambahkan plugin aceternity-ui jika mereka menyediakan plugin Tailwind
   ],
-}
+};
 
-export default config
+export default config;

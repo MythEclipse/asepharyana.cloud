@@ -7,6 +7,7 @@ import { Textarea } from '@/components/ui/textarea'; // Shadcn UI Textarea
 import { Card } from '@/components/ui/card'; // Shadcn UI Card
 import { HiHeart, HiChatAlt } from 'react-icons/hi';
 import Image from 'next/image';
+import { BaseUrl } from '@/lib/url';
 
 interface Post {
   id: string;
@@ -53,11 +54,11 @@ export default function PostPage() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const postsResponse = await axios.get('/api/sosmed/posts');
+        const postsResponse = await axios.get(`${BaseUrl}/api/sosmed/posts`);
         const postsWithComments = postsResponse.data.posts;
 
         const commentsPromises = postsWithComments.map((post: Post) =>
-          axios.get(`/api/sosmed/comments?postId=${post.id}`).then((response) => ({
+          axios.get(`${BaseUrl}/api/sosmed/comments?postId=${post.id}`).then((response) => ({
             ...post,
             comments: response.data.comments
           }))
@@ -102,7 +103,7 @@ export default function PostPage() {
         const formData = new FormData();
         formData.append('file', file as Blob);
 
-        const uploadResponse = await axios.post('/api/sosmed/upload', formData, {
+        const uploadResponse = await axios.post(`${BaseUrl}/api/sosmed/upload`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
@@ -117,7 +118,7 @@ export default function PostPage() {
         imageUrl: imageUrl || null // Use null if no image
       };
 
-      await axios.post('/api/sosmed/posts', postData);
+      await axios.post(`${BaseUrl}/api/sosmed/posts`, postData);
 
       window.location.reload();
 
@@ -134,7 +135,7 @@ export default function PostPage() {
 
   const handleLike = async (postId: string) => {
     try {
-      const response = await axios.post('/api/sosmed/likes', { postId });
+      const response = await axios.post(`${BaseUrl}/api/sosmed/likes`, { postId });
 
       if (response.status === 409) {
         console.log('You have already liked this post');
@@ -147,7 +148,7 @@ export default function PostPage() {
         )
       );
 
-      const updatedPosts = await axios.get('/api/sosmed/posts');
+      const updatedPosts = await axios.get(`${BaseUrl}/api/sosmed/posts`);
       setPosts(
         updatedPosts.data.posts.map((post: Post) => ({
           ...post,
@@ -176,10 +177,10 @@ export default function PostPage() {
         postId
       };
 
-      await axios.post('/api/sosmed/comments', commentData);
+      await axios.post(`${BaseUrl}/api/sosmed/comments`, commentData);
 
-      const commentsResponse = await axios.get(`/api/sosmed/comments?postId=${postId}`);
-      const updatedPostsResponse = await axios.get('/api/sosmed/posts');
+      const commentsResponse = await axios.get(`${BaseUrl}/api/sosmed/comments?postId=${postId}`);
+      const updatedPostsResponse = await axios.get(`${BaseUrl}/api/sosmed/posts`);
 
       setPosts(
         updatedPostsResponse.data.posts.map((post: Post) => ({

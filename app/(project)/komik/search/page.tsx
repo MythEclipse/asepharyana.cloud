@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Local } from '@/lib/url';
+import { BaseUrl } from '@/lib/url';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 
@@ -23,7 +23,7 @@ interface SearchResult {
 // Function to fetch search results from the API
 const fetchSearchResults = async (query: string): Promise<SearchResult> => {
   try {
-    const response = await fetch(`${Local}/api/komik/search?query=${encodeURIComponent(query)}`);
+    const response = await fetch(`${BaseUrl}/api/komik/search?query=${encodeURIComponent(query)}`);
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }

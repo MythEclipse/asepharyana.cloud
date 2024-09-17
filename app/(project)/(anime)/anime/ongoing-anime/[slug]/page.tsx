@@ -4,7 +4,7 @@ import { getData } from '@/lib/GetData';
 import AnimeGrid from '@/components/AnimeGrid';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Local } from '@/lib/url';
+import { BaseUrl } from '@/lib/url';
 
 interface OngoingAnimeData {
   status: string;
@@ -16,9 +16,9 @@ interface Anime {
   title: string;
   slug: string;
   poster: string;
-  episode_count: string;
-  rating: string;
-  last_release_date: string;
+  current_episode: string;
+  newest_release_date: string;
+  release_day:string;
   otakudesu_url: string;
 }
 
@@ -41,7 +41,7 @@ export default async function AnimePage({ params }: DetailAnimePageProps) {
   let OngoingAnimeData: OngoingAnimeData;
 
   try {
-    OngoingAnimeData = await getData(`${Local}/api/anime/ongoing-anime/${params.slug}`);
+    OngoingAnimeData = await getData(`${BaseUrl}/api/anime/ongoing-anime/${params.slug}`);
   } catch (error) {
     console.error('Failed to fetch data:', error);
     return (

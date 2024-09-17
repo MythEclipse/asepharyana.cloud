@@ -1,8 +1,10 @@
 import { getData } from '@/lib/GetData';
-import { Local, PRODUCTION } from '@/lib/url';
+import { BaseUrl, PRODUCTION } from '@/lib/url';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import ButtonBaris from '@/components/ButtonBaris';
+import { BackgroundGradient } from '@/components/ui/background-gradient';
 import { Metadata } from 'next';
 
 interface Genre {
@@ -59,12 +61,12 @@ interface DetailAnimePageProps {
 }
 
 export async function generateMetadata({ params }: DetailAnimePageProps): Promise<Metadata> {
-  const anime: AnimeData = await getData(`${Local}/api/anime/detail/${params.slug}`);
+  const anime: AnimeData = await getData(`${BaseUrl}/api/anime/detail/${params.slug}`);
 
   return {
     title: anime.data.title,
     description: anime.data.synopsis,
-    keywords: `nextjs, anime, anime sub, anime sub indo, anime sub indo terbaru, anime sub terbaru, anime sub indo terlengkap, anime sub terlengkap, Anime Sub Indo, Nonton Anime Sub Indo, Streaming Anime Sub Indo, Download Anime Sub Indo, Anime Terbaru Sub Indo, Anime Populer Sub Indo, Anime HD Sub Indo, Anime Subtitle Indonesia, Nonton Anime Online Sub Indo, Anime Batch Sub Indo, Anime Lengkap Sub Indo, Anime Action Sub Indo, Anime Romance Sub Indo, Anime Komedi Sub Indo, Anime Terbaik Sub Indo, Anime Movie Sub Indo, Anime Series Sub Indo, Anime 2024 Sub Indo, Anime Favorit Sub Indo, Anime Adventure Sub Indo, Anime Fantasy Sub Indo, Anime Horor Sub Indo, Anime Isekai Sub Indo, Anime Drama Sub Indo, Anime Shounen Sub Indo, Anime Seinen Sub Indo, Anime Slice of Life Sub Indo, Anime Terjemahan Indo, Streaming Anime Gratis Sub Indo, Download Gratis Anime Sub Indo, ${anime.data.title}`,
+    keywords: `nextjs, anime, anime sub, anime sub indo, ${anime.data.title}`,
     openGraph: {
       title: anime.data.title,
       description: anime.data.synopsis,
@@ -81,117 +83,119 @@ export async function generateMetadata({ params }: DetailAnimePageProps): Promis
 }
 
 export default async function DetailAnimePage({ params }: DetailAnimePageProps) {
-  const anime: AnimeData = await getData(`${Local}/api/anime/detail/${params.slug}`);
+  const anime: AnimeData = await getData(`${BaseUrl}/api/anime/detail/${params.slug}`);
 
   return (
-    <main className="p-6 bg-gray-100 dark:bg-gray-900 min-h-screen">
-      <div className="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-        <div className="flex flex-col md:flex-row items-center md:items-start">
-          <div className="w-full md:w-1/3 mb-6 md:mb-0 flex justify-center md:justify-start">
-            <Image
-              src={anime.data.poster}
-              alt={anime.data.title}
-              width={330}
-              height={450}
-              className="object-cover rounded-lg shadow-md"
-              priority
-            />
-          </div>
-          <div className="w-full md:w-2/3 md:pl-6">
-            <h1 className="text-3xl font-bold mb-4 dark:text-white">{anime.data.title}</h1>
-            <div className="text-gray-800 dark:text-gray-200 mb-4">
-              <p className="mb-2">
-                <strong>Japanese Title:</strong> {anime.data.japanese_title}
-              </p>
-              <p className="mb-2">
-                <strong>Rating:</strong> {anime.data.rating}
-              </p>
-              <p className="mb-2">
-                <strong>Producer:</strong> {anime.data.produser}
-              </p>
-              <p className="mb-2">
-                <strong>Type:</strong> {anime.data.type}
-              </p>
-              <p className="mb-2">
-                <strong>Status:</strong> {anime.data.status}
-              </p>
-              <p className="mb-2">
-                <strong>Episode Count:</strong> {anime.data.episode_count}
-              </p>
-              <p className="mb-2">
-                <strong>Duration:</strong> {anime.data.duration}
-              </p>
-              <p className="mb-2">
-                <strong>Release Date:</strong> {anime.data.release_date}
-              </p>
-              <p className="mb-4">
-                <strong>Studio:</strong> {anime.data.studio}
-              </p>
+    <main className="p-6 bg-background dark:bg-dark min-h-screen">
+      <div className="max-w-4xl mx-auto bg-white dark:bg-dark rounded-lg shadow-lg">
+        <BackgroundGradient className="rounded-[22px] p-7 bg-white dark:bg-zinc-900">
+          <div className="flex flex-col md:flex-row items-center md:items-start">
+            <div className="w-full md:w-1/3 mb-6 md:mb-0 flex justify-center md:justify-start">
+              <Image
+                src={anime.data.poster}
+                alt={anime.data.title}
+                width={330}
+                height={450}
+                className="object-cover rounded-lg shadow-md"
+                priority
+              />
             </div>
-            <hr className="my-4 border-gray-300 dark:border-gray-600" />
-            <div className="mb-4 dark:text-gray-200">
-              <strong className="block mb-2 text-lg">Genres:</strong>
-              <div className="flex flex-wrap gap-2 mb-4">
-                {anime.data.genres.map((genre) => (
-                  <Link
-                    scroll
-                    key={genre.slug}
-                    href={`/anime/genre/${genre.slug}`}
-                    className="text-blue-500 hover:underline"
-                  >
-                    {genre.name}
-                  </Link>
-                ))}
+            <div className="w-full md:w-2/3 md:pl-6">
+              <h1 className="text-3xl font-bold mb-4 text-primary-dark dark:text-primary">
+                {anime.data.title}
+              </h1>
+              <div className="text-gray-800 dark:text-gray-200 mb-4">
+                <p className="mb-2">
+                  <strong>Japanese Title:</strong> {anime.data.japanese_title}
+                </p>
+                <p className="mb-2">
+                  <strong>Rating:</strong> {anime.data.rating}
+                </p>
+                <p className="mb-2">
+                  <strong>Producer:</strong> {anime.data.produser}
+                </p>
+                <p className="mb-2">
+                  <strong>Type:</strong> {anime.data.type}
+                </p>
+                <p className="mb-2">
+                  <strong>Status:</strong> {anime.data.status}
+                </p>
+                <p className="mb-2">
+                  <strong>Episode Count:</strong> {anime.data.episode_count}
+                </p>
+                <p className="mb-2">
+                  <strong>Duration:</strong> {anime.data.duration}
+                </p>
+                <p className="mb-2">
+                  <strong>Release Date:</strong> {anime.data.release_date}
+                </p>
+                <p className="mb-4">
+                  <strong>Studio:</strong> {anime.data.studio}
+                </p>
+                <p className="mb-4">
+                  <strong>Genres:</strong> {anime.data.genres ? anime.data.genres.map(genre => genre.name).join(', ') : 'N/A'}
+                </p>
+                <p className="mb-4">
+                  <strong>Synopsis:</strong> {anime.data.synopsis}
+                </p>
               </div>
-            </div>
-            <hr className="my-4 border-gray-300 dark:border-gray-600" />
-            <div className="mb-4 dark:text-gray-200">
-              <strong className="block mb-2 text-lg">Synopsis:</strong>
-              <p>{anime.data.synopsis}</p>
-            </div>
-            <hr className="my-4 border-gray-300 dark:border-gray-600" />
-            <div className="mb-4 dark:text-gray-200">
-              <strong className="block mb-2 text-lg">Episodes:</strong>
-              <div className="space-y-2">
-                {anime.data.episode_lists.map((episode) => {
-                  const episodeNumber = episode.episode.match(/Episode (\d+)/)?.[1] || episode.episode;
-
-                  return (
-                    <Link scroll key={episode.slug} href={`/anime/full/${episode.slug}`}>
-                      <Button className="w-full my-3 text-left">Episode {episodeNumber}</Button>
-                    </Link>
-                  );
-                })}
+              <div className="mt-6">
+                <h2 className="text-2xl font-semibold mb-2 text-primary-dark dark:text-primary">
+                  Episodes
+                </h2>
+                <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {anime.data.episode_lists && Array.isArray(anime.data.episode_lists) && anime.data.episode_lists.length > 0 ? (
+                    anime.data.episode_lists.map((episode) => {
+                      const episodeNumber = episode.episode.match(/Episode (\d+)/)?.[1] || episode.episode;
+                      return (
+                        <Link scroll key={episode.slug} href={`/anime/full/${episode.slug}`} className="">
+                          <ButtonBaris>
+                            <span className="text-lg font-bold mb-1 text-center truncate text-primary-dark dark:text-primary">
+                              Episode {episodeNumber}
+                            </span>
+                          </ButtonBaris>
+                        </Link>
+                      );
+                    })
+                  ) : (
+                    <p className="col-span-full text-center text-primary-dark dark:text-primary">No episodes available</p>
+                  )}
+                </div>
               </div>
-            </div>
-            <hr className="my-4 border-gray-300 dark:border-gray-600" />
-            <div className="mb-4 dark:text-gray-200">
-              <strong className="block mb-2 text-lg">Recommendations:</strong>
-              <div className="overflow-x-auto py-4">
-                <div className="flex space-x-4 w-max">
-                  {anime.data.recommendations.map((recommendation) => (
-                    <div key={recommendation.slug} className="flex-shrink-0">
-                      <Image
-                        src={recommendation.poster}
-                        alt={recommendation.title}
-                        width={240}
-                        height={320}
-                        className="object-cover rounded-lg shadow-md"
-                      />
-                      <Link
-                        scroll
-                        href={`/anime/detail/${recommendation.slug}`}
-                        className="text-blue-600 hover:underline text-center block mt-2"
-                      >
-                        {recommendation.title}
-                      </Link>
-                    </div>
-                  ))}
+              <div className="mt-6">
+                <h2 className="text-2xl font-semibold mb-2 text-primary-dark dark:text-primary">
+                  Recommendations
+                </h2>
+                <div className="overflow-x-auto py-4">
+                  <div className="flex space-x-4 w-max">
+                    {anime.data.recommendations && Array.isArray(anime.data.recommendations) && anime.data.recommendations.length > 0 ? (
+                      anime.data.recommendations.map((recommendation) => (
+                        <div key={recommendation.slug} className="flex-shrink-0">
+                          <Image
+                            src={recommendation.poster}
+                            alt={recommendation.title}
+                            width={240}
+                            height={320}
+                            className="object-cover rounded-lg shadow-md"
+                          />
+                          <Link
+                            scroll
+                            href={`/anime/detail/${recommendation.slug}`}
+                            className="text-primary-dark dark:text-primary hover:underline text-center block mt-2"
+                          >
+                            {recommendation.title}
+                          </Link>
+                        </div>
+                      ))
+                    ) : (
+                      <p className="text-center text-primary-dark dark:text-primary">No recommendations available</p>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </BackgroundGradient>
       </div>
     </main>
   );

@@ -1,14 +1,15 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { DarkThemeToggle, Flowbite } from 'flowbite-react';
+import { Flowbite } from 'flowbite-react';
 import './globals.css';
 import NavbarWrapper from '@/components/NavbarHomes';
 import SessionWrapper from '@/components/SessionWrapper';
 import ContextAppProvider from '@/components/ContextApp';
 import { ViewTransitions } from 'next-view-transitions';
 import { PRODUCTION } from '@/lib/url';
-
+import { ThemeProvider } from "@/components/theme-provider"
+import DarkThemeToggle from '@/components/DarkThemeToggle';
 // Google font setup
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(`${PRODUCTION}`),
   title: 'Asep Haryana Saputra',
   description: 'Website pribadi milik Asep Haryana Saputra, ini adalah halaman utama pada website ini',
-  keywords: 'portfolio, nextjs, api, free, anime, manga',
+  keywords: 'portfolio, nextjs, api, free, anime, manga, asep, haryana, saputra, asep haryana, asep haryana saputra',
   openGraph: {
     title: 'Website pribadi milik Asep Haryana Saputra',
     description: 'Website pribadi milik Asep Haryana Saputra, ini adalah halaman utama pada website ini',
@@ -57,12 +58,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <link rel="manifest" href="/manifest.json" />
                 <link rel="icon" href="/favicon.ico" />
               </head>
-              <body className="h-screen bg-lighta dark:bg-darkb">
+              <body className="h-screen bg-white dark:bg-black">
+              <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
                 <NavbarWrapper />
                 <div className="mt-28 max-w-full px-0.5 pb-10 pt-38 sm:px-6 lg:px-8">
                   {children}
                   <DarkThemeToggle className="fixed bottom-0 left-0 z-10 m-4" aria-label="Toggle Dark Mode" />
                 </div>
+                </ThemeProvider>
               </body>
             </html>
           </SessionWrapper>

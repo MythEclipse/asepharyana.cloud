@@ -1,10 +1,10 @@
 // app/(anime)/complete-anime/[page]/page.tsx
 import React from 'react';
 import { getData } from '@/lib/GetData';
-import AnimeGrid from '@/components/AnimeGrid';
+import AnimeGrid from '@/components/AnimeGrid2';
 import Link from 'next/link';
-import { Local } from '@/lib/url';
 import { Button } from '@/components/ui/button';
+import { BaseUrl } from '@/lib/url';
 
 interface CompleteAnimeData {
   status: string;
@@ -41,7 +41,7 @@ export default async function AnimePage({ params }: DetailAnimePageProps) {
   let CompleteAnimeData: CompleteAnimeData;
 
   try {
-    CompleteAnimeData = await getData(`${Local}/api/anime/complete-anime/${params.slug}`);
+    CompleteAnimeData = await getData(`${BaseUrl}/api/anime/complete-anime/${params.slug}`);
   } catch (error) {
     console.error('Failed to fetch data:', error);
     return (
