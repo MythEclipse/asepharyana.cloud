@@ -33,7 +33,7 @@ const fetchSearchResults = async (query: string, page: number): Promise<SearchRe
   }
 };
 
-const SearchPage = async ({ params }: { params: { slug: string, page: string } }) => {
+const SearchPage = async ({ params }: { params: { slug: string; page: string } }) => {
   const query = decodeURIComponent(params.slug || ''); // Decode query parameter
   const page = parseInt(params.page as string, 10) || 1; // Get current page from URL or default to 1
   const searchResults = await fetchSearchResults(query, page);
@@ -59,12 +59,18 @@ const SearchPage = async ({ params }: { params: { slug: string, page: string } }
             </div>
             <div className="mt-6 flex justify-between">
               {searchResults.prevPage && (
-                <a href={`/komik/search/${encodeURIComponent(query)}/${page - 1}`} className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white px-4 py-2 rounded">
+                <a
+                  href={`/komik/search/${encodeURIComponent(query)}/${page - 1}`}
+                  className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white px-4 py-2 rounded"
+                >
                   Previous
                 </a>
               )}
               {searchResults.nextPage && (
-                <a href={`/komik/search/${encodeURIComponent(query)}/${page + 1}`} className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white px-4 py-2 rounded">
+                <a
+                  href={`/komik/search/${encodeURIComponent(query)}/${page + 1}`}
+                  className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white px-4 py-2 rounded"
+                >
                   Next
                 </a>
               )}

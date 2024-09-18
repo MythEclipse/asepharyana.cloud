@@ -97,9 +97,7 @@ export default async function AnimePage() {
       {/* Ongoing Anime Section */}
       <div className="text-2xl font-bold mt-8 mb-4">
         <Link href={'/anime/ongoing-anime/1'}>
-          <ButtonA className='lg:min-w-[1200px] w-full max-w-lg text-center py-4 px-8' >
-            Latest Ongoing Anime
-          </ButtonA>
+          <ButtonA className="lg:min-w-[1200px] w-full max-w-lg text-center py-4 px-8">Latest Ongoing Anime</ButtonA>
         </Link>
       </div>
 
@@ -108,9 +106,7 @@ export default async function AnimePage() {
       {/* Complete Anime Section */}
       <div className="text-2xl font-bold mt-8 mb-4">
         <Link scroll href={'/anime/complete-anime/1'}>
-          <ButtonA className="lg:min-w-[1200px] w-full max-w-lg text-center py-4 px-8">
-            Latest Complete Anime
-          </ButtonA>
+          <ButtonA className="lg:min-w-[1200px] w-full max-w-lg text-center py-4 px-8">Latest Complete Anime</ButtonA>
         </Link>
       </div>
 

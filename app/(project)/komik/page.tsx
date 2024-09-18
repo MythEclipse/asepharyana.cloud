@@ -78,35 +78,31 @@ const HomePage = async () => {
 
   return (
     <div className="p-3">
-    <h1 className="text-3xl font-bold mb-6 dark:text-white">Komik Manga, Manhua, dan Manhwa</h1>
-  
-    <div className="space-y-8">
-      {['Manga', 'Manhua', 'Manhwa'].map((type) => (
-        <section key={type} className="mb-8">
-          <div className="w-full mx-auto mb-4"> 
-            <Link scroll href={`/komik/${type.toLowerCase()}/page/1`}>
-              <ButtonA className="lg:min-w-[1200px] w-full max-w-lg text-center py-4 px-8"> 
-                {type}
-              </ButtonA>
-            </Link>
-          </div>
-          <div className="flex overflow-x-auto space-x-4 pb-4 overflow-visible">
-            {type === 'Manga' && manga.length > 0 ? (
-              manga.map((comic) => <ComicCard key={comic.komik_id} comic={comic} />)
-            ) : type === 'Manhua' && manhua.length > 0 ? (
-              manhua.map((comic) => <ComicCard key={comic.komik_id} comic={comic} />)
-            ) : type === 'Manhwa' && manhwa.length > 0 ? (
-              manhwa.map((comic) => <ComicCard key={comic.komik_id} comic={comic} />)
-            ) : (
-              <p className="text-gray-600 dark:text-white">No {type.toLowerCase()} available</p>
-            )}
-          </div>
-        </section>
-      ))}
-    </div>
-  </div>
-  
+      <h1 className="text-3xl font-bold mb-6 dark:text-white">Komik Manga, Manhua, dan Manhwa</h1>
 
+      <div className="space-y-8">
+        {['Manga', 'Manhua', 'Manhwa'].map((type) => (
+          <section key={type} className="mb-8">
+            <div className="w-full mx-auto mb-4">
+              <Link scroll href={`/komik/${type.toLowerCase()}/page/1`}>
+                <ButtonA className="lg:min-w-[1200px] w-full max-w-lg text-center py-4 px-8">{type}</ButtonA>
+              </Link>
+            </div>
+            <div className="flex overflow-x-auto space-x-4 pb-4 overflow-visible">
+              {type === 'Manga' && manga.length > 0 ? (
+                manga.map((comic) => <ComicCard key={comic.komik_id} comic={comic} />)
+              ) : type === 'Manhua' && manhua.length > 0 ? (
+                manhua.map((comic) => <ComicCard key={comic.komik_id} comic={comic} />)
+              ) : type === 'Manhwa' && manhwa.length > 0 ? (
+                manhwa.map((comic) => <ComicCard key={comic.komik_id} comic={comic} />)
+              ) : (
+                <p className="text-gray-600 dark:text-white">No {type.toLowerCase()} available</p>
+              )}
+            </div>
+          </section>
+        ))}
+      </div>
+    </div>
   );
 };
 

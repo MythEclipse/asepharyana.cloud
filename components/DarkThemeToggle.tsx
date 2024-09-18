@@ -28,7 +28,7 @@ export default function ModeToggle({ className }: ModeToggleProps) {
 
   return (
     <div className={className}>
-      <ButtonA className='' onClick={toggleTheme}>
+      <ButtonA className="" onClick={toggleTheme}>
         {resolvedTheme === 'dark' ? (
           <Sun className="h-[1.2rem] w-[1.2rem]" />
         ) : (

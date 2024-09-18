@@ -81,10 +81,7 @@ export default async function DetailAnimePage(props: DetailAnimePageProps) {
           {Anime.data.next_episode && (
             <p className="text-lg text-white-700">
               <Link scroll href={`/anime/full/${Anime.data.next_episode.slug}`}>
-                <ButtonA
-                >
-                  Next Episode
-                </ButtonA>
+                <ButtonA>Next Episode</ButtonA>
               </Link>
             </p>
           )}
@@ -105,7 +102,7 @@ export default async function DetailAnimePage(props: DetailAnimePageProps) {
                   <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-4">
                     {resolution.urls.map((urlObj: { url: string; provider: string }, urlIdx: number) => (
                       <div key={urlIdx} className="mb-4">
-                        <ButtonA className='text-center' href={urlObj.url}>
+                        <ButtonA className="text-center" href={urlObj.url}>
                           <div className="text-lg font-bold">{urlObj.provider}</div>
                         </ButtonA>
                       </div>

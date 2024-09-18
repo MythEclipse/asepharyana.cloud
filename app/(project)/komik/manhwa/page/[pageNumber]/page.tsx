@@ -37,9 +37,7 @@ export default async function Page({ params }: { params: { pageNumber: string } 
     <main className="">
       <div className="text-2xl font-bold mt-8 mb-4">
         <Link scroll href={`/komik/manhwa/page/${pageNumber}`}>
-        <ButtonA className='lg:min-w-[1200px] w-full max-w-lg text-center py-4 px-8' >
-            Latest manhwa
-          </ButtonA>
+          <ButtonA className="lg:min-w-[1200px] w-full max-w-lg text-center py-4 px-8">Latest manhwa</ButtonA>
         </Link>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
