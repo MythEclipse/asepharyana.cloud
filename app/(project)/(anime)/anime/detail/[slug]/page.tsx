@@ -7,6 +7,7 @@ import ButtonBaris from '@/components/ButtonBaris';
 import { BackgroundGradient } from '@/components/ui/background-gradient';
 import { Metadata } from 'next';
 import CardA from '@/components/card/CardA';
+import ButtonA from '@/components/ButtonA';
 
 interface Genre {
   name: string;
@@ -149,11 +150,11 @@ export default async function DetailAnimePage({ params }: DetailAnimePageProps) 
                       const episodeNumber = episode.episode.match(/Episode (\d+)/)?.[1] || episode.episode;
                       return (
                         <Link scroll key={episode.slug} href={`/anime/full/${episode.slug}`} className="">
-                          <ButtonBaris>
+                          <ButtonA>
                             <span className="text-lg font-bold mb-1 text-center truncate text-primary-dark dark:text-primary">
                               Episode {episodeNumber}
                             </span>
-                          </ButtonBaris>
+                          </ButtonA>
                         </Link>
                       );
                     })

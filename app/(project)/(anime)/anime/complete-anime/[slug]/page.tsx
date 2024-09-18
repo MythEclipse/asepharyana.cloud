@@ -3,8 +3,8 @@ import React from 'react';
 import { getData } from '@/lib/GetData';
 import AnimeGrid from '@/components/AnimeGrid2';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
 import { BaseUrl } from '@/lib/url';
+import ButtonA from '@/components/ButtonA';
 
 interface CompleteAnimeData {
   status: string;
@@ -80,14 +80,14 @@ const PaginationComponent = ({ pagination }: { pagination: Pagination }) => {
             href={`/anime/complete-anime/${pagination.previous_page}`}
             className="text-blue-600 hover:underline"
           >
-            <Button size="lg">Previous</Button>
+            <ButtonA>Previous</ButtonA>
           </Link>
         </div>
       )}
       {pagination.has_next_page && pagination.next_page !== null && (
         <div className="text-2xl font-bold mt-8 mb-4">
           <Link scroll href={`/anime/complete-anime/${pagination.next_page}`} className="text-blue-600 hover:underline">
-            <Button size="lg">Next</Button>
+            <ButtonA>Next</ButtonA>
           </Link>
         </div>
       )}
