@@ -1,10 +1,10 @@
 import { getData } from '@/lib/GetData';
 import Link from 'next/link';
 import ClientPlayer from '@/components/ClientPlayer';
-import { Button } from '@/components/ui/moving-border';
 import { BaseUrl } from '@/lib/url';
 import { BackgroundGradient } from '@/components/ui/background-gradient';
 import ButtonBaris from '@/components/ButtonBaris';
+import ButtonA from '@/components/ButtonA';
 
 interface AnimeResponse {
   status: string;
@@ -74,19 +74,17 @@ export default async function DetailAnimePage(props: DetailAnimePageProps) {
           {Anime.data.previous_episode && (
             <p className="text-lg text-white-700">
               <Link scroll href={`/anime/full/${Anime.data.previous_episode.slug}`}>
-                <Button className="text-left">Previous Episode</Button>
+                <ButtonA>Previous Episode</ButtonA>
               </Link>
             </p>
           )}
           {Anime.data.next_episode && (
             <p className="text-lg text-white-700">
               <Link scroll href={`/anime/full/${Anime.data.next_episode.slug}`}>
-                <Button
-                  borderRadius="1.75rem"
-                  className="bg-white dark:bg-slate-900 text-black dark:text-white border-neutral-200 dark:border-slate-800"
+                <ButtonA
                 >
                   Next Episode
-                </Button>
+                </ButtonA>
               </Link>
             </p>
           )}
@@ -107,9 +105,9 @@ export default async function DetailAnimePage(props: DetailAnimePageProps) {
                   <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-4">
                     {resolution.urls.map((urlObj: { url: string; provider: string }, urlIdx: number) => (
                       <div key={urlIdx} className="mb-4">
-                        <ButtonBaris href={urlObj.url}>
+                        <ButtonA className='text-center' href={urlObj.url}>
                           <div className="text-lg font-bold">{urlObj.provider}</div>
-                        </ButtonBaris>
+                        </ButtonA>
                       </div>
                     ))}
                   </div>

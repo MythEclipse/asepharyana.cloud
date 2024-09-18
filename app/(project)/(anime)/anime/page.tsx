@@ -1,10 +1,11 @@
 import Image from 'next/image';
-import { Button } from '@/components/ui/moving-border';
 import { Card } from '@/components/ui/card';
 import Link from 'next/link';
 import Loading from '@/components/loading';
 import CardA from '@/components/card/CardA';
 import { BaseUrl } from '@/lib/url';
+import ButtonA from '@/components/ButtonA';
+import { Button } from 'flowbite-react';
 
 // Define the HomeData, OngoingAnime, and CompleteAnime interfaces
 interface HomeData {
@@ -96,9 +97,9 @@ export default async function AnimePage() {
       {/* Ongoing Anime Section */}
       <div className="text-2xl font-bold mt-8 mb-4">
         <Link href={'/anime/ongoing-anime/1'}>
-          <Button size="lg" className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
+          <ButtonA  className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
             Latest Ongoing Anime
-          </Button>
+          </ButtonA>
         </Link>
       </div>
 
@@ -107,9 +108,9 @@ export default async function AnimePage() {
       {/* Complete Anime Section */}
       <div className="text-2xl font-bold mt-8 mb-4">
         <Link scroll href={'/anime/complete-anime/1'}>
-          <Button size="lg" className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
+          <ButtonA className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
             Latest Complete Anime
-          </Button>
+          </ButtonA>
         </Link>
       </div>
 
