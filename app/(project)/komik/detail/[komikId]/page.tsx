@@ -4,10 +4,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import ButtonBaris from '@/components/ButtonBaris';
 import { BackgroundGradient } from '@/components/ui/background-gradient';
 import { PRODUCTION, BaseUrl } from '@/lib/url';
+import ButtonA from '@/components/ButtonA';
 
 interface MangaDetail {
   title: string;
@@ -121,14 +121,14 @@ export default async function DetailPage({ params }: DetailPageProps) {
                   {manga.chapters && Array.isArray(manga.chapters) && manga.chapters.length > 0 ? (
                     manga.chapters.map((chapter) => (
                       <Link scroll key={chapter.chapter_id} href={`/komik/chapter/${chapter.chapter_id}`} className="">
-                        <ButtonBaris>
+                        <ButtonA className="w-full text-center flex flex-col items-center justify-center">
                           <span className="text-lg font-bold mb-1 text-center truncate text-primary-dark dark:text-primary">
                             {chapter.chapter}
                           </span>
                           <span className="text-sm text-center truncate text-gray-500 dark:text-gray-400">
                             {chapter.date}
                           </span>
-                        </ButtonBaris>
+                        </ButtonA>
                       </Link>
                     ))
                   ) : (

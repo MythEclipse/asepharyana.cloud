@@ -8,13 +8,15 @@ interface ButtonProps {
   children: ReactNode;
   className?: string;
   onClick?: () => void;
+  disabled?: boolean;
   href?: string;
+  type?: "button" | "submit" | "reset"; // Restricting type to valid HTML button types
 }
 
-const AnimatedButton: FC<ButtonProps> = ({ children, onClick, className, href }) => {
+const AnimatedButton: FC<ButtonProps> = ({ children,disabled, onClick, type = "button", className, href }) => { // Default value for type
   const buttonContent = (
     <motion.div
-      className={`w-full text-center px-6 py-3 text-blue-500 bg-transparent border border-blue-500 rounded-full shadow-lg shadow-blue-500/50 hover:bg-blue-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 ${className}`}
+      className={`flex flex-col items-center justify-center text-center px-6 py-3 text-blue-500 bg-transparent border border-blue-500 rounded-full shadow-lg shadow-blue-500/50 hover:bg-blue-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 ${className}`}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.95 }}
     >
@@ -25,16 +27,18 @@ const AnimatedButton: FC<ButtonProps> = ({ children, onClick, className, href })
   if (href) {
     return (
       <Link href={href}>
-          {buttonContent}
+        {buttonContent}
       </Link>
     );
   }
 
   return (
     <motion.button
-      className={`w-full text-center px-6 py-3 text-blue-500 bg-transparent border border-blue-500 rounded-full shadow-lg shadow-blue-500/50 hover:bg-blue-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 ${className}`}
+      className={`flex flex-col items-center justify-center text-center px-6 py-3 text-blue-500 bg-transparent border border-blue-500 rounded-full shadow-lg shadow-blue-500/50 hover:bg-blue-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 ${className}`}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.95 }}
+      disabled={disabled}
+      type={type} // Ensure the type is either "button", "submit", or "reset"
       onClick={onClick}
     >
       {children}

@@ -150,7 +150,7 @@ export default async function DetailAnimePage({ params }: DetailAnimePageProps) 
                       const episodeNumber = episode.episode.match(/Episode (\d+)/)?.[1] || episode.episode;
                       return (
                         <Link scroll key={episode.slug} href={`/anime/full/${episode.slug}`} className="">
-                          <ButtonA>
+                          <ButtonA className='w-full'>
                             <span className="text-lg font-bold mb-1 text-center truncate text-primary-dark dark:text-primary">
                               Episode {episodeNumber}
                             </span>
@@ -177,10 +177,8 @@ export default async function DetailAnimePage({ params }: DetailAnimePageProps) 
                           <CardA
                             key={recommendation.slug}
                             title={recommendation.title}
-                            description={``}
                             imageUrl={recommendation.poster}
-                            linkUrl={`/anime/detail/${recommendation.slug}`}
-                          />
+                            linkUrl={`/anime/detail/${recommendation.slug}`}                     />
                         </div>
                       ))
                     ) : (

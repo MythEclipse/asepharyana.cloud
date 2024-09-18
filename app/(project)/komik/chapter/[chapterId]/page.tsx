@@ -3,9 +3,9 @@ import React from 'react';
 import { notFound } from 'next/navigation';
 import { getData } from '@/lib/GetData';
 import Link from 'next/link';
-import { Button } from '@/components/ui/moving-border';
 import Image from 'next/image';
 import { BaseUrl } from '@/lib/url';
+import ButtonA from '@/components/ButtonA';
 
 interface ChapterDetail {
   title: string;
@@ -31,16 +31,12 @@ export default async function ChapterPage({ params }: { params: { chapterId: str
         <div className="mt-4 flex justify-between gap-4">
           {chapter.prev_chapter_id && (
             <Link scroll href={`/komik/chapter/${chapter.prev_chapter_id}`}>
-              <Button className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
-                Previous Chapter
-              </Button>
+              <ButtonA>Previous Chapter</ButtonA>
             </Link>
           )}
           {chapter.next_chapter_id && (
             <Link scroll href={`/komik/chapter/${chapter.next_chapter_id}`}>
-              <Button className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
-                Next Chapter
-              </Button>
+              <ButtonA>Next Chapter</ButtonA>
             </Link>
           )}
         </div>
@@ -72,16 +68,12 @@ export default async function ChapterPage({ params }: { params: { chapterId: str
       <div className="mt-4 flex justify-between gap-4">
         {chapter.prev_chapter_id && (
           <Link scroll href={`/komik/chapter/${chapter.prev_chapter_id}`}>
-            <Button className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
-              Previous Chapter
-            </Button>
+            <ButtonA>Previous Chapter</ButtonA>
           </Link>
         )}
         {chapter.next_chapter_id && (
           <Link scroll href={`/komik/chapter/${chapter.next_chapter_id}`}>
-            <Button className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
-              Next Chapter
-            </Button>
+            <ButtonA>Next Chapter</ButtonA>
           </Link>
         )}
       </div>

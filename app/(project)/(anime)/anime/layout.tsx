@@ -41,7 +41,7 @@ const anime = [
   {
     title: 'Search',
     icon: <HiOutlineSearch className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
-    href: `/anime/search?query=${encodeURIComponent('')}`
+    href: `/anime/search/${encodeURIComponent('a')}`
   }
 ];
 

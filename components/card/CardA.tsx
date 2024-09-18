@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 interface CardProps {
   title: string;
-  description: string;
+  description?: string;
   imageUrl: string;
   linkUrl: string;
 }
@@ -19,7 +19,7 @@ export default function CardA({ title, description, imageUrl, linkUrl }: CardPro
         transition={{ type: 'spring', stiffness: 260, damping: 25 }}
         className="cursor-pointer"
       >
-        <ShadcnCard className="w-60 h-96 bg-white dark:bg-black shadow-lg rounded-xl overflow-hidden transform transition-transform duration-300 hover:shadow-2xl dark:hover:shadow-black">
+        <ShadcnCard className="w-60 h-96 bg-white dark:bg-black overflow-hidden transform transition-transform duration-300 hover:shadow-2xl text-blue-500 bg-transparent border border-blue-500 rounded-xl shadow-lg shadow-blue-500/50 hover:bg-blue-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50">
           <div className="relative">
             <motion.img
               src={imageUrl}

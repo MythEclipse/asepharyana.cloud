@@ -30,7 +30,7 @@ const komik = [
   {
     title: 'Search',
     icon: <HiOutlineSearch className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
-    href: `/komik/search?query=${encodeURIComponent('')}` // Placeholder link for the menu item
+    href: `/komik/search/${encodeURIComponent('a')}/1` // Placeholder link for the menu item
   }
 ];
 export const metadata = {

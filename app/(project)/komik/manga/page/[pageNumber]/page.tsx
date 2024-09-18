@@ -1,5 +1,4 @@
 import React from 'react';
-import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -8,6 +7,7 @@ import { notFound } from 'next/navigation';
 import { BaseUrl } from '@/lib/url';
 import MiniTildCard from '@/components/MiniTildCard';
 import CardA from '@/components/card/CardA';
+import ButtonA from '@/components/ButtonA';
 
 interface KomikData {
   data: Manga[];
@@ -36,9 +36,7 @@ export default async function Page({ params }: { params: { pageNumber: string } 
     <main className="">
       <div className="text-2xl font-bold mt-8 mb-4">
         <Link scroll href={`/komik/manga/page/${pageNumber}`}>
-          <Button size="lg" className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
-            Latest Manga
-          </Button>
+          <ButtonA className="lg:min-w-[1200px] w-full max-w-lg text-center py-4 px-8">Latest Manga</ButtonA>
         </Link>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -55,20 +53,20 @@ export default async function Page({ params }: { params: { pageNumber: string } 
       </div>
       <div className="flex justify-between mt-8">
         <Link scroll href={`/komik/manga/page/${komikData.prevPage ? pageNumber - 1 : '1'}`}>
-          <Button
+          <ButtonA
             className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
             disabled={!komikData.prevPage}
           >
             Previous Page
-          </Button>
+          </ButtonA>
         </Link>
         <Link scroll href={`/komik/manga/page/${komikData.nextPage ? pageNumber + 1 : '1'}`}>
-          <Button
+          <ButtonA
             className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
             disabled={!komikData.nextPage}
           >
             Next Page
-          </Button>
+          </ButtonA>
         </Link>
       </div>
     </main>
