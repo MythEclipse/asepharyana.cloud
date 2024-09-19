@@ -9,7 +9,7 @@ import DropdownMenuContent from '@/components/navbar/DropdownMenuContent';
 import DropdownMenuItem from '@/components/navbar/DropdownMenuItem';
 import ButtonA from '@/components/ButtonA';
 
-export function UserMenu({ status, session, loginUrl }: { status: string; session: any; loginUrl: string; }) {
+export function UserMenu({ status, session, loginUrl }: { status: string; session: any; loginUrl: string }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   return (
@@ -23,7 +23,8 @@ export function UserMenu({ status, session, loginUrl }: { status: string; sessio
                 alt="profile"
                 className="rounded-full"
                 width={32}
-                height={32} />
+                height={32}
+              />
               <span className="sr-only">Open menu</span>
             </div>
           </DropdownMenuTrigger>
@@ -34,12 +35,18 @@ export function UserMenu({ status, session, loginUrl }: { status: string; sessio
                 <span className="block text-xs font-medium truncate">{session?.user?.email ?? 'Guest'}</span>
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <Link href="/dashboard" scroll={true}>Dashboard</Link>
+                <Link href="/dashboard" scroll={true}>
+                  Dashboard
+                </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <Link href="/settings" scroll={true}>Settings</Link>
+                <Link href="/settings" scroll={true}>
+                  Settings
+                </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => signOut()} className="text-red-600">Sign out</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => signOut()} className="text-red-600">
+                Sign out
+              </DropdownMenuItem>
             </DropdownMenuContent>
           )}
         </DropdownMenu>

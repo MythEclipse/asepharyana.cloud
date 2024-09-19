@@ -7,9 +7,7 @@ interface DropdownMenuProps {
 }
 
 const DropdownMenu = ({ children }: DropdownMenuProps) => (
-  <div className="relative inline-block text-left">
-    {children}
-  </div>
+  <div className="relative inline-block text-left">{children}</div>
 );
 
 export default DropdownMenu;

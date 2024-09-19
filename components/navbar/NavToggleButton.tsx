@@ -1,7 +1,13 @@
 'use client';
 import { motion } from 'framer-motion';
 
-export function NavToggleButton({ isNavOpen, setIsNavOpen }: { isNavOpen: boolean; setIsNavOpen: (isNavOpen: boolean) => void; }) {
+export function NavToggleButton({
+  isNavOpen,
+  setIsNavOpen
+}: {
+  isNavOpen: boolean;
+  setIsNavOpen: (isNavOpen: boolean) => void;
+}) {
   return (
     <button
       data-collapse-toggle="navbar-user"
@@ -19,7 +25,13 @@ export function NavToggleButton({ isNavOpen, setIsNavOpen }: { isNavOpen: boolea
         fill="none"
         viewBox="0 0 17 14"
       >
-        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15" />
+        <path
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M1 1h15M1 7h15M1 13h15"
+        />
       </motion.svg>
     </button>
   );

@@ -41,10 +41,13 @@ export default function Navbar() {
         <Logo />
         <UserMenu status={status} session={session} loginUrl={loginUrl} />
         <NavToggleButton isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
-        <NavLinks isNavOpen={isNavOpen} indicatorPos={indicatorPos} indicatorWidth={indicatorWidth} pathname={pathname} />
+        <NavLinks
+          isNavOpen={isNavOpen}
+          indicatorPos={indicatorPos}
+          indicatorWidth={indicatorWidth}
+          pathname={pathname}
+        />
       </div>
     </nav>
   );
 }
-
-
