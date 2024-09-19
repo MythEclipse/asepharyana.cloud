@@ -1,75 +1,53 @@
 'use client';
-
-import { useSession, signOut } from 'next-auth/react';
-import Link from 'next/link';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu';
-import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
+import { signOut } from 'next-auth/react';
+import Link from 'next/link';
+import Image from 'next/image';
+import DropdownMenu from '@/components/navbar/DropdownMenu';
+import DropdownMenuTrigger from '@/components/navbar/DropdownMenuTrigger';
+import DropdownMenuContent from '@/components/navbar/DropdownMenuContent';
+import DropdownMenuItem from '@/components/navbar/DropdownMenuItem';
 import ButtonA from '@/components/ButtonA';
 
-interface UserMenuProps {
-  pathname: string;
-}
-
-export default function UserMenu({ pathname }: UserMenuProps) {
-  const { data: session, status } = useSession();
-  const [isOpen, setIsOpen] = useState(false);
-  const loginUrl = `/login?callbackUrl=${encodeURIComponent(pathname)}`;
+export function UserMenu({ status, session, loginUrl }: { status: string; session: any; loginUrl: string; }) {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   return (
-    <>
+    <div className="relative flex items-center space-x-2 md:order-2 rtl:space-x-reverse">
       {status === 'authenticated' ? (
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <div onClick={() => setIsOpen(!isOpen)}>
-              <Avatar className="cursor-pointer">
-                <AvatarImage src={session?.user?.image ?? '/profile-circle-svgrepo-com.svg'} alt="profile" />
-                <AvatarFallback>{session?.user?.name?.charAt(0) ?? 'G'}</AvatarFallback>
-              </Avatar>
+          <DropdownMenuTrigger onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+            <div className="relative cursor-pointer w-8 h-8">
+              <Image
+                src={session?.user?.image ?? '/profile-circle-svgrepo-com.svg'}
+                alt="profile"
+                className="rounded-full"
+                width={32}
+                height={32} />
+              <span className="sr-only">Open menu</span>
             </div>
           </DropdownMenuTrigger>
-          <AnimatePresence>
-            {isOpen && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.3 }}
-              >
-                <DropdownMenuContent>
-                  <DropdownMenuItem>
-                    <span className="block text-sm">{session?.user?.name ?? session?.user?.fullname ?? 'Guest'}</span>
-                    <span className="block text-sm font-medium truncate">{session?.user?.email ?? 'Guest'}</span>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link scroll={true} href="/dashboard">
-                      Dashboard
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link scroll={true} href="/settings">
-                      Settings
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => signOut()} className="text-red-600">
-                    Sign out
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {isDropdownOpen && (
+            <DropdownMenuContent>
+              <DropdownMenuItem>
+                <span className="block text-xs">{session?.user?.name ?? session?.user?.fullname ?? 'Guest'}</span>
+                <span className="block text-xs font-medium truncate">{session?.user?.email ?? 'Guest'}</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link href="/dashboard" scroll={true}>Dashboard</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link href="/settings" scroll={true}>Settings</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => signOut()} className="text-red-600">Sign out</DropdownMenuItem>
+            </DropdownMenuContent>
+          )}
         </DropdownMenu>
       ) : (
-        <Link scroll={true} href={loginUrl} className="mr-3">
+        <Link href={loginUrl} className="mr-2">
           <ButtonA>Login</ButtonA>
         </Link>
       )}
-    </>
+    </div>
   );
 }
