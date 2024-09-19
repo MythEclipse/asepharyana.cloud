@@ -1,13 +1,16 @@
-import TildCard from '@/components/TildCard';
-import React from 'react';
+'use client';
 
-export default function ExamplePage() {
+import { motion } from 'framer-motion';
+
+export default function TestComponent() {
   return (
-    <TildCard
-      title="Make things float in air"
-      description="Hover over this card to unleash the power of CSS perspective"
-      imageUrl="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2560&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-      linkUrl="https://twitter.com/mannupaaji"
-    />
+    <div className="relative h-20">
+      <motion.div
+        className="absolute top-0 left-0 z-[50] h-10 rounded-full bg-blue-500 border-2 border-red-500"
+        initial={{ left: 0, width: 0 }}
+        animate={{ left: 0, width: 100 }}
+        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+      />
+    </div>
   );
 }
