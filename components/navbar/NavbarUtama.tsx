@@ -6,15 +6,15 @@ import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
   DropdownMenuItem,
-  DropdownMenuLabel,
-} from "@/components/ui/dropdown-menu";
-import { User } from "lucide-react";
+  DropdownMenuLabel
+} from '@/components/ui/dropdown-menu';
+import { User } from 'lucide-react';
 import ButtonA from '../ButtonA';
 
 export default function Navbar() {
@@ -45,7 +45,12 @@ export default function Navbar() {
         <Logo />
         <UserMenu status={status} session={session} loginUrl={loginUrl} />
         <NavToggleButton isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
-        <NavLinks isNavOpen={isNavOpen} pathname={pathname} indicatorPos={indicatorPos} indicatorWidth={indicatorWidth} />
+        <NavLinks
+          isNavOpen={isNavOpen}
+          pathname={pathname}
+          indicatorPos={indicatorPos}
+          indicatorWidth={indicatorWidth}
+        />
         <motion.div
           className="top-4 absolute h-10 rounded-full bg-blue-500 dark:bg-blue-700 border-2 border-transparent hidden md:block"
           initial={{ left: 0, width: 0 }}
@@ -58,7 +63,7 @@ export default function Navbar() {
   );
 }
 
-function NavLink({ href, pathname, label, index }: { href: string; pathname: string; label: string; index: number; }) {
+function NavLink({ href, pathname, label, index }: { href: string; pathname: string; label: string; index: number }) {
   return (
     <motion.li
       id={`nav-link-${index}`}
@@ -68,7 +73,9 @@ function NavLink({ href, pathname, label, index }: { href: string; pathname: str
       transition={{ duration: 0.4 }}
     >
       <Link href={href}>
-        <span className={`block rounded-lg px-2 py-1 text-sm transition-colors duration-300 ${pathname === href ? 'font-semibold text-blue-500 md:text-white underline md:underline-none' : 'text-gray-900 dark:text-gray-100'}`}>
+        <span
+          className={`block rounded-lg px-2 py-1 text-sm transition-colors duration-300 ${pathname === href ? 'font-semibold text-blue-500 md:text-white underline md:underline-none' : 'text-gray-900 dark:text-gray-100'}`}
+        >
           {label}
         </span>
       </Link>
@@ -76,7 +83,17 @@ function NavLink({ href, pathname, label, index }: { href: string; pathname: str
   );
 }
 
-function NavLinks({ isNavOpen, pathname, indicatorPos, indicatorWidth }: { isNavOpen: boolean; pathname: string; indicatorPos: number; indicatorWidth: number; }) {
+function NavLinks({
+  isNavOpen,
+  pathname,
+  indicatorPos,
+  indicatorWidth
+}: {
+  isNavOpen: boolean;
+  pathname: string;
+  indicatorPos: number;
+  indicatorWidth: number;
+}) {
   return (
     <div className={`${isNavOpen ? 'block' : 'hidden'} w-full md:flex md:items-center md:w-auto`}>
       <ul className="mt-2 flex flex-col rounded-lg border border-blue-500 bg-gray-50 p-2 font-medium dark:border-blue-500 dark:bg-black md:mt-0 md:flex-row md:space-x-4 md:border-0 md:bg-transparent rtl:space-x-reverse">
@@ -88,7 +105,13 @@ function NavLinks({ isNavOpen, pathname, indicatorPos, indicatorWidth }: { isNav
   );
 }
 
-function NavToggleButton({ isNavOpen, setIsNavOpen }: { isNavOpen: boolean; setIsNavOpen: (isNavOpen: boolean) => void; }) {
+function NavToggleButton({
+  isNavOpen,
+  setIsNavOpen
+}: {
+  isNavOpen: boolean;
+  setIsNavOpen: (isNavOpen: boolean) => void;
+}) {
   return (
     <button
       type="button"
@@ -102,13 +125,19 @@ function NavToggleButton({ isNavOpen, setIsNavOpen }: { isNavOpen: boolean; setI
         fill="none"
         viewBox="0 0 17 14"
       >
-        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15" />
+        <path
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M1 1h15M1 7h15M1 13h15"
+        />
       </motion.svg>
     </button>
   );
 }
 
-function UserMenu({ status, session, loginUrl }: { status: string; session: any; loginUrl: string; }) {
+function UserMenu({ status, session, loginUrl }: { status: string; session: any; loginUrl: string }) {
   return (
     <div className="relative flex items-center space-x-2 md:order-2 rtl:space-x-reverse">
       {status === 'authenticated' ? (
@@ -137,12 +166,14 @@ function UserMenu({ status, session, loginUrl }: { status: string; session: any;
             <DropdownMenuItem>
               <Link href="/settings">Settings</Link>
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => signOut()} className="text-red-600">Sign out</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => signOut()} className="text-red-600">
+              Sign out
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       ) : (
         <Link href={loginUrl}>
-          <ButtonA className='w-16 h-8'>Login</ButtonA>
+          <ButtonA className="w-16 h-8">Login</ButtonA>
         </Link>
       )}
     </div>
@@ -158,7 +189,11 @@ function Logo() {
       className="relative flex items-center space-x-2 rtl:space-x-reverse cursor-pointer transition-transform duration-300 ease-in-out hover:scale-105"
     >
       <Image src="/Logo.svg" alt="Logo" quality={100} loading="eager" width={50} height={40} priority />
-      <span className={`text-sm transition-colors duration-300 ${pathname === '/' ? 'font-semibold text-blue-600' : 'text-gray-900 dark:text-gray-100'}`}>Asep Haryana</span>
+      <span
+        className={`text-sm transition-colors duration-300 ${pathname === '/' ? 'font-semibold text-blue-600' : 'text-gray-900 dark:text-gray-100'}`}
+      >
+        Asep Haryana
+      </span>
     </Link>
   );
 }
