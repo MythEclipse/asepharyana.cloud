@@ -1,6 +1,6 @@
 import React from 'react';
 import { BaseUrl } from '@/lib/url';
-import SearchForm from './SearchForm';
+import SearchForm from '@/components/SearchForm';
 import CardA from '@/components/card/CardA';
 
 interface Comic {

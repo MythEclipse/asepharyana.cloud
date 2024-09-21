@@ -1,7 +1,7 @@
 // app/search/[slug]/page.tsx
 import React from 'react';
 import { ANIMEAPI } from '@/lib/url'; // Update this to your correct import
-import SearchForm from './SearchForm';
+import SearchForm from '@/components/SearchForm';
 import CardA from '@/components/card/CardA';
 
 interface Genre {
@@ -48,7 +48,7 @@ const SearchPage = async ({ params }: { params: { slug: string } }) => {
   return (
     <div className="p-6">
       <h1 className="text-3xl font-bold mb-6 dark:text-white">Search Anime</h1>
-      <SearchForm initialQuery={query} />
+      <SearchForm classname='w-full mb-6' initialQuery={query} />
       <div>
         {searchResults.data.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
