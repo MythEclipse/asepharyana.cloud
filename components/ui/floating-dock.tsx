@@ -7,7 +7,15 @@ import Link from 'next/link';
 import { useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 
-export const FloatingDock = ({ items, desktopClassName, mobileClassName }: { items: { title: string; icon: React.ReactNode; href: string }[]; desktopClassName?: string; mobileClassName?: string; }) => {
+export const FloatingDock = ({
+  items,
+  desktopClassName,
+  mobileClassName
+}: {
+  items: { title: string; icon: React.ReactNode; href: string }[];
+  desktopClassName?: string;
+  mobileClassName?: string;
+}) => {
   return (
     <>
       <FloatingDockDesktop items={items} className={desktopClassName} />
@@ -16,7 +24,13 @@ export const FloatingDock = ({ items, desktopClassName, mobileClassName }: { ite
   );
 };
 
-const FloatingDockMobile = ({ items, className }: { items: { title: string; icon: React.ReactNode; href: string }[]; className?: string; }) => {
+const FloatingDockMobile = ({
+  items,
+  className
+}: {
+  items: { title: string; icon: React.ReactNode; href: string }[];
+  className?: string;
+}) => {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
@@ -33,10 +47,17 @@ const FloatingDockMobile = ({ items, className }: { items: { title: string; icon
                 exit={{ opacity: 0, y: 10, transition: { delay: idx * 0.02 } }}
                 transition={{ delay: (items.length - 1 - idx) * 0.02 }}
               >
-                <Link href={item.href} className={cn("flex flex-col items-center justify-center text-center px-6 py-3 rounded-full shadow-lg", {
-                  'bg-blue-500 text-white': pathname === item.href,
-                  'bg-white dark:bg-black text-blue-500 border border-blue-500 hover:bg-blue-500 hover:text-white focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50': pathname !== item.href,
-                })}>
+                <Link
+                  href={item.href}
+                  className={cn(
+                    'flex flex-col items-center justify-center text-center px-6 py-3 rounded-full shadow-lg',
+                    {
+                      'bg-blue-500 text-white': pathname === item.href,
+                      'bg-white dark:bg-black text-blue-500 border border-blue-500 hover:bg-blue-500 hover:text-white focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50':
+                        pathname !== item.href
+                    }
+                  )}
+                >
                   <div className="h-4 w-4">{item.icon}</div>
                 </Link>
               </motion.div>
@@ -44,17 +65,33 @@ const FloatingDockMobile = ({ items, className }: { items: { title: string; icon
           </motion.div>
         )}
       </AnimatePresence>
-      <button onClick={() => setOpen(!open)} className="flex flex-col items-center justify-center text-center px-6 py-3 text-blue-500 bg-transparent border border-blue-500 rounded-full shadow-lg hover:bg-blue-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50">
+      <button
+        onClick={() => setOpen(!open)}
+        className="flex flex-col items-center justify-center text-center px-6 py-3 text-blue-500 bg-transparent border border-blue-500 rounded-full shadow-lg hover:bg-blue-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50"
+      >
         <IconLayoutNavbarCollapse className="h-5 w-5 text-neutral-500 dark:text-neutral-400" />
       </button>
     </div>
   );
 };
 
-const FloatingDockDesktop = ({ items, className }: { items: { title: string; icon: React.ReactNode; href: string }[]; className?: string; }) => {
+const FloatingDockDesktop = ({
+  items,
+  className
+}: {
+  items: { title: string; icon: React.ReactNode; href: string }[];
+  className?: string;
+}) => {
   const mouseX = useMotionValue(Infinity);
   return (
-    <motion.div onMouseMove={(e) => mouseX.set(e.pageX)} onMouseLeave={() => mouseX.set(Infinity)} className={cn('fixed bottom-4 left-1/2 transform -translate-x-1/2 hidden md:flex h-16 gap-4 items-end rounded-2xl bg-white dark:bg-black px-4 pb-3 border border-gray-200 dark:border-neutral-900 z-50', className)}>
+    <motion.div
+      onMouseMove={(e) => mouseX.set(e.pageX)}
+      onMouseLeave={() => mouseX.set(Infinity)}
+      className={cn(
+        'fixed bottom-4 left-1/2 transform -translate-x-1/2 hidden md:flex h-16 gap-4 items-end rounded-2xl bg-white dark:bg-black px-4 pb-3 border border-gray-200 dark:border-neutral-900 z-50',
+        className
+      )}
+    >
       {items.map((item) => (
         <IconContainer key={item.title} {...item} mouseX={mouseX} />
       ))}
@@ -62,7 +99,17 @@ const FloatingDockDesktop = ({ items, className }: { items: { title: string; ico
   );
 };
 
-function IconContainer({ mouseX, title, icon, href }: { mouseX: MotionValue; title: string; icon: React.ReactNode; href: string; }) {
+function IconContainer({
+  mouseX,
+  title,
+  icon,
+  href
+}: {
+  mouseX: MotionValue;
+  title: string;
+  icon: React.ReactNode;
+  href: string;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const distance = useTransform(mouseX, (val) => {
     const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
@@ -89,9 +136,9 @@ function IconContainer({ mouseX, title, icon, href }: { mouseX: MotionValue; tit
         style={{ width, height }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
-        className={cn("aspect-square rounded-full flex items-center justify-center relative border z-50", {
+        className={cn('aspect-square rounded-full flex items-center justify-center relative border z-50', {
           'bg-blue-500': pathname === href,
-          'bg-gray-200 dark:bg-neutral-800': pathname !== href,
+          'bg-gray-200 dark:bg-neutral-800': pathname !== href
         })}
       >
         <AnimatePresence>
