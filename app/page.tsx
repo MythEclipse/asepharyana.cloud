@@ -81,7 +81,7 @@ export default function Home() {
                 </p>
                 <div className="flex items-center">
                   <Link
-                    href="https://github.com/Asepharyana71"
+                    href="https://github.com/MythEclipse"
                     className="item-center flex size-9 justify-center rounded-full border border-slate-300 text-dark hover:border-primary-600 hover:bg-primary-600 hover:text-lighta dark:text-lighta"
                   >
                     <Discord />
@@ -99,7 +99,7 @@ export default function Home() {
                     <Linkedln />
                   </Link>
                   <Link
-                    href="https://www.facebook.com/asepharyana/"
+                    href="https://www.facebook.com/asep.haryana.900/"
                     className="item-center flex size-9 justify-center rounded-full border border-slate-300 text-dark hover:border-primary-600 hover:bg-primary-600 hover:text-lighta dark:text-lighta"
                   >
                     <Facebook />
