@@ -16,17 +16,17 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: '21'
           cache: 'pnpm'
 
-      - name: Install PNPM
-        run: npm install -g pnpm
-
-      - name: Verify PNPM Installation
-        run: pnpm --version  # Memverifikasi bahwa pnpm telah terinstal
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4.0.0
+        with:
+          version: 'latest'  # Anda dapat mengganti dengan versi spesifik jika diperlukan
+          run_install: true  # Menginstal dependencies menggunakan pnpm setelah pengaturan
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install  # Ini bisa dihilangkan jika run_install diatur ke true
 
       - name: Build the project
         run: pnpm run build
