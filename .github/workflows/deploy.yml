@@ -21,11 +21,11 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4.0.0
         with:
-          version: 'latest'  # Anda dapat mengganti dengan versi spesifik jika diperlukan
-          run_install: true  # Menginstal dependencies menggunakan pnpm setelah pengaturan
+          version: 'latest'
+          run_install: true
 
       - name: Install dependencies
-        run: pnpm install  # Ini bisa dihilangkan jika run_install diatur ke true
+        run: pnpm install
 
       - name: Build the project
         run: pnpm run build
@@ -38,6 +38,8 @@ jobs:
       - name: Deploy to VPS
         run: |
           rsync -avz --delete-after --progress \
+          --exclude 'node_modules' \
+          --exclude '.git' \
           -e "ssh -o StrictHostKeyChecking=no" \
           ./ root@${{ secrets.VPS_IP }}:${{ secrets.VPS_PATH }}
 
