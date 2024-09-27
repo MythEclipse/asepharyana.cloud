@@ -1,0 +1,54 @@
+name: Auto Deploy
+
+on:
+  push:
+    branches:
+      - master  # Ganti branch ke master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '21'  # Versi Node.js yang digunakan
+          cache: 'pnpm'
+
+      # Step 3: Install PNPM
+      - name: Install PNPM
+        run: npm install -g pnpm
+
+      # Step 4: Install dependencies and build
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build the project
+        run: pnpm run build
+
+      # Step 5: Set up SSH
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.8.1
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      # Step 6: Sync built files to the VPS
+      - name: Deploy to VPS
+        run: |
+          rsync -avz --delete-after --progress \
+          -e "ssh -o StrictHostKeyChecking=no" \
+          ./ root@${{ secrets.VPS_IP }}:${{ secrets.VPS_PATH }}
+
+      # Step 7: Restart the application on VPS
+      - name: Restart Application
+        run: |
+          ssh -o StrictHostKeyChecking=no root@${{ secrets.VPS_IP }} << 'EOF'
+          cd /root/asepharyana.my.id
+          pm2 restart web || pm2 start npm --name "web" -- start
+          EOF
