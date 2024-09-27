@@ -47,5 +47,6 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no root@${{ secrets.VPS_IP }} << 'EOF'
           cd /root/asepharyana.my.id
-          pm2 restart web || pm2 start npm --name "web" -- start
+          /root/.nvm/versions/node/v20.17.0/bin/pm2 restart web || /root/.nvm/versions/node/v20.17.0/bin/pm2 start npm --name "web" -- start
           EOF
+
