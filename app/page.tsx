@@ -7,7 +7,7 @@ import Linkedln from '@/components/logo/LinkedIn';
 import Discord from '@/components/logo/Discord';
 import Link from 'next/link';
 import Bg from '@/components/Bg';
-import { TypewriterEffectSmooth } from '@/components/ui/typewriter-effect';
+import { AnimatedHeader } from '@/components/TextGerak';
 import { Button } from '@/components/ui/button';
 
 export const metadata: Metadata = {
@@ -37,15 +37,13 @@ export default function Home() {
           <div className="container px-6 mt-10">
             <div className="flex flex-wrap">
               <div className="w-full self-center px-2 lg:w-1/2">
-                <h4 className="text-xl sm:text-3xl md:text-4xl font-semibold text-dark dark:text-lighta">
+                <h1 className="text-4xl sm:text-3xl md:text-4xl font-semibold text-dark dark:text-lighta">
                   Halo semua 👋, saya{' '}
-                  <span className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-dark dark:text-lighta">
-                    <TypewriterEffectSmooth words={Judul}></TypewriterEffectSmooth>
-                  </span>
-                </h4>
-                <h2 className="mb-5 text-base sm:text-lg md:text-xl lg:text-2xl font-medium text-dark dark:text-lighta">
+                    <AnimatedHeader words={Judul}></AnimatedHeader>
+                </h1>
+                <h1 className="mb-5 text-base sm:text-lg md:text-xl lg:text-2xl font-medium text-dark dark:text-lighta">
                   Okelah
-                </h2>
+                </h1>
               </div>
               <div className="w-full self-end px-4 pt-4 lg:w-1/2">
                 <div className="relative pt-20 lg:right-0 lg:mt-0">
