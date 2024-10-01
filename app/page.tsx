@@ -38,8 +38,7 @@ export default function Home() {
             <div className="flex flex-wrap">
               <div className="w-full self-center px-2 lg:w-1/2">
                 <h1 className="text-4xl sm:text-3xl md:text-4xl font-semibold text-dark dark:text-lighta">
-                  Halo semua 👋, saya{' '}
-                    <AnimatedHeader words={Judul}></AnimatedHeader>
+                  Halo semua 👋, saya <AnimatedHeader words={Judul}></AnimatedHeader>
                 </h1>
                 <h1 className="mb-5 text-base sm:text-lg md:text-xl lg:text-2xl font-medium text-dark dark:text-lighta">
                   Okelah
