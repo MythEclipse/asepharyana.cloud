@@ -30,13 +30,13 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
       }))
       .get();
 
-    const produser = infoData.find(item => item.label === 'Produser')?.value || '';
-    const type = infoData.find(item => item.label === 'Tipe')?.value || '';
-    const status = infoData.find(item => item.label === 'Status')?.value || '';
-    const episode_count = infoData.find(item => item.label === 'Total Episode')?.value || '';
-    const duration = infoData.find(item => item.label === 'Durasi')?.value || '';
-    const release_date = infoData.find(item => item.label === 'Tayang')?.value || '';
-    const studio = infoData.find(item => item.label === 'Studio')?.value || '';
+    const produser = infoData.find((item) => item.label === 'Produser')?.value || '';
+    const type = infoData.find((item) => item.label === 'Tipe')?.value || '';
+    const status = infoData.find((item) => item.label === 'Status')?.value || '';
+    const episode_count = infoData.find((item) => item.label === 'Total Episode')?.value || '';
+    const duration = infoData.find((item) => item.label === 'Durasi')?.value || '';
+    const release_date = infoData.find((item) => item.label === 'Tayang')?.value || '';
+    const studio = infoData.find((item) => item.label === 'Studio')?.value || '';
 
     const genres: { name: string; slug: string; otakudesu_url: string }[] = [];
     $('.genress a').each((index, element) => {
@@ -59,14 +59,19 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
     const batchElement = $('.mctnx .soraddl.dlone').first();
 
     if (batchElement.length) {
-      $(batchElement).find('.soraurl').each((index, element) => {
-        const res = $(element).find('.res').text().trim();
-        const urls = $(element).find('.slink a').map((i, el) => ({
-          name: $(el).text().trim(),
-          url: $(el).attr('href') || ''
-        })).get();
-        batchLinks.push({ res, urls });
-      });
+      $(batchElement)
+        .find('.soraurl')
+        .each((index, element) => {
+          const res = $(element).find('.res').text().trim();
+          const urls = $(element)
+            .find('.slink a')
+            .map((i, el) => ({
+              name: $(el).text().trim(),
+              url: $(el).attr('href') || ''
+            }))
+            .get();
+          batchLinks.push({ res, urls });
+        });
     }
 
     $('.mctnx .soraddl.dlone').each((index, element) => {
@@ -74,14 +79,19 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
       const episodeSlug = episodeTitle.toLowerCase().replace(/\s+/g, '-');
 
       const qualityLinks: { res: string; buttons: { name: string; url: string }[] }[] = [];
-      $(element).find('.content .soraurl').each((i, el) => {
-        const res = $(el).find('.res').text().trim();
-        const buttons = $(el).find('.slink a').map((j, linkEl) => ({
-          name: $(linkEl).text().trim(),
-          url: $(linkEl).attr('href') || ''
-        })).get();
-        qualityLinks.push({ res, buttons });
-      });
+      $(element)
+        .find('.content .soraurl')
+        .each((i, el) => {
+          const res = $(el).find('.res').text().trim();
+          const buttons = $(el)
+            .find('.slink a')
+            .map((j, linkEl) => ({
+              name: $(linkEl).text().trim(),
+              url: $(linkEl).attr('href') || ''
+            }))
+            .get();
+          qualityLinks.push({ res, buttons });
+        });
 
       episode_lists.push({
         episode: episodeTitle,
@@ -91,12 +101,12 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
       });
     });
 
-    if (batchLinks.length > 0 && !episode_lists.some(ep => ep.episode === 'Batch')) {
+    if (batchLinks.length > 0 && !episode_lists.some((ep) => ep.episode === 'Batch')) {
       episode_lists.unshift({
         episode: 'Batch',
         slug: 'batch',
         otakudesu_url: '',
-        quality: batchLinks.map(batch => ({
+        quality: batchLinks.map((batch) => ({
           res: batch.res,
           buttons: batch.urls
         }))

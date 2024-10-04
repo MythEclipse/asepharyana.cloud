@@ -7,7 +7,7 @@ export async function GET(req: NextRequest) {
     // Fetch untuk ongoing anime
     const ongoingResponse = await fetch('https://alqanime.net/advanced-search/page/1/?status=ongoing&order=update', {
       headers: DEFAULT_HEADERS,
-      next: { revalidate: 360 }, // Caching selama 360 detik
+      next: { revalidate: 360 } // Caching selama 360 detik
     });
 
     if (!ongoingResponse.ok) {
@@ -29,7 +29,7 @@ export async function GET(req: NextRequest) {
 
     $ongoing('.listupd > article.bs').each((index, element) => {
       const title = $ongoing(element).find('.tt > h2').text().trim();
-      const slug = $ongoing(element).find('a').attr('href')?.split('/')[3] || ''; 
+      const slug = $ongoing(element).find('a').attr('href')?.split('/')[3] || '';
       const poster = $ongoing(element).find('img').attr('data-src') || '';
       const current_episode = $ongoing(element).find('.epx').text().trim() || 'N/A';
       const release_day = $ongoing(element).find('.date').text().trim() || 'None';
@@ -43,15 +43,18 @@ export async function GET(req: NextRequest) {
         current_episode,
         release_day,
         newest_release_date,
-        otakudesu_url,
+        otakudesu_url
       });
     });
 
     // Fetch untuk completed anime
-    const completedResponse = await fetch('https://alqanime.net/advanced-search/page/1/?status=completed&order=update', {
-      headers: DEFAULT_HEADERS,
-      next: { revalidate: 360 }, 
-    });
+    const completedResponse = await fetch(
+      'https://alqanime.net/advanced-search/page/1/?status=completed&order=update',
+      {
+        headers: DEFAULT_HEADERS,
+        next: { revalidate: 360 }
+      }
+    );
 
     if (!completedResponse.ok) {
       throw new Error(`Failed to fetch completed anime data: ${completedResponse.statusText}`);
@@ -86,7 +89,7 @@ export async function GET(req: NextRequest) {
         episode_count,
         rating,
         last_release_date,
-        otakudesu_url,
+        otakudesu_url
       });
     });
 
@@ -95,8 +98,8 @@ export async function GET(req: NextRequest) {
       status: 'Ok',
       data: {
         ongoing_anime: ongoingAnime,
-        complete_anime: completeAnime,
-      },
+        complete_anime: completeAnime
+      }
     });
   } catch (error) {
     console.error(error);

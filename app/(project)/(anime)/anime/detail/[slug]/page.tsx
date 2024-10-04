@@ -69,14 +69,14 @@ export async function generateMetadata({ params }: DetailAnimePageProps): Promis
       title: anime.data.title,
       description: anime.data.synopsis,
       images: [anime.data.poster],
-      url: `${PRODUCTION}/anime/detail/${params.slug}`,
+      url: `${PRODUCTION}/anime/detail/${params.slug}`
     },
     twitter: {
       card: 'summary_large_image',
       title: anime.data.title,
       description: anime.data.synopsis,
-      images: [anime.data.poster],
-    },
+      images: [anime.data.poster]
+    }
   };
 }
 
@@ -101,17 +101,40 @@ export default async function DetailAnimePage({ params }: DetailAnimePageProps) 
             <div className="w-full md:w-2/3 md:pl-6">
               <h1 className="text-3xl font-bold mb-4 text-primary-dark dark:text-primary">{anime.data.title}</h1>
               <div className="text-gray-800 dark:text-gray-200 mb-4">
-                <p className="mb-2"><strong>Japanese Title:</strong> {anime.data.japanese_title || 'N/A'}</p>
-                <p className="mb-2"><strong>Rating:</strong> {anime.data.rating || 'N/A'}</p>
-                <p className="mb-2"><strong>Producer:</strong> {anime.data.produser || 'N/A'}</p>
-                <p className="mb-2"><strong>Type:</strong> {anime.data.type || 'N/A'}</p>
-                <p className="mb-2"><strong>Status:</strong> {anime.data.status || 'N/A'}</p>
-                <p className="mb-2"><strong>Episode Count:</strong> {anime.data.episode_count || 'N/A'}</p>
-                <p className="mb-2"><strong>Duration:</strong> {anime.data.duration || 'N/A'}</p>
-                <p className="mb-2"><strong>Release Date:</strong> {anime.data.release_date || 'N/A'}</p>
-                <p className="mb-4"><strong>Studio:</strong> {anime.data.studio || 'N/A'}</p>
-                <p className="mb-4"><strong>Genres:</strong> {anime.data.genres.length > 0 ? anime.data.genres.map(genre => genre.name).join(', ') : 'N/A'}</p>
-                <p className="mb-4"><strong>Synopsis:</strong> {anime.data.synopsis}</p>
+                <p className="mb-2">
+                  <strong>Japanese Title:</strong> {anime.data.japanese_title || 'N/A'}
+                </p>
+                <p className="mb-2">
+                  <strong>Rating:</strong> {anime.data.rating || 'N/A'}
+                </p>
+                <p className="mb-2">
+                  <strong>Producer:</strong> {anime.data.produser || 'N/A'}
+                </p>
+                <p className="mb-2">
+                  <strong>Type:</strong> {anime.data.type || 'N/A'}
+                </p>
+                <p className="mb-2">
+                  <strong>Status:</strong> {anime.data.status || 'N/A'}
+                </p>
+                <p className="mb-2">
+                  <strong>Episode Count:</strong> {anime.data.episode_count || 'N/A'}
+                </p>
+                <p className="mb-2">
+                  <strong>Duration:</strong> {anime.data.duration || 'N/A'}
+                </p>
+                <p className="mb-2">
+                  <strong>Release Date:</strong> {anime.data.release_date || 'N/A'}
+                </p>
+                <p className="mb-4">
+                  <strong>Studio:</strong> {anime.data.studio || 'N/A'}
+                </p>
+                <p className="mb-4">
+                  <strong>Genres:</strong>{' '}
+                  {anime.data.genres.length > 0 ? anime.data.genres.map((genre) => genre.name).join(', ') : 'N/A'}
+                </p>
+                <p className="mb-4">
+                  <strong>Synopsis:</strong> {anime.data.synopsis}
+                </p>
               </div>
               <div className="mt-4">
                 {anime.data.episode_lists.map((episode) => (

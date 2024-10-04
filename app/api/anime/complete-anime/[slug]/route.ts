@@ -9,7 +9,7 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
     // Fetch dengan custom headers dan next revalidate
     const response = await fetch(`https://alqanime.net/advanced-search/page/${slug}/?status=completed&order=update`, {
       headers: DEFAULT_HEADERS,
-      next: { revalidate: 360 }, // Caching selama 360 detik
+      next: { revalidate: 360 } // Caching selama 360 detik
     });
 
     // Jika respons gagal
@@ -48,7 +48,7 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
         episode_count,
         rating,
         last_release_date,
-        otakudesu_url,
+        otakudesu_url
       });
     });
 
@@ -59,14 +59,14 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
       has_next_page: parseInt(slug as string, 10) < 55,
       next_page: parseInt(slug as string, 10) < 55 ? parseInt(slug as string, 10) + 1 : null,
       has_previous_page: parseInt(slug as string, 10) > 1,
-      previous_page: parseInt(slug as string, 10) > 1 ? parseInt(slug as string, 10) - 1 : null,
+      previous_page: parseInt(slug as string, 10) > 1 ? parseInt(slug as string, 10) - 1 : null
     };
 
     // Mengembalikan hasil scraping dalam format JSON
     return NextResponse.json({
       status: 'Ok',
       data: animeList,
-      pagination,
+      pagination
     });
   } catch (error) {
     console.error(error);
