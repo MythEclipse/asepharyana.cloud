@@ -162,18 +162,17 @@ export default async function DetailAnimePage({ params }: DetailAnimePageProps) 
         </BackgroundGradient>
         <h2 className="text-2xl font-semibold mb-4">Recommendations</h2>
         <div className="overflow-x-auto whitespace-nowrap">
-  <div className="inline-flex gap-4">
-    {anime.data.recommendations.map((recommendation) => (
-      <CardA
-        key={recommendation.slug}
-        title={recommendation.title}
-        linkUrl={recommendation.slug}
-        imageUrl={recommendation.poster}
-      />
-    ))}
-  </div>
-</div>
-
+          <div className="inline-flex gap-4">
+            {anime.data.recommendations.map((recommendation) => (
+              <CardA
+                key={recommendation.slug}
+                title={recommendation.title}
+                linkUrl={recommendation.slug}
+                imageUrl={recommendation.poster}
+              />
+            ))}
+          </div>
+        </div>
       </div>
     </main>
   );

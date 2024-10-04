@@ -6,7 +6,7 @@ import CardA from './card/CardA';
 interface Anime {
   title: string;
   slug: string;
-  rating:string;
+  rating: string;
   poster: string;
   current_episode: string;
   release_day: string;

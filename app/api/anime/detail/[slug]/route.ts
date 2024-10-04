@@ -21,7 +21,7 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
     const japanese_title = $('.ninfo > .alter').text().trim();
     const poster = $('.bigcontent.spctrail .thumbook .thumb img').data('src') || ''; // Ubah data('src') menjadi attr('src')
     const rating = $('.rating strong').text().trim(); // Pastikan ada elemen dengan class .rating jika ada
-    
+
     const status = $('.info-content .spe span:contains("Status:")').text().replace('Status:', '').trim() || '';
     const studio = $('.info-content .spe span:contains("Studio:")').text().replace('Studio:', '').trim() || '';
     const release_date = $('.info-content .spe span:contains("Dirilis:")').text().replace('Dirilis:', '').trim() || '';
@@ -32,10 +32,10 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
     const genres: { name: string; slug: string; otakudesu_url: string }[] = [];
     $('.genxed a').each((index, element) => {
       const name = $(element).text().trim();
-      const genreSlug = $(element).attr('href')?.split('/')[4] || ''; 
+      const genreSlug = $(element).attr('href')?.split('/')[4] || '';
       const otakudesu_url = $(element).attr('href') || '';
       genres.push({ name, slug: genreSlug, otakudesu_url });
-  });
+    });
 
     const synopsis = $('.synp > div.entry-content').text().trim();
 
