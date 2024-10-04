@@ -17,7 +17,10 @@ const AnimatedButton: FC<ButtonProps> = ({ children, disabled, onClick, type = '
   // Default value for type
   const buttonContent = (
     <motion.div
-      className={`flex flex-col items-center justify-center text-center px-6 py-3 text-blue-500 bg-transparent border border-blue-500 rounded-full shadow-lg shadow-blue-500/50 hover:bg-blue-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 ${className}`}
+      className={`flex flex-col items-center justify-center text-center 
+        px-3 py-1 text-sm  // Kecil untuk md ke bawah
+        md:px-6 md:py-3 md:text-base // Ukuran default mulai dari md ke atas
+        text-blue-500 bg-transparent border border-blue-500 rounded-full shadow-lg shadow-blue-500/50 hover:bg-blue-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 ${className}`}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.95 }}
     >
@@ -31,7 +34,10 @@ const AnimatedButton: FC<ButtonProps> = ({ children, disabled, onClick, type = '
 
   return (
     <motion.button
-      className={`flex flex-col items-center justify-center text-center px-6 py-3 text-blue-500 bg-transparent border border-blue-500 rounded-full shadow-lg shadow-blue-500/50 hover:bg-blue-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 ${className}`}
+      className={`flex flex-col items-center justify-center text-center 
+        px-3 py-1 text-sm // Kecil untuk md ke bawah
+        md:px-6 md:py-3 md:text-base // Ukuran default mulai dari md ke atas
+        text-blue-500 bg-transparent border border-blue-500 rounded-full shadow-lg shadow-blue-500/50 hover:bg-blue-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 ${className}`}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.95 }}
       disabled={disabled}
