@@ -37,6 +37,11 @@ jobs:
 
       - name: Deploy to VPS
         run: |
+          ssh -o StrictHostKeyChecking=no root@${{ secrets.VPS_IP }} << 'EOF'
+          # Menghapus semua isi dari direktori tujuan
+          rm -rf ${VPS_PATH}/*
+          EOF
+
           rsync -avz --delete-after --progress \
           --exclude 'node_modules' \
           --exclude '.git' \
@@ -49,4 +54,3 @@ jobs:
           cd /root/asepharyana.my.id
           /root/.nvm/versions/node/v20.17.0/bin/pm2 restart web || /root/.nvm/versions/node/v20.17.0/bin/pm2 start npm --name "web" -- start
           EOF
-
