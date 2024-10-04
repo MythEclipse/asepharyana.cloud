@@ -139,14 +139,15 @@ export default async function DetailAnimePage({ params }: DetailAnimePageProps) 
               <div className="mt-4">
                 {anime.data.episode_lists.map((episode) => (
                   <div key={episode.slug} className="mb-4">
-                    <h3 className="font-semibold">{episode.episode}</h3>
+                    <h3 className="font-bold text-blue-500">{episode.episode}</h3>
                     {episode.quality.map((quality) => (
                       <div key={quality.res} className="mb-2">
                         <h4 className="font-medium">{quality.res}</h4>
-                        <div className="flex flex-wrap">
+                        <div className="flex overflow-x-auto space-x-2"> {/* Add overflow-x-auto and space-x-2 for horizontal scrolling */}
                           {quality.buttons.map((button) => (
                             <Link key={button.url} href={button.url} passHref>
-                              <ButtonA className="mr-2 bg-blue-600 text-black dark:text-white hover:bg-blue-500 transition">
+                              <ButtonA className="bg-blue-600 text-black dark:text-white hover:bg-blue-500 transition whitespace-nowrap">
+                                {/* Add whitespace-nowrap to prevent text wrapping */}
                                 {button.name}
                               </ButtonA>
                             </Link>
@@ -155,7 +156,8 @@ export default async function DetailAnimePage({ params }: DetailAnimePageProps) 
                       </div>
                     ))}
                   </div>
-                ))}
+                ))
+                }
               </div>
             </div>
           </div>
