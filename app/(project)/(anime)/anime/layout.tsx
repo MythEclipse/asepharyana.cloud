@@ -34,11 +34,6 @@ const anime = [
     href: '/anime/complete-anime/1'
   },
   {
-    title: 'Genre',
-    icon: <BiCategoryAlt className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
-    href: '/anime/genre'
-  },
-  {
     title: 'Search',
     icon: <HiOutlineSearch className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
     href: `/anime/search/${encodeURIComponent('a')}`

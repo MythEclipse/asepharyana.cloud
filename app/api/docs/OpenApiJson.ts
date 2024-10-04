@@ -1233,11 +1233,11 @@ const OpenApiJson = {
                           properties: {
                             slug: {
                               type: 'string',
-                              example: 'lgrhzon-batch-sub-indo'
+                              example: 'log-horizon'
                             },
                             otakudesu_url: {
                               type: 'string',
-                              example: 'https://otakudesu.cloud/batch/lgrhzon-batch-sub-indo/'
+                              example: 'https://otakudesu.cloud/batch/log-horizon/'
                             },
                             uploaded_on: {
                               type: 'string',
