@@ -143,7 +143,9 @@ export default async function DetailAnimePage({ params }: DetailAnimePageProps) 
                     {episode.quality.map((quality) => (
                       <div key={quality.res} className="mb-2">
                         <h4 className="font-medium">{quality.res}</h4>
-                        <div className="flex overflow-x-auto space-x-2"> {/* Add overflow-x-auto and space-x-2 for horizontal scrolling */}
+                        <div className="flex overflow-x-auto space-x-2">
+                          {' '}
+                          {/* Add overflow-x-auto and space-x-2 for horizontal scrolling */}
                           {quality.buttons.map((button) => (
                             <Link key={button.url} href={button.url} passHref>
                               <ButtonA className="bg-blue-600 text-black dark:text-white hover:bg-blue-500 transition whitespace-nowrap">
@@ -156,8 +158,7 @@ export default async function DetailAnimePage({ params }: DetailAnimePageProps) 
                       </div>
                     ))}
                   </div>
-                ))
-                }
+                ))}
               </div>
             </div>
           </div>
