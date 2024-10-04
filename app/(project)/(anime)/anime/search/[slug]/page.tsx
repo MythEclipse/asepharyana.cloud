@@ -1,6 +1,6 @@
 // app/search/[slug]/page.tsx
 import React from 'react';
-import { ANIMEAPI } from '@/lib/url'; // Update this to your correct import
+import { ANIMEAPI, BaseUrl } from '@/lib/url'; // Update this to your correct import
 import SearchForm from '@/components/SearchForm';
 import CardA from '@/components/card/CardA';
 
@@ -29,7 +29,7 @@ interface SearchDetailData {
 
 const fetchSearchResults = async (query: string): Promise<SearchDetailData> => {
   try {
-    const response = await fetch(`${ANIMEAPI}/v1/search/${encodeURIComponent(query)}`);
+    const response = await fetch(`${BaseUrl}/api/anime/search?q=${encodeURIComponent(query)}`);
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }

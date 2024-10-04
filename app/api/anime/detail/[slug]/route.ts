@@ -17,36 +17,27 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
     const html = await response.text();
     const $ = cheerio.load(html);
 
-    const title = $('.infox h1').text().trim();
-    const japanese_title = $('.infox .infoz .alter').text().trim();
-    const poster = $('.bigcontent.spctrail .thumbook .thumb img').data('src') || '';
-    const rating = $('.infox .rating strong').text().trim();
-
-    const infoData = $('.infox .spe')
-      .find('span, strong')
-      .map((index, element) => ({
-        label: $(element).text().trim(),
-        value: $(element).next().text().trim()
-      }))
-      .get();
-
-    const produser = infoData.find((item) => item.label === 'Produser')?.value || '';
-    const type = infoData.find((item) => item.label === 'Tipe')?.value || '';
-    const status = infoData.find((item) => item.label === 'Status')?.value || '';
-    const episode_count = infoData.find((item) => item.label === 'Total Episode')?.value || '';
-    const duration = infoData.find((item) => item.label === 'Durasi')?.value || '';
-    const release_date = infoData.find((item) => item.label === 'Tayang')?.value || '';
-    const studio = infoData.find((item) => item.label === 'Studio')?.value || '';
-
+    const title = $('.infox h1.entry-title').text().trim();
+    const japanese_title = $('.ninfo > .alter').text().trim();
+    const poster = $('.bigcontent.spctrail .thumbook .thumb img').data('src') || ''; // Ubah data('src') menjadi attr('src')
+    const rating = $('.rating strong').text().trim(); // Pastikan ada elemen dengan class .rating jika ada
+    
+    const status = $('.info-content .spe span:contains("Status:")').text().replace('Status:', '').trim() || '';
+    const studio = $('.info-content .spe span:contains("Studio:")').text().replace('Studio:', '').trim() || '';
+    const release_date = $('.info-content .spe span:contains("Dirilis:")').text().replace('Dirilis:', '').trim() || '';
+    const duration = $('.info-content .spe span:contains("Durasi:")').text().replace('Durasi:', '').trim() || '';
+    const episode_count = $('.info-content .spe span:contains("Episode:")').text().replace('Episode:', '').trim() || ''; // Ubah label menjadi 'Episode'
+    const type = $('.info-content .spe span:contains("Tipe:")').text().replace('Tipe:', '').trim() || '';
+    const credit = $('.info-content .spe span:contains("Credit:")').text().replace('Credit:', '').trim() || '';
     const genres: { name: string; slug: string; otakudesu_url: string }[] = [];
-    $('.genress a').each((index, element) => {
+    $('.genxed a').each((index, element) => {
       const name = $(element).text().trim();
-      const genreSlug = $(element).attr('href')?.split('/')[4] || '';
+      const genreSlug = $(element).attr('href')?.split('/')[4] || ''; 
       const otakudesu_url = $(element).attr('href') || '';
       genres.push({ name, slug: genreSlug, otakudesu_url });
-    });
+  });
 
-    const synopsis = $('.desc').text().trim();
+    const synopsis = $('.synp > div.entry-content').text().trim();
 
     const episode_lists: {
       episode: string;
@@ -136,7 +127,7 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
         japanese_title,
         poster,
         rating,
-        produser,
+        credit,
         type,
         status,
         episode_count,

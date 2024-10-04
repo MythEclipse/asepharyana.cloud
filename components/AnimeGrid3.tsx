@@ -61,7 +61,7 @@ const AnimeGrid2: React.FC<AnimeGrid2Props> = ({ animes }) => {
           <CardA
             key={anime.slug}
             title={anime.title}
-            description={`Episodes: ${anime.episode_count ?? 'N/A'} | Rating: ${anime.rating || 'N/A'} | Season: ${anime.season || 'N/A'} | Studio: ${anime.studio || 'N/A'}`}
+            description={`Rating: ${anime.rating || 'belum ada rating'}`}
             imageUrl={anime.poster}
             linkUrl={`/anime/detail/${anime.slug}`}
           />

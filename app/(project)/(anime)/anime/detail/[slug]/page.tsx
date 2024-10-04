@@ -38,7 +38,7 @@ interface AnimeData {
     japanese_title: string;
     poster: string;
     rating: string;
-    produser: string;
+    credit: string;
     type: string;
     status: string;
     episode_count: string;
@@ -108,7 +108,7 @@ export default async function DetailAnimePage({ params }: DetailAnimePageProps) 
                   <strong>Rating:</strong> {anime.data.rating || 'N/A'}
                 </p>
                 <p className="mb-2">
-                  <strong>Producer:</strong> {anime.data.produser || 'N/A'}
+                  <strong>Credit:</strong> {anime.data.credit || 'N/A'}
                 </p>
                 <p className="mb-2">
                   <strong>Type:</strong> {anime.data.type || 'N/A'}
@@ -146,7 +146,7 @@ export default async function DetailAnimePage({ params }: DetailAnimePageProps) 
                         <div className="flex flex-wrap">
                           {quality.buttons.map((button) => (
                             <Link key={button.url} href={button.url} passHref>
-                              <ButtonA className="mr-2 bg-blue-600 text-white hover:bg-blue-500 transition">
+                              <ButtonA className="mr-2 bg-blue-600 text-black dark:text-white hover:bg-blue-500 transition">
                                 {button.name}
                               </ButtonA>
                             </Link>
@@ -160,19 +160,20 @@ export default async function DetailAnimePage({ params }: DetailAnimePageProps) 
             </div>
           </div>
         </BackgroundGradient>
-        <div className="mt-8">
-          <h2 className="text-2xl font-semibold mb-4">Recommendations</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-            {anime.data.recommendations.map((recommendation) => (
-              <CardA
-                key={recommendation.slug}
-                title={recommendation.title}
-                linkUrl={recommendation.slug}
-                imageUrl={recommendation.poster}
-              />
-            ))}
-          </div>
-        </div>
+        <h2 className="text-2xl font-semibold mb-4">Recommendations</h2>
+        <div className="overflow-x-auto whitespace-nowrap">
+  <div className="inline-flex gap-4">
+    {anime.data.recommendations.map((recommendation) => (
+      <CardA
+        key={recommendation.slug}
+        title={recommendation.title}
+        linkUrl={recommendation.slug}
+        imageUrl={recommendation.poster}
+      />
+    ))}
+  </div>
+</div>
+
       </div>
     </main>
   );

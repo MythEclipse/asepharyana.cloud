@@ -6,6 +6,7 @@ import CardA from './card/CardA';
 interface Anime {
   title: string;
   slug: string;
+  rating:string;
   poster: string;
   current_episode: string;
   release_day: string;
@@ -25,7 +26,7 @@ const AnimeGrid: React.FC<AnimeGridProps> = ({ animes }) => {
           <CardA
             key={anime.slug}
             title={anime.title}
-            description={`Episodes: ${anime.current_episode} | Release: ${anime.release_day} | Last: ${anime.newest_release_date}`}
+            description={`Rating: ${anime.rating || 'belum ada rating'}`}
             imageUrl={anime.poster}
             linkUrl={`/anime/detail/${anime.slug}`}
           />

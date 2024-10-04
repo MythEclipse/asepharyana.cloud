@@ -17,6 +17,7 @@ interface HomeData {
 }
 
 interface OngoingAnime {
+  rating: string;
   title: string;
   slug: string;
   poster: string;
@@ -54,7 +55,7 @@ const OngoingAnimeList = ({ animeList }: { animeList: OngoingAnime[] }) => (
         <div key={anime.slug} className="flex-shrink-0 w-64">
           <CardA
             title={anime.title}
-            description={`Episodes: ${anime.current_episode} | Release: ${anime.release_day} | Last: ${anime.newest_release_date}`}
+            description={`Rating: ${anime.rating || 'belum ada rating'}`}
             imageUrl={anime.poster}
             linkUrl={`/anime/detail/${anime.slug}`}
           />
@@ -72,7 +73,7 @@ const CompleteAnimeList = ({ animeList }: { animeList: CompleteAnime[] }) => (
         <div key={anime.slug} className="flex-shrink-0 w-64">
           <CardA
             title={anime.title}
-            description={`Episodes: ${anime.episode_count} | Rating: ${anime.rating} | Last Release: ${anime.last_release_date}`}
+            description={`Rating: ${anime.rating || 'belum ada rating'}`}
             imageUrl={anime.poster}
             linkUrl={`/anime/detail/${anime.slug}`}
           />
