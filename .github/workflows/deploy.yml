@@ -38,7 +38,9 @@ jobs:
       - name: Deploy to VPS
         run: |
           ssh -o StrictHostKeyChecking=no root@${{ secrets.VPS_IP }} << 'EOF'
-          # Menghapus semua isi dari direktori tujuan
+          # Menampilkan direktori untuk memverifikasi lokasi saat ini
+          echo "Current Directory: $(pwd)"
+          echo "Removing contents of .next directory..."
           rm -rf /root/asepharyana.my.id/.next/*
           EOF
 
