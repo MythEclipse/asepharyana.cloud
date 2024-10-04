@@ -39,7 +39,7 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no root@${{ secrets.VPS_IP }} << 'EOF'
           # Menghapus semua isi dari direktori tujuan
-          rm -rf ${VPS_PATH}/*
+          rm -rf /root/asepharyana.my.id/.next/*
           EOF
 
           rsync -avz --delete-after --progress \
