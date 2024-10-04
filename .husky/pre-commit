@@ -1,23 +1,38 @@
-echo ' prepare-commit-msg hook'
+#!/bin/bash
 
-npm run format || {
-    echo 'please fix format' >&2
-    exit 1
-}
+while true; do
+    echo 'prepare-commit-msg hook'
 
-npm run lint || npm run lint:fix || {
-    echo 'Please fix the linting issues' >&2
-    exit 1
-}
+    # Jalankan npm format
+    npm run format || {
+        echo 'please fix format' >&2
+        exit 1
+    }
 
-# npm run check-types || {
-#     echo 'Please fix the TypeScript errors' >&2
-#     exit 1
-# }
+    # Jalankan lint
+    npm run lint || {
+        echo 'Linting failed, trying to fix issues...' >&2
+        npm run lint:fix
 
-# npm run build || {
-#     echo 'Please fix the build errors' >&2
-#     exit 1
-# }
+        # Setelah perbaikan lint, ulang dari awal
+        echo 'Retrying after lint:fix...'
+        continue
+    }
 
-echo 'All checks passed'
+    # Jika linting berhasil, keluar dari loop
+    echo 'Linting passed.'
+
+    # Uncomment script tambahan jika perlu
+    # npm run check-types || {
+    #     echo 'Please fix the TypeScript errors' >&2
+    #     exit 1
+    # }
+
+    # npm run build || {
+    #     echo 'Please fix the build errors' >&2
+    #     exit 1
+    # }
+
+    echo 'All checks passed.'
+    break
+done
