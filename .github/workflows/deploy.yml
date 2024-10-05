@@ -36,23 +36,17 @@ jobs:
       - name: Build the project
         run: pnpm run build || { echo "Build failed"; exit 1; }
 
-      - name: Setup SSH
-        uses: webfactory/ssh-agent@v0.9.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      - name: Deploy to VPS
+      - name: Deploy to VPS via FTP
+        env:
+          FTP_USER: ${{ secrets.FTP_USER }}       # Ganti ini dengan username FTP kamu
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }} # Ganti ini dengan password FTP kamu
+          FTP_HOST: ${{ secrets.FTP_HOST }}       # Ganti ini dengan host FTP kamu
+          FTP_PATH: ${{ secrets.FTP_PATH }}       # Ganti ini dengan path tujuan di server FTP kamu
         run: |
-          rsync -avz --delete-after --progress \
-          --exclude 'node_modules' \
-          --exclude '.git' \
-          -e "ssh -o StrictHostKeyChecking=no" \
-          ./ root@${{ secrets.VPS_IP }}:${{ secrets.VPS_PATH }}
+          curl -T ./dist/your_project_file.zip ftp://$FTP_HOST/$FTP_PATH \
+          --user $FTP_USER:$FTP_PASSWORD \
+          --ftp-ssl
 
-      - name: Restart Application
+      - name: Restart Application (Optional)
         run: |
-          ssh -o StrictHostKeyChecking=no root@${{ secrets.VPS_IP }} << 'EOF'
-          cd /root/asepharyana.my.id
-          pm2 status web || /root/.nvm/versions/node/v20.17.0/bin/pm2 start npm --name "web" -- start
-          pm2 restart web
-          EOF
+          curl -X POST "http://your_application_endpoint/restart"  # Ganti dengan endpoint untuk merestart aplikasi kamu
