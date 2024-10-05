@@ -39,3 +39,5 @@ next-env.d.ts
 public/sw.js
 public/swe-worker-*.js
 public/workbox-*.js
+public/sitemap.xml
+public/robots.txt
