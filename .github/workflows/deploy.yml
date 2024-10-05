@@ -38,15 +38,13 @@ jobs:
 
       - name: Deploy to VPS via FTP
         env:
-          FTP_USER: ${{ secrets.FTP_USER }}       # Ganti ini dengan username FTP kamu
-          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }} # Ganti ini dengan password FTP kamu
-          FTP_HOST: ${{ secrets.FTP_HOST }}       # Ganti ini dengan host FTP kamu
-          FTP_PATH: ${{ secrets.FTP_PATH }}       # Ganti ini dengan path tujuan di server FTP kamu
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          FTP_PATH: ${{ secrets.FTP_PATH }}
         run: |
-          curl -T ./dist/your_project_file.zip ftp://$FTP_HOST/$FTP_PATH \
+          # Menggunakan zip untuk mengompresi hasil build
+          zip -r build.zip .next public package.json
+          curl -T build.zip ftp://$FTP_HOST/$FTP_PATH \
           --user $FTP_USER:$FTP_PASSWORD \
           --ftp-ssl
-
-      - name: Restart Application (Optional)
-        run: |
-          curl -X POST "http://your_application_endpoint/restart"  # Ganti dengan endpoint untuk merestart aplikasi kamu
