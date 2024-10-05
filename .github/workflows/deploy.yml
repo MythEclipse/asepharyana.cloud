@@ -13,12 +13,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Cache pnpm
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/pnpm
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-
       - name: Set up Node.js
         uses: actions/setup-node@v4.0.4
         with:
@@ -31,20 +25,27 @@ jobs:
           run_install: true
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install
 
       - name: Build the project
-        run: pnpm run build || { echo "Build failed"; exit 1; }
+        run: pnpm run build
 
-      - name: Deploy to VPS via FTP
-        env:
-          FTP_USER: ${{ secrets.FTP_USER }}
-          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-          FTP_HOST: ${{ secrets.FTP_HOST }}
-          FTP_PATH: ${{ secrets.FTP_PATH }}
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Deploy to VPS
         run: |
-          # Menggunakan zip untuk mengompresi hasil build
-          zip -r build.zip .next public package.json
-          curl -T build.zip ftp://$FTP_HOST/$FTP_PATH \
-          --user $FTP_USER:$FTP_PASSWORD \
-          --ftp-ssl
+          rsync -avz --delete-after --progress \
+          --exclude 'node_modules' \
+          --exclude '.git' \
+          -e "ssh -o StrictHostKeyChecking=no" \
+          ./ root@${{ secrets.VPS_IP }}:${{ secrets.VPS_PATH }}
+
+      - name: Restart Application
+        run: |
+          ssh -o StrictHostKeyChecking=no root@${{ secrets.VPS_IP }} << 'EOF'
+          cd /root/asepharyana.my.id
+          /root/.nvm/versions/node/v20.17.0/bin/pm2 restart web || /root/.nvm/versions/node/v20.17.0/bin/pm2 start npm --name "web" -- start
+          EOF

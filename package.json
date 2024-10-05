@@ -26,6 +26,7 @@
     "check-lint": "next lint"
   },
   "dependencies": {
+    "@ducanh2912/next-pwa": "^10.2.8",
     "@formatjs/intl": "^2.10.4",
     "@formatjs/intl-localematcher": "^0.5.4",
     "@google-cloud/firestore": "^7.9.0",
@@ -87,6 +88,7 @@
     "input-otp": "^1.2.4",
     "joi": "^17.13.3",
     "js-beautify": "^1.15.1",
+    "js-yaml": "^4.1.0",
     "lucide-react": "^0.439.0",
     "mongoose": "^8.6.0",
     "next": "14.2.7",
@@ -126,6 +128,7 @@
     "@types/cheerio": "^0.22.35",
     "@types/cors": "^2.8.17",
     "@types/js-beautify": "^1.14.3",
+    "@types/js-yaml": "^4.0.9",
     "@types/node": "^22.5.1",
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0",

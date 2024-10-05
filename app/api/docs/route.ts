@@ -1,5 +1,11 @@
 import { NextResponse } from 'next/server';
-import OpenApiJson from './OpenApiJson';
+import fs from 'fs';
+import path from 'path';
+import yaml from 'js-yaml';
+
+const filePath = path.join(process.cwd(), 'public', 'OpenApi.yaml');
+const OpenApiYaml = fs.readFileSync(filePath, 'utf8');
+const OpenApiJson = yaml.load(OpenApiYaml);
 
 export async function GET(req: Request) {
   return NextResponse.json(OpenApiJson);

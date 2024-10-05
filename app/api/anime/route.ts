@@ -24,7 +24,7 @@ export async function GET(req: NextRequest) {
       current_episode: string;
       release_day: string;
       newest_release_date: string;
-      otakudesu_url: string;
+      anime_url: string;
     }[] = [];
 
     $ongoing('.listupd > article.bs').each((index, element) => {
@@ -34,7 +34,7 @@ export async function GET(req: NextRequest) {
       const current_episode = $ongoing(element).find('.epx').text().trim() || 'N/A';
       const release_day = $ongoing(element).find('.date').text().trim() || 'None';
       const newest_release_date = $ongoing(element).find('.date').text().trim() || 'Unknown';
-      const otakudesu_url = $ongoing(element).find('a').attr('href') || '';
+      const anime_url = $ongoing(element).find('a').attr('href') || '';
 
       ongoingAnime.push({
         title,
@@ -43,7 +43,7 @@ export async function GET(req: NextRequest) {
         current_episode,
         release_day,
         newest_release_date,
-        otakudesu_url
+        anime_url
       });
     });
 
@@ -70,7 +70,7 @@ export async function GET(req: NextRequest) {
       episode_count: string;
       rating: string;
       last_release_date: string;
-      otakudesu_url: string;
+      anime_url: string;
     }[] = [];
 
     $completed('.listupd > article.bs').each((index, element) => {
@@ -80,7 +80,7 @@ export async function GET(req: NextRequest) {
       const episode_count = $completed(element).find('.epx').text().trim() || 'N/A';
       const rating = $completed(element).find('.numscore').text().trim() || '0';
       const last_release_date = $completed(element).find('.date').text().trim() || 'Unknown';
-      const otakudesu_url = $completed(element).find('a').attr('href') || '';
+      const anime_url = $completed(element).find('a').attr('href') || '';
 
       completeAnime.push({
         title,
@@ -89,7 +89,7 @@ export async function GET(req: NextRequest) {
         episode_count,
         rating,
         last_release_date,
-        otakudesu_url
+        anime_url
       });
     });
 

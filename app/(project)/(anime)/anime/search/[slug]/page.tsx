@@ -7,7 +7,7 @@ import CardA from '@/components/card/CardA';
 interface Genre {
   name: string;
   slug: string;
-  otakudesu_url: string;
+  anime_url: string;
 }
 
 interface Anime {

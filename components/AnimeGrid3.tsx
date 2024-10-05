@@ -11,7 +11,7 @@ interface AnimeGrid2Props {
 interface Genre {
   name: string;
   slug: string;
-  otakudesu_url: string;
+  anime_url: string;
 }
 
 // Define the Anime type
@@ -25,7 +25,7 @@ interface Anime {
   studio: string | null;
   genres: Genre[];
   synopsis: string | null;
-  otakudesu_url: string;
+  anime_url: string;
 }
 
 // Define the Pagination type

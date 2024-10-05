@@ -1,0 +1,861 @@
+openapi: '3.0.2'
+paths:
+  /api/komik/manga:
+    get:
+      description: 'Mengambil daftar manga berdasarkan jenis manga dan parameter kueri lainnya. Mendukung pagination dan pengurutan.'
+      summary: 'Mengambil daftar manga'
+      tags:
+        - komik
+      parameters:
+        - name: page
+          in: query
+          required: true
+          schema:
+            type: integer
+        - name: order
+          in: query
+          schema:
+            type: string
+            enum:
+              - update
+              - popular
+              - titleasc
+              - titledesc
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        title:
+                          type: string
+                        image:
+                          type: string
+                        chapter:
+                          type: string
+                        score:
+                          type: string
+                        type:
+                          type: string
+                        komik_id:
+                          type: string
+                      required:
+                        - title
+                        - image
+                        - chapter
+                        - score
+                        - type
+                        - komik_id
+                  prevPage:
+                    type: boolean
+                  nextPage:
+                    type: boolean
+                required:
+                  - data
+                  - prevPage
+                  - nextPage
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                  - message
+        '500':
+          description: '500'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                  - message
+  /api/komik/manhwa:
+    get:
+      description: 'Mengambil daftar manhwa berdasarkan jenis manhwa dan parameter kueri lainnya. Mendukung pagination dan pengurutan.'
+      summary: 'Mengambil daftar manhwa'
+      tags:
+        - komik
+      parameters:
+        - name: page
+          in: query
+          required: true
+          schema:
+            type: integer
+        - name: order
+          in: query
+          schema:
+            type: string
+            enum:
+              - update
+              - popular
+              - titleasc
+              - titledesc
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        title:
+                          type: string
+                        image:
+                          type: string
+                        chapter:
+                          type: string
+                        score:
+                          type: string
+                        type:
+                          type: string
+                        komik_id:
+                          type: string
+                      required:
+                        - title
+                        - image
+                        - chapter
+                        - score
+                        - type
+                        - komik_id
+                  prevPage:
+                    type: boolean
+                  nextPage:
+                    type: boolean
+                required:
+                  - data
+                  - prevPage
+                  - nextPage
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                  - message
+        '500':
+          description: '500'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                  - message
+  /api/komik/manhua:
+    get:
+      description: 'Mengambil daftar manhua berdasarkan jenis manhua dan parameter kueri lainnya. Mendukung pagination dan pengurutan.'
+      summary: 'Mengambil daftar manhua'
+      tags:
+        - komik
+      parameters:
+        - name: page
+          in: query
+          required: true
+          schema:
+            type: integer
+        - name: order
+          in: query
+          schema:
+            type: string
+            enum:
+              - update
+              - popular
+              - titleasc
+              - titledesc
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        title:
+                          type: string
+                        image:
+                          type: string
+                        chapter:
+                          type: string
+                        score:
+                          type: string
+                        type:
+                          type: string
+                        komik_id:
+                          type: string
+                      required:
+                        - title
+                        - image
+                        - chapter
+                        - score
+                        - type
+                        - komik_id
+                  prevPage:
+                    type: boolean
+                  nextPage:
+                    type: boolean
+                required:
+                  - data
+                  - prevPage
+                  - nextPage
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                  - message
+        '500':
+          description: '500'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                  - message
+  /api/komik/search:
+    get:
+      description: 'Mengambil daftar manga berdasarkan kueri'
+      summary: 'Mengambil daftar manga'
+      tags:
+        - komik
+      parameters:
+        - name: query
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        title:
+                          type: string
+                        image:
+                          type: string
+                        chapter:
+                          type: string
+                        score:
+                          type: string
+                        type:
+                          type: string
+                        komik_id:
+                          type: string
+                      required:
+                        - title
+                        - image
+                        - chapter
+                        - score
+                        - type
+                        - komik_id
+                required:
+                  - message
+                  - data
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                  - message
+        '500':
+          description: '500'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                  - message
+  /api/komik/detail:
+    get:
+      description: 'Mengambil detail manga tertentu berdasarkan ID-nya.'
+      summary: 'Mengambil detail manga'
+      tags:
+        - komik
+      parameters:
+        - name: komik_id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      title:
+                        type: string
+                      japanese_title:
+                        type: string
+                      poster:
+                        type: string
+                      rating:
+                        type: string
+                      credit:
+                        type: string
+                      type:
+                        type: string
+                      status:
+                        type: string
+                      episode_count:
+                        type: string
+                      duration:
+                        type: string
+                      release_date:
+                        type: string
+                      studio:
+                        type: string
+                      genres:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                            slug:
+                              type: string
+                            otakudesu_url:
+                              type: string
+                      synopsis:
+                        type: string
+                      episode_lists:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            episode:
+                              type: string
+                            slug:
+                              type: string
+                            otakudesu_url:
+                              type: string
+                            quality:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  res:
+                                    type: string
+                                  buttons:
+                                    type: array
+                                    items:
+                                      type: object
+                                      properties:
+                                        name:
+                                          type: string
+                                        url:
+                                          type: string
+                      recommendations:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            title:
+                              type: string
+                            slug:
+                              type: string
+                            poster:
+                              type: string
+                            otakudesu_url:
+                              type: string
+                    required:
+                      - title
+                      - japanese_title
+                      - poster
+                      - rating
+                      - credit
+                      - type
+                      - status
+                      - episode_count
+                      - duration
+                      - release_date
+                      - studio
+                      - genres
+                      - synopsis
+                      - episode_lists
+                      - recommendations
+                required:
+                  - status
+                  - data
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                  - message
+        '500':
+          description: '500'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                  - message
+  /api/komik/chapter:
+    get:
+      description: 'Mengambil gambar untuk chapter manga tertentu berdasarkan URL-nya.'
+      summary: 'Mengambil gambar chapter manga'
+      tags:
+        - komik
+      parameters:
+        - name: chapter_url
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      title:
+                        type: string
+                      next_chapter_id:
+                        type: string
+                      prev_chapter_id:
+                        type: string
+                      images:
+                        type: array
+                        items:
+                          type: string
+                    required:
+                      - title
+                      - next_chapter_id
+                      - prev_chapter_id
+                      - images
+                required:
+                  - message
+                  - data
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                  - message
+        '500':
+          description: '500'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                  - message
+  /api/anime:
+    get:
+      summary: 'Mendapatkan anime yang sedang berlangsung dan selesai'
+      tags:
+        - anime
+      description: 'Mengambil daftar anime yang sedang berlangsung dan yang sudah selesai.'
+      responses:
+        '200':
+          description: 'Respon sukses'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      ongoing_anime:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            title:
+                              type: string
+                            slug:
+                              type: string
+                            poster:
+                              type: string
+                            current_episode:
+                              type: string
+                            release_day:
+                              type: string
+                            newest_release_date:
+                              type: string
+                            otakudesu_url:
+                              type: string
+                      complete_anime:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            title:
+                              type: string
+                            slug:
+                              type: string
+                            poster:
+                              type: string
+                            episode_count:
+                              type: string
+                            rating:
+                              type: string
+                            last_release_date:
+                              type: string
+                            otakudesu_url:
+                              type: string
+  /api/anime/complete-anime/{slug}:
+    get:
+      summary: 'Mendapatkan daftar anime'
+      tags:
+        - anime
+      description: 'Mengambil daftar anime yang sudah selesai.'
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          description: 'Slug untuk halaman Anime.'
+          schema:
+            type: string
+          example: '1'
+      responses:
+        '200':
+          description: 'Daftar anime'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        title:
+                          type: string
+                        slug:
+                          type: string
+                        poster:
+                          type: string
+                          format: uri
+                        episode_count:
+                          type: string
+                        rating:
+                          type: string
+                        last_release_date:
+                          type: string
+                        otakudesu_url:
+                          type: string
+                          format: uri
+                  pagination:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                      last_visible_page:
+                        type: integer
+                      has_next_page:
+                        type: boolean
+                      next_page:
+                        type: integer
+                      has_previous_page:
+                        type: boolean
+                      previous_page:
+                        type: integer
+                        nullable: true
+  /api/anime/ongoing-anime/{slug}:
+    get:
+      summary: 'Dapatkan daftar anime yang sedang tayang berdasarkan slug'
+      tags:
+        - anime
+      description: 'Mengambil daftar anime terbaru.'
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+          description: 'slug untuk halaman anime'
+      responses:
+        '200':
+          description: 'Daftar anime yang sedang tayang berhasil didapatkan'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        title:
+                          type: string
+                        slug:
+                          type: string
+                        poster:
+                          type: string
+                        current_episode:
+                          type: string
+                        release_day:
+                          type: string
+                        newest_release_date:
+                          type: string
+                        otakudesu_url:
+                          type: string
+                  pagination:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                      last_visible_page:
+                        type: integer
+                      has_next_page:
+                        type: boolean
+                      next_page:
+                        type: integer
+                      has_previous_page:
+                        type: boolean
+                      previous_page:
+                        type: integer
+                        nullable: true
+  /api/anime/detail/{slug}:
+    get:
+      summary: 'Dapatkan Detail anime'
+      description: 'Mendapatkan detail dari anime.'
+      tags:
+        - anime
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          description: 'Slug untuk halaman anime.'
+          schema:
+            type: string
+          example: 'log-horizon'
+      responses:
+        '200':
+          description: 'Detail anime berhasil diambil.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      title:
+                        type: string
+                      japanese_title:
+                        type: string
+                      poster:
+                        type: string
+                      rating:
+                        type: string
+                      credit:
+                        type: string
+                      type:
+                        type: string
+                      status:
+                        type: string
+                      episode_count:
+                        type: string
+                      duration:
+                        type: string
+                      release_date:
+                        type: string
+                      studio:
+                        type: string
+                      genres:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                            slug:
+                              type: string
+                            anime_url:
+                              type: string
+                      synopsis:
+                        type: string
+                      episode_lists:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            episode:
+                              type: string
+                            slug:
+                              type: string
+                            anime_url:
+                              type: string
+                            quality:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  res:
+                                    type: string
+                                  buttons:
+                                    type: array
+                                    items:
+                                      type: object
+                                      properties:
+                                        name:
+                                          type: string
+                                        url:
+                                          type: string
+                      recommendations:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            title:
+                              type: string
+                            slug:
+                              type: string
+                            poster:
+                              type: string
+                            anime_url:
+                              type: string
+
+  /api/anime/search:
+    get:
+      summary: 'Cari anime berdasarkan kueri'
+      tags:
+        - anime
+      parameters:
+        - name: q
+          in: query
+          required: true
+          schema:
+            type: string
+          example: 'log horizon'
+          description: 'Kueri pencarian untuk anime'
+      responses:
+        '200':
+          description: 'Respon sukses'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        title:
+                          type: string
+                        slug:
+                          type: string
+                        poster:
+                          type: string
+                        genres:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              slug:
+                                type: string
+                              otakudesu_url:
+                                type: string
+                        status:
+                          type: string
+                        rating:
+                          type: string
+                        url:
+                          type: string
+info:
+  title: Freefire
+  version: '0.0.1'
+  description: api gratis

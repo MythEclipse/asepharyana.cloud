@@ -29,12 +29,12 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
     const episode_count = $('.info-content .spe span:contains("Episode:")').text().replace('Episode:', '').trim() || ''; // Ubah label menjadi 'Episode'
     const type = $('.info-content .spe span:contains("Tipe:")').text().replace('Tipe:', '').trim() || '';
     const credit = $('.info-content .spe span:contains("Credit:")').text().replace('Credit:', '').trim() || '';
-    const genres: { name: string; slug: string; otakudesu_url: string }[] = [];
+    const genres: { name: string; slug: string; anime_url: string }[] = [];
     $('.genxed a').each((index, element) => {
       const name = $(element).text().trim();
       const genreSlug = $(element).attr('href')?.split('/')[4] || '';
-      const otakudesu_url = $(element).attr('href') || '';
-      genres.push({ name, slug: genreSlug, otakudesu_url });
+      const anime_url = $(element).attr('href') || '';
+      genres.push({ name, slug: genreSlug, anime_url });
     });
 
     const synopsis = $('.synp > div.entry-content').text().trim();
@@ -42,7 +42,7 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
     const episode_lists: {
       episode: string;
       slug: string;
-      otakudesu_url: string;
+      anime_url: string;
       quality: { res: string; buttons: { name: string; url: string }[] }[];
     }[] = [];
 
@@ -87,7 +87,7 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
       episode_lists.push({
         episode: episodeTitle,
         slug: episodeSlug,
-        otakudesu_url: '',
+        anime_url: '',
         quality: qualityLinks
       });
     });
@@ -96,7 +96,7 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
       episode_lists.unshift({
         episode: 'Batch',
         slug: 'batch',
-        otakudesu_url: '',
+        anime_url: '',
         quality: batchLinks.map((batch) => ({
           res: batch.res,
           buttons: batch.urls
@@ -108,16 +108,16 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
       title: string;
       slug: string;
       poster: string;
-      otakudesu_url: string;
+      anime_url: string;
     }[] = [];
 
     $('.listupd article.bs').each((index, element) => {
       const title = $(element).find('.tt .ntitle').text().trim();
       const recommendationSlug = $(element).find('a').attr('href')?.split('/')[3] || '';
       const poster = $(element).find('img').data('src') || '';
-      const otakudesu_url = $(element).find('a').attr('href') || '';
+      const anime_url = $(element).find('a').attr('href') || '';
 
-      recommendations.push({ title, slug: recommendationSlug, poster, otakudesu_url });
+      recommendations.push({ title, slug: recommendationSlug, poster, anime_url });
     });
 
     return NextResponse.json({

@@ -27,7 +27,7 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
       episode_count: string;
       rating: string;
       last_release_date: string;
-      otakudesu_url: string;
+      anime_url: string;
     }[] = [];
 
     // Mengiterasi setiap elemen artikel yang mengandung anime
@@ -38,7 +38,7 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
       const episode_count = $(element).find('.epx').text().trim() || 'N/A';
       const rating = $(element).find('.numscore').text().trim() || '0';
       const last_release_date = $(element).find('.date').text().trim() || 'Unknown';
-      const otakudesu_url = $(element).find('a').attr('href') || '';
+      const anime_url = $(element).find('a').attr('href') || '';
 
       // Menyimpan data anime ke dalam array
       animeList.push({
@@ -48,7 +48,7 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
         episode_count,
         rating,
         last_release_date,
-        otakudesu_url
+        anime_url
       });
     });
 

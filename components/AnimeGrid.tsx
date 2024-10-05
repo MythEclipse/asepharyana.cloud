@@ -11,7 +11,7 @@ interface Anime {
   current_episode: string;
   release_day: string;
   newest_release_date: string;
-  otakudesu_url: string;
+  anime_url: string;
 }
 
 interface AnimeGridProps {

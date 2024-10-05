@@ -10,8 +10,16 @@ export const metadata = {
 import SwaggerUI from 'swagger-ui-react';
 import 'swagger-ui-react/swagger-ui.css';
 import './custom.css';
-import OpenApiJson from '../api/docs/OpenApiJson';
+import fs from 'fs';
+import path from 'path';
+import yaml from 'js-yaml';
+
+const filePath = path.join(process.cwd(), 'public', 'OpenApi.yaml');
+const OpenApiYaml = fs.readFileSync(filePath, 'utf8');
+const OpenApiJson = yaml.load(OpenApiYaml);
+
+const openApiSpec = OpenApiJson as Record<string, any>;
 
 export default function OpenApiDocsPage() {
-  return <SwaggerUI spec={OpenApiJson} displayOperationId={true} />;
+  return <SwaggerUI spec={openApiSpec} displayOperationId={true} />;
 }

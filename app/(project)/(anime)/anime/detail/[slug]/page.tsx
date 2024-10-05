@@ -10,7 +10,7 @@ import CardA from '@/components/card/CardA';
 interface Genre {
   name: string;
   slug: string;
-  otakudesu_url: string;
+  anime_url: string;
 }
 
 interface Batch {
@@ -28,7 +28,7 @@ interface Recommendation {
   title: string;
   slug: string;
   poster: string;
-  otakudesu_url: string;
+  anime_url: string;
 }
 
 interface AnimeData {

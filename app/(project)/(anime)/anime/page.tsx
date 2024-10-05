@@ -24,7 +24,7 @@ interface OngoingAnime {
   current_episode: string;
   release_day: string;
   newest_release_date: string;
-  otakudesu_url: string;
+  anime_url: string;
 }
 
 interface CompleteAnime {
@@ -34,7 +34,7 @@ interface CompleteAnime {
   episode_count: string;
   rating: string;
   last_release_date: string;
-  otakudesu_url: string;
+  anime_url: string;
 }
 // Fetch episodes data
 const fetchEpisodes = async (): Promise<HomeData> => {

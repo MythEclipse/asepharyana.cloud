@@ -19,7 +19,7 @@ interface Anime {
   episode_count: string;
   rating: string;
   last_release_date: string;
-  otakudesu_url: string;
+  anime_url: string;
 }
 
 interface Pagination {

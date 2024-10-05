@@ -20,7 +20,7 @@ interface Anime {
   current_episode: string;
   newest_release_date: string;
   release_day: string;
-  otakudesu_url: string;
+  anime_url: string;
 }
 
 interface Pagination {
