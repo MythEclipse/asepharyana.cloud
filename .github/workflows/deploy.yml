@@ -13,6 +13,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Cache pnpm
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pnpm
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+
       - name: Set up Node.js
         uses: actions/setup-node@v4.0.4
         with:
@@ -25,10 +31,10 @@ jobs:
           run_install: true
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
       - name: Build the project
-        run: pnpm run build
+        run: pnpm run build || { echo "Build failed"; exit 1; }
 
       - name: Setup SSH
         uses: webfactory/ssh-agent@v0.9.0
@@ -37,13 +43,6 @@ jobs:
 
       - name: Deploy to VPS
         run: |
-          ssh -o StrictHostKeyChecking=no root@${{ secrets.VPS_IP }} << 'EOF'
-          # Menampilkan direktori untuk memverifikasi lokasi saat ini
-          echo "Current Directory: $(pwd)"
-          echo "Removing contents of .next directory..."
-          rm -rf /root/asepharyana.my.id/.next/*
-          EOF
-
           rsync -avz --delete-after --progress \
           --exclude 'node_modules' \
           --exclude '.git' \
@@ -54,5 +53,6 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no root@${{ secrets.VPS_IP }} << 'EOF'
           cd /root/asepharyana.my.id
-          /root/.nvm/versions/node/v20.17.0/bin/pm2 restart web || /root/.nvm/versions/node/v20.17.0/bin/pm2 start npm --name "web" -- start
+          pm2 status web || /root/.nvm/versions/node/v20.17.0/bin/pm2 start npm --name "web" -- start
+          pm2 restart web
           EOF
