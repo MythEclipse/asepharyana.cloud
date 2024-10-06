@@ -855,6 +855,22 @@ paths:
                           type: string
                         url:
                           type: string
+  /api/proxy:
+    get:
+      summary: 'Proxy'
+      tags:
+        - tools
+      description: 'proxy'
+      parameters: 
+        - name: url
+          in: query
+          required: true
+          schema:
+            type: string
+          example: 'https://asepharyana.my.id'
+      responses:
+        '200':
+          description: OK
 info:
   title: Freefire
   version: '0.0.1'
