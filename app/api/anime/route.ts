@@ -4,10 +4,10 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest) {
   try {
-    // Fetch untuk ongoing anime
-    const ongoingResponse = await fetch('https://alqanime.net/advanced-search/page/1/?status=ongoing&order=update', {
+    // Fetch for ongoing anime
+    const ongoingResponse = await fetch('https://otakudesu.cloud/ongoing-anime/', {
       headers: DEFAULT_HEADERS,
-      next: { revalidate: 360 } // Caching selama 360 detik
+      next: { revalidate: 360 } // Caching for 360 seconds
     });
 
     if (!ongoingResponse.ok) {
@@ -27,13 +27,13 @@ export async function GET(req: NextRequest) {
       anime_url: string;
     }[] = [];
 
-    $ongoing('.listupd > article.bs').each((index, element) => {
-      const title = $ongoing(element).find('.tt > h2').text().trim();
-      const slug = $ongoing(element).find('a').attr('href')?.split('/')[3] || '';
-      const poster = $ongoing(element).find('img').attr('data-src') || '';
-      const current_episode = $ongoing(element).find('.epx').text().trim() || 'N/A';
-      const release_day = $ongoing(element).find('.date').text().trim() || 'None';
-      const newest_release_date = $ongoing(element).find('.date').text().trim() || 'Unknown';
+    $ongoing('.venz > ul > li').each((index, element) => {
+      const title = $ongoing(element).find('.jdlflm').text().trim();
+      const slug = $ongoing(element).find('a').attr('href')?.split('/')[4] || '';
+      const poster = $ongoing(element).find('.thumbz img').attr('src') || '';
+      const current_episode = $ongoing(element).find('.epz').text().trim() || 'N/A';
+      const release_day = $ongoing(element).find('.epztipe').text().trim() || 'None';
+      const newest_release_date = $ongoing(element).find('.newnime').text().trim() || 'Unknown';
       const anime_url = $ongoing(element).find('a').attr('href') || '';
 
       ongoingAnime.push({
@@ -47,14 +47,11 @@ export async function GET(req: NextRequest) {
       });
     });
 
-    // Fetch untuk completed anime
-    const completedResponse = await fetch(
-      'https://alqanime.net/advanced-search/page/1/?status=completed&order=update',
-      {
-        headers: DEFAULT_HEADERS,
-        next: { revalidate: 360 }
-      }
-    );
+    // Fetch for completed anime
+    const completedResponse = await fetch('https://otakudesu.cloud/complete-anime/', {
+      headers: DEFAULT_HEADERS,
+      next: { revalidate: 360 }
+    });
 
     if (!completedResponse.ok) {
       throw new Error(`Failed to fetch completed anime data: ${completedResponse.statusText}`);
@@ -73,13 +70,13 @@ export async function GET(req: NextRequest) {
       anime_url: string;
     }[] = [];
 
-    $completed('.listupd > article.bs').each((index, element) => {
-      const title = $completed(element).find('.tt > h2').text().trim();
-      const slug = $completed(element).find('a').attr('href')?.split('/')[3] || '';
-      const poster = $completed(element).find('img').attr('data-src') || '';
-      const episode_count = $completed(element).find('.epx').text().trim() || 'N/A';
-      const rating = $completed(element).find('.numscore').text().trim() || '0';
-      const last_release_date = $completed(element).find('.date').text().trim() || 'Unknown';
+    $completed('.venz > ul > li').each((index, element) => {
+      const title = $completed(element).find('.jdlflm').text().trim();
+      const slug = $completed(element).find('a').attr('href')?.split('/')[4] || '';
+      const poster = $completed(element).find('.thumbz img').attr('src') || '';
+      const episode_count = $completed(element).find('.epz').text().trim() || 'N/A';
+      const rating = $completed(element).find('.epztipe').text().trim() || '0';
+      const last_release_date = $completed(element).find('.newnime').text().trim() || 'Unknown';
       const anime_url = $completed(element).find('a').attr('href') || '';
 
       completeAnime.push({
@@ -93,7 +90,7 @@ export async function GET(req: NextRequest) {
       });
     });
 
-    // Mengembalikan hasil scraping dalam format JSON
+    // Return the scraping results in JSON format
     return NextResponse.json({
       status: 'Ok',
       data: {

@@ -3,16 +3,14 @@ import { DEFAULT_HEADERS } from '@/lib/DHead';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest, { params }: { params: { slug: string } }) {
-  const { slug } = params; // Menangkap parameter slug dari params
+  const { slug } = params;
 
   try {
-    // Fetch dengan custom headers dan next revalidate
-    const response = await fetch(`https://alqanime.net/advanced-search/page/${slug}/?status=ongoing&order=update`, {
+    const response = await fetch(`https://otakudesu.cloud/complete-anime/page/${slug}/`, {
       headers: DEFAULT_HEADERS,
-      next: { revalidate: 360 } // Caching selama 360 detik
+      next: { revalidate: 360 }
     });
 
-    // Jika respons gagal
     if (!response.ok) {
       throw new Error(`Failed to fetch data: ${response.statusText}`);
     }
@@ -30,17 +28,15 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
       anime_url: string;
     }[] = [];
 
-    // Mengiterasi setiap elemen artikel yang mengandung anime
-    $('.listupd > article.bs').each((index, element) => {
-      const title = $(element).find('.tt > h2').text().trim();
-      const slug = $(element).find('a').attr('href')?.split('/')[3] || ''; // Mengambil slug dari URL
-      const poster = $(element).find('img').attr('data-src') || ''; // Mengambil poster dari atribut data-src (lazy-loaded)
-      const episode_count = $(element).find('.epx').text().trim() || 'N/A';
-      const rating = $(element).find('.numscore').text().trim() || '0';
-      const last_release_date = $(element).find('.date').text().trim() || 'Unknown';
+    $('.venz > ul > li').each((index, element) => {
+      const title = $(element).find('.jdlflm').text().trim();
+      const slug = $(element).find('a').attr('href')?.split('/')[4] || '';
+      const poster = $(element).find('.thumbz img').attr('src') || '';
+      const episode_count = $(element).find('.epz').text().trim() || 'N/A';
+      const rating = $(element).find('.epztipe').text().trim() || '0';
+      const last_release_date = $(element).find('.newnime').text().trim() || 'Unknown';
       const anime_url = $(element).find('a').attr('href') || '';
 
-      // Menyimpan data anime ke dalam array
       animeList.push({
         title,
         slug,
@@ -52,17 +48,15 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
       });
     });
 
-    // Struktur pagination
     const pagination = {
       current_page: parseInt(slug as string, 10) || 1,
-      last_visible_page: 55, // Gantilah dengan logika dinamis jika tersedia
-      has_next_page: parseInt(slug as string, 10) < 55,
-      next_page: parseInt(slug as string, 10) < 55 ? parseInt(slug as string, 10) + 1 : null,
+      last_visible_page: 57,
+      has_next_page: parseInt(slug as string, 10) < 57,
+      next_page: parseInt(slug as string, 10) < 57 ? parseInt(slug as string, 10) + 1 : null,
       has_previous_page: parseInt(slug as string, 10) > 1,
       previous_page: parseInt(slug as string, 10) > 1 ? parseInt(slug as string, 10) - 1 : null
     };
 
-    // Mengembalikan hasil scraping dalam format JSON
     return NextResponse.json({
       status: 'Ok',
       data: animeList,

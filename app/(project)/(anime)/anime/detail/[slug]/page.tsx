@@ -2,33 +2,36 @@ import { getData } from '@/lib/GetData';
 import { BaseUrl, PRODUCTION } from '@/lib/url';
 import Image from 'next/image';
 import Link from 'next/link';
-import ButtonA from '@/components/ButtonA';
+import { Button } from '@/components/ui/button';
+import ButtonBaris from '@/components/ButtonBaris';
 import { BackgroundGradient } from '@/components/ui/background-gradient';
 import { Metadata } from 'next';
 import CardA from '@/components/card/CardA';
+import ButtonA from '@/components/ButtonA';
 
 interface Genre {
   name: string;
   slug: string;
-  anime_url: string;
+  otakudesu_url: string;
 }
 
 interface Batch {
-  res: string;
-  buttons: { name: string; url: string }[];
+  slug: string;
+  otakudesu_url: string;
+  uploaded_at: string;
 }
 
 interface Episode {
   episode: string;
   slug: string;
-  quality: Batch[];
+  otakudesu_url: string;
 }
 
 interface Recommendation {
   title: string;
   slug: string;
   poster: string;
-  anime_url: string;
+  otakudesu_url: string;
 }
 
 interface AnimeData {
@@ -38,7 +41,7 @@ interface AnimeData {
     japanese_title: string;
     poster: string;
     rating: string;
-    credit: string;
+    produser: string;
     type: string;
     status: string;
     episode_count: string;
@@ -47,6 +50,7 @@ interface AnimeData {
     studio: string;
     genres: Genre[];
     synopsis: string;
+    batch?: Batch;
     episode_lists: Episode[];
     recommendations: Recommendation[];
   };
@@ -102,80 +106,91 @@ export default async function DetailAnimePage({ params }: DetailAnimePageProps) 
               <h1 className="text-3xl font-bold mb-4 text-primary-dark dark:text-primary">{anime.data.title}</h1>
               <div className="text-gray-800 dark:text-gray-200 mb-4">
                 <p className="mb-2">
-                  <strong>Japanese Title:</strong> {anime.data.japanese_title || 'N/A'}
+                  <strong>Japanese Title:</strong> {anime.data.japanese_title}
                 </p>
                 <p className="mb-2">
-                  <strong>Rating:</strong> {anime.data.rating || 'N/A'}
+                  <strong>Rating:</strong> {anime.data.rating}
                 </p>
                 <p className="mb-2">
-                  <strong>Credit:</strong> {anime.data.credit || 'N/A'}
+                  <strong>Producer:</strong> {anime.data.produser}
                 </p>
                 <p className="mb-2">
-                  <strong>Type:</strong> {anime.data.type || 'N/A'}
+                  <strong>Type:</strong> {anime.data.type}
                 </p>
                 <p className="mb-2">
-                  <strong>Status:</strong> {anime.data.status || 'N/A'}
+                  <strong>Status:</strong> {anime.data.status}
                 </p>
                 <p className="mb-2">
-                  <strong>Episode Count:</strong> {anime.data.episode_count || 'N/A'}
+                  <strong>Episode Count:</strong> {anime.data.episode_count}
                 </p>
                 <p className="mb-2">
-                  <strong>Duration:</strong> {anime.data.duration || 'N/A'}
+                  <strong>Duration:</strong> {anime.data.duration}
                 </p>
                 <p className="mb-2">
-                  <strong>Release Date:</strong> {anime.data.release_date || 'N/A'}
+                  <strong>Release Date:</strong> {anime.data.release_date}
                 </p>
                 <p className="mb-4">
-                  <strong>Studio:</strong> {anime.data.studio || 'N/A'}
+                  <strong>Studio:</strong> {anime.data.studio}
                 </p>
                 <p className="mb-4">
                   <strong>Genres:</strong>{' '}
-                  {anime.data.genres.length > 0 ? anime.data.genres.map((genre) => genre.name).join(', ') : 'N/A'}
+                  {anime.data.genres ? anime.data.genres.map((genre) => genre.name).join(', ') : 'N/A'}
                 </p>
                 <p className="mb-4">
                   <strong>Synopsis:</strong> {anime.data.synopsis}
                 </p>
               </div>
-              <div className="mt-4">
-                {anime.data.episode_lists.map((episode) => (
-                  <div key={episode.slug} className="mb-4">
-                    <h3 className="font-bold text-blue-500">{episode.episode}</h3>
-                    {episode.quality.map((quality) => (
-                      <div key={quality.res} className="mb-2">
-                        <h4 className="font-medium">{quality.res}</h4>
-                        <div className="flex overflow-x-auto space-x-2">
-                          {' '}
-                          {/* Add overflow-x-auto and space-x-2 for horizontal scrolling */}
-                          {quality.buttons.map((button) => (
-                            <Link key={button.url} href={button.url} passHref>
-                              <ButtonA className="bg-blue-600 text-black dark:text-white hover:bg-blue-500 transition whitespace-nowrap">
-                                {/* Add whitespace-nowrap to prevent text wrapping */}
-                                {button.name}
-                              </ButtonA>
-                            </Link>
-                          ))}
+              <div className="mt-6">
+                <h2 className="text-2xl font-semibold mb-2 text-primary-dark dark:text-primary">Episodes</h2>
+                <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {anime.data.episode_lists &&
+                  Array.isArray(anime.data.episode_lists) &&
+                  anime.data.episode_lists.length > 0 ? (
+                    anime.data.episode_lists.map((episode) => {
+                      const episodeNumber = episode.episode.match(/Episode (\d+)/)?.[1] || episode.episode;
+                      return (
+                        <Link scroll key={episode.slug} href={`/anime/full/${episode.slug}`} className="">
+                          <ButtonA className="w-full">
+                            <span className="text-lg font-bold mb-1 text-center truncate text-primary-dark dark:text-primary">
+                              Episode {episodeNumber}
+                            </span>
+                          </ButtonA>
+                        </Link>
+                      );
+                    })
+                  ) : (
+                    <p className="col-span-full text-center text-primary-dark dark:text-primary">
+                      No episodes available
+                    </p>
+                  )}
+                </div>
+              </div>
+              <div className="mt-6">
+                <h2 className="text-2xl font-semibold mb-2 text-primary-dark dark:text-primary">Recommendations</h2>
+                <div className="overflow-x-auto py-4">
+                  <div className="flex space-x-4 w-max">
+                    {anime.data.recommendations &&
+                    Array.isArray(anime.data.recommendations) &&
+                    anime.data.recommendations.length > 0 ? (
+                      anime.data.recommendations.map((recommendation) => (
+                        <div key={recommendation.slug} className="flex-shrink-0">
+                          <CardA
+                            key={recommendation.slug}
+                            title={recommendation.title}
+                            imageUrl={recommendation.poster}
+                            linkUrl={`/anime/detail/${recommendation.slug}`}
+                          />
                         </div>
-                      </div>
-                    ))}
+                      ))
+                    ) : (
+                      <p className="text-center text-primary-dark dark:text-primary">No recommendations available</p>
+                    )}
                   </div>
-                ))}
+                </div>
               </div>
             </div>
           </div>
         </BackgroundGradient>
-        <h2 className="text-2xl font-semibold mb-4">Recommendations</h2>
-        <div className="overflow-x-auto whitespace-nowrap">
-          <div className="inline-flex gap-4">
-            {anime.data.recommendations.map((recommendation) => (
-              <CardA
-                key={recommendation.slug}
-                title={recommendation.title}
-                linkUrl={recommendation.slug}
-                imageUrl={recommendation.poster}
-              />
-            ))}
-          </div>
-        </div>
       </div>
     </main>
   );

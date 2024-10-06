@@ -8,7 +8,7 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
 
   try {
     // Fetch dengan custom headers dan next revalidate
-    const response = await fetch(`https://alqanime.net/?s=${slug}`, {
+    const response = await fetch(`https://otakudesu.cloud/?s=${slug}&post_type=anime`, {
       headers: DEFAULT_HEADERS,
       next: { revalidate: 360 } // Caching selama 360 detik
     });
@@ -32,14 +32,14 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
     }[] = [];
 
     // Mengiterasi setiap elemen artikel yang mengandung anime
-    $('.listupd > article.bs').each((index, element) => {
-      const title = $(element).find('.tt > h2').text().trim();
-      const slug = $(element).find('a').attr('href')?.split('/')[3] || ''; // Mengambil slug dari URL
-      const poster = $(element).find('img').attr('data-src') || ''; // Mengambil poster dari atribut data-src (lazy-loaded)
-      const episode_count = $(element).find('.epx').text().trim() || 'N/A';
-      const rating = $(element).find('.numscore').text().trim() || '0';
-      const last_release_date = $(element).find('.date').text().trim() || 'Unknown';
-      const anime_url = $(element).find('a').attr('href') || '';
+    $('.chivsrc > li').each((index, element) => {
+      const title = $(element).find('h2 > a').text().trim();
+      const slug = $(element).find('h2 > a').attr('href')?.split('/')[4] || ''; // Mengambil slug dari URL
+      const poster = $(element).find('img').attr('src') || ''; // Mengambil poster dari atribut src
+      const episode_count = 'N/A'; // Tidak ada informasi episode_count di HTML yang diberikan
+      const rating = $(element).find('.set > b:contains("Rating")').next().text().trim() || '0';
+      const last_release_date = 'Unknown'; // Tidak ada informasi last_release_date di HTML yang diberikan
+      const anime_url = $(element).find('h2 > a').attr('href') || '';
 
       // Menyimpan data anime ke dalam array
       animeList.push({
