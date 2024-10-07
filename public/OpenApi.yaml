@@ -655,6 +655,7 @@ paths:
           required: true
           schema:
             type: string
+          example: '1'
           description: 'slug untuk halaman anime'
       responses:
         '200':
@@ -803,6 +804,83 @@ paths:
                               type: string
                             anime_url:
                               type: string
+
+  /api/anime/full/{slug}:
+    get:
+      summary: 'Dapatkan episode anime berdasarkan slug'
+      description: 'Mengambil episode anime berdasarkan slug.'
+      tags:
+        - anime
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          description: 'Slug untuk halaman episode anime.'
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Episode anime berhasil diambil.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      episode:
+                        type: string
+                      anime:
+                        type: object
+                        properties:
+                          slug:
+                            type: string
+                      has_next_episode:
+                        type: boolean
+                      next_episode:
+                        type: object
+                        nullable: true
+                        properties:
+                          slug:
+                            type: string
+                      has_previous_episode:
+                        type: boolean
+                      previous_episode:
+                        type: object
+                        nullable: true
+                        properties:
+                          slug:
+                            type: string
+                      stream_url:
+                        type: string
+                      download_urls:
+                        type: string
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                  - message
+        '500':
+          description: '500'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                  - message
+
 
   /api/anime/search:
     get:

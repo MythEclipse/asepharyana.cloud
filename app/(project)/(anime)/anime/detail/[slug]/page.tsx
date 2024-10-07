@@ -2,8 +2,6 @@ import { getData } from '@/lib/GetData';
 import { BaseUrl, PRODUCTION } from '@/lib/url';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import ButtonBaris from '@/components/ButtonBaris';
 import { BackgroundGradient } from '@/components/ui/background-gradient';
 import { Metadata } from 'next';
 import CardA from '@/components/card/CardA';
@@ -15,12 +13,6 @@ interface Genre {
   otakudesu_url: string;
 }
 
-interface Batch {
-  slug: string;
-  otakudesu_url: string;
-  uploaded_at: string;
-}
-
 interface Episode {
   episode: string;
   slug: string;
@@ -28,31 +20,30 @@ interface Episode {
 }
 
 interface Recommendation {
-  title: string;
   slug: string;
+  title: string;
   poster: string;
-  otakudesu_url: string;
 }
 
 interface AnimeData {
   status: string;
   data: {
     title: string;
-    japanese_title: string;
     poster: string;
-    rating: string;
-    produser: string;
     type: string;
     status: string;
-    episode_count: string;
-    duration: string;
     release_date: string;
     studio: string;
+    season: string;
+    censor: string;
+    director: string;
+    posted_by: string;
+    released_on: string;
+    updated_on: string;
     genres: Genre[];
     synopsis: string;
-    batch?: Batch;
     episode_lists: Episode[];
-    recommendations: Recommendation[];
+    recommendations?: Recommendation[];
   };
 }
 
@@ -73,7 +64,8 @@ export async function generateMetadata({ params }: DetailAnimePageProps): Promis
       title: anime.data.title,
       description: anime.data.synopsis,
       images: [anime.data.poster],
-      url: `${PRODUCTION}/anime/detail/${params.slug}`
+      url: `${PRODUCTION}/anime/detail/${params.slug}`,
+      locale: 'en_US'
     },
     twitter: {
       card: 'summary_large_image',
@@ -105,47 +97,38 @@ export default async function DetailAnimePage({ params }: DetailAnimePageProps) 
             <div className="w-full md:w-2/3 md:pl-6">
               <h1 className="text-3xl font-bold mb-4 text-primary-dark dark:text-primary">{anime.data.title}</h1>
               <div className="text-gray-800 dark:text-gray-200 mb-4">
-                <p className="mb-2">
-                  <strong>Japanese Title:</strong> {anime.data.japanese_title}
-                </p>
-                <p className="mb-2">
-                  <strong>Rating:</strong> {anime.data.rating}
-                </p>
-                <p className="mb-2">
-                  <strong>Producer:</strong> {anime.data.produser}
-                </p>
-                <p className="mb-2">
-                  <strong>Type:</strong> {anime.data.type}
-                </p>
-                <p className="mb-2">
-                  <strong>Status:</strong> {anime.data.status}
-                </p>
-                <p className="mb-2">
-                  <strong>Episode Count:</strong> {anime.data.episode_count}
-                </p>
-                <p className="mb-2">
-                  <strong>Duration:</strong> {anime.data.duration}
-                </p>
-                <p className="mb-2">
-                  <strong>Release Date:</strong> {anime.data.release_date}
-                </p>
-                <p className="mb-4">
-                  <strong>Studio:</strong> {anime.data.studio}
-                </p>
+                {/* Anime Details */}
+                {[
+                  { label: 'Type', value: anime.data.type },
+                  { label: 'Status', value: anime.data.status },
+                  { label: 'Release Date', value: anime.data.release_date },
+                  { label: 'Studio', value: anime.data.studio },
+                  { label: 'Season', value: anime.data.season },
+                  { label: 'Censor', value: anime.data.censor },
+                  { label: 'Director', value: anime.data.director },
+                  { label: 'Posted By', value: anime.data.posted_by },
+                  { label: 'Released On', value: anime.data.released_on },
+                  { label: 'Updated On', value: anime.data.updated_on }
+                ].map((detail) => (
+                  <p className="mb-2" key={detail.label}>
+                    <strong>{detail.label}:</strong> {detail.value || 'N/A'}
+                  </p>
+                ))}
+
                 <p className="mb-4">
                   <strong>Genres:</strong>{' '}
                   {anime.data.genres ? anime.data.genres.map((genre) => genre.name).join(', ') : 'N/A'}
                 </p>
                 <p className="mb-4">
-                  <strong>Synopsis:</strong> {anime.data.synopsis}
+                  <strong>Synopsis:</strong> {anime.data.synopsis || 'N/A'}
                 </p>
               </div>
+
+              {/* Episodes Section */}
               <div className="mt-6">
                 <h2 className="text-2xl font-semibold mb-2 text-primary-dark dark:text-primary">Episodes</h2>
                 <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {anime.data.episode_lists &&
-                  Array.isArray(anime.data.episode_lists) &&
-                  anime.data.episode_lists.length > 0 ? (
+                  {anime.data.episode_lists?.length > 0 ? (
                     anime.data.episode_lists.map((episode) => {
                       const episodeNumber = episode.episode.match(/Episode (\d+)/)?.[1] || episode.episode;
                       return (
@@ -165,13 +148,13 @@ export default async function DetailAnimePage({ params }: DetailAnimePageProps) 
                   )}
                 </div>
               </div>
+
+              {/* Recommendations Section */}
               <div className="mt-6">
                 <h2 className="text-2xl font-semibold mb-2 text-primary-dark dark:text-primary">Recommendations</h2>
                 <div className="overflow-x-auto py-4">
                   <div className="flex space-x-4 w-max">
-                    {anime.data.recommendations &&
-                    Array.isArray(anime.data.recommendations) &&
-                    anime.data.recommendations.length > 0 ? (
+                    {anime.data.recommendations && anime.data.recommendations.length > 0 ? (
                       anime.data.recommendations.map((recommendation) => (
                         <div key={recommendation.slug} className="flex-shrink-0">
                           <CardA

@@ -6,7 +6,7 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
   const { slug } = params;
 
   try {
-    const response = await fetch(`https://otakudesu.cloud/complete-anime/page/${slug}/`, {
+    const response = await fetch(`https://samehadaku.li/anime/?page=${slug}&status=ongoing&sub=&order=update`, {
       headers: DEFAULT_HEADERS,
       next: { revalidate: 360 }
     });
@@ -22,28 +22,22 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
       title: string;
       slug: string;
       poster: string;
-      episode_count: string;
-      rating: string;
-      last_release_date: string;
+      episode: string;
       anime_url: string;
     }[] = [];
 
-    $('.venz > ul > li').each((index, element) => {
-      const title = $(element).find('.jdlflm').text().trim();
+    $('.listupd .bs').each((index, element) => {
+      const title = $(element).find('.tt h2').text().trim() || '';
       const slug = $(element).find('a').attr('href')?.split('/')[4] || '';
-      const poster = $(element).find('.thumbz img').attr('src') || '';
-      const episode_count = $(element).find('.epz').text().trim() || 'N/A';
-      const rating = $(element).find('.epztipe').text().trim() || '0';
-      const last_release_date = $(element).find('.newnime').text().trim() || 'Unknown';
+      const poster = $(element).find('img').attr('src') || '';
+      const episode = $(element).find('.bt .epx').text().trim() || 'Ongoing';
       const anime_url = $(element).find('a').attr('href') || '';
 
       animeList.push({
         title,
         slug,
         poster,
-        episode_count,
-        rating,
-        last_release_date,
+        episode,
         anime_url
       });
     });
@@ -51,8 +45,8 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
     const pagination = {
       current_page: parseInt(slug as string, 10) || 1,
       last_visible_page: 57,
-      has_next_page: parseInt(slug as string, 10) < 57,
-      next_page: parseInt(slug as string, 10) < 57 ? parseInt(slug as string, 10) + 1 : null,
+      has_next_page: $('.hpage .r').length > 0,
+      next_page: $('.hpage .r').length > 0 ? parseInt(slug as string, 10) + 1 : null,
       has_previous_page: parseInt(slug as string, 10) > 1,
       previous_page: parseInt(slug as string, 10) > 1 ? parseInt(slug as string, 10) - 1 : null
     };

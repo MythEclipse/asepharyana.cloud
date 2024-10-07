@@ -3,16 +3,14 @@ import { DEFAULT_HEADERS } from '@/lib/DHead';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest, { params }: { params: { slug: string } }) {
-  const { slug } = params; // Menangkap parameter slug dari params
+  const { slug } = params;
 
   try {
-    // Fetch dengan custom headers dan next revalidate
-    const response = await fetch(`https://otakudesu.cloud/ongoing-anime/page/${slug}/`, {
+    const response = await fetch(`https://samehadaku.li/anime/?page=${slug}&status=completed&sub=&order=update`, {
       headers: DEFAULT_HEADERS,
-      next: { revalidate: 360 } // Caching selama 360 detik
+      next: { revalidate: 360 }
     });
 
-    // Jika respons gagal
     if (!response.ok) {
       throw new Error(`Failed to fetch data: ${response.statusText}`);
     }
@@ -24,45 +22,35 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
       title: string;
       slug: string;
       poster: string;
-      episode_count: string;
-      rating: string;
-      last_release_date: string;
+      episode: string;
       anime_url: string;
     }[] = [];
 
-    // Mengiterasi setiap elemen artikel yang mengandung anime
-    $('.venz > ul > li').each((index, element) => {
-      const title = $(element).find('.jdlflm').text().trim();
-      const slug = $(element).find('a').attr('href')?.split('/')[4] || ''; // Mengambil slug dari URL
-      const poster = $(element).find('img').attr('src') || ''; // Mengambil poster dari atribut src
-      const episode_count = $(element).find('.epz').text().trim() || 'N/A';
-      const rating = 'N/A'; // Rating tidak tersedia di halaman ini
-      const last_release_date = $(element).find('.newnime').text().trim() || 'Unknown';
+    $('.listupd .bs').each((index, element) => {
+      const title = $(element).find('.tt h2').text().trim() || '';
+      const slug = $(element).find('a').attr('href')?.split('/')[4] || '';
+      const poster = $(element).find('img').attr('src') || '';
+      const episode = $(element).find('.bt .epx').text().trim() || 'Ongoing';
       const anime_url = $(element).find('a').attr('href') || '';
 
-      // Menyimpan data anime ke dalam array
       animeList.push({
         title,
         slug,
         poster,
-        episode_count,
-        rating,
-        last_release_date,
+        episode,
         anime_url
       });
     });
 
-    // Struktur pagination
     const pagination = {
       current_page: parseInt(slug as string, 10) || 1,
-      last_visible_page: 5, // Gantilah dengan logika dinamis jika tersedia
-      has_next_page: parseInt(slug as string, 10) < 5,
-      next_page: parseInt(slug as string, 10) < 5 ? parseInt(slug as string, 10) + 1 : null,
+      last_visible_page: 57,
+      has_next_page: $('.hpage .r').length > 0,
+      next_page: $('.hpage .r').length > 0 ? parseInt(slug as string, 10) + 1 : null,
       has_previous_page: parseInt(slug as string, 10) > 1,
       previous_page: parseInt(slug as string, 10) > 1 ? parseInt(slug as string, 10) - 1 : null
     };
 
-    // Mengembalikan hasil scraping dalam format JSON
     return NextResponse.json({
       status: 'Ok',
       data: animeList,
