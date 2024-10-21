@@ -945,7 +945,23 @@ paths:
           required: true
           schema:
             type: string
-          example: 'https://asepharyana.my.id'
+          example: 'https://asepharyana.cloud'
+      responses:
+        '200':
+          description: OK
+  /api/proxy2:
+    get:
+      summary: 'Proxy'
+      tags:
+        - tools
+      description: 'proxy'
+      parameters: 
+        - name: url
+          in: query
+          required: true
+          schema:
+            type: string
+          example: 'https://asepharyana.cloud'
       responses:
         '200':
           description: OK
