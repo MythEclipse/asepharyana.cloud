@@ -10,7 +10,7 @@
     "registry": "https://npm.pkg.github.com"
   },
   "scripts": {
-    "dev": "next dev --turbo --port 3090",
+    "dev": "next dev --turbo --port 9090",
     "build": "node --max-old-space-size=4096 ./node_modules/next/dist/bin/next build",
     "postbuild": "next-sitemap",
     "start": "next start --port 3090",
