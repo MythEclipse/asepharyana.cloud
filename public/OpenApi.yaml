@@ -949,22 +949,62 @@ paths:
       responses:
         '200':
           description: OK
-  /api/proxy2:
-    get:
-      summary: 'Proxy'
+  /api/uploader:
+    post:
+      summary: 'File Uploader'
       tags:
         - tools
-      description: 'proxy'
-      parameters: 
-        - name: url
-          in: query
-          required: true
-          schema:
-            type: string
-          example: 'https://asepharyana.cloud'
+      description: 'Upload files to various services (telegraph, pomf2, imgur, fileio, nyxs)'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - file
+              properties:
+                file:
+                  type: string 
+                  format: binary
+                  description: The file to upload
+                service:
+                  type: string
+                  enum: [telegraph, pomf2, imgur, fileio, nyxs]
+                  default: telegraph
+                  description: The upload service to use
+                clientId:
+                  type: string
+                  description: Required when using imgur service
       responses:
         '200':
-          description: OK
+          description: 'File uploaded successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  url:
+                    type: string
+                    description: The URL of the uploaded file
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: 'Upload failed'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
 info:
   title: Freefire
   version: '0.0.1'

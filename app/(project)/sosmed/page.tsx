@@ -103,14 +103,15 @@ export default function PostPage() {
         const formData = new FormData();
         formData.append('file', file as Blob);
 
-        const uploadResponse = await axios.post(`${BaseUrl}/api/sosmed/upload`, formData, {
+        const uploadResponse = await axios.post(`${BaseUrl}/api/uploader`, formData, {
           headers: {
-            'Content-Type': 'multipart/form-data'
+            'Content-Type': 'multipart/form-data',
+            accept: 'application/json'
           }
         });
 
         const fileName = uploadResponse.data.fileName;
-        imageUrl = `https://files.zey.moe/${fileName}`;
+        imageUrl = `https://pomf2.lain.la/f/${fileName}`;
       }
 
       const postData = {
