@@ -99,6 +99,7 @@
     "next-sitemap": "^4.2.3",
     "next-themes": "^0.3.0",
     "next-view-transitions": "^0.3.2",
+    "node-fetch": "^3.3.2",
     "pino": "^9.5.0",
     "pino-pretty": "^11.3.0",
     "prisma": "^5.21.1",
