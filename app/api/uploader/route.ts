@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
     const file = formData.get('file') as File;
-    const service = (formData.get('service') as string) || 'telegraph';
+    const service = (formData.get('service') as string) || 'pomf2';
     const imgurClientId = formData.get('clientId') as string;
 
     if (!file) {

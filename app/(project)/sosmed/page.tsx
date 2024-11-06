@@ -102,6 +102,8 @@ export default function PostPage() {
       if (file) {
         const formData = new FormData();
         formData.append('file', file as Blob);
+        formData.append('service', 'pomf2');
+        formData.append('clientId', 'string');
 
         const uploadResponse = await axios.post(`${BaseUrl}/api/uploader`, formData, {
           headers: {
@@ -110,8 +112,10 @@ export default function PostPage() {
           }
         });
 
-        const fileName = uploadResponse.data.fileName;
-        imageUrl = `https://pomf2.lain.la/f/${fileName}`;
+        imageUrl = uploadResponse.data.url;
+        if (!imageUrl) {
+          throw new Error('Image upload failed: No URL returned');
+        }
       }
 
       const postData = {
