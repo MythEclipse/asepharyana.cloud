@@ -88,6 +88,30 @@ export default function PostPage() {
     setFile(selectedFile);
   };
 
+  const fetchPosts = async () => {
+    try {
+      const postsResponse = await axios.get(`${BaseUrl}/api/sosmed/posts`);
+      const postsWithComments = postsResponse.data.posts;
+
+      const commentsPromises = postsWithComments.map((post: Post) =>
+        axios.get(`${BaseUrl}/api/sosmed/comments?postId=${post.id}`).then((response) => ({
+          ...post,
+          comments: response.data.comments
+        }))
+      );
+
+      const postsWithCommentsData = await Promise.all(commentsPromises);
+      setPosts(
+        postsWithCommentsData.map((post: Post) => ({
+          ...post,
+          likes: post.likes || []
+        }))
+      );
+    } catch (error) {
+      console.error('Error fetching posts and comments:', error);
+    }
+  };
+
   const handlePost = async () => {
     if (!content) {
       setMessage('Content is required');
@@ -123,11 +147,8 @@ export default function PostPage() {
         image_url: imageUrl || null
       };
 
-      const response = await axios.post(`${BaseUrl}/api/sosmed/posts`, postData);
-
-      // Directly update the posts list without reloading
-      const newPost = response.data.post;
-      setPosts((prevPosts) => [newPost, ...prevPosts]);
+      await axios.post(`${BaseUrl}/api/sosmed/posts`, postData);
+      await fetchPosts(); // Refresh posts after creating new one
 
       setMessage('Post created successfully!');
       setContent('');
