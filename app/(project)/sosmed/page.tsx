@@ -120,7 +120,7 @@ export default function PostPage() {
 
       const postData = {
         content,
-        imageUrl: imageUrl || null
+        image_url: imageUrl || null
       };
 
       const response = await axios.post(`${BaseUrl}/api/sosmed/posts`, postData);
