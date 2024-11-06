@@ -120,12 +120,14 @@ export default function PostPage() {
 
       const postData = {
         content,
-        imageUrl: imageUrl || null // Use null if no image
+        imageUrl: imageUrl || null
       };
 
-      await axios.post(`${BaseUrl}/api/sosmed/posts`, postData);
+      const response = await axios.post(`${BaseUrl}/api/sosmed/posts`, postData);
 
-      window.location.reload();
+      // Directly update the posts list without reloading
+      const newPost = response.data.post;
+      setPosts((prevPosts) => [newPost, ...prevPosts]);
 
       setMessage('Post created successfully!');
       setContent('');
@@ -152,14 +154,6 @@ export default function PostPage() {
           post.id === postId ? { ...post, likes: [...post.likes, { userId: response.data.userId, postId }] } : post
         )
       );
-
-      const updatedPosts = await axios.get(`${BaseUrl}/api/sosmed/posts`);
-      setPosts(
-        updatedPosts.data.posts.map((post: Post) => ({
-          ...post,
-          likes: post.likes || []
-        }))
-      );
     } catch (error) {
       console.error('Error liking post:', error);
     }
@@ -184,15 +178,9 @@ export default function PostPage() {
 
       await axios.post(`${BaseUrl}/api/sosmed/comments`, commentData);
 
-      const commentsResponse = await axios.get(`${BaseUrl}/api/sosmed/comments?postId=${postId}`);
-      const updatedPostsResponse = await axios.get(`${BaseUrl}/api/sosmed/posts`);
-
-      setPosts(
-        updatedPostsResponse.data.posts.map((post: Post) => ({
-          ...post,
-          comments: commentsResponse.data.comments.filter((comment: Comment) => comment.postId === post.id),
-          likes: post.likes || []
-        }))
+      const updatedPostComments = await axios.get(`${BaseUrl}/api/sosmed/comments?postId=${postId}`);
+      setPosts((prevPosts) =>
+        prevPosts.map((post) => (post.id === postId ? { ...post, comments: updatedPostComments.data.comments } : post))
       );
       setNewComment('');
     } catch (error) {
@@ -284,14 +272,15 @@ export default function PostPage() {
                         </div>
                       </div>
                     ))}
-                    <div className="mt-4">
+                    <div className="mt-2">
                       <Textarea
                         value={newComment}
                         onChange={(e) => setNewComment(e.target.value)}
                         placeholder="Add a comment..."
+                        className="mb-2"
                       />
-                      <Button onClick={() => handleAddComment(post.id)} className="mt-2 bg-blue-500 text-white">
-                        Add Comment
+                      <Button onClick={() => handleAddComment(post.id)} className="bg-blue-500 text-white">
+                        Comment
                       </Button>
                     </div>
                   </div>
