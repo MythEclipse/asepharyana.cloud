@@ -142,9 +142,7 @@ export default function PostPage() {
 
       const { data: updatedComments } = await axios.get(`${BaseUrl}/api/sosmed/comments?postId=${postId}`);
       setPosts((prevPosts) =>
-        prevPosts.map((post) =>
-          post.id === postId ? { ...post, comments: updatedComments.comments } : post
-        )
+        prevPosts.map((post) => (post.id === postId ? { ...post, comments: updatedComments.comments } : post))
       );
       setNewComment('');
     } catch (error) {
@@ -158,12 +156,7 @@ export default function PostPage() {
     <div className="container mx-auto py-8">
       <h1 className="text-2xl font-bold mb-4">Create a Post</h1>
       <Card className="p-4 mb-4">
-        <Textarea
-          placeholder="What's on your mind?"
-          value={content}
-          onChange={handleContentChange}
-          className="mb-4"
-        />
+        <Textarea placeholder="What's on your mind?" value={content} onChange={handleContentChange} className="mb-4" />
         <input type="file" onChange={handleFileChange} className="mb-4" />
         <Button onClick={handlePost} disabled={posting}>
           {posting ? 'Posting...' : 'Post'}
