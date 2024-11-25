@@ -40,7 +40,7 @@ interface DetailAnimePageProps {
 
 export default async function DetailAnimePage(props: DetailAnimePageProps) {
   const { params } = props;
-  const Anime: AnimeResponse = await getData(`${BaseUrl}/api/anime/full/${params.slug}`);
+  const Anime: AnimeResponse = await getData(`${BaseUrl}/api/anime/full/${(await params).slug}`);
 
   if (Anime.status !== 'Ok') {
     return (

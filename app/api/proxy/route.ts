@@ -11,7 +11,7 @@ export async function GET(req: NextRequest) {
 
   try {
     // Proxy the request to the widipe.com proxy API
-    const apiResponse = await fetch(`https://widipe.com/proxy?url=${encodeURIComponent(targetUrl)}`, {
+    const apiResponse = await fetch(`https://aemt.uk.to/proxy?url=${encodeURIComponent(targetUrl)}`, {
       headers: DEFAULT_HEADERS
     });
 

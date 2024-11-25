@@ -1,5 +1,5 @@
 export $(grep -v '^#' .env | xargs) && \
-docker build -t asepharyana.my.id:latest \
+docker build -t asepharyana.cloud:latest \
   --build-arg SECRET=$SECRET \
   --build-arg NEXTAUTH_SECRET=$NEXTAUTH_SECRET \
   --build-arg NEXTAUTH_URL=$NEXTAUTH_URL \

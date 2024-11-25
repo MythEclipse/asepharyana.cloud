@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 import type { Config } from 'tailwindcss';
-import flowbite from 'flowbite-react/tailwind';
+import flowbite from 'flowbite/plugin';
 import tailwindcssAnimate from 'tailwindcss-animate';
 
 const config: Config = {
@@ -10,7 +10,7 @@ const config: Config = {
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
     './src/**/*.{ts,tsx}',
-    flowbite.content(),
+    './node_modules/flowbite/**/*.js',
     // Tambahkan konten aceternity-ui jika mereka memiliki direktori khusus
     // Misalnya:
     // './node_modules/aceternity-ui/**/*.{js,ts,jsx,tsx,mdx}',
@@ -150,7 +150,7 @@ const config: Config = {
   },
   plugins: [
     tailwindcssAnimate,
-    flowbite.plugin(),
+    flowbite,
     // Tambahkan plugin aceternity-ui jika mereka menyediakan plugin Tailwind
   ],
 };

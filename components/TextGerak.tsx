@@ -1,8 +1,7 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { motion, stagger, useAnimate, useInView } from 'framer-motion';
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export const AnimatedHeader = ({
   words,
@@ -24,47 +23,50 @@ export const AnimatedHeader = ({
     };
   });
 
-  const [scope, animate] = useAnimate();
-  const isInView = useInView(scope);
+  const [isInView, setIsInView] = useState(false);
+  const headerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (isInView) {
-      animate(
-        'span',
-        {
-          display: 'inline-block',
-          opacity: 1,
-          width: 'fit-content'
-        },
-        {
-          duration: 0.3,
-          delay: stagger(0.1),
-          ease: 'easeInOut'
-        }
-      );
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+
+    if (headerRef.current) {
+      observer.observe(headerRef.current);
     }
-  }, [isInView, animate]);
+
+    return () => {
+      if (headerRef.current) {
+        observer.unobserve(headerRef.current);
+      }
+    };
+  }, []);
 
   const renderWords = () => {
     return (
-      <motion.div ref={scope} className="inline">
+      <div ref={headerRef} className="inline">
         {wordsArray.map((word, idx) => (
           <div key={`word-${idx}`} className="inline-block">
             {word.text.map((char, index) => (
-              <motion.span
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.05, delay: index * 0.1 }}
+              <span
                 key={`char-${index}`}
-                className={cn(`dark:text-white text-black`, word.className)}
+                className={cn(
+                  `dark:text-white text-black transition-opacity duration-300 ease-in-out`,
+                  isInView ? 'opacity-100' : 'opacity-0',
+                  word.className
+                )}
+                style={{ transitionDelay: `${index * 100}ms` }}
               >
                 {char}
-              </motion.span>
+              </span>
             ))}
             &nbsp;
           </div>
         ))}
-      </motion.div>
+      </div>
     );
   };
 
@@ -72,20 +74,12 @@ export const AnimatedHeader = ({
     <header className={cn('py-10', className)}>
       <h1 className="text-4xl sm:text-3xl md:text-4xl font-semibold">
         {renderWords()}
-        <motion.span
-          initial={{
-            opacity: 0
-          }}
-          animate={{
-            opacity: 1
-          }}
-          transition={{
-            duration: 0.8,
-            repeat: Infinity,
-            repeatType: 'reverse'
-          }}
-          className={cn('inline-block rounded-sm w-[4px] h-6 bg-blue-500', cursorClassName)}
-        ></motion.span>
+        <span
+          className={cn(
+            'inline-block rounded-sm w-[4px] h-6 bg-blue-500 animate-blink',
+            cursorClassName
+          )}
+        ></span>
       </h1>
     </header>
   );

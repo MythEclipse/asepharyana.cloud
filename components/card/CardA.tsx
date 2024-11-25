@@ -1,5 +1,4 @@
 'use client';
-import { motion } from 'framer-motion';
 import { Card as ShadcnCard } from '@/components/ui/card';
 import Link from 'next/link';
 
@@ -13,21 +12,17 @@ interface CardProps {
 export default function CardA({ title, description, imageUrl, linkUrl }: CardProps) {
   return (
     <Link href={linkUrl} passHref>
-      <motion.div
-        whileHover={{ scale: 1.08, rotate: 1 }}
-        whileTap={{ scale: 0.95 }}
-        transition={{ type: 'spring', stiffness: 260, damping: 25 }}
-        className="cursor-pointer"
-      >
+      <div className="cursor-pointer transform transition-transform duration-300 hover:scale-105 hover:rotate-1 active:scale-95">
         <ShadcnCard className="w-60 h-96 bg-white dark:bg-black overflow-hidden transform transition-transform duration-300 hover:shadow-2xl text-blue-500 bg-transparent border border-blue-500 rounded-xl shadow-lg shadow-blue-500/50 hover:bg-blue-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50">
           <div className="relative">
-            <motion.img
+            <img
               src={imageUrl}
               alt={title}
-              className="w-full h-72 object-cover"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, ease: 'easeInOut' }}
+              className="w-full h-72 object-cover opacity-0 scale-90 transition-transform duration-600 ease-in-out"
+              onLoad={(e) => {
+                e.currentTarget.classList.remove('opacity-0', 'scale-90');
+                e.currentTarget.classList.add('opacity-100', 'scale-100');
+              }}
             />
           </div>
           <div className="p-4">
@@ -35,7 +30,7 @@ export default function CardA({ title, description, imageUrl, linkUrl }: CardPro
             <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">{description}</p>
           </div>
         </ShadcnCard>
-      </motion.div>
+      </div>
     </Link>
   );
 }

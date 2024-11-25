@@ -1,4 +1,4 @@
 export const ANIMEAPI = 'https://otakudesu.asepharyana.cloud';
 export const KOMIK = process.env.NEXT_PUBLIC_KOMIK;
-export const PRODUCTION = process.env.NEXT_PUBLIC_PROD || 'https:/asepharyana.cloud';
-export const BaseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https:/asepharyana.cloud';
+export const PRODUCTION = process.env.NEXT_PUBLIC_PROD || 'https://asepharyana.cloud';
+export const BaseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://asepharyana.cloud';

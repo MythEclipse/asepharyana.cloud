@@ -1,4 +1,4 @@
-# @asepharyana/asepharyana.my.id
+# @asepharyana/asepharyana.cloud
 
 ## Overview
 
@@ -6,7 +6,7 @@ Welcome to my personal website project. This project is built with Next.js and i
 
 ### Demo
 
-You can view the live demo of the project here: [asepharyana](https://asepharyana.my.id).
+You can view the live demo of the project here: [asepharyana](https://asepharyana.cloud).
 
 ### Features
 
@@ -32,13 +32,13 @@ To get started with this project locally, follow these steps:
 2. Clone the repository:
 
     ```cmd
-    git clone https://github.com/Asepharyana71/asepharyana.my.id.git
+    git clone https://github.com/Asepharyana71/asepharyana.cloud.git
     ```
 
 3. Navigate into the project directory:
 
     ```cmd
-    cd asepharyana.my.id
+    cd asepharyana.cloud
     ```
 
 4. Install the dependencies:
@@ -64,13 +64,13 @@ To get started with this project locally, follow these steps:
 2. Clone the repository:
 
     ```bash
-    git clone https://github.com/Asepharyana71/asepharyana.my.id.git
+    git clone https://github.com/Asepharyana71/asepharyana.cloud.git
     ```
 
 3. Navigate into the project directory:
 
     ```bash
-    cd asepharyana.my.id
+    cd asepharyana.cloud
     ```
 
 4. Install the dependencies:

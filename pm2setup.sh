@@ -1,1 +1,1 @@
-pm2 start npm --name "asepharyana.my.id" -- start
+pm2 start npm --name "asepharyana.cloud" -- start

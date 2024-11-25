@@ -1,6 +1,5 @@
 'use client';
 import { cn } from '@/lib/utils';
-import { motion, AnimatePresence } from 'framer-motion';
 import React, { useRef, useState, useEffect } from 'react';
 
 export const BackgroundBeamsWithCollision = ({
@@ -70,9 +69,9 @@ export const BackgroundBeamsWithCollision = ({
     <div ref={parentRef} className={cn('relative overflow-hidden', className)}>
       {/* Animation Container */}
       <div className="absolute inset-0 pointer-events-none z-20" style={{ top: 0, left: 0, right: 0, bottom: 0 }}>
-        {beams.map((beam) => (
+        {beams.map((beam, index) => (
           <CollisionMechanism
-            key={beam.initialX + 'beam-idx'}
+            key={index}
             beamOptions={beam}
             containerRef={containerRef}
             parentRef={parentRef}
@@ -160,48 +159,32 @@ const CollisionMechanism = React.forwardRef<
 
   return (
     <>
-      <motion.div
+      <div
         key={beamKey}
         ref={beamRef}
-        animate="animate"
-        initial={{
-          translateY: beamOptions.initialY || '-200px',
-          translateX: beamOptions.initialX || '0px',
-          rotate: beamOptions.rotate || 0
-        }}
-        variants={{
-          animate: {
-            translateY: beamOptions.translateY || '1800px',
-            translateX: beamOptions.translateX || '0px',
-            rotate: beamOptions.rotate || 0
-          }
-        }}
-        transition={{
-          duration: beamOptions.duration || 8,
-          repeat: Infinity,
-          repeatType: 'loop',
-          ease: 'linear',
-          delay: beamOptions.delay || 0,
-          repeatDelay: beamOptions.repeatDelay || 0
-        }}
         className={cn(
           'absolute left-0 top-0 h-14 w-px rounded-full bg-gradient-to-t from-indigo-500 via-purple-500 to-transparent',
-          beamOptions.className
+          beamOptions.className,
+          'animate-beam'
         )}
+        style={{
+          transform: `translate(${beamOptions.initialX || 0}px, ${beamOptions.initialY || -200}px) rotate(${beamOptions.rotate || 0}deg)`,
+          animationDuration: `${beamOptions.duration || 8}s`,
+          animationDelay: `${beamOptions.delay || 0}s`,
+          animationIterationCount: 'infinite'
+        }}
       />
-      <AnimatePresence>
-        {collision.detected && collision.coordinates && (
-          <Explosion
-            key={`${collision.coordinates.x}-${collision.coordinates.y}`}
-            className=""
-            style={{
-              left: `${collision.coordinates.x}px`,
-              top: `${collision.coordinates.y}px`,
-              transform: 'translate(-50%, -50%)'
-            }}
-          />
-        )}
-      </AnimatePresence>
+      {collision.detected && collision.coordinates && (
+        <Explosion
+          key={`${collision.coordinates.x}-${collision.coordinates.y}`}
+          className=""
+          style={{
+            left: `${collision.coordinates.x}px`,
+            top: `${collision.coordinates.y}px`,
+            transform: 'translate(-50%, -50%)'
+          }}
+        />
+      )}
     </>
   );
 });
@@ -219,24 +202,16 @@ const Explosion = ({ ...props }: React.HTMLProps<HTMLDivElement>) => {
 
   return (
     <div {...props} className={cn('absolute z-30 h-2 w-2', props.className)}>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 1.5, ease: 'easeOut' }}
-        className="absolute -inset-x-10 top-0 m-auto h-2 w-10 rounded-full bg-gradient-to-r from-transparent via-indigo-500 to-transparent blur-sm"
-      ></motion.div>
+      <div className="absolute -inset-x-10 top-0 m-auto h-2 w-10 rounded-full bg-gradient-to-r from-transparent via-indigo-500 to-transparent blur-sm animate-explosion"></div>
       {spans.map((span) => (
-        <motion.span
+        <span
           key={span.id}
-          initial={{ x: span.initialX, y: span.initialY, opacity: 1 }}
-          animate={{
-            x: span.directionX,
-            y: span.directionY,
-            opacity: 0
+          className="absolute h-1 w-1 rounded-full bg-gradient-to-b from-indigo-500 to-purple-500 animate-explosion-particle"
+          style={{
+            transform: `translate(${span.initialX}px, ${span.initialY}px)`,
+            animationDuration: `${Math.random() * 1.5 + 0.5}s`,
+            animationDirection: `${span.directionX}px, ${span.directionY}px`
           }}
-          transition={{ duration: Math.random() * 1.5 + 0.5, ease: 'easeOut' }}
-          className="absolute h-1 w-1 rounded-full bg-gradient-to-b from-indigo-500 to-purple-500"
         />
       ))}
     </div>
