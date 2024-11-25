@@ -954,7 +954,7 @@ paths:
       summary: 'File Uploader'
       tags:
         - tools
-      description: 'Upload files to various services (telegraph, pomf2, imgur, fileio, nyxs)'
+      description: 'Upload files to pomf2 service'
       requestBody:
         required: true
         content:
@@ -968,14 +968,6 @@ paths:
                   type: string 
                   format: binary
                   description: The file to upload
-                service:
-                  type: string
-                  enum: [telegraph, pomf2, imgur, fileio, nyxs]
-                  default: telegraph
-                  description: The upload service to use
-                clientId:
-                  type: string
-                  description: Required when using imgur service
       responses:
         '200':
           description: 'File uploaded successfully'
