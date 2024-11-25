@@ -33,7 +33,8 @@ const fetchSearchResults = async (query: string, page: number): Promise<SearchRe
   }
 };
 
-const SearchPage = async ({ params }: { params: { slug: string; page: string } }) => {
+const SearchPage = async (props: { params: Promise<{ slug: string; page: string }> }) => {
+  const params = await props.params;
   const query = decodeURIComponent(params.slug || ''); // Decode query parameter
   const page = parseInt(params.page as string, 10) || 1; // Get current page from URL or default to 1
   const searchResults = await fetchSearchResults(query, page);

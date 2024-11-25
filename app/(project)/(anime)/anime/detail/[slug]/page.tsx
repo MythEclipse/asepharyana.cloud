@@ -48,12 +48,13 @@ interface AnimeData {
 }
 
 interface DetailAnimePageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
-export async function generateMetadata({ params }: DetailAnimePageProps): Promise<Metadata> {
+export async function generateMetadata(props: DetailAnimePageProps): Promise<Metadata> {
+  const params = await props.params;
   const anime: AnimeData = await getData(`${BaseUrl}/api/anime/detail/${params.slug}`);
 
   return {
@@ -76,7 +77,8 @@ export async function generateMetadata({ params }: DetailAnimePageProps): Promis
   };
 }
 
-export default async function DetailAnimePage({ params }: DetailAnimePageProps) {
+export default async function DetailAnimePage(props: DetailAnimePageProps) {
+  const params = await props.params;
   const anime: AnimeData = await getData(`${BaseUrl}/api/anime/detail/${params.slug}`);
 
   return (

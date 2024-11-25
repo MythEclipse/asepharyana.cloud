@@ -16,7 +16,8 @@ interface ChapterDetail {
   images: string[];
 }
 
-export default async function ChapterPage({ params }: { params: { chapterId: string } }) {
+export default async function ChapterPage(props: { params: Promise<{ chapterId: string }> }) {
+  const params = await props.params;
   const { chapterId } = params;
   const chapter: ChapterDetail = await getData(`${BaseUrl}/api/komik/chapter?chapter_url=${chapterId}`);
 

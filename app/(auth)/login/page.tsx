@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { use } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
@@ -12,7 +12,8 @@ import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import Link from 'next/link';
 import { FaGoogle } from 'react-icons/fa';
 
-export default function LoginPage({ searchParams }: any) {
+export default function LoginPage(props: any) {
+  const searchParams = use(props.searchParams);
   const { push } = useRouter();
   const [error, setError] = React.useState<string>('');
   const [isLoading, setIsLoading] = React.useState<boolean>(false);

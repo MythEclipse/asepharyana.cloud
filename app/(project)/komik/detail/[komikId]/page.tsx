@@ -33,12 +33,13 @@ interface MangaDetail {
 }
 
 interface DetailPageProps {
-  params: {
+  params: Promise<{
     komikId: string;
-  };
+  }>;
 }
 
-export async function generateMetadata({ params }: DetailPageProps): Promise<Metadata> {
+export async function generateMetadata(props: DetailPageProps): Promise<Metadata> {
+  const params = await props.params;
   const { komikId } = params;
   const manga: MangaDetail = await getData(`${BaseUrl}/api/komik/detail?komik_id=${komikId}`);
 
@@ -65,7 +66,8 @@ export async function generateMetadata({ params }: DetailPageProps): Promise<Met
   };
 }
 
-export default async function DetailPage({ params }: DetailPageProps) {
+export default async function DetailPage(props: DetailPageProps) {
+  const params = await props.params;
   const { komikId } = params;
   const manga: MangaDetail = await getData(`${BaseUrl}/api/komik/detail?komik_id=${komikId}`);
 

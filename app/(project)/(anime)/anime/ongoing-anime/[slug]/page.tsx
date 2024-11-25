@@ -34,12 +34,13 @@ interface Pagination {
 }
 
 interface DetailAnimePageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
-export default async function AnimePage({ params }: DetailAnimePageProps) {
+export default async function AnimePage(props: DetailAnimePageProps) {
+  const params = await props.params;
   let OngoingAnimeData: OngoingAnimeData;
 
   try {

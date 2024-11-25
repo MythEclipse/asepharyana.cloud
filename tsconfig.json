@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "forceConsistentCasingInFileNames": true,
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -19,15 +23,22 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
-    }
+      "@/*": [
+        "./*"
+      ]
+    },
+    "target": "ES2017"
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "jest.config.ts"
-, "app/api/komik/[function]/route.ts.bak"  ],
-  "exclude": ["node_modules", "!node_modules/.prisma"]
+    "jest.config.ts",
+    "app/api/komik/[function]/route.ts.bak"
+  ],
+  "exclude": [
+    "node_modules",
+    "!node_modules/.prisma"
+  ]
 }

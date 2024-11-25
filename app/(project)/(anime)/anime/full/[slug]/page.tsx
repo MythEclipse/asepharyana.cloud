@@ -33,9 +33,9 @@ interface EpisodeInfo {
 }
 
 interface DetailAnimePageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export default async function DetailAnimePage(props: DetailAnimePageProps) {

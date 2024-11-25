@@ -41,7 +41,8 @@ const fetchSearchResults = async (query: string): Promise<SearchDetailData> => {
   }
 };
 
-const SearchPage = async ({ params }: { params: { slug: string } }) => {
+const SearchPage = async (props: { params: Promise<{ slug: string }> }) => {
+  const params = await props.params;
   const query = decodeURIComponent(params.slug || ''); // Decode the query here
   const searchResults = await fetchSearchResults(query);
 

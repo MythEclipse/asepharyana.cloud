@@ -24,7 +24,8 @@ interface manhua {
   komik_id: string;
 }
 
-export default async function Page({ params }: { params: { pageNumber: string } }) {
+export default async function Page(props: { params: Promise<{ pageNumber: string }> }) {
+  const params = await props.params;
   const pageNumber = parseInt(params.pageNumber, 10);
   if (isNaN(pageNumber)) {
     notFound();

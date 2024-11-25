@@ -32,7 +32,8 @@ interface EpisodeInfo {
   slug: string;
 }
 
-export async function GET(_: NextRequest, { params }: { params: { slug: string } }) {
+export async function GET(_: NextRequest, props: { params: Promise<{ slug: string }> }) {
+  const params = await props.params;
   const { slug } = params;
   const url = `https://samehadaku.li/${slug}/`;
 
