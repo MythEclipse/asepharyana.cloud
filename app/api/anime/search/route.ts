@@ -2,7 +2,7 @@ import * as cheerio from 'cheerio';
 import { DEFAULT_HEADERS } from '@/lib/DHead';
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(req: NextRequest, { params }: { params: { slug: string } }) {
+export async function GET(req: NextRequest) {
   const url = new URL(req.url);
   const slug = url.searchParams.get('q') || 'one';
 
@@ -27,7 +27,7 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
       anime_url: string;
     }[] = [];
 
-    $('.listupd .bs').each((index, element) => {
+    $('.listupd .bs').each((_, element) => {
       const title = $(element).find('.tt h2').text().trim() || '';
       const slug = $(element).find('a').attr('href')?.split('/')[4] || '';
       const poster = $(element).find('img').attr('src') || '';

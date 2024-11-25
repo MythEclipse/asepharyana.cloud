@@ -141,10 +141,25 @@ const config: Config = {
             height: '0',
           },
         },
+        'beam': {
+          '0%': { transform: 'translateY(-200px)', opacity: '1' },
+          '100%': { transform: 'translateY(120vh)', opacity: '0' }
+        },
+        'explosion': {
+          '0%': { opacity: '1', transform: 'scale(1)' },
+          '100%': { opacity: '0', transform: 'scale(2)' }
+        },
+        'explosion-particle': {
+          '0%': { transform: 'scale(1)', opacity: '1' },
+          '100%': { transform: 'scale(0)', opacity: '0' }
+        }
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        'beam': 'beam 8s linear infinite',
+        'explosion': 'explosion 1s ease-out forwards',
+        'explosion-particle': 'explosion-particle 1s ease-out forwards'
       },
     },
   },

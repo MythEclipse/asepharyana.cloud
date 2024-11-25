@@ -74,12 +74,7 @@ export const AnimatedHeader = ({
     <header className={cn('py-10', className)}>
       <h1 className="text-4xl sm:text-3xl md:text-4xl font-semibold">
         {renderWords()}
-        <span
-          className={cn(
-            'inline-block rounded-sm w-[4px] h-6 bg-blue-500 animate-blink',
-            cursorClassName
-          )}
-        ></span>
+        <span className={cn('inline-block rounded-sm w-[4px] h-6 bg-blue-500 animate-blink', cursorClassName)}></span>
       </h1>
     </header>
   );

@@ -1,10 +1,8 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { IconLayoutNavbarCollapse } from '@tabler/icons-react';
-import { AnimatePresence, MotionValue, motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import Link from 'next/link';
-import { useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 
 export const FloatingDock = ({
@@ -36,40 +34,40 @@ const FloatingDockMobile = ({
 
   return (
     <div className={cn('fixed bottom-4 right-4 md:hidden z-50', className)}>
-      <AnimatePresence>
-        {open && (
-          <motion.div layoutId="nav" className="absolute bottom-full mb-2 inset-x-0 flex flex-col gap-2 z-50">
-            {items.map((item, idx) => (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 10, transition: { delay: idx * 0.02 } }}
-                transition={{ delay: (items.length - 1 - idx) * 0.02 }}
-              >
-                <Link
-                  href={item.href}
-                  className={cn(
-                    'flex flex-col items-center justify-center text-center px-6 py-3 rounded-full shadow-lg',
-                    {
-                      'bg-blue-500 text-white': pathname === item.href,
-                      'bg-white dark:bg-black text-blue-500 border border-blue-500 hover:bg-blue-500 hover:text-white focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50':
-                        pathname !== item.href
-                    }
-                  )}
-                >
-                  <div className="h-4 w-4">{item.icon}</div>
-                </Link>
-              </motion.div>
-            ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <div
+        className={`absolute bottom-full mb-2 inset-x-0 flex flex-col gap-4 z-50 transition-all duration-300 ${
+          open ? 'opacity-100' : 'opacity-0'
+        }`}
+      >
+        {items.map((item, idx) => (
+          <div
+            key={item.title}
+            className={`transition-transform duration-300 ease-in-out transform ${
+              open ? 'translate-y-0' : 'translate-y-4'
+            }`}
+            style={{ transitionDelay: `${idx * 0.02}s` }}
+          >
+            <Link
+              href={item.href}
+              className={cn(
+                'flex flex-col items-center justify-center text-center px-2 py-1 rounded-full shadow-lg transition-all',
+                {
+                  'bg-blue-500 text-white': pathname === item.href,
+                  'bg-white dark:bg-black text-blue-500 border border-blue-500 hover:bg-blue-500 hover:text-white focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50':
+                    pathname !== item.href
+                }
+              )}
+            >
+              <div className="h-8 w-8">{item.icon}</div>
+            </Link>
+          </div>
+        ))}
+      </div>
       <button
         onClick={() => setOpen(!open)}
-        className="flex flex-col items-center justify-center text-center px-6 py-3 text-blue-500 bg-transparent border border-blue-500 rounded-full shadow-lg hover:bg-blue-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50"
+        className="flex flex-col items-center justify-center text-center px-2 py-1 text-blue-500 bg-transparent border-2 border-blue-500 rounded-full shadow-2xl hover:bg-blue-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50"
       >
-        <IconLayoutNavbarCollapse className="h-5 w-5 text-neutral-500 dark:text-neutral-400" />
+        <IconLayoutNavbarCollapse className="h-8 w-8 text-neutral-500 dark:text-neutral-400" />
       </button>
     </div>
   );
@@ -82,81 +80,69 @@ const FloatingDockDesktop = ({
   items: { title: string; icon: React.ReactNode; href: string }[];
   className?: string;
 }) => {
-  const mouseX = useMotionValue(Infinity);
   return (
-    <motion.div
-      onMouseMove={(e) => mouseX.set(e.pageX)}
-      onMouseLeave={() => mouseX.set(Infinity)}
+    <div
       className={cn(
-        'fixed bottom-4 left-1/2 transform -translate-x-1/2 hidden md:flex h-16 gap-4 items-end rounded-2xl bg-white dark:bg-black px-4 pb-3 border border-gray-200 dark:border-neutral-900 z-50',
-        className
+      'fixed bottom-4 left-1/2 transform -translate-x-1/2 hidden md:flex h-20 gap-6 items-end rounded-2xl bg-transparent px-8 pb-6 border border-transparent z-50',
+      className
       )}
     >
       {items.map((item) => (
-        <IconContainer key={item.title} {...item} mouseX={mouseX} />
+      <IconContainer key={item.title} {...item} />
       ))}
-    </motion.div>
+    </div>
   );
 };
 
 function IconContainer({
-  mouseX,
   title,
   icon,
   href
 }: {
-  mouseX: MotionValue;
   title: string;
   icon: React.ReactNode;
   href: string;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const distance = useTransform(mouseX, (val) => {
-    const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
-    return val - bounds.x - bounds.width / 2;
-  });
-
-  const widthTransform = useTransform(distance, [-150, 0, 150], [40, 80, 40]);
-  const heightTransform = useTransform(distance, [-150, 0, 150], [40, 80, 40]);
-  const widthTransformIcon = useTransform(distance, [-150, 0, 150], [20, 40, 20]);
-  const heightTransformIcon = useTransform(distance, [-150, 0, 150], [20, 40, 20]);
-
-  const width = useSpring(widthTransform, { mass: 0.1, stiffness: 150, damping: 12 });
-  const height = useSpring(heightTransform, { mass: 0.1, stiffness: 150, damping: 12 });
-  const widthIcon = useSpring(widthTransformIcon, { mass: 0.1, stiffness: 150, damping: 12 });
-  const heightIcon = useSpring(heightTransformIcon, { mass: 0.1, stiffness: 150, damping: 12 });
-
   const [hovered, setHovered] = useState(false);
   const pathname = usePathname();
 
+  const [scale, setScale] = useState(1);
+
+  const handleMouseEnter = () => {
+    setHovered(true);
+    setScale(1.5); // Increase size when hovered
+  };
+
+  const handleMouseLeave = () => {
+    setHovered(false);
+    setScale(1); // Reset size when not hovered
+  };
+
   return (
     <Link href={href}>
-      <motion.div
-        ref={ref}
-        style={{ width, height }}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-        className={cn('aspect-square rounded-full flex items-center justify-center relative border z-50', {
-          'bg-blue-500': pathname === href,
-          'bg-gray-200 dark:bg-neutral-800': pathname !== href
-        })}
+      <div
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        className={cn(
+          'aspect-square rounded-full flex items-center justify-center relative border transition-all duration-200',
+          {
+            'bg-blue-500': pathname === href,
+            'bg-gray-200 dark:bg-neutral-800': pathname !== href
+          }
+        )}
+        style={{ transform: `scale(${scale})` }}
       >
-        <AnimatePresence>
-          {hovered && (
-            <motion.div
-              initial={{ opacity: 0, y: 10, x: '-50%' }}
-              animate={{ opacity: 1, y: 0, x: '-50%' }}
-              exit={{ opacity: 0, y: 2, x: '-50%' }}
-              className="px-2 py-0.5 whitespace-pre rounded-md bg-gray-100 dark:bg-neutral-800 dark:border-neutral-900 dark:text-white border border-gray-200 text-neutral-700 absolute left-1/2 -translate-x-1/2 -top-8 w-fit text-xs z-50"
-            >
-              {title}
-            </motion.div>
-          )}
-        </AnimatePresence>
-        <motion.div style={{ width: widthIcon, height: heightIcon }} className="flex items-center z-50">
-          {icon}
-        </motion.div>
-      </motion.div>
+        {hovered && (
+          <div
+            className="absolute left-1/2 -translate-x-1/2 -top-8 px-3 py-1.5 whitespace-pre rounded-md bg-white dark:bg-black dark:border-neutral-900 dark:text-white border border-gray-200  w-fit text-xs"
+          >
+            {title}
+          </div>
+        )}
+        <div className="flex items-center">
+          <div className="h-20 w-20 text-blue-500 bg-transparent border-2 border-blue-500 rounded-full shadow-2xl hover:bg-blue-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50">{icon}</div>
+        </div>
+      </div>
     </Link>
   );
 }

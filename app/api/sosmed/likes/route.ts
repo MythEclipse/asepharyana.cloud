@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/prisma/prisma';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/authOptions';
+import { auth } from '@/lib/auth';
+
 
 export async function POST(req: NextRequest) {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
 
   if (!session || !session.user) {
     return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
     const existingLike = await prisma.likes.findUnique({
       where: {
         userId_postId: {
-          userId: session.user.id,
+          userId: session.user.id!,
           postId
         }
       }
@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
     const like = await prisma.likes.create({
       data: {
         postId,
-        userId: session.user.id
+        userId: session.user.id as string
       }
     });
     return NextResponse.json({ like }, { status: 201 });

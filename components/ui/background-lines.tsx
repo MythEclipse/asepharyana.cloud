@@ -86,57 +86,34 @@ const SVG = ({
     '#604483'
   ];
   return (
-    <motion.svg
+    <svg
       viewBox="0 0 1440 900"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 1 }}
-      className="absolute inset-0 w-full h-full"
+      className="absolute inset-0 w-full h-full opacity-0 animate-fade-in"
     >
       {paths.map((path, idx) => (
-        <motion.path
+        <path
           d={path}
           stroke={colors[idx]}
           strokeWidth="2.3"
           strokeLinecap="round"
-          variants={pathVariants}
-          initial="initial"
-          animate="animate"
-          transition={{
-            duration: svgOptions?.duration || 10,
-            ease: 'linear',
-            repeat: Infinity,
-            repeatType: 'loop',
-            delay: Math.floor(Math.random() * 10),
-            repeatDelay: Math.floor(Math.random() * 10 + 2)
-          }}
+          className="animate-draw-path"
           key={`path-first-${idx}`}
         />
       ))}
 
       {/* duplicate for more paths */}
       {paths.map((path, idx) => (
-        <motion.path
+        <path
           d={path}
           stroke={colors[idx]}
           strokeWidth="2.3"
           strokeLinecap="round"
-          variants={pathVariants}
-          initial="initial"
-          animate="animate"
-          transition={{
-            duration: svgOptions?.duration || 10,
-            ease: 'linear',
-            repeat: Infinity,
-            repeatType: 'loop',
-            delay: Math.floor(Math.random() * 10),
-            repeatDelay: Math.floor(Math.random() * 10 + 2)
-          }}
+          className="animate-draw-path"
           key={`path-second-${idx}`}
         />
       ))}
-    </motion.svg>
+    </svg>
   );
 };

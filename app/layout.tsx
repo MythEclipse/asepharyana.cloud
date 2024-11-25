@@ -16,7 +16,7 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 export async function GET() {
   const session = await auth();
   const status = session ? 'Authenticated' : 'Not Authenticated';
-  return { session,status };
+  return { session, status };
 }
 // Metadata configuration for the page
 export const metadata: Metadata = {
@@ -52,30 +52,30 @@ export const metadata: Metadata = {
 
 // RootLayout component
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const {status,session} =await GET();
+  const { status, session } = await GET();
   return (
     <Flowbite>
       {/* <ContextAppProvider> */}
-        <ViewTransitions>
-          {/* <SessionWrapper> */}
-            <html lang="id" className={inter.className} suppressHydrationWarning>
-              <head>
-                <link rel="canonical" href={`${PRODUCTION}`} />
-                <link rel="manifest" href="/manifest.json" />
-                <link rel="icon" href="/favicon.ico" />
-              </head>
-              <body className="h-screen bg-white dark:bg-black">
-                <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-                  <NavbarWrapper sessionData={session} statusData={status} />
-                  <div className="mt-28 max-w-full px-0.5 pb-10 pt-38 sm:px-6 lg:px-8">
-                    {children}
-                    <DarkThemeToggle className="fixed bottom-0 left-0 z-10 m-4" aria-label="Toggle Dark Mode" />
-                  </div>
-                </ThemeProvider>
-              </body>
-            </html>
-          {/* </SessionWrapper> */}
-        </ViewTransitions>
+      <ViewTransitions>
+        {/* <SessionWrapper> */}
+        <html lang="id" className={inter.className} suppressHydrationWarning>
+          <head>
+            <link rel="canonical" href={`${PRODUCTION}`} />
+            <link rel="manifest" href="/manifest.json" />
+            <link rel="icon" href="/favicon.ico" />
+          </head>
+          <body className="h-screen bg-white dark:bg-black">
+            <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+              <NavbarWrapper sessionData={session} statusData={status} />
+              <div className="mt-28 max-w-full px-0.5 pb-10 pt-38 sm:px-6 lg:px-8">
+                {children}
+                <DarkThemeToggle className="fixed bottom-0 left-0 z-10 m-4" aria-label="Toggle Dark Mode" />
+              </div>
+            </ThemeProvider>
+          </body>
+        </html>
+        {/* </SessionWrapper> */}
+      </ViewTransitions>
       {/* </ContextAppProvider> */}
     </Flowbite>
   );

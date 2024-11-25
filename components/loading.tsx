@@ -4,7 +4,7 @@ import loadingGif from '@/public/loading.gif';
 
 const Loading: React.FC = () => {
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center items-center h-screen w-screen">
       <div className="rounded-full h-32 w-32">
         <Image
           src={loadingGif}

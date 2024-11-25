@@ -1,14 +1,14 @@
-"use server";
-import { signOut } from "@/lib/auth"
- 
+'use server';
+import { signOut } from '@/lib/auth';
+
 export default async function SignOutComponent() {
   return (
     <form
       action={async () => {
-        await signOut()
+        await signOut();
       }}
     >
       <button type="submit">signOut with Google</button>
     </form>
-  )
-} 
+  );
+}

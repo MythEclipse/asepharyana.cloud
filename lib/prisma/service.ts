@@ -5,9 +5,9 @@ import bcrypt from 'bcrypt';
 const prisma = new PrismaClient();
 
 interface GoogleUserData {
-  emailVerified: boolean;
+  emailVerified: Date | null;
   email: string;
-  fullname?: string | null; // Ensure consistent naming
+  fullname?: string | null;
   role: string;
   type: string;
 }
@@ -25,11 +25,10 @@ export async function loginWithGoogle(
       user = await prisma.user.create({
         data: {
           email: userData.email,
-          fullname: userData.fullname,
-          emailVerified: userData.emailVerified, // Correct field name
+          name: userData.fullname,
+          emailVerified: userData.emailVerified,
           role: userData.role,
-          type: userData.type, // Ensure 'type' exists in your Prisma schema
-          password: '', // Provide a default or empty password if needed
+          image: '', // Provide a default or empty image if needed
         },
       });
     } else {
@@ -37,9 +36,8 @@ export async function loginWithGoogle(
       user = await prisma.user.update({
         where: { email: userData.email },
         data: {
-          fullname: userData.fullname, // Correct field name
+          name: userData.fullname,
           role: userData.role,
-          type: userData.type, // Ensure 'type' exists in your Prisma schema
         },
       });
     }
@@ -60,39 +58,36 @@ interface RegisterInput {
   bio?: string;
 }
 
-export async function register(data: RegisterInput) {
-  const { email, password, name, fullname,image, bio } = data;
+// export async function register(data: RegisterInput) {
+//   const { email, password, name, fullname, image, bio } = data;
 
-  // Hash the password
-  const hashedPassword = await bcrypt.hash(password, 10);
+//   // Hash the password
+//   const hashedPassword = await bcrypt.hash(password, 10);
 
-  try {
-    // Create the user
-    const user = await prisma.user.create({
-      data: {
-        email,
-        password: hashedPassword,
-        name,
-        fullname,
-        image,
-        role: 'member',  // Set default role or any other default values as needed
-        type: 'credentials',
-      },
-    });
+//   try {
+//     // Create the user
+//     const user = await prisma.user.create({
+//       data: {
+//         email,
+//         name,
+//         fullname,
+//         image,
+//         role: 'member',  // Set default role or any other default values as needed
+//       },
+//     });
 
-    return {
-      status: 'success',
-      message: 'User registered successfully',
-      statusCode: 201,
-      user,
-    };
-  } catch (error) {
-    console.error('Error registering user:', error);
-    return {
-      status: 'error',
-      message: 'Failed to register user',
-      statusCode: 500,
-    };
-  }
-}
-
+//     return {
+//       status: 'success',
+//       message: 'User registered successfully',
+//       statusCode: 201,
+//       user,
+//     };
+//   } catch (error) {
+//     console.error('Error registering user:', error);
+//     return {
+//       status: 'error',
+//       message: 'Failed to register user',
+//       statusCode: 500,
+//     };
+//   }
+// }

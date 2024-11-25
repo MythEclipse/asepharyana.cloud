@@ -2,3 +2,52 @@
 @tailwind components;
 @tailwind utilities;
   
+
+@keyframes beam {
+    0% {
+      transform: translateY(-200px);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(120vh); /* Memastikan beam keluar layar */
+      opacity: 0;
+    }
+  }
+  
+  @keyframes explosion-particle {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(0);
+      opacity: 0;
+    }
+  }
+  @keyframes particle-explosion {
+    0% {
+      opacity: 1;
+      transform: translate(0, 0);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(var(--distance-x), var(--distance-y));
+    }
+  }
+  
+  
+  
+  @keyframes explosion {
+    0% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(2);
+    }
+  }
+  
+  .animate-blink {
+      @apply animate-pulse;
+     }

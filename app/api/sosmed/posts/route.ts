@@ -1,14 +1,14 @@
 import { NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
-import { getServerSession } from 'next-auth/next'; // Adjust this import based on your NextAuth setup
-import { authOptions } from '@/lib/authOptions';
+import { auth } from '@/lib/auth';
+
 // Initialize Prisma Client
 const prisma = new PrismaClient();
 
 export async function POST(request: Request) {
   try {
     // Get session data
-    const session = await getServerSession(authOptions); // Ensure to adjust `authOptions` path as needed
+    const session = await auth(); // Ensure to adjust `authOptions` path as needed
     const userId = session?.user?.id; // Extract user ID from session
 
     // Parse the JSON request body
@@ -30,7 +30,7 @@ export async function POST(request: Request) {
         content,
         authorId: userId, // Use user ID from the session
         image_url: imageUrl || '', // Use the image URL returned from the upload API or default to empty string
-        userId: session.user.id,
+        userId: session?.user?.id || '',
         created_at: new Date(), // Set the created_at field to the current date
         updated_at: new Date() // Set the updated_at field to the current date
       }
