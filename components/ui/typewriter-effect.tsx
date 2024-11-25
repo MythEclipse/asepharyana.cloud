@@ -75,10 +75,7 @@ export const TypewriterEffect = ({
     <div className={cn('text-base sm:text-xl md:text-3xl lg:text-5xl font-bold text-center', className)}>
       {renderWords()}
       <span
-        className={cn(
-          'inline-block rounded-sm w-[4px] h-4 md:h-6 lg:h-10 bg-blue-500 animate-blink',
-          cursorClassName
-        )}
+        className={cn('inline-block rounded-sm w-[4px] h-4 md:h-6 lg:h-10 bg-blue-500 animate-blink', cursorClassName)}
       ></span>
     </div>
   );
@@ -147,10 +144,7 @@ export const TypewriterEffectSmooth = ({
   return (
     <div className={cn('flex space-x-1 my-6', className)}>
       <div
-        className={cn(
-          'overflow-hidden pb-2 transition-all duration-2000 ease-linear',
-          isInView ? 'w-fit' : 'w-0'
-        )}
+        className={cn('overflow-hidden pb-2 transition-all duration-2000 ease-linear', isInView ? 'w-fit' : 'w-0')}
         ref={ref}
       >
         <div
@@ -163,10 +157,7 @@ export const TypewriterEffectSmooth = ({
         </div>{' '}
       </div>
       <span
-        className={cn(
-          'block rounded-sm w-[4px] h-4 sm:h-6 xl:h-12 bg-blue-500 animate-blink',
-          cursorClassName
-        )}
+        className={cn('block rounded-sm w-[4px] h-4 sm:h-6 xl:h-12 bg-blue-500 animate-blink', cursorClassName)}
       ></span>
     </div>
   );

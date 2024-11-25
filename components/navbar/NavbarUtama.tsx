@@ -60,7 +60,7 @@ export default function Navbar({ sessionData, statusData }: { sessionData: any; 
         <div
           className="absolute top-1/2 transform -translate-y-1/2 h-16 rounded-full bg-blue-500 dark:bg-blue-700 border-2 border-transparent hidden md:block transition-all duration-300"
           style={{
-            left: indicatorPos +575, // Tambahkan sedikit padding
+            left: indicatorPos + 575, // Tambahkan sedikit padding
             width: indicatorWidth + 20, // Tambahkan sedikit lebar
             zIndex: 0
           }}
@@ -126,20 +126,14 @@ function NavToggleButton({
       onClick={() => setIsNavOpen(!isNavOpen)}
     >
       <svg
-        className={`w-6 h-6 transition-transform duration-300 ${
-          isNavOpen ? 'rotate-90' : 'rotate-0'
-        }`}
+        className={`w-6 h-6 transition-transform duration-300 ${isNavOpen ? 'rotate-90' : 'rotate-0'}`}
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
         strokeWidth={2}
       >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M4 6h16M4 12h16m-7 6h7"
-        />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
       </svg>
     </button>
   );

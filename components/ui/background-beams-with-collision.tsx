@@ -4,7 +4,7 @@ import React, { useRef, useState, useEffect } from 'react';
 
 export const BackgroundBeamsWithCollision = ({
   children,
-  className,
+  className
 }: {
   children: React.ReactNode;
   className?: string;
@@ -16,19 +16,14 @@ export const BackgroundBeamsWithCollision = ({
     initialX: Math.random() * window.innerWidth,
     duration: Math.random() * 8 + 4,
     delay: Math.random() * 4,
-    className: `h-${Math.floor(Math.random() * 10 + 5)}`,
+    className: `h-${Math.floor(Math.random() * 10 + 5)}`
   }));
 
   return (
     <div ref={parentRef} className={cn('relative overflow-hidden', className)}>
       <div className="absolute inset-0 pointer-events-none z-20">
         {beams.map((beam, index) => (
-          <CollisionMechanism
-            key={index}
-            beamOptions={beam}
-            containerRef={containerRef}
-            parentRef={parentRef}
-          />
+          <CollisionMechanism key={index} beamOptions={beam} containerRef={containerRef} parentRef={parentRef} />
         ))}
       </div>
       <div ref={containerRef} style={{ position: 'relative', zIndex: 10 }}>
@@ -57,7 +52,7 @@ const CollisionMechanism = React.forwardRef<
     coordinates: { x: number; y: number } | null;
   }>({
     detected: false,
-    coordinates: null,
+    coordinates: null
   });
 
   const handleAnimationEnd = () => {
@@ -65,7 +60,7 @@ const CollisionMechanism = React.forwardRef<
       const beamRect = beamRef.current.getBoundingClientRect();
       const collisionCoordinates = {
         x: beamRect.left + beamRect.width / 2,
-        y: beamRect.bottom,
+        y: beamRect.bottom
       };
       setCollision({ detected: true, coordinates: collisionCoordinates });
       setTimeout(() => setCollision({ detected: false, coordinates: null }), 1500);
@@ -85,7 +80,7 @@ const CollisionMechanism = React.forwardRef<
           left: `${beamOptions.initialX || 0}px`,
           transform: 'translateY(-200px)',
           animationDuration: `${beamOptions.duration || 8}s`,
-          animationDelay: `${beamOptions.delay || 0}s`,
+          animationDelay: `${beamOptions.delay || 0}s`
         }}
         onAnimationEnd={handleAnimationEnd}
       />
@@ -95,7 +90,7 @@ const CollisionMechanism = React.forwardRef<
           style={{
             left: `${collision.coordinates.x}px`,
             top: `${collision.coordinates.y}px`,
-            transform: 'translate(-50%, -50%)',
+            transform: 'translate(-50%, -50%)'
           }}
         />
       )}
@@ -110,7 +105,7 @@ const Explosion = ({ ...props }: React.HTMLProps<HTMLDivElement>) => {
     id: index,
     directionX: Math.random() * 2 - 1, // Acak arah horizontal
     directionY: Math.random() * 2 - 1, // Acak arah vertikal
-    distance: Math.random() * 100 + 50, // Jarak acak
+    distance: Math.random() * 100 + 50 // Jarak acak
   }));
 
   return (
@@ -119,12 +114,14 @@ const Explosion = ({ ...props }: React.HTMLProps<HTMLDivElement>) => {
         <span
           key={span.id}
           className="absolute h-2 w-2 rounded-full bg-gradient-to-b from-indigo-500 to-purple-500"
-          style={{
-            animation: 'particle-explosion 1s ease-out forwards',
-            animationDelay: `${Math.random() * 0.2}s`,
-            '--distance-x': `${span.directionX * span.distance}px`,
-            '--distance-y': `${span.directionY * span.distance}px`,
-          } as React.CSSProperties}
+          style={
+            {
+              animation: 'particle-explosion 1s ease-out forwards',
+              animationDelay: `${Math.random() * 0.2}s`,
+              '--distance-x': `${span.directionX * span.distance}px`,
+              '--distance-y': `${span.directionY * span.distance}px`
+            } as React.CSSProperties
+          }
         />
       ))}
     </div>

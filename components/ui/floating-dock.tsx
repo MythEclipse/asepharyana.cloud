@@ -83,26 +83,18 @@ const FloatingDockDesktop = ({
   return (
     <div
       className={cn(
-      'fixed bottom-4 left-1/2 transform -translate-x-1/2 hidden md:flex h-20 gap-6 items-end rounded-2xl bg-transparent px-8 pb-6 border border-transparent z-50',
-      className
+        'fixed bottom-4 left-1/2 transform -translate-x-1/2 hidden md:flex h-20 gap-6 items-end rounded-2xl bg-transparent px-8 pb-6 border border-transparent z-50',
+        className
       )}
     >
       {items.map((item) => (
-      <IconContainer key={item.title} {...item} />
+        <IconContainer key={item.title} {...item} />
       ))}
     </div>
   );
 };
 
-function IconContainer({
-  title,
-  icon,
-  href
-}: {
-  title: string;
-  icon: React.ReactNode;
-  href: string;
-}) {
+function IconContainer({ title, icon, href }: { title: string; icon: React.ReactNode; href: string }) {
   const [hovered, setHovered] = useState(false);
   const pathname = usePathname();
 
@@ -133,14 +125,14 @@ function IconContainer({
         style={{ transform: `scale(${scale})` }}
       >
         {hovered && (
-          <div
-            className="absolute left-1/2 -translate-x-1/2 -top-8 px-3 py-1.5 whitespace-pre rounded-md bg-white dark:bg-black dark:border-neutral-900 dark:text-white border border-gray-200  w-fit text-xs"
-          >
+          <div className="absolute left-1/2 -translate-x-1/2 -top-8 px-3 py-1.5 whitespace-pre rounded-md bg-white dark:bg-black dark:border-neutral-900 dark:text-white border border-gray-200  w-fit text-xs">
             {title}
           </div>
         )}
         <div className="flex items-center">
-          <div className="h-20 w-20 text-blue-500 bg-transparent border-2 border-blue-500 rounded-full shadow-2xl hover:bg-blue-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50">{icon}</div>
+          <div className="h-20 w-20 text-blue-500 bg-transparent border-2 border-blue-500 rounded-full shadow-2xl hover:bg-blue-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50">
+            {icon}
+          </div>
         </div>
       </div>
     </Link>
