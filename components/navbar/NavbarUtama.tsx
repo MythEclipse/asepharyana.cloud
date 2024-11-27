@@ -4,13 +4,12 @@ import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem, DropdownMenuLabel } from '@/components/ui/dropdown-menu';
-import { User } from 'lucide-react';
 
 export default function Navbar({ sessionData, statusData }: { sessionData: any; statusData: string | null }) {
   const [session, setSession] = useState(sessionData);
   const [userStatus, setUserStatus] = useState<string | null>(statusData);
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [indicatorPos, setIndicatorPos] = useState(0);
   const [indicatorWidth, setIndicatorWidth] = useState(0);
 
@@ -35,68 +34,143 @@ export default function Navbar({ sessionData, statusData }: { sessionData: any; 
       <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-3 relative">
         <Link href="/" className="flex items-center space-x-2">
           <Image src="/Logo.svg" alt="Logo" quality={100} loading="eager" width={50} height={40} priority />
-          <span className={`text-lg transition-colors duration-300 ${pathname === '/' ? 'font-semibold text-blue-600' : 'text-gray-900 dark:text-gray-100'}`}>
+          <span
+            className={`text-lg transition-colors duration-300 ${pathname === '/' ? 'font-semibold text-blue-600' : 'text-gray-900 dark:text-gray-100'}`}
+          >
             Asep Haryana
           </span>
         </Link>
-        <UserMenu status={userStatus} session={session} loginUrl={loginUrl} />
-        <NavToggleButton isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
+        <div className="relative flex items-center space-x-2 md:order-2">
+          <UserMenu
+            isDropdownOpen={isDropdownOpen}
+            setIsDropdownOpen={setIsDropdownOpen}
+            session={session}
+            status={userStatus}
+            loginUrl={loginUrl}
+          />
+          <NavToggleButton isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
+        </div>
         <div className="hidden md:block">
           <DesktopNavLinks pathname={pathname} indicatorPos={indicatorPos} indicatorWidth={indicatorWidth} />
         </div>
-        <div className="block md:hidden">
-          <MobileNavLinks isNavOpen={isNavOpen} pathname={pathname} />
-        </div>
+        <MobileNavLinks isNavOpen={isNavOpen} pathname={pathname} loginUrl={loginUrl} userStatus={userStatus} />
       </div>
     </nav>
   );
 }
 
-function NavLink({ href, pathname, label, index }: { href: string; pathname: string; label: string; index: number }) {
+function NavLink({
+  href,
+  pathname,
+  label,
+  index,
+  isOpen
+}: {
+  href: string;
+  pathname: string;
+  label: string;
+  index: number;
+  isOpen: boolean;
+}) {
+  const isActive = pathname === href;
+
   return (
-    <li id={`nav-link-${index}`} className="relative z-10">
+    <li
+      id={`nav-link-${index}`}
+      className="relative z-10 group"
+    >
       <Link href={href}>
-        <span className={`text-lg transition-all duration-300 ${pathname === href ? 'font-semibold' : 'text-gray-900 dark:text-gray-100'}`}>
+        <span
+          className={`text-lg inline-block px-3 py-1 transition-all duration-300 rounded-md ${isActive || isOpen
+            ? 'font-semibold text-blue-600'
+            : 'text-gray-900 dark:text-gray-100'
+            } hover:text-blue-600`}
+        >
           {label}
         </span>
       </Link>
+      <div
+        className={`absolute left-0 right-0 h-1 rounded-full transition-all duration-300 ${isActive || isOpen
+          ? 'bg-blue-600'
+          : 'bg-gray-300 dark:bg-gray-600'
+          }`}
+      ></div>
     </li>
   );
 }
 
-function DesktopNavLinks({ pathname, indicatorPos, indicatorWidth }: { pathname: string; indicatorPos: number; indicatorWidth: number }) {
+
+
+function DesktopNavLinks({
+  pathname,
+  indicatorPos,
+  indicatorWidth
+}: {
+  pathname: string;
+  indicatorPos: number;
+  indicatorWidth: number;
+}) {
   return (
     <ul className="flex space-x-8 relative">
-      <NavLink href="/" pathname={pathname} label="Home" index={0} />
-      <NavLink href="/docs" pathname={pathname} label="Docs" index={1} />
-      <NavLink href="/project" pathname={pathname} label="Project" index={2} />
-      <div
+      <NavLink href="/" pathname={pathname} label="Home" index={0} isOpen={false} />
+      <NavLink href="/docs" pathname={pathname} label="Docs" index={1} isOpen={false} />
+      <NavLink href="/project" pathname={pathname} label="Project" index={2} isOpen={false} />
+      {/* <div
         className="absolute top-1/2 transform -translate-y-1/2 h-16 rounded-full bg-blue-500 dark:bg-blue-700 border-2 border-transparent hidden md:block transition-all duration-300"
         style={{
-          left: indicatorPos - 39, // Tambahkan sedikit padding
-          width: indicatorWidth + 15, // Tambahkan sedikit lebar
+          left: indicatorPos - 39,
+          width: indicatorWidth + 15,
           zIndex: 0
         }}
-      />
+      /> */}
     </ul>
   );
 }
 
-function MobileNavLinks({ isNavOpen, pathname }: { isNavOpen: boolean; pathname: string }) {
+function MobileNavLinks({
+  isNavOpen,
+  pathname,
+  loginUrl,
+  userStatus
+}: {
+  isNavOpen: boolean;
+  pathname: string;
+  loginUrl: string;
+  userStatus: string | null;
+}) {
   return (
-    <ul className={`${isNavOpen ? 'flex flex-col absolute top-full left-0 w-full bg-gray-50 dark:bg-black border-t border-blue-500 shadow-lg z-50' : 'hidden'}`}>
-      <NavLink href="/" pathname={pathname} label="Home" index={0} />
-      <NavLink href="/docs" pathname={pathname} label="Docs" index={1} />
-      <NavLink href="/project" pathname={pathname} label="Project" index={2} />
-    </ul>
+    <div
+      className={`fixed inset-0 bg-black bg-opacity-50 transition-opacity duration-300 ease-in-out z-20 ${isNavOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+    >
+      <ul
+        className={`absolute top-0 left-0 w-full bg-white dark:bg-black py-6 transform transition-all duration-300 ease-in-out z-20 ${isNavOpen ? 'translate-y-0' : '-translate-y-full'}`}
+      >
+        <NavLink href="/" pathname={pathname} label="Home" index={0} isOpen={false} />
+        <NavLink href="/docs" pathname={pathname} label="Docs" index={1} isOpen={false} />
+        <NavLink href="/project" pathname={pathname} label="Project" index={2} isOpen={false} />
+        {userStatus !== 'authenticated' ? (
+          <li className="text-center mt-4">
+            <Link href={loginUrl}>
+              <button className="px-6 py-2 bg-blue-500 text-white rounded-full">Login</button>
+            </Link>
+          </li>
+        ) : null}
+      </ul>
+    </div>
   );
 }
 
-function NavToggleButton({ isNavOpen, setIsNavOpen }: { isNavOpen: boolean; setIsNavOpen: (isNavOpen: boolean) => void }) {
+function NavToggleButton({
+  isNavOpen,
+  setIsNavOpen
+}: {
+  isNavOpen: boolean;
+  setIsNavOpen: (isNavOpen: boolean) => void;
+}) {
   return (
     <button
       type="button"
-      className="flex items-center justify-center w-10 h-10 bg-transparent border border-blue-500 rounded-full md:hidden"
+      className="fixed top-3 right-3 z-30 flex items-center justify-center w-10 h-10 bg-transparent border border-blue-500 rounded-full md:hidden"
       onClick={() => setIsNavOpen(!isNavOpen)}
     >
       <svg
@@ -113,45 +187,56 @@ function NavToggleButton({ isNavOpen, setIsNavOpen }: { isNavOpen: boolean; setI
   );
 }
 
-function UserMenu({ status, session, loginUrl }: { status: string | null; session: any; loginUrl: string }) {
+function UserMenu({
+  isDropdownOpen,
+  setIsDropdownOpen,
+  session,
+  status,
+  loginUrl
+}: {
+  isDropdownOpen: boolean;
+  setIsDropdownOpen: (isDropdownOpen: boolean) => void;
+  session: any;
+  status: string | null;
+  loginUrl: string;
+}) {
   return (
-    <div className="relative flex items-center space-x-2 md:order-2 rtl:space-x-reverse">
+    <div className="relative">
       {status === 'authenticated' ? (
-        <DropdownMenu>
-          <DropdownMenuTrigger>
-            <div className="relative cursor-pointer w-8 h-8">
-              <Image
-                src={session?.user?.image ?? '/profile-circle-svgrepo-com.svg'}
-                alt="profile"
-                className="rounded-full"
-                width={32}
-                height={32}
-              />
-            </div>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuLabel>
-              <div className="flex items-center">
-                <User className="mr-2" />
-                <span>{session?.user?.name ?? 'Guest'}</span>
-              </div>
-            </DropdownMenuLabel>
-            <DropdownMenuItem>
-              <Link href="/dashboard">Dashboard</Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Link href="/settings">Settings</Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <button onClick={() => alert('Sign out action')}>Sign Out</button>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <button
+          className="relative w-10 h-10 rounded-full border border-blue-500"
+          onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+        >
+          <Image
+            src={session?.user?.image ?? '/profile-circle-svgrepo-com.svg'}
+            alt="profile"
+            className="rounded-full"
+            width={32}
+            height={32}
+          />
+        </button>
       ) : (
         <Link href={loginUrl}>
-          <button className="px-4 py-2 bg-blue-500 text-white rounded-full">Login</button>
+          <button className="hidden md:block px-4 py-2 bg-blue-500 text-white rounded-full z-30">Login</button>
         </Link>
+
+      )}
+      {isDropdownOpen && (
+        <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 shadow-lg rounded-lg z-40">
+          <ul>
+            <li className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-t-lg">
+              <Link href="/dashboard">Dashboard</Link>
+            </li>
+            <li className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700">
+              <Link href="/settings">Settings</Link>
+            </li>
+            <li className="px-4 py-2 hover:bg-red-100 dark:hover:bg-red-700 rounded-b-lg">
+              <button onClick={() => alert('Sign out action')}>Sign Out</button>
+            </li>
+          </ul>
+        </div>
       )}
     </div>
   );
 }
+

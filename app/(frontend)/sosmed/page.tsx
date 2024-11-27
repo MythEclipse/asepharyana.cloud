@@ -154,12 +154,13 @@ export default function PostPage({ session }: { session: Session }) {
   };
 
   const toggleComments = (postId: string) => setShowComments((prev) => ({ ...prev, [postId]: !prev[postId] }));
-  if (!session || !session.user) return (
-    <div className="container mx-auto py-8">
-      <h1 className="text-2xl font-bold mb-4">Create a Post</h1>
-      <p>You need to be logged in to create a post</p>
-    </div>
-  )
+  if (!session || !session.user)
+    return (
+      <div className="container mx-auto py-8">
+        <h1 className="text-2xl font-bold mb-4">Create a Post</h1>
+        <p>You need to be logged in to create a post</p>
+      </div>
+    );
   return (
     <div className="container mx-auto py-8">
       <h1 className="text-2xl font-bold mb-4">Create a Post</h1>

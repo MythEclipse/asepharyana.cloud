@@ -35,14 +35,16 @@ const FloatingDockMobile = ({
   return (
     <div className={cn('fixed bottom-4 right-4 md:hidden z-50', className)}>
       <div
-        className={`absolute bottom-full mb-2 inset-x-0 flex flex-col gap-4 z-50 transition-all duration-300 ${open ? 'opacity-100' : 'opacity-0'
-          }`}
+        className={`absolute bottom-full mb-2 inset-x-0 flex flex-col gap-4 z-50 transition-all duration-300 ${
+          open ? 'opacity-100' : 'opacity-0'
+        }`}
       >
         {items.map((item, idx) => (
           <div
             key={item.title}
-            className={`transition-transform duration-300 ease-in-out transform ${open ? 'translate-y-0' : 'translate-y-4'
-              }`}
+            className={`transition-transform duration-300 ease-in-out transform ${
+              open ? 'translate-y-0' : 'translate-y-4'
+            }`}
             style={{ transitionDelay: `${idx * 0.02}s` }}
           >
             <Link

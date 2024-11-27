@@ -12,9 +12,7 @@ export const BackgroundBeamsWithCollision = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const parentRef = useRef<HTMLDivElement>(null);
 
-  const [beams, setBeams] = useState<
-    { initialX: number; duration: number; delay: number; className: string }[]
-  >([]);
+  const [beams, setBeams] = useState<{ initialX: number; duration: number; delay: number; className: string }[]>([]);
 
   useEffect(() => {
     const newBeams = Array.from({ length: 10 }, () => ({
