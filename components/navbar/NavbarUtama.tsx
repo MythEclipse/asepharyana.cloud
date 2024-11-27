@@ -4,10 +4,11 @@ import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
+import { auth } from '@/lib/auth'; // Adjust the import path accordingly
+import { Session } from 'next-auth';
 
-export default function Navbar({ sessionData, statusData }: { sessionData: any; statusData: string | null }) {
-  const [session, setSession] = useState(sessionData);
-  const [userStatus, setUserStatus] = useState<string | null>(statusData);
+export default function Navbar() {
+  const [session, setSession] = useState<Session | null>(null);
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [indicatorPos, setIndicatorPos] = useState(0);
@@ -15,6 +16,15 @@ export default function Navbar({ sessionData, statusData }: { sessionData: any; 
 
   const pathname = usePathname();
   const loginUrl = `/login?callbackUrl=${encodeURIComponent(pathname)}`;
+
+  useEffect(() => {
+    const fetchSession = async () => {
+      const sessionData = await auth();
+      setSession(sessionData);
+    };
+
+    fetchSession();
+  }, []);
 
   useEffect(() => {
     const links = ['/', '/docs', '/project'];
@@ -45,7 +55,7 @@ export default function Navbar({ sessionData, statusData }: { sessionData: any; 
             isDropdownOpen={isDropdownOpen}
             setIsDropdownOpen={setIsDropdownOpen}
             session={session}
-            status={userStatus}
+            status={session ? 'authenticated' : 'unauthenticated'}
             loginUrl={loginUrl}
           />
           <NavToggleButton isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
@@ -53,7 +63,7 @@ export default function Navbar({ sessionData, statusData }: { sessionData: any; 
         <div className="hidden md:block">
           <DesktopNavLinks pathname={pathname} indicatorPos={indicatorPos} indicatorWidth={indicatorWidth} />
         </div>
-        <MobileNavLinks isNavOpen={isNavOpen} pathname={pathname} loginUrl={loginUrl} userStatus={userStatus} />
+        <MobileNavLinks isNavOpen={isNavOpen} pathname={pathname} loginUrl={loginUrl} userStatus={session ? 'authenticated' : 'unauthenticated'} />
       </div>
     </nav>
   );
@@ -78,17 +88,15 @@ function NavLink({
     <li id={`nav-link-${index}`} className="relative z-10 group">
       <Link href={href}>
         <span
-          className={`text-lg inline-block px-3 py-1 transition-all duration-300 rounded-md ${
-            isActive || isOpen ? 'font-semibold text-blue-600' : 'text-gray-900 dark:text-gray-100'
-          } hover:text-blue-600`}
+          className={`text-lg inline-block px-3 py-1 transition-all duration-300 rounded-md ${isActive || isOpen ? 'font-semibold text-blue-600' : 'text-gray-900 dark:text-gray-100'
+            } hover:text-blue-600`}
         >
           {label}
         </span>
       </Link>
       <div
-        className={`absolute left-0 right-0 h-1 rounded-full transition-all duration-300 ${
-          isActive || isOpen ? 'bg-blue-600' : 'bg-gray-300 dark:bg-gray-600'
-        }`}
+        className={`absolute left-0 right-0 h-1 rounded-full transition-all duration-300 ${isActive || isOpen ? 'bg-blue-600' : 'bg-gray-300 dark:bg-gray-600'
+          }`}
       ></div>
     </li>
   );
@@ -108,14 +116,6 @@ function DesktopNavLinks({
       <NavLink href="/" pathname={pathname} label="Home" index={0} isOpen={false} />
       <NavLink href="/docs" pathname={pathname} label="Docs" index={1} isOpen={false} />
       <NavLink href="/project" pathname={pathname} label="Project" index={2} isOpen={false} />
-      {/* <div
-        className="absolute top-1/2 transform -translate-y-1/2 h-16 rounded-full bg-blue-500 dark:bg-blue-700 border-2 border-transparent hidden md:block transition-all duration-300"
-        style={{
-          left: indicatorPos - 39,
-          width: indicatorWidth + 15,
-          zIndex: 0
-        }}
-      /> */}
     </ul>
   );
 }
@@ -189,7 +189,7 @@ function UserMenu({
 }: {
   isDropdownOpen: boolean;
   setIsDropdownOpen: (isDropdownOpen: boolean) => void;
-  session: any;
+  session: Session | null;
   status: string | null;
   loginUrl: string;
 }) {

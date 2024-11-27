@@ -9,6 +9,7 @@ import { HiHeart, HiChatAlt } from 'react-icons/hi';
 import Image from 'next/image';
 import { BaseUrl } from '@/lib/url';
 import { auth } from '@/lib/auth'; // Make sure to import your auth function
+import { Session } from 'next-auth';
 
 interface Post {
   id: string;
@@ -51,7 +52,7 @@ export default function PostPage() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [newComment, setNewComment] = useState('');
   const [showComments, setShowComments] = useState<Record<string, boolean>>({});
-  const [session, setSession] = useState<any>(null);
+  const [session, setSession] = useState<Session | null>(null);
 
   useEffect(() => {
     const fetchSession = async () => {
@@ -160,7 +161,7 @@ export default function PostPage() {
 
   const toggleComments = (postId: string) => setShowComments((prev) => ({ ...prev, [postId]: !prev[postId] }));
 
-  if (!session || !session.user)
+  if (!session?.user)
     return (
       <div className="container mx-auto py-8">
         <h1 className="text-2xl font-bold mb-4">Create a Post</h1>

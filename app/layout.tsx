@@ -66,7 +66,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             </head>
             <body className="h-screen bg-white dark:bg-black">
               <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-                <NavbarWrapper sessionData={session} statusData={status} />
+                <NavbarWrapper />
                 <div className="mt-28 max-w-full px-0.5 pb-10 pt-38 sm:px-6 lg:px-8">
                   {children}
                   <DarkThemeToggle className="fixed bottom-0 left-0 z-10 m-4" aria-label="Toggle Dark Mode" />
