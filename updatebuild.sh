@@ -2,7 +2,9 @@
 sudo rm -rf ./.next/ 
 
 # Pull the latest changes from the Git repository
-git pull 
+git fetch origin
+git reset --hard origin/master
+
 
 # Install any new or updated dependencies using pnpm
 pnpm install 
