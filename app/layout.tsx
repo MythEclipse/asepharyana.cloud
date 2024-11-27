@@ -13,11 +13,6 @@ import DarkThemeToggle from '@/components/DarkThemeToggle';
 import { auth } from '@/lib/auth';
 // Google font setup
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
-export async function GET() {
-  const session = await auth();
-  const status = session ? 'Authenticated' : 'Not Authenticated';
-  return { session, status };
-}
 // Metadata configuration for the page
 export const metadata: Metadata = {
   metadataBase: new URL(`${PRODUCTION}`),
@@ -52,7 +47,6 @@ export const metadata: Metadata = {
 
 // RootLayout component
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const { status, session } = await GET();
   return (
     <Flowbite>
       {/* <ContextAppProvider> */}

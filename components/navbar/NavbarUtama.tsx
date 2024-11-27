@@ -4,11 +4,17 @@ import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
+import { SessionProvider, useSession } from 'next-auth/react';
 import { Session } from 'next-auth';
-import { useSession } from 'next-auth/react';
 
-export default function Navbar() {
-  const [session, setSession] = useState<Session | null>(null);
+export default function NavbarWrapper() {
+  return (
+    <Navbar />
+  );
+}
+
+function Navbar() {
+  const { data: session } = useSession();
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [indicatorPos, setIndicatorPos] = useState(0);
@@ -16,15 +22,6 @@ export default function Navbar() {
 
   const pathname = usePathname();
   const loginUrl = `/login?callbackUrl=${encodeURIComponent(pathname)}`;
-
-  useEffect(() => {
-    const fetchSession = async () => {
-      const { data: sessionData } = useSession();
-      setSession(sessionData);
-    };
-
-    fetchSession();
-  }, []);
 
   useEffect(() => {
     const links = ['/', '/docs', '/project'];
