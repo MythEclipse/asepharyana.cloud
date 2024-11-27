@@ -52,14 +52,9 @@ export default function PostPage() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [newComment, setNewComment] = useState('');
   const [showComments, setShowComments] = useState<Record<string, boolean>>({});
-  const [session, setSession] = useState<Session | null>(null);
+  const { data: session } = useSession();
 
   useEffect(() => {
-    const fetchSession = async () => {
-      const { data: sessionData } = useSession();
-      setSession(sessionData);
-    };
-    fetchSession();
     fetchPosts();
   }, []);
 
