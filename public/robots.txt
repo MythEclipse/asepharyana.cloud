@@ -4,3 +4,6 @@ Allow: /
 
 # Host
 Host: https://asepharyana.cloud
+
+# Sitemaps
+Sitemap: https://asepharyana.cloud/sitemap.xml

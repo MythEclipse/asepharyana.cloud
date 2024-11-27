@@ -1,25 +1,19 @@
-export const metadata = {
-  title: {
-    default: 'Dokumentasi API',
-    template: '%s - Dokumentasi API'
-  },
-  description: 'Dokumentasi API untuk digunakan secara gratis',
-  keywords: 'nextjs, api, free'
-};
+"use client";
 
-import SwaggerUI from 'swagger-ui-react';
-import 'swagger-ui-react/swagger-ui.css';
-import './custom.css';
-import fs from 'fs';
-import path from 'path';
-import yaml from 'js-yaml';
-
-const filePath = path.join(process.cwd(), 'public', 'OpenApi.yaml');
-const OpenApiYaml = fs.readFileSync(filePath, 'utf8');
-const OpenApiJson = yaml.load(OpenApiYaml);
-
-const openApiSpec = OpenApiJson as Record<string, any>;
+import React, { useEffect, useState } from "react";
 
 export default function OpenApiDocsPage() {
-  return <SwaggerUI spec={openApiSpec} displayOperationId={true} />;
+  const [SwaggerUI, setSwaggerUI] = useState<null | React.ComponentType<any>>(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      import("swagger-ui-react").then((mod) => {
+        setSwaggerUI(mod.default as React.ComponentType<any>);
+      });
+    }
+  }, []);
+
+  if (!SwaggerUI) return <div>Loading...</div>;
+
+  return <SwaggerUI url="https://asepharyana.cloud/OpenApi.yaml" displayOperationId />;
 }

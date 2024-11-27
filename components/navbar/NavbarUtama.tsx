@@ -6,7 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { SessionProvider, useSession } from 'next-auth/react';
 import { Session } from 'next-auth';
-import { signOut } from '@/lib/auth';
+import { handleSignOut } from '@/lib/signOutAction';
 
 export default function NavbarWrapper() {
   return <Navbar />;
@@ -89,17 +89,15 @@ function NavLink({
     <li id={`nav-link-${index}`} className="relative z-10 group">
       <Link href={href}>
         <span
-          className={`text-lg inline-block px-3 py-1 transition-all duration-300 rounded-md ${
-            isActive || isOpen ? 'font-semibold text-blue-600' : 'text-gray-900 dark:text-gray-100'
-          } hover:text-blue-600`}
+          className={`text-lg inline-block px-3 py-1 transition-all duration-300 rounded-md ${isActive || isOpen ? 'font-semibold text-blue-600' : 'text-gray-900 dark:text-gray-100'
+            } hover:text-blue-600`}
         >
           {label}
         </span>
       </Link>
       <div
-        className={`absolute left-0 right-0 h-1 rounded-full transition-all duration-300 ${
-          isActive || isOpen ? 'bg-blue-600' : 'bg-gray-300 dark:bg-gray-600'
-        }`}
+        className={`absolute left-0 right-0 h-1 rounded-full transition-all duration-300 ${isActive || isOpen ? 'bg-blue-600' : 'bg-gray-300 dark:bg-gray-600'
+          }`}
       ></div>
     </li>
   );
@@ -206,7 +204,7 @@ function UserMenu({
           <Image
             src={session?.user?.image ?? '/profile-circle-svgrepo-com.svg'}
             alt="profile"
-            className="rounded-full"
+            className="rounded-full object-cover"
             width={32}
             height={32}
           />
@@ -227,10 +225,7 @@ function UserMenu({
             </li>
             <li className="px-4 py-2 hover:bg-red-100 dark:hover:bg-red-700 rounded-b-lg">
               <button
-                onClick={async () => {
-                  'use server';
-                  await signOut();
-                }}
+                onClick={handleSignOut}
               >
                 Sign Out
               </button>
