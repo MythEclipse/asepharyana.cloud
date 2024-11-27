@@ -12,12 +12,19 @@ export const BackgroundBeamsWithCollision = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const parentRef = useRef<HTMLDivElement>(null);
 
-  const beams = Array.from({ length: 10 }, () => ({
-    initialX: Math.random() * window.innerWidth,
-    duration: Math.random() * 8 + 4,
-    delay: Math.random() * 4,
-    className: `h-${Math.floor(Math.random() * 10 + 5)}`
-  }));
+  const [beams, setBeams] = useState<
+    { initialX: number; duration: number; delay: number; className: string }[]
+  >([]);
+
+  useEffect(() => {
+    const newBeams = Array.from({ length: 10 }, () => ({
+      initialX: Math.random() * window.innerWidth,
+      duration: Math.random() * 8 + 4,
+      delay: Math.random() * 4,
+      className: `h-${Math.floor(Math.random() * 10 + 5)}`
+    }));
+    setBeams(newBeams);
+  }, []);
 
   return (
     <div ref={parentRef} className={cn('relative overflow-hidden', className)}>

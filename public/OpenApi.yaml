@@ -938,17 +938,42 @@ paths:
       summary: 'Proxy'
       tags:
         - tools
-      description: 'proxy'
+      description: 'Proxy request to multiple base URLs'
       parameters: 
         - name: url
           in: query
           required: true
           schema:
             type: string
-          example: 'https://asepharyana.cloud'
+            example: 'https://asepharyana.cloud'
       responses:
         '200':
-          description: OK
+          description: 'Successful proxy response'
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '400':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: 'Internal server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  details:
+                    type: string
   /api/uploader:
     post:
       summary: 'File Uploader'

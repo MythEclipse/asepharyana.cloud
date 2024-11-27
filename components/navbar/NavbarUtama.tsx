@@ -4,13 +4,7 @@ import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-  DropdownMenuItem,
-  DropdownMenuLabel
-} from '@/components/ui/dropdown-menu';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem, DropdownMenuLabel } from '@/components/ui/dropdown-menu';
 import { User } from 'lucide-react';
 
 export default function Navbar({ sessionData, statusData }: { sessionData: any; statusData: string | null }) {
@@ -41,30 +35,18 @@ export default function Navbar({ sessionData, statusData }: { sessionData: any; 
       <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-3 relative">
         <Link href="/" className="flex items-center space-x-2">
           <Image src="/Logo.svg" alt="Logo" quality={100} loading="eager" width={50} height={40} priority />
-          <span
-            className={`text-lg transition-colors duration-300 ${
-              pathname === '/' ? 'font-semibold text-blue-600' : 'text-gray-900 dark:text-gray-100'
-            }`}
-          >
+          <span className={`text-lg transition-colors duration-300 ${pathname === '/' ? 'font-semibold text-blue-600' : 'text-gray-900 dark:text-gray-100'}`}>
             Asep Haryana
           </span>
         </Link>
         <UserMenu status={userStatus} session={session} loginUrl={loginUrl} />
         <NavToggleButton isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
-        <NavLinks
-          isNavOpen={isNavOpen}
-          pathname={pathname}
-          indicatorPos={indicatorPos}
-          indicatorWidth={indicatorWidth}
-        />
-        <div
-          className="absolute top-1/2 transform -translate-y-1/2 h-16 rounded-full bg-blue-500 dark:bg-blue-700 border-2 border-transparent hidden md:block transition-all duration-300"
-          style={{
-            left: indicatorPos + 575, // Tambahkan sedikit padding
-            width: indicatorWidth + 20, // Tambahkan sedikit lebar
-            zIndex: 0
-          }}
-        />
+        <div className="hidden md:block">
+          <DesktopNavLinks pathname={pathname} indicatorPos={indicatorPos} indicatorWidth={indicatorWidth} />
+        </div>
+        <div className="block md:hidden">
+          <MobileNavLinks isNavOpen={isNavOpen} pathname={pathname} />
+        </div>
       </div>
     </nav>
   );
@@ -74,11 +56,7 @@ function NavLink({ href, pathname, label, index }: { href: string; pathname: str
   return (
     <li id={`nav-link-${index}`} className="relative z-10">
       <Link href={href}>
-        <span
-          className={`text-lg transition-all duration-300 ${
-            pathname === href ? 'font-semibold ' : 'text-gray-900 dark:text-gray-100'
-          }`}
-        >
+        <span className={`text-lg transition-all duration-300 ${pathname === href ? 'font-semibold' : 'text-gray-900 dark:text-gray-100'}`}>
           {label}
         </span>
       </Link>
@@ -86,25 +64,27 @@ function NavLink({ href, pathname, label, index }: { href: string; pathname: str
   );
 }
 
-function NavLinks({
-  isNavOpen,
-  pathname,
-  indicatorPos,
-  indicatorWidth
-}: {
-  isNavOpen: boolean;
-  pathname: string;
-  indicatorPos: number;
-  indicatorWidth: number;
-}) {
+function DesktopNavLinks({ pathname, indicatorPos, indicatorWidth }: { pathname: string; indicatorPos: number; indicatorWidth: number }) {
   return (
-    <ul
-      className={`${
-        isNavOpen
-          ? 'flex flex-col absolute top-full left-0 w-full bg-gray-50 dark:bg-black border-t border-blue-500 shadow-lg z-50'
-          : 'hidden'
-      } md:flex md:flex-row md:space-x-8 md:relative md:bg-transparent md:border-0 md:shadow-none`}
-    >
+    <ul className="flex space-x-8 relative">
+      <NavLink href="/" pathname={pathname} label="Home" index={0} />
+      <NavLink href="/docs" pathname={pathname} label="Docs" index={1} />
+      <NavLink href="/project" pathname={pathname} label="Project" index={2} />
+      <div
+        className="absolute top-1/2 transform -translate-y-1/2 h-16 rounded-full bg-blue-500 dark:bg-blue-700 border-2 border-transparent hidden md:block transition-all duration-300"
+        style={{
+          left: indicatorPos - 39, // Tambahkan sedikit padding
+          width: indicatorWidth + 15, // Tambahkan sedikit lebar
+          zIndex: 0
+        }}
+      />
+    </ul>
+  );
+}
+
+function MobileNavLinks({ isNavOpen, pathname }: { isNavOpen: boolean; pathname: string }) {
+  return (
+    <ul className={`${isNavOpen ? 'flex flex-col absolute top-full left-0 w-full bg-gray-50 dark:bg-black border-t border-blue-500 shadow-lg z-50' : 'hidden'}`}>
       <NavLink href="/" pathname={pathname} label="Home" index={0} />
       <NavLink href="/docs" pathname={pathname} label="Docs" index={1} />
       <NavLink href="/project" pathname={pathname} label="Project" index={2} />
@@ -112,13 +92,7 @@ function NavLinks({
   );
 }
 
-function NavToggleButton({
-  isNavOpen,
-  setIsNavOpen
-}: {
-  isNavOpen: boolean;
-  setIsNavOpen: (isNavOpen: boolean) => void;
-}) {
+function NavToggleButton({ isNavOpen, setIsNavOpen }: { isNavOpen: boolean; setIsNavOpen: (isNavOpen: boolean) => void }) {
   return (
     <button
       type="button"
