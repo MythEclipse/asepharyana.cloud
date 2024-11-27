@@ -8,6 +8,7 @@ import { Card } from '@/components/ui/card';
 import { HiHeart, HiChatAlt } from 'react-icons/hi';
 import Image from 'next/image';
 import { BaseUrl } from '@/lib/url';
+import { auth } from '@/lib/auth'; // Make sure to import your auth function
 
 interface Post {
   id: string;
@@ -42,10 +43,7 @@ interface Comment {
   user: User;
 }
 
-import { Session } from 'next-auth';
-import Link from 'next/link';
-
-export default function PostPage({ session }: { session: Session }) {
+export default function PostPage() {
   const [content, setContent] = useState('');
   const [file, setFile] = useState<File | null>(null);
   const [posting, setPosting] = useState(false);
@@ -53,8 +51,15 @@ export default function PostPage({ session }: { session: Session }) {
   const [posts, setPosts] = useState<Post[]>([]);
   const [newComment, setNewComment] = useState('');
   const [showComments, setShowComments] = useState<Record<string, boolean>>({});
+  const [session, setSession] = useState<any>(null);
 
   useEffect(() => {
+    const fetchSession = async () => {
+      const session = await auth();
+      setSession(session);
+    };
+
+    fetchSession();
     fetchPosts();
   }, []);
 
@@ -154,6 +159,7 @@ export default function PostPage({ session }: { session: Session }) {
   };
 
   const toggleComments = (postId: string) => setShowComments((prev) => ({ ...prev, [postId]: !prev[postId] }));
+
   if (!session || !session.user)
     return (
       <div className="container mx-auto py-8">
@@ -161,6 +167,7 @@ export default function PostPage({ session }: { session: Session }) {
         <p>You need to be logged in to create a post</p>
       </div>
     );
+
   return (
     <div className="container mx-auto py-8">
       <h1 className="text-2xl font-bold mb-4">Create a Post</h1>
