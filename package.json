@@ -26,6 +26,7 @@
     "check-lint": "next lint"
   },
   "dependencies": {
+    "@auth/core": "^0.37.4",
     "@auth/prisma-adapter": "^2.7.4",
     "@ducanh2912/next-pwa": "^10.2.9",
     "@formatjs/intl": "^2.10.8",

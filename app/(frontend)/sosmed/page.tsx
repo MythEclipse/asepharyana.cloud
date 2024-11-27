@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, use } from 'react';
 import axios from 'axios';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -8,7 +8,7 @@ import { Card } from '@/components/ui/card';
 import { HiHeart, HiChatAlt } from 'react-icons/hi';
 import Image from 'next/image';
 import { BaseUrl } from '@/lib/url';
-import { auth } from '@/lib/auth'; // Make sure to import your auth function
+import { useSession } from 'next-auth/react';
 import { Session } from 'next-auth';
 
 interface Post {
@@ -56,10 +56,9 @@ export default function PostPage() {
 
   useEffect(() => {
     const fetchSession = async () => {
-      const session = await auth();
-      setSession(session);
+      const { data: sessionData } = useSession();
+      setSession(sessionData);
     };
-
     fetchSession();
     fetchPosts();
   }, []);

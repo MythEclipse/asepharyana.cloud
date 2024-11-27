@@ -4,8 +4,8 @@ import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import { auth } from '@/lib/auth'; // Adjust the import path accordingly
 import { Session } from 'next-auth';
+import { useSession } from 'next-auth/react';
 
 export default function Navbar() {
   const [session, setSession] = useState<Session | null>(null);
@@ -19,7 +19,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const fetchSession = async () => {
-      const sessionData = await auth();
+      const { data: sessionData } = useSession();
       setSession(sessionData);
     };
 
@@ -93,17 +93,15 @@ function NavLink({
     <li id={`nav-link-${index}`} className="relative z-10 group">
       <Link href={href}>
         <span
-          className={`text-lg inline-block px-3 py-1 transition-all duration-300 rounded-md ${
-            isActive || isOpen ? 'font-semibold text-blue-600' : 'text-gray-900 dark:text-gray-100'
-          } hover:text-blue-600`}
+          className={`text-lg inline-block px-3 py-1 transition-all duration-300 rounded-md ${isActive || isOpen ? 'font-semibold text-blue-600' : 'text-gray-900 dark:text-gray-100'
+            } hover:text-blue-600`}
         >
           {label}
         </span>
       </Link>
       <div
-        className={`absolute left-0 right-0 h-1 rounded-full transition-all duration-300 ${
-          isActive || isOpen ? 'bg-blue-600' : 'bg-gray-300 dark:bg-gray-600'
-        }`}
+        className={`absolute left-0 right-0 h-1 rounded-full transition-all duration-300 ${isActive || isOpen ? 'bg-blue-600' : 'bg-gray-300 dark:bg-gray-600'
+          }`}
       ></div>
     </li>
   );
