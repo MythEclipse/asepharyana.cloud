@@ -30,9 +30,7 @@ export default function CardA({ title, description, imageUrl, linkUrl }: CardPro
           </div>
           <div className="p-4">
             <h3 className="text-lg font-bold text-black dark:text-gray-200 truncate">{title}</h3>
-            {description && (
-              <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">{description}</p>
-            )}
+            {description && <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">{description}</p>}
           </div>
         </ShadcnCard>
       </div>

@@ -24,10 +24,7 @@ export const AnimatedHeader = ({
   const headerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsInView(entry.isIntersecting),
-      { threshold: 0.1 }
-    );
+    const observer = new IntersectionObserver(([entry]) => setIsInView(entry.isIntersecting), { threshold: 0.1 });
 
     if (headerRef.current) observer.observe(headerRef.current);
 
@@ -71,10 +68,7 @@ export const AnimatedHeader = ({
       <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight">
         {renderWords()}
         <span
-          className={cn(
-            'inline-block rounded-sm w-[3px] h-7 bg-blue-500 animate-blink ml-1',
-            cursorClassName
-          )}
+          className={cn('inline-block rounded-sm w-[3px] h-7 bg-blue-500 animate-blink ml-1', cursorClassName)}
         ></span>
       </h1>
     </header>
