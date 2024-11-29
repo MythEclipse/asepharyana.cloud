@@ -1,21 +1,27 @@
+#!/bin/bash
+
 # Remove the .next directory to clean up old build files
-sudo rm -rf ./.next/ 
+sudo rm -rf ./.next/
 
 # Pull the latest changes from the Git repository
 git fetch origin
 
-
 # Install any new or updated dependencies using pnpm
-pnpm install 
+pnpm install
 
 # Run the migration scripts (if using a database or similar setup that requires migrations)
-pnpm run migrate  
+pnpm run migrate
 
 # Build the Next.js project for production
-npm run build 
+pnpm run build
 
-# Restart the PM2 process named "asepharyana.cloud" and update the environment variables
-pm2 restart asepharyana.cloud --update-env 
+# Check if the build was successful
+if [ $? -eq 0 ]; then
+    # Restart the PM2 process named "asepharyana.cloud" and update the environment variables
+    pm2 restart asepharyana.cloud --update-env
 
-# Execute commit.sh script (you may want to verify if it's necessary or if it requires any specific permissions)
-bash commit.sh
+    # Execute commit.sh script
+    bash commit.sh
+else
+    echo "Build failed. Skipping commit."
+fi

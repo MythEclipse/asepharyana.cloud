@@ -1,108 +1,98 @@
 import * as cheerio from 'cheerio';
 import { DEFAULT_HEADERS } from '@/lib/DHead';
 import { NextRequest, NextResponse } from 'next/server';
+import GetProxy from '@/lib/GetProxy';
 
-export async function GET(req: NextRequest, props: { params: Promise<{ slug: string }> }) {
-  const params = await props.params;
-  const { slug } = params;
-  try {
-    const response = await fetch(`https://samehadaku.li/anime/${slug}`, {
-      headers: DEFAULT_HEADERS,
-      next: { revalidate: 360 }
-    });
+const fetchAnimePage = async (slug: string) => {
+  const response = await GetProxy(`https://otakudesu.cloud/anime/${slug}`);
 
-    if (!response.ok) {
-      throw new Error(`Failed to fetch anime detail data: ${response.statusText}`);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch anime detail data: ${response.statusText}`);
+  }
+
+  return response.text();
+};
+
+const parseAnimeData = (html: string) => {
+  const $ = cheerio.load(html);
+
+  const extractText = (selector: string, prefix: string = '') => $(selector).text().replace(prefix, '').trim();
+
+  const title = extractText('.infozingle p:contains("Judul")', 'Judul: ');
+  const alternative_title = extractText('.infozingle p:contains("Japanese")', 'Japanese: ');
+  const poster = $('.fotoanime img').attr('src') || '';
+  const type = extractText('.infozingle p:contains("Tipe")', 'Tipe: ');
+  const release_date = extractText('.infozingle p:contains("Tanggal Rilis")', 'Tanggal Rilis: ');
+  const status = extractText('.infozingle p:contains("Status")', 'Status: ');
+  const synopsis = $('.sinopc').text().trim();
+  const studio = extractText('.infozingle p:contains("Studio")', 'Studio: ');
+
+  const genres: { name: string; slug: string; anime_url: string }[] = [];
+  $('.infozingle p:contains("Genre") a').each((_, element) => {
+    const name = $(element).text().trim();
+    const genreSlug = $(element).attr('href')?.split('/')[4] || '';
+    const anime_url = $(element).attr('href') || '';
+    genres.push({ name, slug: genreSlug, anime_url });
+  });
+
+  const episode_lists: { episode: string; slug: string }[] = [];
+  const batch: { episode: string; slug: string }[] = [];
+  $('.episodelist ul li span a').each((_, element) => {
+    const episode = $(element).text().trim();
+    const href = $(element).attr('href'); // Ambil atribut href
+    let episodeSlug = '';
+    if (href) {
+      const segments = href.split('/');
+      episodeSlug = segments.pop() || segments[segments.length - 1] || ''; // Ambil slug dari URL
     }
 
-    const html = await response.text();
-    const $ = cheerio.load(html);
-
-    const title = $('.entry-title').text().trim();
-    const alternative_title = $('.info-content .spe span:contains("Other")').next().text().trim();
-    const poster = $('.thumbook .thumb img').attr('src') || '';
-    const type = $('.info-content .spe span:contains("Type")').next().text().trim();
-    const release_date = $('.info-content .spe span:contains("Released")').next().text().trim();
-    const status = $('.info-content .spe span:contains("Status")').next().text().trim();
-    const synopsis = $('.entry-content').text().trim();
-    const genres: { name: string; slug: string; anime_url: string }[] = [];
-
-    $('.genxed a').each((index, element) => {
-      const name = $(element).text().trim();
-      const genreSlug = $(element).attr('href')?.split('/')[4] || '';
-      const anime_url = $(element).attr('href') || '';
-      genres.push({ name, slug: genreSlug, anime_url });
-    });
-
-    const episode_lists: { episode: string; slug: string }[] = [];
-    $('.eplister ul li a').each((_, element) => {
-      const episode = $(element).find('.epl-title').text().trim();
-      const episodeNumber = $(element).find('.epl-num').text().trim();
-      const episodeSlug = `${slug}-episode-${episodeNumber}`;
+    if (episode.toLowerCase().includes('batch')) {
+      batch.push({ episode, slug: episodeSlug });
+    } else {
       episode_lists.push({ episode, slug: episodeSlug });
-    });
+    }
+  });
 
-    const studio = $('.info-content .spe span:contains("Studio")').next().text().trim();
-    const season = $('.info-content .spe span:contains("Season")').next().text().trim();
-    const censor = $('.info-content .spe span:contains("Censor")').next().text().trim();
-    const director = $('.info-content .spe span:contains("Director")').next().text().trim();
-    const producers: string[] = [];
-    $('.info-content .spe span:contains("Producers")')
-      .nextAll('a')
-      .each((_, element) => {
-        producers.push($(element).text().trim());
-      });
-    const posted_by = $('.info-content .spe span:contains("Posted by")').next().text().trim();
-    const released_on = $('.info-content .spe span:contains("Released on") time').attr('datetime') || '';
-    const updated_on = $('.info-content .spe span:contains("Updated on") time').attr('datetime') || '';
+  const producers: string[] = extractText('.infozingle p:contains("Produser")', 'Produser: ')
+    .split(',')
+    .map((producer) => producer.trim());
 
-    const formatDate = (dateString: string) => {
-      const date = new Date(dateString);
-      return new Intl.DateTimeFormat('en-EN', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: false
-      }).format(date);
-    };
+  const recommendations: { title: string; slug: string; poster: string; status: string; type: string }[] = [];
+  $('#recommend-anime-series .isi-anime').each((_, element) => {
+    const title = $(element).find('.judul-anime a').text().trim();
+    const url = $(element).find('a').attr('href') || '';
+    const poster = $(element).find('img').attr('src') || '';
+    const slug = url.split('/')[4] || '';
+    recommendations.push({ title, slug, poster, status: '', type: '' });
+  });
 
-    const recommendations: { title: string; slug: string; poster: string; status: string; type: string }[] = [];
-    $('.listupd .bs').each((_, element) => {
-      const title = $(element).find('.tt h2').text().trim();
-      const url = $(element).find('a').attr('href') || '';
-      const poster = $(element).find('img').attr('src') || '';
-      const status = $(element).find('.status').text().trim();
-      const type = $(element).find('.typez').text().trim();
-      const slug = url.split('/')[4] || '';
-      recommendations.push({ title, slug, poster, status, type });
-    });
+  return {
+    title,
+    alternative_title,
+    poster,
+    type,
+    release_date,
+    status,
+    synopsis,
+    studio,
+    genres,
+    producers,
+    recommendations,
+    batch, // Batch data terpisah
+    episode_lists // Episode reguler
+  };
+};
 
-    return NextResponse.json({
-      status: 'Ok',
-      data: {
-        title,
-        poster,
-        type,
-        status,
-        release_date,
-        studio,
-        season,
-        censor,
-        director,
-        posted_by,
-        released_on: formatDate(released_on),
-        updated_on: formatDate(updated_on),
-        genres,
-        synopsis,
-        episode_lists,
-        recommendations
-      }
-    });
+export async function GET(req: NextRequest, props: { params: Promise<{ slug: string }> }) {
+  try {
+    const { slug } = await props.params;
+    const html = await fetchAnimePage(slug);
+    const animeData = parseAnimeData(html);
+
+    return NextResponse.json({ status: 'Ok', data: animeData });
   } catch (error) {
-    console.error(error);
-    return NextResponse.json({ message: 'Failed to scrape data' }, { status: 500 });
+    console.error('Error fetching anime data:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Failed to scrape data';
+    return NextResponse.json({ message: errorMessage }, { status: 500 });
   }
 }

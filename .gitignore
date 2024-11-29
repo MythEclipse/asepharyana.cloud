@@ -7,7 +7,7 @@ updatebuild.sh
 /homebrew
 .pnp.js
 .yarn/install-state.gz
-
+public/sitemap.xml
 # testing
 /coverage
 

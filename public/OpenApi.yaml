@@ -557,11 +557,7 @@ paths:
                               type: string
                             current_episode:
                               type: string
-                            release_day:
-                              type: string
-                            newest_release_date:
-                              type: string
-                            otakudesu_url:
+                            anime_url:
                               type: string
                       complete_anime:
                         type: array
@@ -576,29 +572,25 @@ paths:
                               type: string
                             episode_count:
                               type: string
-                            rating:
-                              type: string
-                            last_release_date:
-                              type: string
-                            otakudesu_url:
+                            anime_url:
                               type: string
   /api/anime/complete-anime/{slug}:
     get:
-      summary: 'Mendapatkan daftar anime'
+      summary: 'Mendapatkan daftar anime yang sudah selesai'
       tags:
         - anime
-      description: 'Mengambil daftar anime yang sudah selesai.'
+      description: 'Mengambil daftar anime yang sudah selesai berdasarkan slug.'
       parameters:
         - name: slug
           in: path
           required: true
-          description: 'Slug untuk halaman Anime.'
+          description: 'Slug untuk halaman anime.'
           schema:
             type: string
           example: '1'
       responses:
         '200':
-          description: 'Daftar anime'
+          description: 'Daftar anime yang sudah selesai berhasil didapatkan'
           content:
             application/json:
               schema:
@@ -618,13 +610,9 @@ paths:
                         poster:
                           type: string
                           format: uri
-                        episode_count:
+                        episode:
                           type: string
-                        rating:
-                          type: string
-                        last_release_date:
-                          type: string
-                        otakudesu_url:
+                        anime_url:
                           type: string
                           format: uri
                   pagination:
@@ -638,11 +626,34 @@ paths:
                         type: boolean
                       next_page:
                         type: integer
+                        nullable: true
                       has_previous_page:
                         type: boolean
                       previous_page:
                         type: integer
                         nullable: true
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                  - message
+        '500':
+          description: '500'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                  - message
   /api/anime/ongoing-anime/{slug}:
     get:
       summary: 'Dapatkan daftar anime yang sedang tayang berdasarkan slug'
@@ -715,7 +726,7 @@ paths:
           description: 'Slug untuk halaman anime.'
           schema:
             type: string
-          example: 'log-horizon'
+          example: 'log-horiz-subtitle-indonesia'
       responses:
         '200':
           description: 'Detail anime berhasil diambil.'
@@ -731,21 +742,13 @@ paths:
                     properties:
                       title:
                         type: string
-                      japanese_title:
+                      alternative_title:
                         type: string
                       poster:
-                        type: string
-                      rating:
-                        type: string
-                      credit:
                         type: string
                       type:
                         type: string
                       status:
-                        type: string
-                      episode_count:
-                        type: string
-                      duration:
                         type: string
                       release_date:
                         type: string
@@ -773,24 +776,19 @@ paths:
                               type: string
                             slug:
                               type: string
-                            anime_url:
+                      batch:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            episode:
                               type: string
-                            quality:
-                              type: array
-                              items:
-                                type: object
-                                properties:
-                                  res:
-                                    type: string
-                                  buttons:
-                                    type: array
-                                    items:
-                                      type: object
-                                      properties:
-                                        name:
-                                          type: string
-                                        url:
-                                          type: string
+                            slug:
+                              type: string
+                      producers:
+                        type: array
+                        items:
+                          type: string
                       recommendations:
                         type: array
                         items:
@@ -801,8 +799,6 @@ paths:
                             slug:
                               type: string
                             poster:
-                              type: string
-                            anime_url:
                               type: string
 
   /api/anime/full/{slug}:
@@ -818,6 +814,7 @@ paths:
           description: 'Slug untuk halaman episode anime.'
           schema:
             type: string
+          example: 'lgrhzon-episode-1-sub-indo'
       responses:
         '200':
           description: 'Episode anime berhasil diambil.'
@@ -832,6 +829,8 @@ paths:
                     type: object
                     properties:
                       episode:
+                        type: string
+                      episode_number:
                         type: string
                       anime:
                         type: object
@@ -857,6 +856,17 @@ paths:
                       stream_url:
                         type: string
                       download_urls:
+                        type: object
+                        additionalProperties:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              server:
+                                type: string
+                              url:
+                                type: string
+                      image_url:
                         type: string
         '400':
           description: '400'
@@ -916,23 +926,57 @@ paths:
                           type: string
                         poster:
                           type: string
+                        episode:
+                          type: string
+                        anime_url:
+                          type: string
                         genres:
                           type: array
                           items:
-                            type: object
-                            properties:
-                              name:
-                                type: string
-                              slug:
-                                type: string
-                              otakudesu_url:
-                                type: string
+                            type: string
                         status:
                           type: string
                         rating:
                           type: string
-                        url:
-                          type: string
+                  pagination:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                      last_visible_page:
+                        type: integer
+                      has_next_page:
+                        type: boolean
+                      next_page:
+                        type: integer
+                        nullable: true
+                      has_previous_page:
+                        type: boolean
+                      previous_page:
+                        type: integer
+                        nullable: true
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                  - message
+        '500':
+          description: '500'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                  - message 
   /api/proxy:
     get:
       summary: 'Proxy'

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import axios from 'axios';
 import * as cheerio from 'cheerio';
+import GetProxy from '@/lib/GetProxy';
 
 const logError = (error: any) => {
   console.error('Error:', error.message);
@@ -20,7 +20,7 @@ interface AnimeData {
   has_previous_episode: boolean;
   previous_episode: EpisodeInfo | null;
   stream_url: string;
-  download_urls: string;
+  download_urls: Record<string, { server: string; url: string }[]>;
   image_url: string;
 }
 
@@ -32,54 +32,71 @@ interface EpisodeInfo {
   slug: string;
 }
 
+const fetchAnimePage = async (slug: string): Promise<string> => {
+  const url = `https://otakudesu.cloud/episode/${slug}/`;
+  const response = await GetProxy(url);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch page: ${response.statusText}`);
+  }
+  return await response.text();
+};
+const parseAnimePage = (html: string, slug: string): AnimeData => {
+  const $ = cheerio.load(html);
+
+  const episode = $('h1.posttl').text();
+  const episode_number = episode.match(/Episode (\d+)/)?.[1] || '';
+  const image_url = $('.cukder img').attr('src') || '';
+  const stream_url = $('#embed_holder iframe').attr('src') || '';
+
+  const downloadUrls: Record<string, { server: string; url: string }[]> = {};
+
+  $('.download ul li').each((_, element) => {
+    const resolution = $(element).find('strong').text().trim();
+    const links = $(element)
+      .find('a')
+      .map((_, link) => ({
+        server: $(link).text().trim(),
+        url: $(link).attr('href') || ''
+      }))
+      .get();
+
+    if (resolution && links.length > 0) {
+      downloadUrls[resolution] = links;
+    }
+  });
+
+  const nextEpisodeElement = $('.flir a[title="Episode Selanjutnya"]');
+  const prevEpisodeElement = $('.flir a[title="Episode Sebelumnya"]');
+
+  const next_episode_url = nextEpisodeElement.attr('href') || null;
+  const previous_episode_url = prevEpisodeElement.attr('href') || null;
+
+  const next_episode_slug = next_episode_url ? new URL(next_episode_url).pathname.replace(/^\/|\/$/g, '') : null;
+  const previous_episode_slug = previous_episode_url
+    ? new URL(previous_episode_url).pathname.replace(/^\/|\/$/g, '')
+    : null;
+
+  return {
+    episode,
+    episode_number,
+    anime: { slug },
+    has_next_episode: !!next_episode_slug,
+    next_episode: next_episode_slug ? { slug: next_episode_slug } : null,
+    has_previous_episode: !!previous_episode_slug,
+    previous_episode: previous_episode_slug ? { slug: previous_episode_slug } : null,
+    stream_url,
+    download_urls: downloadUrls,
+    image_url
+  };
+};
+
 export async function GET(_: NextRequest, props: { params: Promise<{ slug: string }> }) {
   const params = await props.params;
   const { slug } = params;
-  const url = `https://samehadaku.li/${slug}/`;
 
   try {
-    const response = await axios.get(url);
-    const html = response.data;
-    const $ = cheerio.load(html);
-
-    // Extract the episode title
-    const episode = $('h1.entry-title').text();
-
-    // Extract the episode number
-    const episode_number = $('meta[itemprop="episodeNumber"]').attr('content') || '';
-
-    // Extract the image URL
-    const image_url = $('meta[itemprop="url"]').attr('content') || '';
-
-    const stream_url = $('#embed_holder iframe').attr('src') || '';
-
-    const download_urls = $('.video-nav .iconx a[aria-label="Download"]').attr('href') || '';
-
-    // Extract next and previous episode links
-    const nextEpisodeElement = $('.nvs a[rel="next"]');
-    const prevEpisodeElement = $('.nvs a[rel="prev"]');
-
-    const next_episode_url = nextEpisodeElement.attr('href') || null;
-    const previous_episode_url = prevEpisodeElement.attr('href') || null;
-
-    // Parse the slugs from the URLs
-    const next_episode_slug = next_episode_url ? new URL(next_episode_url).pathname.replace(/^\/|\/$/g, '') : null;
-    const previous_episode_slug = previous_episode_url
-      ? new URL(previous_episode_url).pathname.replace(/^\/|\/$/g, '')
-      : null;
-
-    const data: AnimeData = {
-      episode,
-      episode_number,
-      anime: { slug },
-      has_next_episode: !!next_episode_slug,
-      next_episode: next_episode_slug ? { slug: next_episode_slug } : null,
-      has_previous_episode: !!previous_episode_slug,
-      previous_episode: previous_episode_slug ? { slug: previous_episode_slug } : null,
-      stream_url,
-      download_urls,
-      image_url
-    };
+    const html = await fetchAnimePage(slug);
+    const data = parseAnimePage(html, slug);
 
     const animeResponse: AnimeResponse = {
       status: 'Ok',
