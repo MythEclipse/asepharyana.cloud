@@ -4,12 +4,33 @@ import { NextResponse } from 'next/server';
 export async function GET(request: Request) {
   const url = new URL(request.url);
   const slug = url.searchParams.get('url');
-  const baseUrls = ['meitang.xyz', 'btch.us.kg', 'api.tioo.eu.org', 'api.tioprm.eu.org'];
 
   if (!slug) {
     return NextResponse.json({ error: 'Missing slug parameter' }, { status: 400 });
   }
 
+  try {
+    const { data, contentType } = await fetchFromProxies(slug);
+
+    if (contentType && contentType.includes('application/json')) {
+      return NextResponse.json(data);
+    }
+
+    return new Response(data, {
+      headers: { 'Content-Type': contentType || 'text/plain' }
+    });
+  } catch (error) {
+    return NextResponse.json(
+      {
+        error: 'Failed to fetch from all proxies',
+        details: (error as Error).message
+      },
+      { status: 500 }
+    );
+  }
+}
+async function fetchFromProxies(slug: string) {
+  const baseUrls = ['meitang.xyz', 'btch.us.kg', 'api.tioo.eu.org', 'api.tioprm.eu.org'];
   let lastError: Error | null = null;
 
   for (const apiUrl of baseUrls) {
@@ -25,17 +46,12 @@ export async function GET(request: Request) {
         // Respons berupa JSON
         if (contentType && contentType.includes('application/json')) {
           const data = await apiResponse.json();
-          return NextResponse.json(data);
+          return { data, contentType };
         }
 
         // Respons berupa HTML atau teks lainnya
         const textData = await apiResponse.text();
-        return new Response(textData, {
-          status: apiResponse.status,
-          headers: {
-            'Content-Type': contentType || 'text/plain'
-          }
-        });
+        return { data: textData, contentType };
       }
     } catch (error) {
       lastError = error as Error;
@@ -43,12 +59,5 @@ export async function GET(request: Request) {
     }
   }
 
-  // Jika semua proxy gagal
-  return NextResponse.json(
-    {
-      error: 'Failed to fetch from all proxies',
-      details: lastError?.message || null
-    },
-    { status: 500 }
-  );
+  throw new Error(lastError?.message || 'Failed to fetch from all proxies');
 }

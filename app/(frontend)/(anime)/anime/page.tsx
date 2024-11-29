@@ -1,11 +1,9 @@
 import Image from 'next/image';
-import { Card } from '@/components/ui/card';
 import Link from 'next/link';
 import Loading from '@/components/loading';
-import CardA from '@/components/card/CardA';
 import { BaseUrl } from '@/lib/url';
 import ButtonA from '@/components/ButtonA';
-import { Button } from 'flowbite-react';
+import AnimeGrid from '@/components/AnimeGrid';
 
 // Define the HomeData, OngoingAnime, and CompleteAnime interfaces
 interface HomeData {
@@ -30,6 +28,7 @@ interface CompleteAnime {
   poster: string;
   episode_count: string;
   anime_url: string;
+  current_episode: string; // Add this line
 }
 
 // Fetch episodes data
@@ -42,42 +41,6 @@ const fetchEpisodes = async (): Promise<HomeData> => {
   }
   return res.json();
 };
-
-// Component to render a list of ongoing anime
-const OngoingAnimeList = ({ animeList }: { animeList: OngoingAnime[] }) => (
-  <div className="overflow-x-auto py-4">
-    <div className="flex space-x-4">
-      {animeList.map((anime) => (
-        <div key={anime.slug} className="flex-shrink-0 w-64">
-          <CardA
-            title={anime.title}
-            description={`Episodes: ${anime.current_episode}`}
-            imageUrl={anime.poster}
-            linkUrl={`/anime/detail/${anime.slug}`}
-          />
-        </div>
-      ))}
-    </div>
-  </div>
-);
-
-// Component to render a list of complete anime
-const CompleteAnimeList = ({ animeList }: { animeList: CompleteAnime[] }) => (
-  <div className="overflow-x-auto py-4">
-    <div className="flex space-x-4">
-      {animeList.map((anime) => (
-        <div key={anime.slug} className="flex-shrink-0 w-64">
-          <CardA
-            title={anime.title}
-            description={`Episodes: ${anime.episode_count}`}
-            imageUrl={anime.poster}
-            linkUrl={`/anime/detail/${anime.slug}`}
-          />
-        </div>
-      ))}
-    </div>
-  </div>
-);
 
 // Server-side rendering component
 export default async function AnimePage() {
@@ -98,7 +61,7 @@ export default async function AnimePage() {
         </Link>
       </div>
 
-      {episodeData ? <OngoingAnimeList animeList={episodeData.data.ongoing_anime} /> : <Loading />}
+      {episodeData ? <AnimeGrid animes={episodeData.data.ongoing_anime.map(anime => ({ ...anime, rating: '', release_day: '', newest_release_date: '' }))} /> : <Loading />}
 
       {/* Complete Anime Section */}
       <div className="text-2xl font-bold mt-8 mb-4">
@@ -106,8 +69,7 @@ export default async function AnimePage() {
           <ButtonA className="lg:min-w-[1200px] w-full max-w-lg text-center py-4 px-8">Latest Complete Anime</ButtonA>
         </Link>
       </div>
-
-      {episodeData ? <CompleteAnimeList animeList={episodeData.data.complete_anime} /> : <Loading />}
+      {episodeData ? <AnimeGrid animes={episodeData.data.complete_anime.map(anime => ({ ...anime, rating: '', release_day: '', newest_release_date: '', current_episode: '' }))} /> : <Loading />}
     </main>
   );
 }

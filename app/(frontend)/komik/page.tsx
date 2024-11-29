@@ -60,7 +60,7 @@ const fetchManhwa = async (): Promise<Comic[]> => {
 
 // ComicCard component
 const ComicCard = ({ comic }: { comic: Comic }) => (
-  <div key={comic.komik_id} className="flex-shrink-0 w-64 overflow-visible p-5">
+  <div key={comic.komik_id} className="p-5">
     <CardA
       title={comic.title}
       description={`Chapter: ${comic.chapter} | Score: ${comic.score}`}
@@ -88,16 +88,18 @@ const HomePage = async () => {
                 <ButtonA className="lg:min-w-[1200px] w-full max-w-lg text-center py-4 px-8">{type}</ButtonA>
               </Link>
             </div>
-            <div className="flex overflow-x-auto space-x-4 pb-4 overflow-visible">
-              {type === 'Manga' && manga.length > 0 ? (
-                manga.map((comic) => <ComicCard key={comic.komik_id} comic={comic} />)
-              ) : type === 'Manhua' && manhua.length > 0 ? (
-                manhua.map((comic) => <ComicCard key={comic.komik_id} comic={comic} />)
-              ) : type === 'Manhwa' && manhwa.length > 0 ? (
-                manhwa.map((comic) => <ComicCard key={comic.komik_id} comic={comic} />)
-              ) : (
-                <p className="text-gray-600 dark:text-white">No {type.toLowerCase()} available</p>
-              )}
+            <div className="flex flex-col items-center p-4">
+              <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                {type === 'Manga' && manga.length > 0 ? (
+                  manga.map((comic) => <ComicCard key={comic.komik_id} comic={comic} />)
+                ) : type === 'Manhua' && manhua.length > 0 ? (
+                  manhua.map((comic) => <ComicCard key={comic.komik_id} comic={comic} />)
+                ) : type === 'Manhwa' && manhwa.length > 0 ? (
+                  manhwa.map((comic) => <ComicCard key={comic.komik_id} comic={comic} />)
+                ) : (
+                  <p className="text-gray-600 dark:text-white">No {type.toLowerCase()} available</p>
+                )}
+              </div>
             </div>
           </section>
         ))}
