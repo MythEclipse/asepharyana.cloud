@@ -1,7 +1,7 @@
 // app/(anime)/complete-anime/[page]/page.tsx
 import React from 'react';
 import { getData } from '@/lib/GetData';
-import AnimeGrid from '@/components/AnimeGrid2';
+import AnimeGrid from '@/components/AnimeGrid';
 import Link from 'next/link';
 import { BaseUrl } from '@/lib/url';
 import ButtonA from '@/components/ButtonA';
@@ -16,11 +16,13 @@ interface Anime {
   title: string;
   slug: string;
   poster: string;
-  episode_count: string;
+  episode: string;
+  anime_url: string;
   rating: string;
   last_release_date: string;
-  otakudesu_url: string;
-  anime_url: string;
+  current_episode: string;
+  release_day: string;
+  newest_release_date: string;
 }
 
 interface Pagination {

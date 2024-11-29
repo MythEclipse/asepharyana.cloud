@@ -71,10 +71,8 @@ const parseAnimePage = (html: string, slug: string): AnimeData => {
   const next_episode_url = nextEpisodeElement.attr('href') || null;
   const previous_episode_url = prevEpisodeElement.attr('href') || null;
 
-  const next_episode_slug = next_episode_url ? new URL(next_episode_url).pathname.replace(/^\/|\/$/g, '') : null;
-  const previous_episode_slug = previous_episode_url
-    ? new URL(previous_episode_url).pathname.replace(/^\/|\/$/g, '')
-    : null;
+  const next_episode_slug = next_episode_url ? next_episode_url.split('/').slice(-2).join('/') : null;
+  const previous_episode_slug = previous_episode_url ? previous_episode_url.split('/').slice(-2).join('/') : null;
 
   return {
     episode,

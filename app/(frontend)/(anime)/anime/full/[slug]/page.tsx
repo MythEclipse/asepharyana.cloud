@@ -3,7 +3,6 @@ import Link from 'next/link';
 import ClientPlayer from '@/components/ClientPlayer';
 import { BaseUrl } from '@/lib/url';
 import { BackgroundGradient } from '@/components/ui/background-gradient';
-import ButtonBaris from '@/components/ButtonBaris';
 import ButtonA from '@/components/ButtonA';
 
 interface AnimeResponse {
@@ -20,7 +19,7 @@ interface AnimeData {
   has_previous_episode: boolean;
   previous_episode: EpisodeInfo | null;
   stream_url: string;
-  download_urls: string;
+  download_urls: Record<string, { server: string; url: string }[]>;
   image_url: string;
 }
 
@@ -56,7 +55,7 @@ export default async function DetailAnimePage(props: DetailAnimePageProps) {
       <hr className="my-4 border-white-300" />
 
       <div className="flex flex-col gap-2 mt-4">
-        {Anime.data.stream_url && <ClientPlayer url={Anime.data.stream_url} />}
+        {/* {Anime.data.stream_url && <ClientPlayer url={Anime.data.stream_url} />} */}
         <div className="flex justify-between mt-8">
           {Anime.data.previous_episode && (
             <p className="text-lg text-white-700">
@@ -78,22 +77,22 @@ export default async function DetailAnimePage(props: DetailAnimePageProps) {
       <hr className="my-4 border-white-300 dark:border-darka" />
 
       <h2 className="text-3xl font-semibold mt-4 text-white-900">Download Links</h2>
-      <div className="flex flex-col gap-4 mt-4">
-        <BackgroundGradient className="rounded-[22px] bg-lighta dark:bg-dark p-4 shadow-lg">
-          <p className="text-lg font-semibold text-gray-900 dark:text-gray-100">Download</p>
-          <div className="flex flex-col gap-3 mt-3">
-            <div>
-              <p className="text-md text-gray-800 dark:text-gray-300">Link</p>
-              <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-                <div className="mb-4">
-                  <ButtonA className="text-center" href={Anime.data.download_urls}>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+        {Object.entries(Anime.data.download_urls).map(([resolution, links]) => (
+          <BackgroundGradient key={resolution} className="rounded-[22px] bg-lighta dark:bg-dark p-4 shadow-lg">
+            <p className="text-lg font-semibold text-gray-900 dark:text-gray-100">{resolution}</p>
+            <div className="flex flex-col gap-3 mt-3">
+              {links.map((link, index) => (
+                <div key={index}>
+                  <p className="text-md text-gray-800 dark:text-gray-300">{link.server}</p>
+                  <ButtonA className="text-center" href={link.url}>
                     <div className="text-lg font-bold">Download</div>
                   </ButtonA>
                 </div>
-              </div>
+              ))}
             </div>
-          </div>
-        </BackgroundGradient>
+          </BackgroundGradient>
+        ))}
       </div>
     </BackgroundGradient>
   );

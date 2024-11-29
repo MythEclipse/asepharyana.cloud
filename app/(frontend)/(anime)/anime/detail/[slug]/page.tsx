@@ -10,13 +10,12 @@ import ButtonA from '@/components/ButtonA';
 interface Genre {
   name: string;
   slug: string;
-  otakudesu_url: string;
+  anime_url: string;
 }
 
 interface Episode {
   episode: string;
   slug: string;
-  otakudesu_url: string;
 }
 
 interface Recommendation {
@@ -29,21 +28,18 @@ interface AnimeData {
   status: string;
   data: {
     title: string;
+    alternative_title: string;
     poster: string;
     type: string;
     status: string;
     release_date: string;
     studio: string;
-    season: string;
-    censor: string;
-    director: string;
-    posted_by: string;
-    released_on: string;
-    updated_on: string;
-    genres: Genre[];
     synopsis: string;
+    genres: Genre[];
+    producers: string[];
     episode_lists: Episode[];
-    recommendations?: Recommendation[];
+    batch: Episode[];
+    recommendations: Recommendation[];
   };
 }
 
@@ -104,13 +100,7 @@ export default async function DetailAnimePage(props: DetailAnimePageProps) {
                   { label: 'Type', value: anime.data.type },
                   { label: 'Status', value: anime.data.status },
                   { label: 'Release Date', value: anime.data.release_date },
-                  { label: 'Studio', value: anime.data.studio },
-                  { label: 'Season', value: anime.data.season },
-                  { label: 'Censor', value: anime.data.censor },
-                  { label: 'Director', value: anime.data.director },
-                  { label: 'Posted By', value: anime.data.posted_by },
-                  { label: 'Released On', value: anime.data.released_on },
-                  { label: 'Updated On', value: anime.data.updated_on }
+                  { label: 'Studio', value: anime.data.studio }
                 ].map((detail) => (
                   <p className="mb-2" key={detail.label}>
                     <strong>{detail.label}:</strong> {detail.value || 'N/A'}

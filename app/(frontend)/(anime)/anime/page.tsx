@@ -21,9 +21,7 @@ interface OngoingAnime {
   slug: string;
   poster: string;
   current_episode: string;
-  release_day: string;
-  newest_release_date: string;
-  otakudesu_url: string;
+  anime_url: string;
 }
 
 interface CompleteAnime {
@@ -31,10 +29,9 @@ interface CompleteAnime {
   slug: string;
   poster: string;
   episode_count: string;
-  rating: string;
-  last_release_date: string;
-  otakudesu_url: string;
+  anime_url: string;
 }
+
 // Fetch episodes data
 const fetchEpisodes = async (): Promise<HomeData> => {
   const res = await fetch(`${BaseUrl}/api/anime/`, {
@@ -54,7 +51,7 @@ const OngoingAnimeList = ({ animeList }: { animeList: OngoingAnime[] }) => (
         <div key={anime.slug} className="flex-shrink-0 w-64">
           <CardA
             title={anime.title}
-            description={`Episodes: ${anime.current_episode} | Release: ${anime.release_day} | Last: ${anime.newest_release_date}`}
+            description={`Episodes: ${anime.current_episode}`}
             imageUrl={anime.poster}
             linkUrl={`/anime/detail/${anime.slug}`}
           />
@@ -72,7 +69,7 @@ const CompleteAnimeList = ({ animeList }: { animeList: CompleteAnime[] }) => (
         <div key={anime.slug} className="flex-shrink-0 w-64">
           <CardA
             title={anime.title}
-            description={`Episodes: ${anime.episode_count} | Rating: ${anime.rating} | Last Release: ${anime.last_release_date}`}
+            description={`Episodes: ${anime.episode_count}`}
             imageUrl={anime.poster}
             linkUrl={`/anime/detail/${anime.slug}`}
           />

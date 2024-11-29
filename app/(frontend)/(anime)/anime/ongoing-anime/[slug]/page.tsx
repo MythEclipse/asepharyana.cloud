@@ -16,12 +16,12 @@ interface Anime {
   title: string;
   slug: string;
   poster: string;
-  current_episode: string;
-  newest_release_date: string;
-  release_day: string;
-  otakudesu_url: string;
-  rating: string; // Changed from number to string
+  episode: string;
   anime_url: string;
+  rating: string;
+  current_episode: string;
+  release_day: string;
+  newest_release_date: string;
 }
 
 interface Pagination {
