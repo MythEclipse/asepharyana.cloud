@@ -61,7 +61,18 @@ export default async function AnimePage() {
         </Link>
       </div>
 
-      {episodeData ? <AnimeGrid animes={episodeData.data.ongoing_anime.map(anime => ({ ...anime, rating: '', release_day: '', newest_release_date: '' }))} /> : <Loading />}
+      {episodeData ? (
+        <AnimeGrid
+          animes={episodeData.data.ongoing_anime.map((anime) => ({
+            ...anime,
+            rating: '',
+            release_day: '',
+            newest_release_date: ''
+          }))}
+        />
+      ) : (
+        <Loading />
+      )}
 
       {/* Complete Anime Section */}
       <div className="text-2xl font-bold mt-8 mb-4">
@@ -69,7 +80,19 @@ export default async function AnimePage() {
           <ButtonA className="lg:min-w-[1200px] w-full max-w-lg text-center py-4 px-8">Latest Complete Anime</ButtonA>
         </Link>
       </div>
-      {episodeData ? <AnimeGrid animes={episodeData.data.complete_anime.map(anime => ({ ...anime, rating: '', release_day: '', newest_release_date: '', current_episode: '' }))} /> : <Loading />}
+      {episodeData ? (
+        <AnimeGrid
+          animes={episodeData.data.complete_anime.map((anime) => ({
+            ...anime,
+            rating: '',
+            release_day: '',
+            newest_release_date: '',
+            current_episode: ''
+          }))}
+        />
+      ) : (
+        <Loading />
+      )}
     </main>
   );
 }
