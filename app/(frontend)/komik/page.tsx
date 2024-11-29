@@ -60,7 +60,7 @@ const fetchManhwa = async (): Promise<Comic[]> => {
 
 // ComicCard component
 const ComicCard = ({ comic }: { comic: Comic }) => (
-  <div key={comic.komik_id} className="p-5">
+  <div key={comic.komik_id}>
     <CardA
       title={comic.title}
       description={`Chapter: ${comic.chapter} | Score: ${comic.score}`}

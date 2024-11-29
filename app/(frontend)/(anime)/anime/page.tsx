@@ -34,7 +34,7 @@ interface CompleteAnime {
 // Fetch episodes data
 const fetchEpisodes = async (): Promise<HomeData> => {
   const res = await fetch(`${BaseUrl}/api/anime/`, {
-    next: { revalidate: 60 } // Use revalidate for ISR
+    next: { revalidate: 360 } // Use revalidate for ISR
   });
   if (!res.ok) {
     throw new Error('Failed to fetch episodes');
