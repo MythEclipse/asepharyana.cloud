@@ -56,9 +56,7 @@ export default async function AnimePage() {
     <main className="p-6">
       {/* Ongoing Anime Section */}
       <Link href={'/anime/ongoing-anime/1'}>
-        <ButtonA className="w-full max-w-[800rem] text-center py-4 px-8">
-          Latest Ongoing Anime
-        </ButtonA>
+        <ButtonA className="w-full max-w-[800rem] text-center py-4 px-8">Latest Ongoing Anime</ButtonA>
       </Link>
 
       {episodeData ? (

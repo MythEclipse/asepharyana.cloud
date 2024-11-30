@@ -22,7 +22,9 @@ const TypeLabel = ({ type }: { type: string | undefined }) => {
   };
 
   return (
-    <span className={`absolute top-2 right-2 px-2 py-1 rounded-md text-white text-sm font-bold ${typeColors[type as keyof typeof typeColors] || 'bg-gray-500'}`}>
+    <span
+      className={`absolute top-2 right-2 px-2 py-1 rounded-md text-white text-sm font-bold ${typeColors[type as keyof typeof typeColors] || 'bg-gray-500'}`}
+    >
       {type}
     </span>
   );
@@ -44,7 +46,9 @@ export default function CardA({ title, description, imageUrl, linkUrl, type }: C
           </div>
           <div className="p-4">
             <h3 className="text-xs sm:text-sm md:text-lg font-bold text-black dark:text-gray-200 truncate">{title}</h3>
-            {description && <p className="text-sm sm:text-sm md:text-base text-gray-600 dark:text-gray-400 mt-2">{description}</p>}
+            {description && (
+              <p className="text-sm sm:text-sm md:text-base text-gray-600 dark:text-gray-400 mt-2">{description}</p>
+            )}
           </div>
         </ShadcnCard>
       </div>

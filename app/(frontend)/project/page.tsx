@@ -14,10 +14,20 @@ export default function Page() {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-3">
         <div>
-          <TildCard title="Anime" description="Anime scrapping dari otakudesu.cloud" imageUrl="/webAnime.png" linkUrl="/anime" />
+          <TildCard
+            title="Anime"
+            description="Anime scrapping dari otakudesu.cloud"
+            imageUrl="/webAnime.png"
+            linkUrl="/anime"
+          />
         </div>
         <div>
-          <TildCard title="Komik" description="Komik scraping dari komikindo.lol" imageUrl="/webKomik.png" linkUrl="/komik" />
+          <TildCard
+            title="Komik"
+            description="Komik scraping dari komikindo.lol"
+            imageUrl="/webKomik.png"
+            linkUrl="/komik"
+          />
         </div>
         <div>
           <TildCard title="Sosmed" description="Autentikasi & crud dasar" imageUrl="/websosmed.png" linkUrl="/sosmed" />

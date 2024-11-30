@@ -33,9 +33,9 @@ export default async function Page(props: { params: Promise<{ pageNumber: string
 
   return (
     <main className="">
-        <Link scroll href={`/komik/manhua/page/${pageNumber}`}>
+      <Link scroll href={`/komik/manhua/page/${pageNumber}`}>
         <ButtonA className="w-full max-w-[800rem] text-center py-4 px-8">Latest manhua</ButtonA>
-        </Link>
+      </Link>
       <div className="flex flex-col items-center p-4">
         <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-5 gap-4">
           {komikData.data.map((comic) => (
