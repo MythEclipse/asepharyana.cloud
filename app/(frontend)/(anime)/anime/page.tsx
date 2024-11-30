@@ -55,11 +55,11 @@ export default async function AnimePage() {
   return (
     <main className="p-6">
       {/* Ongoing Anime Section */}
-      <div className="text-2xl font-bold mt-8 mb-4">
-        <Link href={'/anime/ongoing-anime/1'}>
-          <ButtonA className="lg:min-w-[1200px] w-full max-w-lg text-center py-4 px-8">Latest Ongoing Anime</ButtonA>
-        </Link>
-      </div>
+      <Link href={'/anime/ongoing-anime/1'}>
+        <ButtonA className="w-full max-w-[800rem] text-center py-4 px-8">
+          Latest Ongoing Anime
+        </ButtonA>
+      </Link>
 
       {episodeData ? (
         <AnimeGrid
@@ -75,11 +75,9 @@ export default async function AnimePage() {
       )}
 
       {/* Complete Anime Section */}
-      <div className="text-2xl font-bold mt-8 mb-4">
-        <Link scroll href={'/anime/complete-anime/1'}>
-          <ButtonA className="lg:min-w-[1200px] w-full max-w-lg text-center py-4 px-8">Latest Complete Anime</ButtonA>
-        </Link>
-      </div>
+      <Link scroll href={'/anime/complete-anime/1'}>
+        <ButtonA className="w-full max-w-[800rem] text-center py-4 px-8">Latest Complete Anime</ButtonA>
+      </Link>
       {episodeData ? (
         <AnimeGrid
           animes={episodeData.data.complete_anime.map((anime) => ({

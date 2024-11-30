@@ -1,7 +1,7 @@
 import React from 'react';
 import { BaseUrl } from '@/lib/url';
 import SearchForm from '@/components/SearchForm';
-import CardA from '@/components/card/CardA';
+import { ComicCard } from '@/components/ComicCard';
 
 interface Comic {
   komik_id: string;
@@ -10,6 +10,7 @@ interface Comic {
   chapter: string;
   score: string;
   type: string;
+  date: string;
 }
 
 interface SearchResult {
@@ -18,7 +19,6 @@ interface SearchResult {
   nextPage: boolean;
 }
 
-// Function to fetch search results from the API with pagination
 const fetchSearchResults = async (query: string, page: number): Promise<SearchResult> => {
   try {
     const response = await fetch(`${BaseUrl}/api/komik/search?query=${encodeURIComponent(query)}&page=${page}`);
@@ -29,14 +29,14 @@ const fetchSearchResults = async (query: string, page: number): Promise<SearchRe
     return result;
   } catch (error) {
     console.error('Error fetching search results:', error);
-    return { data: [], prevPage: false, nextPage: false }; // Return empty data on error
+    return { data: [], prevPage: false, nextPage: false };
   }
 };
 
 const SearchPage = async (props: { params: Promise<{ slug: string; page: string }> }) => {
   const params = await props.params;
-  const query = decodeURIComponent(params.slug || ''); // Decode query parameter
-  const page = parseInt(params.page as string, 10) || 1; // Get current page from URL or default to 1
+  const query = decodeURIComponent(params.slug || '');
+  const page = parseInt(params.page as string, 10) || 1;
   const searchResults = await fetchSearchResults(query, page);
 
   return (
@@ -49,12 +49,9 @@ const SearchPage = async (props: { params: Promise<{ slug: string; page: string 
             <div className="flex flex-col items-center p-4">
               <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-5 gap-4">
                 {searchResults.data.map((comic) => (
-                  <CardA
+                  <ComicCard
                     key={comic.komik_id}
-                    title={comic.title}
-                    description={`Chapter: ${comic.chapter} - Score: ${comic.score}`}
-                    imageUrl={comic.image}
-                    linkUrl={`/komik/detail/${comic.komik_id}`}
+                    comic={comic}
                   />
                 ))}
               </div>

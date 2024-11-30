@@ -31,6 +31,7 @@ interface MangaData {
   title: string;
   image: string;
   chapter: string;
+  date: string;
   score: string;
   type: string;
   komik_id: string;
@@ -64,13 +65,20 @@ const parseMangaData = (body: string): MangaData[] => {
   const $ = cheerio.load(body);
   const data: MangaData[] = [];
 
-  $('.film-list .animepost').each((i, e) => {
+  $('.animposx').each((i, e) => {
     const title = $(e).find('.tt h4').text().trim() || '';
     let image = $(e).find('img').attr('src') || '';
     image = image.split('?')[0]; // Remove query parameters from image URL
-    const chapter = $(e).find('.lsch a').text().trim().replace('Ch.', '') || ''; // Keep only the numeric part
+    const chapter =
+      $(e)
+        .find('.lsch a')
+        .text()
+        .trim()
+        .replace('Ch.', '')
+        .match(/\d+(\.\d+)?/g)?.[0] || ''; // Keep only the numeric part
     const score = ''; // Assuming no score is provided in this structure
-    const type = $(e).find('.typeflag').text().trim() || '';
+    const date = $(e).find('.datech').text().trim() || '';
+    const type = $(e).find('.typeflag').attr('class')?.split(' ')[1] || '';
     const komik_id = $(e).find('a').attr('href')?.split('/')[4] || '';
 
     data.push({
@@ -78,6 +86,7 @@ const parseMangaData = (body: string): MangaData[] => {
       image,
       chapter,
       score,
+      date,
       type,
       komik_id
     });

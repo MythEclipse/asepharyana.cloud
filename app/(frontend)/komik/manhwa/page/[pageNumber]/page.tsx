@@ -9,6 +9,7 @@ import { BaseUrl } from '@/lib/url';
 import MiniTildCard from '@/components/MiniTildCard';
 import CardA from '@/components/card/CardA';
 import ButtonA from '@/components/ButtonA';
+import { ComicCard } from '@/components/ComicCard';
 
 interface KomikData {
   data: manhwa[];
@@ -20,6 +21,7 @@ interface manhwa {
   title: string;
   image: string;
   chapter: string;
+  date: string;
   score: string;
   type: string;
   komik_id: string;
@@ -36,21 +38,13 @@ export default async function Page(props: { params: Promise<{ pageNumber: string
 
   return (
     <main className="">
-      <div className="text-2xl font-bold mt-8 mb-4">
-        <Link scroll href={`/komik/manhwa/page/${pageNumber}`}>
-          <ButtonA className="lg:min-w-[1200px] w-full max-w-lg text-center py-4 px-8">Latest manhwa</ButtonA>
-        </Link>
-      </div>
+      <Link scroll href={`/komik/manhwa/page/${pageNumber}`}>
+        <ButtonA className="w-full max-w-[800rem] text-center py-4 px-8">Latest manhwa</ButtonA>
+      </Link>
       <div className="flex flex-col items-center p-4">
         <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-5 gap-4">
-          {komikData.data.map((manhwa) => (
-            <CardA
-              key={manhwa.komik_id}
-              title={manhwa.title}
-              description={`Chapter: ${manhwa.chapter} - Score: ${manhwa.score}`}
-              imageUrl={manhwa.image}
-              linkUrl={`/komik/detail/${manhwa.komik_id}`}
-            />
+          {komikData.data.map((comic) => (
+            <ComicCard key={comic.komik_id} comic={comic} />
           ))}
         </div>
       </div>

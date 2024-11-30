@@ -5,17 +5,18 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Card } from '@/components/ui/card'; // Adjust the path as necessary
 import MiniTildCard from '@/components/MiniTildCard';
-import CardA from '@/components/card/CardA';
 import { BaseUrl } from '@/lib/url';
 import ButtonA from '@/components/ButtonA';
+import { ComicCard } from '@/components/ComicCard';
 
-interface Comic {
+export interface Comic {
   komik_id: string;
   title: string;
   image: string;
   chapter: string;
   score: string;
   type: string;
+  date: string;
 }
 
 // Individual fetch functions using Next.js fetch and caching
@@ -57,18 +58,6 @@ const fetchManhwa = async (): Promise<Comic[]> => {
     return [];
   }
 };
-
-// ComicCard component
-const ComicCard = ({ comic }: { comic: Comic }) => (
-  <div key={comic.komik_id}>
-    <CardA
-      title={comic.title}
-      description={`Chapter: ${comic.chapter} | Score: ${comic.score}`}
-      imageUrl={comic.image}
-      linkUrl={`/komik/detail/${comic.komik_id}`}
-    />
-  </div>
-);
 
 // HomePage server component
 const HomePage = async () => {
