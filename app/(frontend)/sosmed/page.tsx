@@ -119,7 +119,7 @@ export default function PostPage() {
 
   const toggleComments = (postId: string) => setShowComments((prev) => ({ ...prev, [postId]: !prev[postId] }));
 
-  if (process.env.NODE_ENV == "production" && !session?.user)
+  if (process.env.NODE_ENV == 'production' && !session?.user)
     return (
       <div className="container mx-auto py-8">
         <h1 className="text-2xl font-bold text-gray-800">Create a Post</h1>
@@ -138,8 +138,16 @@ export default function PostPage() {
             onChange={handleContentChange}
             className="mb-4 border border-blue-500 dark:border-blue-500 rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-500 dark:bg-gray-700 dark:text-gray-100 shadow-lg"
           />
-          <input type="file" onChange={handleFileChange} className="mb-4 block w-full text-sm text-gray-500 dark:text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 dark:file:bg-gray-700 file:text-blue-700 dark:file:text-gray-300 hover:file:bg-blue-100 dark:hover:file:bg-gray-600" />
-          <Button onClick={handlePost} disabled={posting} className="w-full py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300">
+          <input
+            type="file"
+            onChange={handleFileChange}
+            className="mb-4 block w-full text-sm text-gray-500 dark:text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 dark:file:bg-gray-700 file:text-blue-700 dark:file:text-gray-300 hover:file:bg-blue-100 dark:hover:file:bg-gray-600"
+          />
+          <Button
+            onClick={handlePost}
+            disabled={posting}
+            className="w-full py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300"
+          >
             {posting ? 'Posting...' : 'Post'}
           </Button>
           {message && <p className="mt-4 text-red-500 text-center">{message}</p>}
@@ -160,24 +168,26 @@ export default function PostPage() {
                 />
                 <div>
                   <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100">{post.user.name}</h2>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">{new Date(post.created_at).toLocaleDateString()}</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    {new Date(post.created_at).toLocaleDateString()}
+                  </p>
                 </div>
               </div>
               <p className="text-gray-700 dark:text-gray-300 mb-4">{post.content}</p>
               {post.image_url && (
-                <Image
-                  src={post.image_url}
-                  alt="Post"
-                  width={600}
-                  height={400}
-                  className="rounded-lg mt-4"
-                />
+                <Image src={post.image_url} alt="Post" width={600} height={400} className="rounded-lg mt-4" />
               )}
               <div className="flex items-center mt-6 space-x-4">
-                <Button onClick={() => handleLike(post.id)} className="flex items-center gap-2 text-red-500 hover:text-red-600 transition duration-300">
+                <Button
+                  onClick={() => handleLike(post.id)}
+                  className="flex items-center gap-2 text-red-500 hover:text-red-600 transition duration-300"
+                >
                   <HiHeart /> {post.likes.length}
                 </Button>
-                <Button onClick={() => toggleComments(post.id)} className="flex items-center gap-2 text-blue-500 hover:text-blue-600 transition duration-300">
+                <Button
+                  onClick={() => toggleComments(post.id)}
+                  className="flex items-center gap-2 text-blue-500 hover:text-blue-600 transition duration-300"
+                >
                   <HiChatAlt /> {post.comments.length}
                 </Button>
               </div>
@@ -194,7 +204,10 @@ export default function PostPage() {
                     onChange={(e) => setNewComment(e.target.value)}
                     className="mt-2 border border-blue-500 dark:border-blue-500 rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-500 dark:bg-gray-700 dark:text-gray-100 shadow-lg"
                   />
-                  <Button onClick={() => handleAddComment(post.id)} className="mt-2 w-full py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300">
+                  <Button
+                    onClick={() => handleAddComment(post.id)}
+                    className="mt-2 w-full py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300"
+                  >
                     Comment
                   </Button>
                 </div>
