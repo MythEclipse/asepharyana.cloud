@@ -1,16 +1,15 @@
 import * as cheerio from 'cheerio';
-import { DEFAULT_HEADERS } from '@/lib/DHead';
 import { NextRequest, NextResponse } from 'next/server';
-import GetProxy from '@/lib/GetProxy';
+import { fetchWithProxy } from '@/lib/fetchWithProxy';
 
 const fetchAnimePage = async (slug: string) => {
-  const response = await GetProxy(`https://otakudesu.cloud/anime/${slug}`);
+  const { data, contentType } = await fetchWithProxy(`https://otakudesu.cloud/anime/${slug}`);
 
-  if (!response.ok) {
-    throw new Error(`Failed to fetch anime detail data: ${response.statusText}`);
+  if (!contentType || !contentType.includes('text/html')) {
+    throw new Error('Failed to fetch anime detail data: Invalid content type');
   }
 
-  return response.text();
+  return data;
 };
 
 const parseAnimeData = (html: string) => {

@@ -1,16 +1,15 @@
 import * as cheerio from 'cheerio';
-import { DEFAULT_HEADERS } from '@/lib/DHead';
 import { NextRequest, NextResponse } from 'next/server';
-import GetProxy from '@/lib/GetProxy';
+import { fetchWithProxy } from '@/lib/fetchWithProxy';
 
 async function fetchAnimePage(slug: string): Promise<string> {
-  const response = await GetProxy(`https://otakudesu.cloud/ongoing-anime/page/${slug}/`);
+  const response = await fetchWithProxy(`https://otakudesu.cloud/ongoing-anime/page/${slug}/`);
 
-  if (!response.ok) {
-    throw new Error(`Failed to fetch data: ${response.statusText}`);
+  if (!response.data) {
+    throw new Error('Failed to fetch data');
   }
 
-  return response.text();
+  return response.data;
 }
 
 function parseAnimePage(html: string, slug: string) {

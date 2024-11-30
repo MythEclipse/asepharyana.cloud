@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import * as cheerio from 'cheerio';
-import GetProxy from '@/lib/GetProxy';
+import { fetchWithProxy } from '@/lib/fetchWithProxy';
 
 const logError = (error: any) => {
   console.error('Error:', error.message);
@@ -34,12 +34,15 @@ interface EpisodeInfo {
 
 const fetchAnimePage = async (slug: string): Promise<string> => {
   const url = `https://otakudesu.cloud/episode/${slug}/`;
-  const response = await GetProxy(url);
-  if (!response.ok) {
-    throw new Error(`Failed to fetch page: ${response.statusText}`);
+  const response = await fetchWithProxy(url);
+
+  if (!response.data) {
+    throw new Error('Failed to fetch page');
   }
-  return await response.text();
+
+  return response.data;
 };
+
 const parseAnimePage = (html: string, slug: string): AnimeData => {
   const $ = cheerio.load(html);
 

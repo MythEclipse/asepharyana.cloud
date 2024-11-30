@@ -1,16 +1,15 @@
 import * as cheerio from 'cheerio';
-import { DEFAULT_HEADERS } from '@/lib/DHead';
 import { NextRequest, NextResponse } from 'next/server';
-import GetProxy from '@/lib/GetProxy';
+import { fetchWithProxy } from '@/lib/fetchWithProxy';
 
 async function fetchHtml(url: string): Promise<string> {
-  const response = await GetProxy(url);
+  const response = await fetchWithProxy(url);
 
-  if (!response.ok) {
-    throw new Error(`Failed to fetch data from ${url}: ${response.statusText}`);
+  if (!response.data) {
+    throw new Error(`Failed to fetch data from ${url}`);
   }
 
-  return response.text();
+  return response.data;
 }
 
 function parseOngoingAnime(html: string) {

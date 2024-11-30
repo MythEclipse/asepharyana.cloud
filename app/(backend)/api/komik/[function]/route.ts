@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import * as cheerio from 'cheerio';
+import { fetchWithProxy } from '@/lib/fetchWithProxy';
 
 const baseUrl = {
   komik: 'https://komikindo.lol'
@@ -85,17 +86,11 @@ const parseMangaData = (body: string): MangaData[] => {
   return data;
 };
 
-// Function to fetch data with Next.js 14 caching
-const fetchWithCache = async (url: string): Promise<any> => {
+// Function to fetch data with proxy
+const fetchWithProxyWrapper = async (url: string): Promise<any> => {
   try {
-    const res = await fetch(url, {
-      headers: DEFAULT_HEADERS,
-      next: { revalidate: 360 } // Cache response for 60 minutes
-    });
-    if (!res.ok) {
-      throw new Error('Failed to fetch data');
-    }
-    return await res.text(); // Fetch as text to parse later
+    const { data } = await fetchWithProxy(url);
+    return data;
   } catch (error) {
     logError(error);
     throw new Error('Failed to fetch data');
@@ -105,7 +100,7 @@ const fetchWithCache = async (url: string): Promise<any> => {
 // Function to get manga detail
 const getDetail = async (komik_id: string): Promise<MangaDetail> => {
   try {
-    const body = await fetchWithCache(`${baseURL}/komik/${komik_id}`);
+    const body = await fetchWithProxyWrapper(`${baseURL}/komik/${komik_id}`);
     const $ = cheerio.load(body);
 
     // Title
@@ -182,7 +177,7 @@ const getDetail = async (komik_id: string): Promise<MangaDetail> => {
 // Function to get manga chapter
 const getChapter = async (chapter_url: string): Promise<MangaChapter> => {
   try {
-    const body = await fetchWithCache(`${baseURL}/chapter/${chapter_url}`);
+    const body = await fetchWithProxyWrapper(`${baseURL}/chapter/${chapter_url}`);
     const $ = cheerio.load(body);
 
     const title = $('.entry-title').text().trim() || '';
@@ -229,7 +224,7 @@ export const GET = async (req: Request) => {
         const query = url.searchParams.get('query') || '';
         apiUrl = `${baseURL}/page/${page}/?s=${query}`;
       }
-      const body = await fetchWithCache(apiUrl);
+      const body = await fetchWithProxyWrapper(apiUrl);
       const $ = cheerio.load(body);
       data = {
         data: parseMangaData(body),
