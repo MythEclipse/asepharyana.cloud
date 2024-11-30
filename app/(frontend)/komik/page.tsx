@@ -72,11 +72,9 @@ const HomePage = async () => {
       <div className="space-y-8">
         {['Manga', 'Manhua', 'Manhwa'].map((type) => (
           <section key={type} className="mb-8">
-            <div className="w-full mx-auto mb-4">
-              <Link scroll href={`/komik/${type.toLowerCase()}/page/1`}>
-                <ButtonA className="lg:min-w-[1200px] w-full max-w-lg text-center py-4 px-8">{type}</ButtonA>
-              </Link>
-            </div>
+            <Link scroll href={`/komik/${type.toLowerCase()}/page/1`}>
+              <ButtonA className="w-full max-w-[800rem] text-center py-4 px-8">{type}</ButtonA>
+            </Link>
             <div className="flex flex-col items-center p-4">
               <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-5 gap-4">
                 {type === 'Manga' && manga.length > 0 ? (

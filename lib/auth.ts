@@ -8,6 +8,10 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
   providers: [Google],
   callbacks: {
     authorized: async ({ auth, request }) => {
+      if (process.env.NODE_ENV === 'development') {
+        return true;
+      }
+
       if (auth) {
         return true;
       } else {
