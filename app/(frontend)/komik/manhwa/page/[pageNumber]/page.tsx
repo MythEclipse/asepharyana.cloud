@@ -3,7 +3,6 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getData } from '@/lib/GetData';
 import { notFound } from 'next/navigation';
 import { BaseUrl } from '@/lib/url';
 import MiniTildCard from '@/components/MiniTildCard';
@@ -34,7 +33,11 @@ export default async function Page(props: { params: Promise<{ pageNumber: string
     notFound();
   }
 
-  const komikData: KomikData = await getData(`${BaseUrl}/api/komik/manhwa?page=${pageNumber}&order=update`);
+  const response = await fetch(`${BaseUrl}/api/komik/manhwa?page=${pageNumber}&order=update`);
+  if (!response.ok) {
+    notFound();
+  }
+  const komikData: KomikData = await response.json();
 
   return (
     <main className="">

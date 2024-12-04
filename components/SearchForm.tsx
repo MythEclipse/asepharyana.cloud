@@ -22,7 +22,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ initialQuery, classname }) => {
   };
 
   return (
-    <div className={classname}>
+    <div className={classname || ''}>
       <form onSubmit={handleSearch} className="flex items-center space-x-4 mb-6">
         <input
           type="text"

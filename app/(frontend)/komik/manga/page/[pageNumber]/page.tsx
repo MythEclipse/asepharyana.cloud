@@ -1,6 +1,5 @@
 import React from 'react';
 import Link from 'next/link';
-import { getData } from '@/lib/GetData';
 import { notFound } from 'next/navigation';
 import { BaseUrl } from '@/lib/url';
 import ButtonA from '@/components/ButtonA';
@@ -29,7 +28,11 @@ export default async function Page(props: { params: Promise<{ pageNumber: string
     notFound();
   }
 
-  const komikData: KomikData = await getData(`${BaseUrl}/api/komik/manga?page=${pageNumber}&order=update`);
+  const response = await fetch(`${BaseUrl}/api/komik/manga?page=${pageNumber}&order=update`);
+  if (!response.ok) {
+    notFound();
+  }
+  const komikData: KomikData = await response.json();
 
   return (
     <main className="">

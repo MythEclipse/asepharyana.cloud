@@ -1,4 +1,3 @@
-import { getData } from '@/lib/GetData';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -38,14 +37,18 @@ interface DetailPageProps {
   }>;
 }
 
+async function fetchMangaDetail(komikId: string): Promise<MangaDetail> {
+  const response = await fetch(`${BaseUrl}/api/komik/detail?komik_id=${komikId}`);
+  if (!response.ok) {
+    notFound();
+  }
+  return response.json();
+}
+
 export async function generateMetadata(props: DetailPageProps): Promise<Metadata> {
   const params = await props.params;
   const { komikId } = params;
-  const manga: MangaDetail = await getData(`${BaseUrl}/api/komik/detail?komik_id=${komikId}`);
-
-  if (!manga) {
-    notFound();
-  }
+  const manga: MangaDetail = await fetchMangaDetail(komikId);
 
   return {
     title: manga.title,
@@ -69,11 +72,7 @@ export async function generateMetadata(props: DetailPageProps): Promise<Metadata
 export default async function DetailPage(props: DetailPageProps) {
   const params = await props.params;
   const { komikId } = params;
-  const manga: MangaDetail = await getData(`${BaseUrl}/api/komik/detail?komik_id=${komikId}`);
-
-  if (!manga) {
-    notFound();
-  }
+  const manga: MangaDetail = await fetchMangaDetail(komikId);
 
   return (
     <main className="p-6 bg-background dark:bg-dark min-h-screen">

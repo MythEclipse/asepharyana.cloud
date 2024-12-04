@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import React from 'react';
 import { notFound } from 'next/navigation';
-import { getData } from '@/lib/GetData';
 import Link from 'next/link';
 import Image from 'next/image';
 import { BaseUrl } from '@/lib/url';
@@ -19,11 +18,13 @@ interface ChapterDetail {
 export default async function ChapterPage(props: { params: Promise<{ chapterId: string }> }) {
   const params = await props.params;
   const { chapterId } = params;
-  const chapter: ChapterDetail = await getData(`${BaseUrl}/api/komik/chapter?chapter_url=${chapterId}`);
 
-  if (!chapter) {
+  const response = await fetch(`${BaseUrl}/api/komik/chapter?chapter_url=${chapterId}`);
+  if (!response.ok) {
     notFound();
   }
+
+  const chapter: ChapterDetail = await response.json();
 
   return (
     <main className="p-6">

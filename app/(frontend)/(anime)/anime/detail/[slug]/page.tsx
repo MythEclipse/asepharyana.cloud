@@ -1,4 +1,3 @@
-import { getData } from '@/lib/GetData';
 import { BaseUrl, PRODUCTION } from '@/lib/url';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -49,9 +48,17 @@ interface DetailAnimePageProps {
   }>;
 }
 
+async function fetchAnimeData(slug: string): Promise<AnimeData> {
+  const response = await fetch(`${BaseUrl}/api/anime/detail/${slug}`);
+  if (!response.ok) {
+    throw new Error('Failed to fetch anime data');
+  }
+  return response.json();
+}
+
 export async function generateMetadata(props: DetailAnimePageProps): Promise<Metadata> {
   const params = await props.params;
-  const anime: AnimeData = await getData(`${BaseUrl}/api/anime/detail/${params.slug}`);
+  const anime: AnimeData = await fetchAnimeData(params.slug);
 
   return {
     title: anime.data.title,
@@ -75,7 +82,7 @@ export async function generateMetadata(props: DetailAnimePageProps): Promise<Met
 
 export default async function DetailAnimePage(props: DetailAnimePageProps) {
   const params = await props.params;
-  const anime: AnimeData = await getData(`${BaseUrl}/api/anime/detail/${params.slug}`);
+  const anime: AnimeData = await fetchAnimeData(params.slug);
 
   return (
     <main className="p-6 bg-background dark:bg-dark min-h-screen">
