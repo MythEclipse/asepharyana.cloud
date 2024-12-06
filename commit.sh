@@ -36,7 +36,7 @@ echo 'All checks passed.'
 git add .
 
 # Commit dengan pesan otomatis
-git commit -m "cari sendiri"
+git commit -m "Malas isi commit message"
 
 # Push ke repository
 git push

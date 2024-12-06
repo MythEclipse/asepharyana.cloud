@@ -46,7 +46,7 @@ export default function PostPage() {
   const [posting, setPosting] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [posts, setPosts] = useState<Post[]>([]);
-  const [newComment, setNewComment] = useState('');
+  const [newComments, setNewComments] = useState<Record<string, string>>({});
   const [showComments, setShowComments] = useState<Record<string, boolean>>({});
   const { data: session } = useSession();
 
@@ -107,11 +107,15 @@ export default function PostPage() {
   };
 
   const handleAddComment = async (postId: string) => {
-    if (!newComment.trim()) return;
+    if (!newComments[postId]?.trim()) return;
+
     try {
-      await axios.post(`${BaseUrl}/api/sosmed/comments`, { content: newComment, postId });
+      await axios.post(`${BaseUrl}/api/sosmed/comments`, {
+        content: newComments[postId],
+        postId
+      });
       fetchPosts();
-      setNewComment('');
+      setNewComments((prev) => ({ ...prev, [postId]: '' }));
     } catch (error) {
       console.error('Error adding comment:', error);
     }
@@ -119,7 +123,10 @@ export default function PostPage() {
 
   const toggleComments = (postId: string) => setShowComments((prev) => ({ ...prev, [postId]: !prev[postId] }));
 
-  if (process.env.NODE_ENV == 'production' && !session?.user)
+  const handleCommentChange = (postId: string, value: string) =>
+    setNewComments((prev) => ({ ...prev, [postId]: value }));
+
+  if (process.env.NODE_ENV === 'production' && !session?.user)
     return (
       <div className="container mx-auto py-8">
         <h1 className="text-2xl font-bold text-gray-800">Create a Post</h1>
@@ -200,15 +207,15 @@ export default function PostPage() {
                   ))}
                   <Textarea
                     placeholder="Add a comment..."
-                    value={newComment}
-                    onChange={(e) => setNewComment(e.target.value)}
-                    className="mt-2 border border-blue-500 dark:border-blue-500 rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-500 dark:bg-gray-700 dark:text-gray-100 shadow-lg"
+                    value={newComments[post.id] || ''}
+                    onChange={(e) => handleCommentChange(post.id, e.target.value)}
+                    className="mt-2 border border-blue-500 dark:border-blue-500 rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-500 dark:bg-gray-700 dark:text-gray-100"
                   />
                   <Button
                     onClick={() => handleAddComment(post.id)}
-                    className="mt-2 w-full py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300"
+                    className="mt-2 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300"
                   >
-                    Comment
+                    Add Comment
                   </Button>
                 </div>
               )}

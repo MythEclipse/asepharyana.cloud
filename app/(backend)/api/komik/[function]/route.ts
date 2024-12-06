@@ -3,7 +3,7 @@ import * as cheerio from 'cheerio';
 import { fetchWithProxy } from '@/lib/fetchWithProxy';
 
 const baseUrl = {
-  komik: 'https://komikindo.lol'
+  komik: 'https://komikindo.pw'
 };
 const baseURL = baseUrl.komik;
 

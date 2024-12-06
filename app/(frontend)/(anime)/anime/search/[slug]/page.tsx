@@ -1,5 +1,5 @@
 // app/search/[slug]/page.tsx
-import React from 'react';
+import { FC } from 'react';
 import SearchForm from '@/components/SearchForm';
 import CardA from '@/components/card/CardA';
 import { BaseUrl } from '@/lib/url';
@@ -37,19 +37,21 @@ const fetchSearchResults = async (query: string): Promise<SearchDetailData> => {
     return result;
   } catch (error) {
     console.error('Error fetching search results:', error);
-    return { status: 'error', data: [] }; // Return empty data on error
+    return { status: 'error', data: [] };
   }
 };
 
 const SearchPage = async (props: { params: Promise<{ slug: string }> }) => {
+  // Await params to resolve the Promise
   const params = await props.params;
-  const query = decodeURIComponent(params.slug || ''); // Decode the query here
+  const { slug } = await params; // Destructure the slug property from the params object
+  const query = decodeURIComponent(slug);
   const searchResults = await fetchSearchResults(query);
 
   return (
     <div className="p-6">
       <h1 className="text-3xl font-bold mb-6 dark:text-white">Search Anime</h1>
-      <SearchForm classname="w-full mb-6" initialQuery={query} />
+      <SearchForm classname="w-full mb-6" initialQuery={query} baseUrl="/anime" />
       <div>
         {searchResults.data.length > 0 ? (
           <div className="flex flex-col items-center p-4">
