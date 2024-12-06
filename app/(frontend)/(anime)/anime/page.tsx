@@ -33,7 +33,7 @@ interface CompleteAnime {
 
 // Fetch episodes data
 const fetchEpisodes = async (): Promise<HomeData> => {
-  const res = await fetch(`${BaseUrl}/api/anime/`);
+  const res = await fetch(`${BaseUrl}/api/anime/`, { cache: 'force-cache', next: { revalidate: 300 } });
   if (!res.ok) {
     throw new Error('Failed to fetch episodes');
   }

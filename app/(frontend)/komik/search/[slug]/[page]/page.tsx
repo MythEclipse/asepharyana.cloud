@@ -42,7 +42,7 @@ const SearchPage = async (props: { params: Promise<{ slug: string; page: string 
   return (
     <div className="p-6">
       <h1 className="text-3xl font-bold mb-6 dark:text-white">Search Comics</h1>
-      <SearchForm initialQuery={query} />
+      <SearchForm initialQuery={query} baseUrl="/komik" page="1" />
       <div>
         {searchResults.data.length > 0 ? (
           <>

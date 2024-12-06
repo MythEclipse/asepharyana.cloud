@@ -24,7 +24,7 @@ export default function Page() {
         <div>
           <TildCard
             title="Komik"
-            description="Komik scraping dari komikindo.lol"
+            description="Komik scraping dari komikindo.pw"
             imageUrl="/webKomik.png"
             linkUrl="/komik"
           />
