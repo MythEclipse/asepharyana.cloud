@@ -20,7 +20,7 @@ COPY . .
 RUN npx prisma generate && mkdir -p /app/node_modules/.prisma && \
     if [ -f yarn.lock ]; then yarn run build; \
     elif [ -f package-lock.json ]; then npm run build; \
-    elif [ -f pnpm-lock.yaml ]; then pnpm run build; \
+    elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm run build; \
     else echo "Build script not found." && exit 1; \
     fi
 
