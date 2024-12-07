@@ -11,6 +11,7 @@ services:
       - .env
     environment:
       - NODE_ENV=production
+      - DATABASE_URL="postgresql://postgres:postgres@localhost:5433/sosmed"
     ports:
       - '3090:3090'
     depends_on:
@@ -20,7 +21,7 @@ services:
     image: postgres:latest
     container_name: postgres
     ports:
-      - '5432:5432'
+      - '5433:5433'
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
