@@ -4,4 +4,4 @@ docker-compose down
 docker-compose build
 
 # Start the Docker containers
-docker-compose up -d
+docker-compose up --build
