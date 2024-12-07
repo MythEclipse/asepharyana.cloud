@@ -12,6 +12,13 @@ services:
       - NODE_ENV=production
     ports:
       - '3090:3090'
+    depends_on:
+      - postgres
+    entrypoint: >
+      sh -c "
+      npx prisma migrate deploy &&
+      node server.js
+      "
 
   postgres:
     image: postgres:latest
