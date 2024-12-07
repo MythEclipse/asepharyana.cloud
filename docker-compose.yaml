@@ -6,7 +6,7 @@ services:
     container_name: postgres
     ports:
       - '5434:5432'  # Change the host port from 5433 to 5434
-    user: nextjs
+    user: root
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
