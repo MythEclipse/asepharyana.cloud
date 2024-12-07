@@ -16,6 +16,11 @@ services:
       - postgres
     entrypoint: >
       sh -c "
+      apk add --no-cache bash curl && 
+      until curl -s postgres:5432; do 
+      echo 'Waiting for database...'; 
+      sleep 2; 
+      done && 
       npx prisma migrate deploy &&
       node server.js
       "
