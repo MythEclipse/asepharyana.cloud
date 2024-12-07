@@ -13,5 +13,17 @@ services:
     ports:
       - '3090:3090'
 
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: sosmed
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
 volumes:
-  mongo-data:
+  postgres-data:
