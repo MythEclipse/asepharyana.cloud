@@ -1,11 +1,11 @@
-import { NextResponse, type NextRequest } from 'next/server';
-import { PrismaClient, Posts, User, Comments, Likes } from '@prisma/client';
+import { NextResponse } from 'next/server';
+import { PrismaClient } from '@prisma/client';
 import { auth } from '@/lib/auth';
 
 // Initialize Prisma Client
 const prisma = new PrismaClient();
 
-export async function POST(request: NextRequest) {
+export async function POST(request: Request) {
   try {
     // Get session data
     const session = await auth(); // Ensure to adjust `authOptions` path as needed
@@ -60,7 +60,7 @@ export async function GET() {
     });
 
     // Remove sensitive information from the response
-    const sanitizedPosts = posts.map((post: Posts & { user: User; comments: Comments[]; likes: Likes[] }) => ({
+    const sanitizedPosts = posts.map((post) => ({
       ...post,
       user: {
         id: post.user.id,
@@ -68,11 +68,11 @@ export async function GET() {
         image: post.user.image // Preserve image URL if needed
         // Avoid sending sensitive info like email, password, etc.
       },
-      comments: post.comments.map((comment: Comments) => ({
+      comments: post.comments.map((comment) => ({
         ...comment
         // You can also sanitize comment data if needed
       })),
-      likes: post.likes.map((like: Likes) => ({
+      likes: post.likes.map((like) => ({
         userId: like.userId, // Keep only non-sensitive info
         postId: like.postId
       }))
