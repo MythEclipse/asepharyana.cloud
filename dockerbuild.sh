@@ -1,5 +1,5 @@
 #!/bin/bash
-
+docker-compose down
 # Build the Docker images
 docker-compose build
 

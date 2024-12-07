@@ -5,7 +5,7 @@ services:
     image: postgres:latest
     container_name: postgres
     ports:
-      - '5433:5432'
+      - '5434:5432'  # Change the host port from 5433 to 5434
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -29,7 +29,7 @@ services:
       - .env
     environment:
       - NODE_ENV=production
-      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/sosmed
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5434/sosmed
     ports:
       - '3090:3090'
     depends_on:
