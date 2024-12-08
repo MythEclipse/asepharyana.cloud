@@ -16,14 +16,19 @@
     "sourceType": "module"
   },
   "plugins": ["@typescript-eslint"],
-  "ignorePatterns": ["**/build/*", "**/node_modules/*", "**/public/*","components.json"],
+  "ignorePatterns": [
+    "**/build/*", 
+    "**/node_modules/*", 
+    "**/public/*",
+    "components.json"
+  ],
   "rules": {
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/restrict-template-expressions": "off",
     "@typescript-eslint/strict-boolean-expressions": "off",
     "no-return-assign": "off",
     "array-callback-return": "off",
-    "@typescript-eslint/no-explicit-any":"off",
-    "@typescript-eslint/no-unused-vars":"off"
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-unused-vars": "off"
   }
 }

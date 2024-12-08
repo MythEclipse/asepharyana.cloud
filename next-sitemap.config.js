@@ -3,7 +3,7 @@ module.exports = {
   siteUrl: 'https://asepharyana.cloud', // Tambahkan siteUrl dengan URL situs Anda
   exclude: ['/icon.svg', '/apple-icon.png', '/manifest.webmanifest', '/tags/*'],
   generateRobotsTxt: true,
-  generateIndexSitemap: false,
+  generateIndexSitemap: true,
   robotsTxtOptions: {
     policies: [
       {
