@@ -7,22 +7,8 @@ const baseUrl = {
 };
 const baseURL = baseUrl.komik;
 
-const DEFAULT_HEADERS = {
-  accept:
-    'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-  'accept-encoding': 'gzip, deflate, br',
-  'accept-language': 'en-US,en;q=0.9',
-  'sec-ch-ua': '"Google Chrome";v="117", "Not;A=Brand";v="8", "Chromium";v="117"',
-  'sec-ch-ua-mobile': '?0',
-  'sec-fetch-dest': 'empty',
-  'sec-fetch-mode': 'cors',
-  'sec-fetch-site': 'same-origin',
-  'user-agent':
-    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36'
-};
-
 // Logging Function
-const logError = (error: any) => {
+const logError = (error: { message: string }) => {
   console.error('Error:', error.message);
 };
 
@@ -65,7 +51,7 @@ const parseMangaData = (body: string): MangaData[] => {
   const $ = cheerio.load(body);
   const data: MangaData[] = [];
 
-  $('.animposx').each((i, e) => {
+  $('.animposx').each((_, e) => {
     const title = $(e).find('.tt h4').text().trim() || '';
     let image = $(e).find('img').attr('src') || '';
     image = image.split('?')[0]; // Remove query parameters from image URL
@@ -96,12 +82,12 @@ const parseMangaData = (body: string): MangaData[] => {
 };
 
 // Function to fetch data with proxy
-const fetchWithProxyWrapper = async (url: string): Promise<any> => {
+const fetchWithProxyWrapper = async (url: string): Promise<string> => {
   try {
     const { data } = await fetchWithProxy(url);
     return data;
   } catch (error) {
-    logError(error);
+    logError(error as { message: string });
     throw new Error('Failed to fetch data');
   }
 };
@@ -134,7 +120,7 @@ const getDetail = async (komik_id: string): Promise<MangaDetail> => {
 
     // Genres
     const genres: string[] = [];
-    $('.genre-info a').each((i, el) => {
+    $('.genre-info a').each((_, el) => {
       genres.push($(el).text().trim());
     });
 
@@ -155,7 +141,7 @@ const getDetail = async (komik_id: string): Promise<MangaDetail> => {
 
     // Chapters list from the `#chapter_list` element
     const chapters: { chapter: string; date: string; chapter_id: string }[] = [];
-    $('#chapter_list ul li').each((i, el) => {
+    $('#chapter_list ul li').each((_, el) => {
       const chapter = $(el).find('.lchx a').text().trim();
       const date = $(el).find('.dt a').text().trim();
       const chapter_id = $(el).find('.lchx a').attr('href')?.split('/')[3] || '';
@@ -178,7 +164,7 @@ const getDetail = async (komik_id: string): Promise<MangaDetail> => {
       chapters
     };
   } catch (error) {
-    logError(error);
+    logError(error as { message: string });
     throw new Error('Failed to fetch manga detail');
   }
 };
@@ -201,14 +187,14 @@ const getChapter = async (chapter_url: string): Promise<MangaChapter> => {
 
     // Extracting images
     const images: string[] = [];
-    $('#chimg-auh img').each((i, el) => {
+    $('#chimg-auh img').each((_, el) => {
       const image = $(el).attr('src') || '';
       images.push(image);
     });
 
     return { title, next_chapter_id, prev_chapter_id, images };
   } catch (error) {
-    logError(error);
+    logError(error as { message: string });
     throw new Error('Failed to fetch manga chapter');
   }
 };
@@ -216,11 +202,10 @@ const getChapter = async (chapter_url: string): Promise<MangaChapter> => {
 export const GET = async (req: Request) => {
   const url = new URL(req.url);
   const page = url.searchParams.get('page') || '1';
-  const order = url.searchParams.get('order') || 'update';
   const type = url.pathname.split('/')[3] as 'manga' | 'manhwa' | 'manhua' | 'search' | 'detail' | 'chapter';
 
   try {
-    let data: any;
+    let data: unknown;
     if (type === 'detail') {
       const komik_id = url.searchParams.get('komik_id') || 'one-piece';
       data = await getDetail(komik_id);
@@ -243,12 +228,12 @@ export const GET = async (req: Request) => {
     }
 
     return NextResponse.json(data, { status: 200 });
-  } catch (error: any) {
-    logError(error);
+  } catch (error) {
+    logError(error as { message: string });
     return NextResponse.json(
       {
         status: false,
-        message: error.message
+        message: (error as { message: string }).message
       },
       { status: 500 }
     );

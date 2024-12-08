@@ -2,13 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import Card from '@/components/card/CardB';
 import { HiHeart, HiChatAlt } from 'react-icons/hi';
 import Image from 'next/image';
 import { BaseUrl } from '@/lib/url';
 import { useSession } from 'next-auth/react';
+import ButtonA from '@/components/ButtonA';
 
 interface Post {
   id: string;
@@ -150,13 +150,13 @@ export default function PostPage() {
             onChange={handleFileChange}
             className="mb-4 block w-full text-sm text-gray-500 dark:text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 dark:file:bg-gray-700 file:text-blue-700 dark:file:text-gray-300 hover:file:bg-blue-100 dark:hover:file:bg-gray-600"
           />
-          <Button
+          <ButtonA
             onClick={handlePost}
             disabled={posting}
             className="w-full py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300"
           >
             {posting ? 'Posting...' : 'Post'}
-          </Button>
+          </ButtonA>
           {message && <p className="mt-4 text-red-500 text-center">{message}</p>}
         </div>
       </Card>
@@ -185,18 +185,18 @@ export default function PostPage() {
                 <Image src={post.image_url} alt="Post" width={600} height={400} className="rounded-lg mt-4" />
               )}
               <div className="flex items-center mt-6 space-x-4">
-                <Button
+                <ButtonA
                   onClick={() => handleLike(post.id)}
                   className="flex items-center gap-2 text-red-500 hover:text-red-600 transition duration-300"
                 >
                   <HiHeart /> {post.likes.length}
-                </Button>
-                <Button
+                </ButtonA>
+                <ButtonA
                   onClick={() => toggleComments(post.id)}
                   className="flex items-center gap-2 text-blue-500 hover:text-blue-600 transition duration-300"
                 >
                   <HiChatAlt /> {post.comments.length}
-                </Button>
+                </ButtonA>
               </div>
               {showComments[post.id] && (
                 <div className="mt-4 space-y-4">
@@ -211,12 +211,12 @@ export default function PostPage() {
                     onChange={(e) => handleCommentChange(post.id, e.target.value)}
                     className="mt-2 border border-blue-500 dark:border-blue-500 rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-500 dark:bg-gray-700 dark:text-gray-100"
                   />
-                  <Button
+                  <ButtonA
                     onClick={() => handleAddComment(post.id)}
                     className="mt-2 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300"
                   >
                     Add Comment
-                  </Button>
+                  </ButtonA>
                 </div>
               )}
             </div>

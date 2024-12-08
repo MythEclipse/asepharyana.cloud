@@ -8,7 +8,6 @@ import Discord from '@/components/logo/Discord';
 import Link from 'next/link';
 import Bg from '@/components/Bg';
 import { AnimatedHeader } from '@/components/TextGerak';
-import { Button } from '@/components/ui/button';
 
 export const metadata: Metadata = {
   title: 'Home'

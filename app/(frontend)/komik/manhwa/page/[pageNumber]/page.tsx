@@ -1,12 +1,7 @@
 import React from 'react';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
 import Link from 'next/link';
-import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { BaseUrl } from '@/lib/url';
-import MiniTildCard from '@/components/MiniTildCard';
-import CardA from '@/components/card/CardA';
 import ButtonA from '@/components/ButtonA';
 import { ComicCard } from '@/components/ComicCard';
 

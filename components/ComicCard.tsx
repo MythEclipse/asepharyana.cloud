@@ -1,4 +1,3 @@
-import { Comic } from '@/app/(frontend)/komik/page';
 import React from 'react';
 import CardA from './card/CardA';
 

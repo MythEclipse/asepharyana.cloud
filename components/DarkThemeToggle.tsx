@@ -10,7 +10,7 @@ interface ModeToggleProps {
 }
 
 export default function ModeToggle({ className }: ModeToggleProps) {
-  const { theme, setTheme, resolvedTheme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
 
   // Ensure the component is mounted before rendering to avoid hydration mismatch

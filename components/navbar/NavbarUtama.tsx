@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import { SessionProvider, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import { Session } from 'next-auth';
 import { handleSignOut } from '@/lib/signOutAction';
 
@@ -105,15 +105,7 @@ function NavLink({
   );
 }
 
-function DesktopNavLinks({
-  pathname,
-  indicatorPos,
-  indicatorWidth
-}: {
-  pathname: string;
-  indicatorPos: number;
-  indicatorWidth: number;
-}) {
+function DesktopNavLinks({ pathname }: { pathname: string; indicatorPos: number; indicatorWidth: number }) {
   return (
     <ul className="flex space-x-8 relative">
       <NavLink href="/" pathname={pathname} label="Home" index={0} isOpen={false} />

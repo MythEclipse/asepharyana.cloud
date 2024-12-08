@@ -2,8 +2,6 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { Card } from '@/components/ui/card';
-import ButtonBaris from '@/components/ButtonBaris';
 import { BackgroundGradient } from '@/components/ui/background-gradient';
 import { PRODUCTION, BaseUrl } from '@/lib/url';
 import ButtonA from '@/components/ButtonA';

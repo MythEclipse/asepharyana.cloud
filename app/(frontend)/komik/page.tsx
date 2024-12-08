@@ -1,10 +1,7 @@
 'use server';
 
 import React from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
-import { Card } from '@/components/ui/card'; // Adjust the path as necessary
-import MiniTildCard from '@/components/MiniTildCard';
 import { BaseUrl } from '@/lib/url';
 import ButtonA from '@/components/ButtonA';
 import { ComicCard } from '@/components/ComicCard';

@@ -1,11 +1,8 @@
 import DockKomik from '@/components/DockKomik';
-import DrawerWrapper from '@/components/drawer/DrawerWrapper';
 import React from 'react';
-import { FaPencilAlt, FaDragon, FaBook } from 'react-icons/fa';
 import { HiHome, HiOutlineSearch } from 'react-icons/hi';
 import { MdUpdate } from 'react-icons/md';
 import { FaCheckCircle } from 'react-icons/fa'; // Ganti FaDragon dengan FaCheckCircle
-import { BiCategoryAlt } from 'react-icons/bi';
 
 export const metadata = {
   title: {

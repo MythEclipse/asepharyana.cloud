@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import * as cheerio from 'cheerio';
 import { fetchWithProxy } from '@/lib/fetchWithProxy';
 
-const logError = (error: any) => {
+const logError = (error: { message: string }) => {
   console.error('Error:', error.message);
 };
 
@@ -105,12 +105,13 @@ export async function GET(_: NextRequest, props: { params: Promise<{ slug: strin
     };
 
     return NextResponse.json(animeResponse, { status: 200 });
-  } catch (error: any) {
-    logError(error);
+  } catch (error: unknown) {
+    const err = error as { message: string };
+    logError(err);
     return NextResponse.json(
       {
         status: 'Error',
-        message: error.message
+        message: (error as { message: string }).message
       },
       { status: 500 }
     );

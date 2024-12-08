@@ -1,6 +1,10 @@
 import React from 'react';
 import { FloatingDock } from '@/components/ui/floating-dock';
 
-export default function FloatingDockDemo({ content }: any) {
+interface FloatingDockDemoProps {
+  content: Array<any>;
+}
+
+export default function FloatingDockDemo({ content }: FloatingDockDemoProps) {
   return <FloatingDock items={content} />;
 }

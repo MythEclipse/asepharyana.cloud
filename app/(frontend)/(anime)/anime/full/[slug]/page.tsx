@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import ClientPlayer from '@/components/ClientPlayer';
 import { BaseUrl } from '@/lib/url';
 import { BackgroundGradient } from '@/components/ui/background-gradient';
 import ButtonA from '@/components/ButtonA';

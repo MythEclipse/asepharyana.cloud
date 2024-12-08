@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import Loading from '@/components/loading';
 import { BaseUrl } from '@/lib/url';

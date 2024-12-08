@@ -1,5 +1,4 @@
 // app/search/[slug]/page.tsx
-import { FC } from 'react';
 import SearchForm from '@/components/SearchForm';
 import CardA from '@/components/card/CardA';
 import { BaseUrl } from '@/lib/url';

@@ -10,7 +10,7 @@ export default function CommentPage() {
   const [isLoading, setIsLoading] = useState(false);
   const { data: session } = useSession();
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError('');
     setIsLoading(true);
@@ -18,13 +18,13 @@ export default function CommentPage() {
     const res = await fetch('/api/comment', {
       method: 'POST',
       body: JSON.stringify({
-        content: e.target.content.value,
+        content: (e.target as HTMLFormElement).content.value,
         email: session?.user?.email ?? 'Guest'
       })
     });
 
     if (res.status === 200) {
-      e.target.reset();
+      (e.target as HTMLFormElement).reset();
       push('/comment'); // Redirect to a success page or another page of your choice
       setIsLoading(false);
     } else {

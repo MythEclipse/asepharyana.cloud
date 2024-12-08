@@ -1,9 +1,6 @@
 import DockKomik from '@/components/DockKomik';
-import DrawerWrapper from '@/components/drawerKomik/DrawerWrapper';
 import React from 'react';
-import { HiHome, HiCollection, HiMenu, HiOutlineSearch } from 'react-icons/hi';
-import Image from 'next/image';
-import { Button } from '@/components/ui/button';
+import { HiHome, HiOutlineSearch } from 'react-icons/hi';
 import { FaPencilAlt, FaDragon, FaBook } from 'react-icons/fa';
 
 const komik = [

@@ -10,7 +10,6 @@ import { ViewTransitions } from 'next-view-transitions';
 import { PRODUCTION } from '@/lib/url';
 import { ThemeProvider } from '@/components/theme-provider';
 import DarkThemeToggle from '@/components/DarkThemeToggle';
-import { auth } from '@/lib/auth';
 // Google font setup
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 // Metadata configuration for the page

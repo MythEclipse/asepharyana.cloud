@@ -18,7 +18,7 @@ const filePath = path.join(process.cwd(), 'public', 'OpenApi.yaml');
 const OpenApiYaml = fs.readFileSync(filePath, 'utf8');
 const OpenApiJson = yaml.load(OpenApiYaml);
 
-const openApiSpec = OpenApiJson as Record<string, any>;
+const openApiSpec = OpenApiJson as Record<string, unknown>;
 
 export default function OpenApiDocsPage() {
   return <SwaggerUI spec={openApiSpec} displayOperationId={true} />;

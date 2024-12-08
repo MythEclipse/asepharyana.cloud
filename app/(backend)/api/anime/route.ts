@@ -70,7 +70,7 @@ function parseCompleteAnime(html: string) {
   return completeAnime;
 }
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
     const ongoingHtml = await fetchHtml('https://otakudesu.cloud/ongoing-anime/');
     const completeHtml = await fetchHtml('https://otakudesu.cloud/complete-anime/');
