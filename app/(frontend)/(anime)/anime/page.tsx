@@ -4,15 +4,6 @@ import { BaseUrl } from '@/lib/url';
 import ButtonA from '@/components/ButtonA';
 import AnimeGrid from '@/components/AnimeGrid';
 
-// Define the HomeData, OngoingAnime, and CompleteAnime interfaces
-interface HomeData {
-  status: string;
-  data: {
-    ongoing_anime: OngoingAnime[];
-    complete_anime: CompleteAnime[];
-  };
-}
-
 interface OngoingAnime {
   title: string;
   slug: string;
@@ -27,65 +18,88 @@ interface CompleteAnime {
   poster: string;
   episode_count: string;
   anime_url: string;
-  current_episode: string; // Add this line
+  current_episode: string;
 }
 
-// Fetch episodes data
-const fetchEpisodes = async (): Promise<HomeData> => {
-  const res = await fetch(`${BaseUrl}/api/anime/`, { cache: 'force-cache', next: { revalidate: 300 } });
-  if (!res.ok) {
-    throw new Error('Failed to fetch episodes');
+// Fetch ongoing anime data
+const fetchOngoingAnime = async (): Promise<OngoingAnime[]> => {
+  try {
+    const res = await fetch(`${BaseUrl}/api/anime/ongoing-anime/1`, { next: { revalidate: 300 } });
+    const data = await res.json();
+    return data.data || [];
+  } catch (error) {
+    console.error('Error fetching ongoing anime:', error);
+    return [];
   }
-  return res.json();
+};
+
+// Fetch complete anime data
+const fetchCompleteAnime = async (): Promise<CompleteAnime[]> => {
+  try {
+    const res = await fetch(`${BaseUrl}/api/anime/complete-anime/1`, { next: { revalidate: 300 } });
+    const data = await res.json();
+    return data.data || [];
+  } catch (error) {
+    console.error('Error fetching complete anime:', error);
+    return [];
+  }
 };
 
 // Server-side rendering component
-export default async function AnimePage() {
-  let episodeData: HomeData | null = null;
-
-  try {
-    episodeData = await fetchEpisodes();
-  } catch (error) {
-    console.error('Failed to fetch episodes:', error);
-  }
+const AnimePage = async () => {
+  const ongoingAnime = await fetchOngoingAnime();
+  const completeAnime = await fetchCompleteAnime();
 
   return (
     <main className="p-6">
       {/* Ongoing Anime Section */}
-      <Link href={'/anime/ongoing-anime/1'}>
-        <ButtonA className="w-full max-w-[800rem] text-center py-4 px-8">Latest Ongoing Anime</ButtonA>
-      </Link>
-
-      {episodeData ? (
-        <AnimeGrid
-          animes={episodeData.data.ongoing_anime.map((anime) => ({
-            ...anime,
-            rating: '',
-            release_day: '',
-            newest_release_date: ''
-          }))}
-        />
-      ) : (
-        <Loading />
-      )}
+      <section className="mb-8">
+        <Link href={'/anime/ongoing-anime/1'}>
+          <ButtonA className="w-full max-w-[800rem] text-center py-4 px-8">Latest Ongoing Anime</ButtonA>
+        </Link>
+        <div className="flex flex-col items-center p-4">
+          <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            {ongoingAnime.length > 0 ? (
+              <AnimeGrid
+                animes={ongoingAnime.map((anime) => ({
+                  ...anime,
+                  rating: '',
+                  release_day: '',
+                  newest_release_date: ''
+                }))}
+              />
+            ) : (
+              <p className="text-gray-600 dark:text-white">No ongoing anime available</p>
+            )}
+          </div>
+        </div>
+      </section>
 
       {/* Complete Anime Section */}
-      <Link scroll href={'/anime/complete-anime/1'}>
-        <ButtonA className="w-full max-w-[800rem] text-center py-4 px-8">Latest Complete Anime</ButtonA>
-      </Link>
-      {episodeData ? (
-        <AnimeGrid
-          animes={episodeData.data.complete_anime.map((anime) => ({
-            ...anime,
-            rating: '',
-            release_day: '',
-            newest_release_date: '',
-            current_episode: ''
-          }))}
-        />
-      ) : (
-        <Loading />
-      )}
+      <section className="mb-8">
+        <Link scroll href={'/anime/complete-anime/1'}>
+          <ButtonA className="w-full max-w-[800rem] text-center py-4 px-8">Latest Complete Anime</ButtonA>
+        </Link>
+        <div className="flex flex-col items-center p-4">
+          <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            {completeAnime.length > 0 ? (
+              <AnimeGrid
+                animes={completeAnime.map((anime) => ({
+                  ...anime,
+                  rating: '',
+                  release_day: '',
+                  newest_release_date: '',
+                  current_episode: ''
+                }))}
+              />
+            ) : (
+              <p className="text-gray-600 dark:text-white">No complete anime available</p>
+            )}
+          </div>
+        </div>
+      </section>
     </main>
   );
-}
+};
+
+export default AnimePage;

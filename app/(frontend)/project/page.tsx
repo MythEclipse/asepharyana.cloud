@@ -1,7 +1,12 @@
+'use client';
+
 import TildCard from '@/components/TildCard';
 import React from 'react';
+import { useTheme } from 'next-themes';
 
 export default function Page() {
+  const { theme, setTheme, resolvedTheme } = useTheme();
+  const isLightTheme = theme === 'light' || resolvedTheme === 'light';
   return (
     <div className="container mx-auto p-4">
       <div className="w-full">
@@ -17,7 +22,7 @@ export default function Page() {
           <TildCard
             title="Anime"
             description="Anime scrapping dari otakudesu.cloud"
-            imageUrl="/webAnime.png"
+            imageUrl={isLightTheme ? '/webAnimeL.png' : '/webAnime.png'}
             linkUrl="/anime"
           />
         </div>
@@ -25,12 +30,17 @@ export default function Page() {
           <TildCard
             title="Komik"
             description="Komik scraping dari komikindo.pw"
-            imageUrl="/webKomik.png"
+            imageUrl={isLightTheme ? '/webKomikL.png' : '/webKomik.png'}
             linkUrl="/komik"
           />
         </div>
         <div>
-          <TildCard title="Sosmed" description="Autentikasi & crud dasar" imageUrl="/websosmed.png" linkUrl="/sosmed" />
+          <TildCard
+            title="Sosmed"
+            description="Autentikasi & crud dasar"
+            imageUrl={isLightTheme ? '/websosmedL.png' : '/websosmed.png'}
+            linkUrl="/sosmed"
+          />
         </div>
       </div>
     </div>
