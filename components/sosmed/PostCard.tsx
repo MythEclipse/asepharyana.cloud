@@ -6,24 +6,15 @@ import { Textarea } from '@/components/ui/textarea';
 import ButtonA from '@/components/ButtonA';
 import { Posts, User, Likes, Comments } from '@prisma/client';
 
-interface ExtendedComment extends Comments {
-  user: User;
-}
-interface ExtendedPost extends Posts {
-  user: User;
-  likes: Likes[];
-  comments: ExtendedComment[];
-}
-
-interface PostCardProps {
-  post: ExtendedPost;
+type PostCardProps = {
+  post: Posts & { user: User; likes: Likes[]; comments: Comments[] };
   handleLike: (postId: string) => void;
-  handleAddComment: (postId: string, content: string) => void;
+  handleAddComment: (postId: string, comment: string) => void;
   toggleComments: (postId: string) => void;
   showComments: boolean;
   newComment: string;
-  setNewComment: (value: string) => void;
-}
+  setNewComment: (comment: string) => void;
+};
 
 export default function PostCard({
   post,
@@ -59,14 +50,14 @@ export default function PostCard({
       <div className="flex items-center mt-6 space-x-6">
         <ButtonA
           onClick={() => handleLike(post.id)}
-          className="flex items-center gap-2 text-red-500 hover:text-red-600 transition duration-300"
+          className="flex items-center gap-2 text-red-500 hover:text-red-600 transition duration-300 px-6 py-2 rounded-full"
         >
           <HiHeart className="w-5 h-5" /> {post.likes.length}
         </ButtonA>
 
         <ButtonA
           onClick={() => toggleComments(post.id)}
-          className="flex items-center gap-2 text-blue-500 hover:text-blue-600 transition duration-300"
+          className="flex items-center gap-2 text-blue-500 hover:text-blue-600 transition duration-300 px-6 py-2 rounded-full"
         >
           <HiChatAlt className="w-5 h-5" /> {post.comments.length}
         </ButtonA>
@@ -79,7 +70,7 @@ export default function PostCard({
               key={comment.id}
               className="p-3 bg-gray-100 dark:bg-gray-800 rounded-lg text-gray-800 dark:text-gray-300"
             >
-              <strong>{comment.user.name}:</strong> {comment.content}
+              <strong>{post.user.name}:</strong> {comment.content}
             </div>
           ))}
 
@@ -92,7 +83,7 @@ export default function PostCard({
 
           <ButtonA
             onClick={() => handleAddComment(post.id, newComment)}
-            className="mt-2 py-2 w-full bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300"
+            className="mt-2 py-2 w-full bg-blue-600 text-white rounded-full hover:bg-blue-700 transition duration-300"
           >
             Add Comment
           </ButtonA>
