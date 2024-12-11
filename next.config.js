@@ -18,8 +18,8 @@ const withPWA = require('@ducanh2912/next-pwa').default({
         options: {
           cacheName: 'runtime-cache',
           expiration: {
-            maxEntries: 10000, // Batasi maksimal file hingga 10.000
-            maxAgeSeconds: 6 * 60 * 60 // Kedaluwarsa dalam 6 jam
+            maxEntries: 1000, // Batasi maksimal file hingga 10.000
+            maxAgeSeconds: 2 * 60 * 60 // Kedaluwarsa dalam 6 jam
           },
           cacheableResponse: {
             statuses: [0, 200] // Hanya cache response dengan status 0 atau 200

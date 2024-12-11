@@ -1,3 +1,4 @@
+'use server';
 import Link from 'next/link';
 import Loading from '@/components/loading';
 import { BaseUrl } from '@/lib/url';
