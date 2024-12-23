@@ -6,21 +6,44 @@ import PostCard from '@/components/sosmed/PostCard';
 import Card from '@/components/card/CardB';
 import ButtonA from '@/components/ButtonA';
 import { Textarea } from '@/components/ui/textarea';
-import { useSession } from 'next-auth/react';
 import axios from 'axios';
 import { BaseUrl } from '@/lib/url';
 import { Posts, User, Likes, Comments } from '@prisma/client';
 export default function PostPage() {
   const { posts, fetchPosts } = usePosts();
-  const { data: session } = useSession();
   const [content, setContent] = useState('');
-  const [file, setFile] = useState<File | null>(null);
   const [newComments, setNewComments] = useState<Record<string, string>>({});
   const [showComments, setShowComments] = useState<Record<string, boolean>>({});
 
   const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value);
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => setFile(e.target.files?.[0] || null);
+  const handlePostSubmit = async () => {
+    try {
+      await axios.post(`${BaseUrl}/api/sosmed/posts`, { content });
+      setContent('');
+      fetchPosts();
+    } catch (error) {
+      console.error('Error creating post:', error);
+    }
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // Handle file upload logic here if needed
+    const file = e.target.files?.[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      axios
+        .post(`${BaseUrl}/api/uploader`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
+        .then((res) => console.log('File uploaded successfully:', res.data))
+        .catch((err) => console.error('Error uploading file:', err));
+    }
+  };
 
   const toggleComments = (postId: string) => setShowComments((prev) => ({ ...prev, [postId]: !prev[postId] }));
 
@@ -65,7 +88,7 @@ export default function PostPage() {
             className="mb-4 block w-full text-sm text-gray-500 dark:text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 dark:file:bg-gray-700 file:text-blue-700 dark:file:text-gray-300 hover:file:bg-blue-100 dark:hover:file:bg-gray-600"
           />
           <ButtonA
-            onClick={() => {}}
+            onClick={handlePostSubmit}
             className="w-full py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300"
           >
             Post

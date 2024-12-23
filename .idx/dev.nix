@@ -22,7 +22,7 @@
   # Sets environment variables in the workspace
   env = {};
   idx = {
-    # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"
+    # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"a
     extensions = [
  "dbaeumer.vscode-eslint"
  "rangav.vscode-thunder-client"

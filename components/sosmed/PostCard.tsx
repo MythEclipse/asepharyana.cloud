@@ -6,15 +6,21 @@ import { Textarea } from '@/components/ui/textarea';
 import ButtonA from '@/components/ButtonA';
 import { Posts, User, Likes, Comments } from '@prisma/client';
 
-type PostCardProps = {
-  post: Posts & { user: User; likes: Likes[]; comments: Comments[] };
+interface PostCardProps {
+  post: Posts & {
+    user: User;
+    likes: Likes[];
+    comments: (Comments & {
+      user: User;
+    })[];
+  };
   handleLike: (postId: string) => void;
   handleAddComment: (postId: string, comment: string) => void;
   toggleComments: (postId: string) => void;
   showComments: boolean;
   newComment: string;
   setNewComment: (comment: string) => void;
-};
+}
 
 export default function PostCard({
   post,
@@ -70,7 +76,7 @@ export default function PostCard({
               key={comment.id}
               className="p-3 bg-gray-100 dark:bg-gray-800 rounded-lg text-gray-800 dark:text-gray-300"
             >
-              <strong>{post.user.name}:</strong> {comment.content}
+              <strong>{comment.user.name}:</strong> {comment.content}
             </div>
           ))}
 
