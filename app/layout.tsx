@@ -6,7 +6,7 @@ import './globals.css';
 import NavbarWrapper from '@/components/navbar/NavbarUtama';
 import SessionWrapper from '@/components/SessionWrapper';
 // import ContextAppProvider from '@/components/ContextApp';
-import { ViewTransitions } from 'next-view-transitions';
+// import { ViewTransitions } from 'next-view-transitions';
 import { PRODUCTION } from '@/lib/url';
 import { ThemeProvider } from '@/components/theme-provider';
 import DarkThemeToggle from '@/components/DarkThemeToggle';
@@ -49,26 +49,26 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <Flowbite>
       {/* <ContextAppProvider> */}
-      <ViewTransitions>
-        <SessionWrapper>
-          <html lang="id" className={inter.className} suppressHydrationWarning>
-            <head>
-              <link rel="canonical" href={`${PRODUCTION}`} />
-              <link rel="manifest" href="/manifest.json" />
-              <link rel="icon" href="/favicon.ico" />
-            </head>
-            <body className="h-screen bg-white dark:bg-black">
-              <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-                <NavbarWrapper />
-                <div className="mt-28 max-w-full px-0.5 pb-10 pt-38 sm:px-6 lg:px-8">
-                  {children}
-                  <DarkThemeToggle className="fixed bottom-0 left-0 z-10 m-4" aria-label="Toggle Dark Mode" />
-                </div>
-              </ThemeProvider>
-            </body>
-          </html>
-        </SessionWrapper>
-      </ViewTransitions>
+      {/* <ViewTransitions> */}
+      <SessionWrapper>
+        <html lang="id" className={inter.className} suppressHydrationWarning>
+          <head>
+            <link rel="canonical" href={`${PRODUCTION}`} />
+            <link rel="manifest" href="/manifest.json" />
+            <link rel="icon" href="/favicon.ico" />
+          </head>
+          <body className="h-screen bg-white dark:bg-black">
+            <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+              <NavbarWrapper />
+              <div className="mt-28 max-w-full px-0.5 pb-10 pt-38 sm:px-6 lg:px-8">
+                {children}
+                <DarkThemeToggle className="fixed bottom-0 left-0 z-10 m-4" aria-label="Toggle Dark Mode" />
+              </div>
+            </ThemeProvider>
+          </body>
+        </html>
+      </SessionWrapper>
+      {/* </ViewTransitions> */}
       {/* </ContextAppProvider> */}
     </Flowbite>
   );
