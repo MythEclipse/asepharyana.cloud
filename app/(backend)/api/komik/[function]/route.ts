@@ -84,8 +84,8 @@ const parseMangaData = (body: string): MangaData[] => {
 // Function to fetch data with proxy
 const fetchWithProxyWrapper = async (url: string): Promise<string> => {
   try {
-    const { data } = await fetchWithProxy(url);
-    return data;
+    const response = await fetchWithProxy(url);
+    return typeof response.data === 'string' ? response.data : JSON.stringify(response.data);
   } catch (error) {
     logError(error as { message: string });
     throw new Error('Failed to fetch data');

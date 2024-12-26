@@ -1,5 +1,4 @@
 import axios from 'axios';
-import https from 'https';
 
 interface Payload {
   id: number;
@@ -11,9 +10,6 @@ interface Payload {
 
 export const useFetch = async (url: string, method = 'GET', pyld?: Payload) => {
   try {
-    const agent = new https.Agent({
-      rejectUnauthorized: false
-    });
     if (method === 'POST') {
       const from = new FormData();
       from.append('id', String(pyld?.id));
@@ -41,7 +37,7 @@ export const useFetch = async (url: string, method = 'GET', pyld?: Payload) => {
       data,
       status: response.status
     };
-  } catch (error: any) {
-    throw new Error(error);
+  } catch (error: unknown) {
+    throw new Error(String(error));
   }
 };

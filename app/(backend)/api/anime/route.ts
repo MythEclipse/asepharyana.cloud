@@ -1,5 +1,5 @@
 import * as cheerio from 'cheerio';
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { fetchWithProxy } from '@/lib/fetchWithProxy';
 
 async function fetchHtml(url: string): Promise<string> {
@@ -9,6 +9,9 @@ async function fetchHtml(url: string): Promise<string> {
     throw new Error(`Failed to fetch data from ${url}`);
   }
 
+  if (typeof response.data !== 'string') {
+    throw new Error(`Expected response data to be a string but got ${typeof response.data}`);
+  }
   return response.data;
 }
 

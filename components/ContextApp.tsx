@@ -1,10 +1,10 @@
 'use client';
 
-import { createContext, useState, ReactNode } from 'react';
+import React, { createContext, useState, ReactNode } from 'react';
 
 interface ContextAppType {
   lokasi: string;
-  setLokasi: (lokasi: string) => void;
+  setLokasi: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const ContextApp = createContext<ContextAppType | undefined>(undefined);

@@ -1,14 +1,33 @@
 'use client';
 
-import { useState } from 'react';
-import { usePosts } from '@/hooks/usePosts';
+import React, { useEffect, useState } from 'react';
 import PostCard from '@/components/sosmed/PostCard';
 import Card from '@/components/card/CardB';
 import ButtonA from '@/components/ButtonA';
 import { Textarea } from '@/components/ui/textarea';
-import axios from 'axios';
 import { BaseUrl } from '@/lib/url';
 import { Posts, User, Likes, Comments } from '@prisma/client';
+
+const usePosts = () => {
+  const [posts, setPosts] = useState<Posts[]>([]);
+
+  const fetchPosts = async () => {
+    try {
+      const response = await fetch(`${BaseUrl}/api/sosmed/posts`);
+      const data = await response.json();
+      setPosts(data.posts);
+    } catch (error) {
+      console.error('Error fetching posts:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
+  return { posts, fetchPosts };
+};
+
 export default function PostPage() {
   const { posts, fetchPosts } = usePosts();
   const [content, setContent] = useState('');
@@ -19,7 +38,13 @@ export default function PostPage() {
 
   const handlePostSubmit = async () => {
     try {
-      await axios.post(`${BaseUrl}/api/sosmed/posts`, { content });
+      await fetch(`${BaseUrl}/api/sosmed/posts`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ content })
+      });
       setContent('');
       fetchPosts();
     } catch (error) {
@@ -28,19 +53,17 @@ export default function PostPage() {
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // Handle file upload logic here if needed
     const file = e.target.files?.[0];
     if (file) {
       const formData = new FormData();
       formData.append('file', file);
 
-      axios
-        .post(`${BaseUrl}/api/uploader`, formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        })
-        .then((res) => console.log('File uploaded successfully:', res.data))
+      fetch(`${BaseUrl}/api/uploader`, {
+        method: 'POST',
+        body: formData
+      })
+        .then((res) => res.json())
+        .then((data) => console.log('File uploaded successfully:', data))
         .catch((err) => console.error('Error uploading file:', err));
     }
   };
@@ -49,7 +72,13 @@ export default function PostPage() {
 
   const handleLike = async (postId: string) => {
     try {
-      await axios.post(`${BaseUrl}/api/sosmed/likes`, { postId });
+      await fetch(`${BaseUrl}/api/sosmed/likes`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ postId })
+      });
       fetchPosts();
     } catch (error) {
       console.error('Error liking post:', error);
@@ -60,9 +89,12 @@ export default function PostPage() {
     if (!newComments[postId]?.trim()) return;
 
     try {
-      await axios.post(`${BaseUrl}/api/sosmed/comments`, {
-        content: newComments[postId],
-        postId
+      await fetch(`${BaseUrl}/api/sosmed/comments`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ content: newComments[postId], postId })
       });
       fetchPosts();
       setNewComments((prev) => ({ ...prev, [postId]: '' }));

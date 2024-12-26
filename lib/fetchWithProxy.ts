@@ -1,7 +1,7 @@
 // lib/fetchWithFallback.ts
 import { DEFAULT_HEADERS } from '@/lib/DHead';
 
-export async function fetchWithProxy(slug: string): Promise<{ data: any; contentType: string | null }> {
+export async function fetchWithProxy(slug: string): Promise<{ data: string | object; contentType: string | null }> {
   try {
     // Coba fetch langsung terlebih dahulu
     const response = await fetch(slug, {
@@ -23,13 +23,13 @@ export async function fetchWithProxy(slug: string): Promise<{ data: any; content
     }
 
     throw new Error(`Direct fetch failed`);
-  } catch (error) {
+  } catch {
     console.error('Direct fetch failed, trying proxies');
     return await fetchFromProxies(slug);
   }
 }
 
-async function fetchFromProxies(slug: string): Promise<{ data: any; contentType: string | null }> {
+async function fetchFromProxies(slug: string): Promise<{ data: string | object; contentType: string | null }> {
   const baseUrls = ['meitang.xyz', 'btch.us.kg', 'api.tioo.eu.org', 'api.tioprm.eu.org'];
   let lastError: Error | null = null;
 

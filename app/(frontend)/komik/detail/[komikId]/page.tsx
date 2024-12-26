@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation';
 import { BackgroundGradient } from '@/components/ui/background-gradient';
 import { PRODUCTION, BaseUrl } from '@/lib/url';
 import ButtonA from '@/components/ButtonA';
-
+import React from 'react';
 interface MangaDetail {
   title: string;
   alternativeTitle: string;

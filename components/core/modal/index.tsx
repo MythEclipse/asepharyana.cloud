@@ -1,6 +1,7 @@
 // ModalWrapper.tsx
-/* eslint-disable no-unused-vars */
+
 'use client';
+import React from 'react';
 import { useRouter } from 'next/navigation';
 import { MouseEventHandler, ReactNode, KeyboardEvent } from 'react';
 import { useState } from 'react';

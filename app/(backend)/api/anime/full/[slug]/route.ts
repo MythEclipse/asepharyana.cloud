@@ -40,6 +40,9 @@ const fetchAnimePage = async (slug: string): Promise<string> => {
     throw new Error('Failed to fetch page');
   }
 
+  if (typeof response.data !== 'string') {
+    throw new Error('Expected response data to be a string');
+  }
   return response.data;
 };
 

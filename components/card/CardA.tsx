@@ -1,5 +1,5 @@
 'use client';
-
+import React from 'react';
 import { Card as ShadcnCard } from '@/components/ui/card';
 import Link from 'next/link';
 import Image from 'next/image';

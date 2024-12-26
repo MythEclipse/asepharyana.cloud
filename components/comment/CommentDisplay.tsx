@@ -1,5 +1,5 @@
 import { FC } from 'react';
-
+import React from 'react';
 interface Comment {
   id: string;
   email: string;

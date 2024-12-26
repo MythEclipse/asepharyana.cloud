@@ -1,3 +1,4 @@
+import React from 'react';
 import { BaseUrl, PRODUCTION } from '@/lib/url';
 import Image from 'next/image';
 import Link from 'next/link';

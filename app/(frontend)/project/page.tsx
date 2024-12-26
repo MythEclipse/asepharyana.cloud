@@ -5,7 +5,7 @@ import React from 'react';
 import { useTheme } from 'next-themes';
 
 export default function Page() {
-  const { theme, setTheme, resolvedTheme } = useTheme();
+  const { theme, resolvedTheme } = useTheme();
   const isLightTheme = theme === 'light' || resolvedTheme === 'light';
   return (
     <div className="container mx-auto p-4">

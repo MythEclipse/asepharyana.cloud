@@ -35,7 +35,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "jest.config.ts",
-    "app/(backend)/api/komik/[function]/route.ts.bak"
+    "app/(backend)/api/komik/[function]/route.ts.bak",
+    "eslint.config.mjs"
   ],
   "exclude": [
     "node_modules",

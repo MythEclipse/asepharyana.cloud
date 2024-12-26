@@ -2,7 +2,7 @@
 import SearchForm from '@/components/SearchForm';
 import CardA from '@/components/card/CardA';
 import { BaseUrl } from '@/lib/url';
-
+import React from 'react';
 interface Genre {
   name: string;
   slug: string;

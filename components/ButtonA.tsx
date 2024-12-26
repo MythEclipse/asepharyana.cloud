@@ -2,7 +2,7 @@
 
 import { FC, ReactNode } from 'react';
 import Link from 'next/link';
-
+import React from 'react';
 interface ButtonProps {
   children: ReactNode;
   className?: string;

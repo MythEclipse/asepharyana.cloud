@@ -13,6 +13,9 @@ async function fetchAnimePage(slug: string): Promise<string> {
     throw new Error('Expected HTML but received JSON');
   }
 
+  if (typeof data !== 'string') {
+    throw new Error('Expected HTML but received non-string data');
+  }
   return data;
 }
 

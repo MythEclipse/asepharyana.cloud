@@ -85,7 +85,7 @@ const parseAnimeData = (html: string) => {
 export async function GET(req: NextRequest, props: { params: Promise<{ slug: string }> }) {
   try {
     const { slug } = await props.params;
-    const html = await fetchAnimePage(slug);
+    const html = (await fetchAnimePage(slug)) as string;
     const animeData = parseAnimeData(html);
 
     return NextResponse.json({ status: 'Ok', data: animeData });

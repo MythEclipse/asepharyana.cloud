@@ -9,7 +9,7 @@ async function fetchAnimeData(slug: string) {
     throw new Error('Failed to fetch data');
   }
 
-  return response.data;
+  return response.data as string;
 }
 
 function parseAnimeData(html: string, slug: string) {

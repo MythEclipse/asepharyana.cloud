@@ -1,5 +1,5 @@
 'use client';
-
+import React from 'react';
 import { HiHeart, HiChatAlt } from 'react-icons/hi';
 import Image from 'next/image';
 import { Textarea } from '@/components/ui/textarea';
@@ -10,9 +10,7 @@ interface PostCardProps {
   post: Posts & {
     user: User;
     likes: Likes[];
-    comments: (Comments & {
-      user: User;
-    })[];
+    comments: Comments[];
   };
   handleLike: (postId: string) => void;
   handleAddComment: (postId: string, comment: string) => void;
@@ -32,7 +30,7 @@ export default function PostCard({
   setNewComment
 }: PostCardProps) {
   return (
-    <div className="p-6 shadow-xl rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
+    <div className="p-6 shadow-xl bg-white dark:bg-black  border border-blue-500 dark:border-blue-500 rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-500">
       <div className="flex items-center gap-4 mb-4">
         <Image
           src={post.user.image || '/default-profile.png'}
@@ -54,19 +52,19 @@ export default function PostCard({
       )}
 
       <div className="flex items-center mt-6 space-x-6">
-        <ButtonA
+        <button
           onClick={() => handleLike(post.id)}
-          className="flex items-center gap-2 text-red-500 hover:text-red-600 transition duration-300 px-6 py-2 rounded-full"
+          className="flex items-center gap-2 text-red-500 hover:text-red-600 transition duration-300 px-6 py-2 border border-blue-500 dark:border-blue-500 rounded-full focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-500"
         >
           <HiHeart className="w-5 h-5" /> {post.likes.length}
-        </ButtonA>
+        </button>
 
-        <ButtonA
+        <button
           onClick={() => toggleComments(post.id)}
-          className="flex items-center gap-2 text-blue-500 hover:text-blue-600 transition duration-300 px-6 py-2 rounded-full"
+          className="flex items-center gap-2 text-blue-500 hover:text-blue-600 transition duration-300 px-6 py-2 border border-blue-500 dark:border-blue-500 rounded-full focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-500"
         >
           <HiChatAlt className="w-5 h-5" /> {post.comments.length}
-        </ButtonA>
+        </button>
       </div>
 
       {showComments && (
@@ -74,9 +72,9 @@ export default function PostCard({
           {post.comments.map((comment) => (
             <div
               key={comment.id}
-              className="p-3 bg-gray-100 dark:bg-gray-800 rounded-lg text-gray-800 dark:text-gray-300"
+              className="p-3 bg-white dark:bg-black rounded-lg text-gray-800 dark:text-gray-300 border-2 border-blue-500"
             >
-              <strong>{comment.user.name}:</strong> {comment.content}
+              <strong>{comment.userId}:</strong> {comment.content}
             </div>
           ))}
 

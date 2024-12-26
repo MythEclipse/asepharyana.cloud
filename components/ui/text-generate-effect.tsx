@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
-
+import React from 'react';
 export const TextGenerateEffect = ({
   words,
   className,
@@ -25,7 +25,7 @@ export const TextGenerateEffect = ({
         span.style.filter = filter ? 'blur(0px)' : 'none';
       });
     }
-  }, [containerRef.current]);
+  }, [duration, filter]);
 
   const renderWords = () => {
     return (

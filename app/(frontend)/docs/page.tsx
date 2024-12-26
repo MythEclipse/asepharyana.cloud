@@ -6,7 +6,7 @@ export const metadata = {
   description: 'Dokumentasi API untuk digunakan secara gratis',
   keywords: 'nextjs, api, free'
 };
-
+import React from 'react';
 import SwaggerUI from 'swagger-ui-react';
 import 'swagger-ui-react/swagger-ui.css';
 import './custom.css';

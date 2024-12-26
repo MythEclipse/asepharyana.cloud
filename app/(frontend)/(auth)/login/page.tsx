@@ -1,5 +1,6 @@
 import { signIn } from '@/lib/auth';
 import { FcGoogle } from 'react-icons/fc';
+import React from 'react';
 export default function SignIn() {
   return (
     <form

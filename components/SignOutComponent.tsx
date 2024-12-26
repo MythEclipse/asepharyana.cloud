@@ -1,6 +1,6 @@
 'use server';
 import { signOut } from '@/lib/auth';
-
+import React from 'react';
 export default async function SignOutComponent() {
   return (
     <form

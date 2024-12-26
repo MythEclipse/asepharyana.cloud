@@ -44,7 +44,7 @@ export async function register(data: { fullName: string; email: string; password
         statusCode: 200,
         message: 'register successfully'
       };
-    } catch (error) {
+    } catch {
       return {
         status: false,
         statusCode: 400,
@@ -54,7 +54,7 @@ export async function register(data: { fullName: string; email: string; password
   }
 }
 
-export async function login(data: any) {
+export async function login(data: { email: string; password: string }) {
   const q = query(collection(firestore, 'users'), where('email', '==', data.email));
   const snapshot = await getDocs(q);
   const user = snapshot.docs.map((doc) => ({
@@ -69,11 +69,15 @@ export async function login(data: any) {
   }
 }
 
-export async function loginWithGoogle(data: any, callbacks: any) {
+export async function loginWithGoogle(
+  data: { email: string; role?: string },
+  callbacks: (response: { status: boolean; data: { email: string; role?: string } }) => void
+) {
   const q = query(collection(firestore, 'users'), where('email', '==', data.email));
   const snapshot = await getDocs(q);
-  const user: any = snapshot.docs.map((doc) => ({
+  const user: { id: string; role: string }[] = snapshot.docs.map((doc) => ({
     id: doc.id,
+    role: doc.data().role,
     ...doc.data()
   }));
 

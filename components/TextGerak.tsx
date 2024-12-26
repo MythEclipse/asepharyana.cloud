@@ -1,5 +1,5 @@
 'use client';
-
+import React from 'react';
 import { cn } from '@/lib/utils';
 import { useEffect, useRef, useState } from 'react';
 
@@ -26,10 +26,11 @@ export const AnimatedHeader = ({
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => setIsInView(entry.isIntersecting), { threshold: 0.1 });
 
-    if (headerRef.current) observer.observe(headerRef.current);
+    const currentHeaderRef = headerRef.current;
+    if (currentHeaderRef) observer.observe(currentHeaderRef);
 
     return () => {
-      if (headerRef.current) observer.unobserve(headerRef.current);
+      if (currentHeaderRef) observer.unobserve(currentHeaderRef);
     };
   }, []);
 

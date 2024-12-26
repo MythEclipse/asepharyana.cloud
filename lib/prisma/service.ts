@@ -1,6 +1,5 @@
 // lib/prisma/service.ts
-import { PrismaClient } from '@prisma/client';
-import bcrypt from 'bcrypt';
+import { PrismaClient, User } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -14,7 +13,7 @@ interface GoogleUserData {
 
 export async function loginWithGoogle(
   userData: GoogleUserData,
-  callback: (result: { status: boolean; data: any }) => void
+  callback: (result: { status: boolean; data: User | string }) => void
 ) {
   try {
     // Check if user already exists
@@ -49,14 +48,14 @@ export async function loginWithGoogle(
   }
 }
 
-interface RegisterInput {
-  email: string;
-  password: string;
-  name?: string;
-  fullname?: string;
-  image?: string;
-  bio?: string;
-}
+// interface RegisterInput {
+//   email: string;
+//   password: string;
+//   name?: string;
+//   fullname?: string;
+//   image?: string;
+//   bio?: string;
+// }
 
 // export async function register(data: RegisterInput) {
 //   const { email, password, name, fullname, image, bio } = data;
@@ -91,3 +90,8 @@ interface RegisterInput {
 //     };
 //   }
 // }
+
+
+export async function getUserById(id: string) {
+  return await prisma.user.findUnique({ where: { id } });
+}
