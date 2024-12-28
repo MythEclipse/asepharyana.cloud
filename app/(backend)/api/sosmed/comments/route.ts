@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/prisma/prisma';
 import { auth } from '@/lib/auth';
+
 export async function POST(req: NextRequest) {
   const session = await auth();
 
@@ -32,6 +33,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ message: 'Failed to add comment' }, { status: 500 });
   }
 }
+
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const postId = searchParams.get('postId');
@@ -49,7 +51,6 @@ export async function GET(req: NextRequest) {
             id: true,
             name: true,
             image: true
-            // Exclude sensitive information
           }
         }
       },

@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
     const like = await prisma.likes.create({
       data: {
         postId,
-        userId: session.user.id as string
+        userId: session.user.id!
       }
     });
     return NextResponse.json({ like }, { status: 201 });

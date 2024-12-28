@@ -10,7 +10,7 @@ interface PostCardProps {
   post: Posts & {
     user: User;
     likes: Likes[];
-    comments: Comments[];
+    comments: (Comments & { user: User })[];
   };
   handleLike: (postId: string) => void;
   handleAddComment: (postId: string, comment: string) => void;
@@ -30,7 +30,7 @@ export default function PostCard({
   setNewComment
 }: PostCardProps) {
   return (
-    <div className="p-6 shadow-xl bg-white dark:bg-black  border border-blue-500 dark:border-blue-500 rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-500">
+    <div className="p-6 shadow-xl bg-white dark:bg-black border border-blue-500 dark:border-blue-500 rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-500">
       <div className="flex items-center gap-4 mb-4">
         <Image
           src={post.user.image || '/default-profile.png'}
@@ -74,7 +74,17 @@ export default function PostCard({
               key={comment.id}
               className="p-3 bg-white dark:bg-black rounded-lg text-gray-800 dark:text-gray-300 border-2 border-blue-500"
             >
-              <strong>{comment.userId}:</strong> {comment.content}
+              <div className="flex items-center gap-2 mb-2">
+                <Image
+                  src={comment.user.image || '/profile-circle-svgrepo-com.svg'}
+                  alt={comment.user.name || 'User'}
+                  width={30}
+                  height={30}
+                  className="rounded-full border-2 border-blue-500"
+                />
+                <strong>{comment.user.name}:</strong>
+              </div>
+              <p>{comment.content}</p>
             </div>
           ))}
 

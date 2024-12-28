@@ -8,8 +8,8 @@ const prisma = new PrismaClient();
 export async function POST(request: Request) {
   try {
     // Get session data
-    const session = await auth(); // Ensure to adjust `authOptions` path as needed
-    const userId = session?.user?.id; // Extract user ID from session
+    const session = await auth();
+    const userId = session?.user?.id;
 
     // Parse the JSON request body
     const { content, imageUrl } = await request.json();
@@ -28,11 +28,9 @@ export async function POST(request: Request) {
     const newPost = await prisma.posts.create({
       data: {
         content,
-        authorId: userId, // Use user ID from the session
-        image_url: imageUrl || '', // Use the image URL returned from the upload API or default to empty string
-        userId: session?.user?.id || '',
-        created_at: new Date(), // Set the created_at field to the current date
-        updated_at: new Date() // Set the updated_at field to the current date
+        authorId: userId,
+        image_url: imageUrl || '',
+        userId,
       }
     });
 
@@ -50,32 +48,47 @@ export async function GET() {
     // Fetch all posts from the database
     const posts = await prisma.posts.findMany({
       include: {
-        user: true, // Include user data if needed
-        comments: true, // Include comments if needed
-        likes: true // Include likes if needed
+        user: {
+          select: {
+            id: true,
+            name: true,
+            image: true
+          }
+        },
+        comments: true,
+        likes: true
       },
       orderBy: {
-        created_at: 'desc' // Order by most recent first
+        created_at: 'desc'
       }
     });
 
-    // Remove sensitive information from the response
-    const sanitizedPosts = posts.map((post) => ({
+    // Sanitize the response
+    const sanitizedPosts = await Promise.all(posts.map(async (post) => {
+      const commentsWithUser = await Promise.all(post.comments.map(async (comment) => {
+      const user = await prisma.user.findUnique({
+        where: { id: comment.userId },
+        select: { id: true, name: true, image: true }
+      });
+      return {
+        ...comment,
+        user
+      };
+      }));
+
+      return {
       ...post,
       user: {
         id: post.user.id,
         name: post.user.name,
-        image: post.user.image // Preserve image URL if needed
-        // Avoid sending sensitive info like email, password, etc.
+        image: post.user.image
       },
-      comments: post.comments.map((comment) => ({
-        ...comment
-        // You can also sanitize comment data if needed
-      })),
+      comments: commentsWithUser,
       likes: post.likes.map((like) => ({
-        userId: like.userId, // Keep only non-sensitive info
+        userId: like.userId,
         postId: like.postId
       }))
+      };
     }));
 
     return NextResponse.json({ posts: sanitizedPosts }, { status: 200 });

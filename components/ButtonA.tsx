@@ -32,6 +32,13 @@ const AnimatedButton: FC<ButtonProps> = ({ children, disabled, onClick, type = '
     return <Link href={href}>{buttonContent}</Link>;
   }
 
+  const handleClick = () => {
+    if (onClick) {
+      onClick();
+    }
+    window.scrollTo(0, 0); // Scroll to the top of the page
+  };
+
   return (
     <button
       className={`flex flex-col items-center justify-center text-center 
@@ -43,7 +50,7 @@ const AnimatedButton: FC<ButtonProps> = ({ children, disabled, onClick, type = '
         transition-colors duration-200 ease-in-out ${className}`}
       disabled={disabled}
       type={type} // Ensure the type is either "button", "submit", or "reset"
-      onClick={onClick}
+      onClick={handleClick}
     >
       {children}
     </button>

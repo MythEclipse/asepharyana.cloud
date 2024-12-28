@@ -61,7 +61,6 @@ export default async function ChapterPage(props: { params: Promise<{ chapterId: 
               className="object-cover transition-opacity duration-300"
               width="725"
               height="1024"
-              unoptimized
             />
           </div>
         ))}

@@ -50,7 +50,7 @@ const CollisionMechanism = React.forwardRef<
       className?: string;
     };
   }
->(({ beamOptions = {} }) => {
+>(({ beamOptions = {} }, ref) => {
   const beamRef = useRef<HTMLDivElement>(null);
   const [collision, setCollision] = useState<{
     detected: boolean;
