@@ -135,12 +135,12 @@ export default function PostPage() {
             post={{
               ...post,
               user: post.user || { name: null, id: '', email: null, emailVerified: null, role: '', image: null }, // Ensure user property exists
-              likes: post.likes || [], 
+              likes: post.likes || [],
               comments:
                 post.comments?.map((comment) => ({
                   ...comment,
                   user: comment.user || { name: null, id: '', email: null, emailVerified: null, role: '', image: null }
-                })) || [] 
+                })) || []
             }}
             handleLike={handleLike}
             handleAddComment={handleAddComment}

@@ -30,7 +30,7 @@ export async function POST(request: Request) {
         content,
         authorId: userId,
         image_url: imageUrl || '',
-        userId,
+        userId
       }
     });
 
@@ -64,32 +64,36 @@ export async function GET() {
     });
 
     // Sanitize the response
-    const sanitizedPosts = await Promise.all(posts.map(async (post) => {
-      const commentsWithUser = await Promise.all(post.comments.map(async (comment) => {
-      const user = await prisma.user.findUnique({
-        where: { id: comment.userId },
-        select: { id: true, name: true, image: true }
-      });
-      return {
-        ...comment,
-        user
-      };
-      }));
+    const sanitizedPosts = await Promise.all(
+      posts.map(async (post) => {
+        const commentsWithUser = await Promise.all(
+          post.comments.map(async (comment) => {
+            const user = await prisma.user.findUnique({
+              where: { id: comment.userId },
+              select: { id: true, name: true, image: true }
+            });
+            return {
+              ...comment,
+              user
+            };
+          })
+        );
 
-      return {
-      ...post,
-      user: {
-        id: post.user.id,
-        name: post.user.name,
-        image: post.user.image
-      },
-      comments: commentsWithUser,
-      likes: post.likes.map((like) => ({
-        userId: like.userId,
-        postId: like.postId
-      }))
-      };
-    }));
+        return {
+          ...post,
+          user: {
+            id: post.user.id,
+            name: post.user.name,
+            image: post.user.image
+          },
+          comments: commentsWithUser,
+          likes: post.likes.map((like) => ({
+            userId: like.userId,
+            postId: like.postId
+          }))
+        };
+      })
+    );
 
     return NextResponse.json({ posts: sanitizedPosts }, { status: 200 });
   } catch (error) {
