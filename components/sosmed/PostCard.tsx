@@ -82,7 +82,7 @@ export default function PostCard({
                   height={30}
                   className="rounded-full border-2 border-blue-500"
                 />
-                <strong>{comment.user.name}:</strong>
+                <strong>{comment.user.name}</strong>
               </div>
               <p>{comment.content}</p>
             </div>

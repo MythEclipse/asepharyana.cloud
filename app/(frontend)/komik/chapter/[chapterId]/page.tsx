@@ -26,7 +26,7 @@ export default async function ChapterPage(props: { params: Promise<{ chapterId: 
   const chapter: ChapterDetail = await response.json();
 
   return (
-    <main className="p-6">
+    <main className="p-6 pb-6">
       <div className="text-center mb-4">
         <h1 className="text-2xl font-bold dark:text-white">{chapter.title}</h1>
         <div className="mt-4 flex justify-between gap-4">

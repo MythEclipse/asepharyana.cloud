@@ -1,14 +1,20 @@
-import { signIn } from '@/lib/auth';
+'use client';
 import { FcGoogle } from 'react-icons/fc';
-import React from 'react';
-export default function SignIn() {
+import React, { Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
+import login from './login';
+
+function LoginForm() {
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get('callbackUrl') || '/';
+
   return (
     <form
-      action={async () => {
-        'use server';
-        await signIn('google');
+      onSubmit={async (e) => {
+        e.preventDefault();
+        await login(callbackUrl);
       }}
-      className="flex flex-col items-center justify-center h-screen  p-5 rounded-lg shadow-md"
+      className="flex flex-col items-center justify-center h-screen p-5 rounded-lg shadow-md"
     >
       <button
         type="submit"
@@ -17,5 +23,13 @@ export default function SignIn() {
         <FcGoogle /> Sign in with Google
       </button>
     </form>
+  );
+}
+
+export default function SignIn() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <LoginForm />
+    </Suspense>
   );
 }
