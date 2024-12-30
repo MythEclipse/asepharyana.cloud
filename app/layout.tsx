@@ -3,13 +3,13 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { Flowbite } from 'flowbite-react';
 import './globals.css';
-import NavbarWrapper from '@/components/navbar/NavbarUtama';
-import SessionWrapper from '@/components/SessionWrapper';
+import NavbarWrapper from '@/components/navbar/MainNavbar';
+import SessionWrapper from '@/components/misc/SessionWrapper';
 // import ContextAppProvider from '@/components/ContextApp';
 // import { ViewTransitions } from 'next-view-transitions';
 import { PRODUCTION } from '@/lib/url';
-import { ThemeProvider } from '@/components/theme-provider';
-import DarkThemeToggle from '@/components/DarkThemeToggle';
+import { ThemeProvider } from '@/components/misc/theme-provider';
+import DarkThemeToggle from '@/components/button/DarkThemeToggle';
 // Google font setup
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 // Metadata configuration for the page

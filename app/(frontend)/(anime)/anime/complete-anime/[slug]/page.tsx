@@ -1,9 +1,9 @@
 // app/(anime)/complete-anime/[page]/page.tsx
 import React from 'react';
-import AnimeGrid from '@/components/AnimeGrid';
+import AnimeGrid from '@/components/card/AnimeGrid';
 import Link from 'next/link';
 import { BaseUrl } from '@/lib/url';
-import ButtonA from '@/components/ButtonA';
+import ButtonA from '@/components/button/ButtonA';
 
 interface CompleteAnimeData {
   status: string;

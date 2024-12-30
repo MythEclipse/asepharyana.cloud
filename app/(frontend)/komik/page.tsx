@@ -3,8 +3,8 @@
 import React from 'react';
 import Link from 'next/link';
 import { BaseUrl } from '@/lib/url';
-import ButtonA from '@/components/ButtonA';
-import { ComicCard } from '@/components/ComicCard';
+import ButtonA from '@/components/button/ButtonA';
+import { ComicCard } from '@/components/card/ComicCard';
 
 export interface Comic {
   komik_id: string;

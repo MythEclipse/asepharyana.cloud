@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { fileTypeFromBuffer } from 'file-type';
 import FormData from 'form-data';
-import axios from 'axios';
 
-const PRODUCTION_URL = process.env.PRODUCTION_URL || 'https://asepharyana.cloud';
+const PRODUCTION_URL = 'https://asepharyana.cloud';
+const MAX_RETRIES = 3;
 
 export async function POST(req: NextRequest) {
   try {
@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
     }
 
     const buffer = Buffer.from(await file.arrayBuffer());
-    const uploadResult = await uploadToPomf2(buffer);
+    const uploadResult = await retryUpload(buffer, MAX_RETRIES);
 
     if (!uploadResult) {
       return NextResponse.json({ error: 'Upload failed' }, { status: 500 });
@@ -29,11 +29,11 @@ export async function POST(req: NextRequest) {
   }
 }
 
-type Pomf2Response = {
+interface Pomf2Response {
   success: boolean;
   error?: string;
-  files: Array<{ url: string }>;
-};
+  files?: { url: string; name: string }[];
+}
 
 async function uploadToPomf2(buffer: Buffer): Promise<{ url: string; fileName: string }> {
   const { ext, mime } = (await fileTypeFromBuffer(buffer)) || {
@@ -48,18 +48,46 @@ async function uploadToPomf2(buffer: Buffer): Promise<{ url: string; fileName: s
     contentType: mime
   });
 
-  const res = await axios.post('https://pomf2.lain.la/upload.php', form, {
-    headers: form.getHeaders()
+  const res = await fetch('https://pomf2.lain.la/upload.php', {
+    method: 'POST',
+    body: form as unknown as BodyInit,
+    headers: {
+      ...form.getHeaders(),
+      accept: '*/*',
+      'accept-language': 'en-US,en;q=0.8',
+      priority: 'u=1, i',
+      'sec-ch-ua': '"Brave";v="131", "Chromium";v="131", "Not_A Brand";v="24"',
+      'sec-ch-ua-mobile': '?0',
+      'sec-ch-ua-platform': '"Windows"',
+      'sec-fetch-dest': 'empty',
+      'sec-fetch-mode': 'cors',
+      'sec-fetch-site': 'same-origin',
+      'sec-gpc': '1'
+    },
+    referrerPolicy: 'no-referrer'
   });
 
-  const json = res.data as Pomf2Response;
+  const json = (await res.json()) as Pomf2Response;
   if (!json.success) throw new Error(json.error || 'Upload failed');
 
-  const uploadedFileName = json.files[0].url.split('/').pop() || fileName;
-  return {
-    url: json.files[0].url,
-    fileName: uploadedFileName
-  };
+  const uploadedFile = json.files?.[0];
+  if (!uploadedFile) throw new Error('No file information returned from upload');
+
+  return { url: uploadedFile.url, fileName: uploadedFile.name };
+}
+
+async function retryUpload(buffer: Buffer, retries: number): Promise<{ url: string; fileName: string } | null> {
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      return await uploadToPomf2(buffer);
+    } catch (error) {
+      console.error(`Upload attempt ${attempt} failed:`, error);
+      if (attempt === retries) {
+        return null;
+      }
+    }
+  }
+  return null;
 }
 
 export async function GET(req: NextRequest) {
@@ -70,14 +98,14 @@ export async function GET(req: NextRequest) {
   }
 
   const originalUrl = `https://pomf2.lain.la/f/${fileName}`;
-  const response = await axios.get(originalUrl, { responseType: 'arraybuffer' });
+  const response = await fetch(originalUrl);
 
-  if (response.status !== 200) {
+  if (!response.ok) {
     return NextResponse.json({ error: 'Failed to fetch file' }, { status: response.status });
   }
 
-  const contentType = response.headers['content-type'] || 'application/octet-stream';
-  const buffer = Buffer.from(response.data);
+  const contentType = response.headers.get('content-type') || 'application/octet-stream';
+  const buffer = Buffer.from(await response.arrayBuffer());
 
   return new NextResponse(buffer, {
     headers: {

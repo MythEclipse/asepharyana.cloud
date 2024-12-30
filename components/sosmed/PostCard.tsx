@@ -2,8 +2,8 @@
 import React from 'react';
 import { HiHeart, HiChatAlt } from 'react-icons/hi';
 import Image from 'next/image';
-import { Textarea } from '@/components/ui/textarea';
-import ButtonA from '@/components/ButtonA';
+import { Textarea } from '@/components/text/textarea';
+import ButtonA from '@/components/button/ButtonA';
 import { Posts, User, Likes, Comments } from '@prisma/client';
 
 interface PostCardProps {

@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import React from 'react';
 import { BaseUrl } from '@/lib/url';
-import { BackgroundGradient } from '@/components/ui/background-gradient';
-import ButtonA from '@/components/ButtonA';
+import { BackgroundGradient } from '@/components/background/background-gradient';
+import ButtonA from '@/components/button/ButtonA';
 
 interface AnimeResponse {
   status: string;

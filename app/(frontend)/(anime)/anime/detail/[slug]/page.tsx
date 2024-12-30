@@ -2,10 +2,10 @@ import React from 'react';
 import { BaseUrl, PRODUCTION } from '@/lib/url';
 import Image from 'next/image';
 import Link from 'next/link';
-import { BackgroundGradient } from '@/components/ui/background-gradient';
+import { BackgroundGradient } from '@/components/background/background-gradient';
 import { Metadata } from 'next';
 import CardA from '@/components/card/CardA';
-import ButtonA from '@/components/ButtonA';
+import ButtonA from '@/components/button/ButtonA';
 
 interface Genre {
   name: string;

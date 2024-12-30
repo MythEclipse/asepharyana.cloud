@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { BaseUrl } from '@/lib/url';
-import ButtonA from '@/components/ButtonA';
+import ButtonA from '@/components/button/ButtonA';
 
 interface ChapterDetail {
   title: string;

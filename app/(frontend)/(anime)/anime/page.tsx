@@ -1,10 +1,10 @@
 'use server';
 import React from 'react';
 import Link from 'next/link';
-import Loading from '@/components/loading';
+import Loading from '@/components/misc/loading';
 import { BaseUrl } from '@/lib/url';
-import ButtonA from '@/components/ButtonA';
-import AnimeGrid from '@/components/AnimeGrid';
+import ButtonA from '@/components/button/ButtonA';
+import AnimeGrid from '@/components/card/AnimeGrid';
 
 // Define the HomeData, OngoingAnime, and CompleteAnime interfaces
 interface HomeData {

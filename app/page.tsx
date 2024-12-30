@@ -6,8 +6,8 @@ import Facebook from '@/components/logo/Facebook';
 import Linkedln from '@/components/logo/LinkedIn';
 import Discord from '@/components/logo/Discord';
 import Link from 'next/link';
-import Bg from '@/components/Bg';
-import { AnimatedHeader } from '@/components/TextGerak';
+import Bg from '@/components/background/Bg';
+import { AnimatedHeader } from '@/components/text/TextWrite';
 
 export const metadata: Metadata = {
   title: 'Home'

@@ -3,8 +3,8 @@
 import React, { useEffect, useState } from 'react';
 import PostCard from '@/components/sosmed/PostCard';
 import Card from '@/components/card/CardB';
-import ButtonA from '@/components/ButtonA';
-import { Textarea } from '@/components/ui/textarea';
+import ButtonA from '@/components/button/ButtonA';
+import { Textarea } from '@/components/text/textarea';
 import { BaseUrl } from '@/lib/url';
 import { Posts, User, Likes, Comments } from '@prisma/client';
 
@@ -56,9 +56,9 @@ export default function PostPage() {
     const file = e.target.files?.[0];
     if (file) {
       const formData = new FormData();
-      formData.append('file', file);
+      formData.append('files[]', file);
 
-      fetch(`${BaseUrl}/api/uploader`, {
+      fetch('https://pomf2.lain.la/upload.php', {
         method: 'POST',
         body: formData
       })

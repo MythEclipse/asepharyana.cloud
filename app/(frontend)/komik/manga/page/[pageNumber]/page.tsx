@@ -2,8 +2,8 @@ import React from 'react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { BaseUrl } from '@/lib/url';
-import ButtonA from '@/components/ButtonA';
-import { ComicCard } from '@/components/ComicCard';
+import ButtonA from '@/components/button/ButtonA';
+import { ComicCard } from '@/components/card/ComicCard';
 
 interface KomikData {
   data: Manga[];

@@ -1,6 +1,6 @@
 'use client';
 
-import { Card as ShadcnCard } from '@/components/ui/card';
+import { Card as ShadcnCard } from '@/components/card/card';
 import { ReactNode } from 'react';
 import React from 'react';
 interface CardProps {

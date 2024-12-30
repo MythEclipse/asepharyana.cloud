@@ -1,6 +1,6 @@
 // components/AnimeGrid.tsx
 import React from 'react';
-import CardA from './card/CardA';
+import CardA from './CardA';
 
 interface Anime {
   title: string;

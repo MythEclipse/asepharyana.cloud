@@ -2,7 +2,7 @@
 'use client';
 import React from 'react';
 import Link from 'next/link';
-import { BackgroundGradient } from '@/components/ui/background-gradient';
+import { BackgroundGradient } from '@/components/background/background-gradient';
 
 interface ChapterButtonProps {
   children: React.ReactNode;

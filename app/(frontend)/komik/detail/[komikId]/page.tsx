@@ -2,9 +2,9 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { BackgroundGradient } from '@/components/ui/background-gradient';
+import { BackgroundGradient } from '@/components/background/background-gradient';
 import { PRODUCTION, BaseUrl } from '@/lib/url';
-import ButtonA from '@/components/ButtonA';
+import ButtonA from '@/components/button/ButtonA';
 import React from 'react';
 interface MangaDetail {
   title: string;

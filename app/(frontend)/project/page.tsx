@@ -1,6 +1,6 @@
 'use client';
 
-import TildCard from '@/components/TildCard';
+import TildCard from '@/components/card/TildCard';
 import React from 'react';
 import { useTheme } from 'next-themes';
 

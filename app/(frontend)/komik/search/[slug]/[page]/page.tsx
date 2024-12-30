@@ -1,7 +1,7 @@
 import React from 'react';
 import { BaseUrl } from '@/lib/url';
-import SearchForm from '@/components/SearchForm';
-import { ComicCard } from '@/components/ComicCard';
+import SearchForm from '@/components/misc/SearchForm';
+import { ComicCard } from '@/components/card/ComicCard';
 
 interface Comic {
   komik_id: string;
