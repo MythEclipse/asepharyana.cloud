@@ -57,9 +57,10 @@ async function uploadToPomf2(buffer: Buffer): Promise<{ url: string; fileName: s
     const res = await axios.post('https://pomf2.lain.la/upload.php', form, {
       headers: {
         ...form.getHeaders(),
-        'Accept': '*/*',
-        'Origin': 'https://pomf2.lain.la',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36'
+        Accept: '*/*',
+        Origin: 'https://pomf2.lain.la',
+        'User-Agent':
+          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36'
       },
       maxContentLength: MAX_FILE_SIZE,
       maxBodyLength: MAX_FILE_SIZE,
@@ -80,7 +81,6 @@ async function uploadToPomf2(buffer: Buffer): Promise<{ url: string; fileName: s
   }
 }
 
-
 export async function GET(req: NextRequest) {
   const fileName = req.nextUrl.pathname.split('/').slice(-1)[0];
 
@@ -90,7 +90,26 @@ export async function GET(req: NextRequest) {
 
   const originalUrl = `https://pomf2.lain.la/f/${fileName}`;
   try {
-    const response = await axios.get(originalUrl, { responseType: 'arraybuffer' });
+    const response = await axios.get(originalUrl, {
+      responseType: 'arraybuffer',
+      headers: {
+        'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
+        'accept-language': 'en-US,en;q=0.8',
+        'cache-control': 'no-cache',
+        'pragma': 'no-cache',
+        'priority': 'u=0, i',
+        'sec-ch-ua': '"Brave";v="131", "Chromium";v="131", "Not_A Brand";v="24"',
+        'sec-ch-ua-mobile': '?0',
+        'sec-ch-ua-platform': '"Windows"',
+        'sec-fetch-dest': 'document',
+        'sec-fetch-mode': 'navigate',
+        'sec-fetch-site': 'none',
+        'sec-fetch-user': '?1',
+        'sec-gpc': '1',
+        'upgrade-insecure-requests': '1',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36'
+      }
+    });
 
     if (response.status !== 200) {
       return NextResponse.json({ error: 'Failed to fetch file' }, { status: response.status });
@@ -102,7 +121,10 @@ export async function GET(req: NextRequest) {
     return new NextResponse(buffer, {
       headers: {
         'Content-Type': contentType,
-        'Content-Disposition': `attachment; filename="${fileName}"`
+        'Content-Disposition': `attachment; filename="${fileName}"`,
+        'Content-Length': buffer.length.toString(),
+        'Cache-Control': 'public, max-age=31536000',
+        'Origin': 'https://pomf2.lain.la'
       }
     });
   } catch (error) {
