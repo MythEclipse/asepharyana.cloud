@@ -56,9 +56,9 @@ export default function PostPage() {
     const file = e.target.files?.[0];
     if (file) {
       const formData = new FormData();
-      formData.append('files[]', file);
+      formData.append('file', file);
 
-      fetch('https://pomf2.lain.la/upload.php', {
+      fetch(`${BaseUrl}/api/uploader`, {
         method: 'POST',
         body: formData
       })

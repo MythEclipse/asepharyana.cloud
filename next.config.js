@@ -60,6 +60,11 @@ const nextConfig = {
     NEXT_PUBLIC_KOMIK: process.env.NEXT_PUBLIC_KOMIK,
     NEXT_PUBLIC_ANIME: process.env.NEXT_PUBLIC_ANIME,
     DATABASE_URL: process.env.DATABASE_URL
+  },
+  api: {
+    bodyParser: {
+      sizeLimit: '1gb' // Maksimal ukuran body
+    }
   }
 };
 

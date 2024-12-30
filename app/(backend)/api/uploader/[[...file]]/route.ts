@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { fileTypeFromBuffer } from 'file-type';
 import FormData from 'form-data';
+import axios from 'axios';
 
-const PRODUCTION_URL = 'https://asepharyana.cloud';
-const MAX_RETRIES = 3;
+const PRODUCTION_URL = process.env.PRODUCTION_URL || 'https://asepharyana.cloud';
+const MAX_FILE_SIZE = 1 * 1024 * 1024 * 1024; // 1GB
 
 export async function POST(req: NextRequest) {
   try {
@@ -14,8 +15,12 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'No file uploaded' }, { status: 400 });
     }
 
+    if (file.size > MAX_FILE_SIZE) {
+      return NextResponse.json({ error: 'File size exceeds 1GB' }, { status: 400 });
+    }
+
     const buffer = Buffer.from(await file.arrayBuffer());
-    const uploadResult = await retryUpload(buffer, MAX_RETRIES);
+    const uploadResult = await uploadToPomf2(buffer);
 
     if (!uploadResult) {
       return NextResponse.json({ error: 'Upload failed' }, { status: 500 });
@@ -29,11 +34,11 @@ export async function POST(req: NextRequest) {
   }
 }
 
-interface Pomf2Response {
+type Pomf2Response = {
   success: boolean;
   error?: string;
-  files?: { url: string; name: string }[];
-}
+  files: Array<{ url: string }>;
+};
 
 async function uploadToPomf2(buffer: Buffer): Promise<{ url: string; fileName: string }> {
   const { ext, mime } = (await fileTypeFromBuffer(buffer)) || {
@@ -48,47 +53,33 @@ async function uploadToPomf2(buffer: Buffer): Promise<{ url: string; fileName: s
     contentType: mime
   });
 
-  const res = await fetch('https://pomf2.lain.la/upload.php', {
-    method: 'POST',
-    body: form as unknown as BodyInit,
-    headers: {
-      ...form.getHeaders(),
-      accept: '*/*',
-      'accept-language': 'en-US,en;q=0.8',
-      priority: 'u=1, i',
-      'sec-ch-ua': '"Brave";v="131", "Chromium";v="131", "Not_A Brand";v="24"',
-      'sec-ch-ua-mobile': '?0',
-      'sec-ch-ua-platform': '"Windows"',
-      'sec-fetch-dest': 'empty',
-      'sec-fetch-mode': 'cors',
-      'sec-fetch-site': 'same-origin',
-      'sec-gpc': '1'
-    },
-    referrerPolicy: 'no-referrer'
-  });
+  try {
+    const res = await axios.post('https://pomf2.lain.la/upload.php', form, {
+      headers: {
+        ...form.getHeaders(),
+        'Accept': '*/*',
+        'Origin': 'https://pomf2.lain.la',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36'
+      },
+      maxContentLength: MAX_FILE_SIZE,
+      maxBodyLength: MAX_FILE_SIZE,
+      timeout: 600000 // 10 minutes
+    });
 
-  const json = (await res.json()) as Pomf2Response;
-  if (!json.success) throw new Error(json.error || 'Upload failed');
+    const json = res.data as Pomf2Response;
+    if (!json.success) throw new Error(json.error || 'Upload failed');
 
-  const uploadedFile = json.files?.[0];
-  if (!uploadedFile) throw new Error('No file information returned from upload');
-
-  return { url: uploadedFile.url, fileName: uploadedFile.name };
-}
-
-async function retryUpload(buffer: Buffer, retries: number): Promise<{ url: string; fileName: string } | null> {
-  for (let attempt = 1; attempt <= retries; attempt++) {
-    try {
-      return await uploadToPomf2(buffer);
-    } catch (error) {
-      console.error(`Upload attempt ${attempt} failed:`, error);
-      if (attempt === retries) {
-        return null;
-      }
-    }
+    const uploadedFileName = json.files[0].url.split('/').pop() || fileName;
+    return {
+      url: json.files[0].url,
+      fileName: uploadedFileName
+    };
+  } catch (error) {
+    console.error('Upload error:', error);
+    throw error;
   }
-  return null;
 }
+
 
 export async function GET(req: NextRequest) {
   const fileName = req.nextUrl.pathname.split('/').slice(-1)[0];
@@ -98,19 +89,24 @@ export async function GET(req: NextRequest) {
   }
 
   const originalUrl = `https://pomf2.lain.la/f/${fileName}`;
-  const response = await fetch(originalUrl);
+  try {
+    const response = await axios.get(originalUrl, { responseType: 'arraybuffer' });
 
-  if (!response.ok) {
-    return NextResponse.json({ error: 'Failed to fetch file' }, { status: response.status });
-  }
-
-  const contentType = response.headers.get('content-type') || 'application/octet-stream';
-  const buffer = Buffer.from(await response.arrayBuffer());
-
-  return new NextResponse(buffer, {
-    headers: {
-      'Content-Type': contentType,
-      'Content-Disposition': `attachment; filename="${fileName}"`
+    if (response.status !== 200) {
+      return NextResponse.json({ error: 'Failed to fetch file' }, { status: response.status });
     }
-  });
+
+    const contentType = response.headers['content-type'] || 'application/octet-stream';
+    const buffer = Buffer.from(response.data);
+
+    return new NextResponse(buffer, {
+      headers: {
+        'Content-Type': contentType,
+        'Content-Disposition': `attachment; filename="${fileName}"`
+      }
+    });
+  } catch (error) {
+    console.error('Download error:', error);
+    return NextResponse.json({ error: 'Failed to fetch file' }, { status: 500 });
+  }
 }
