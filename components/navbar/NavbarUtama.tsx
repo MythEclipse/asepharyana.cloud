@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import { Session } from 'next-auth';
 import { handleSignOut } from '@/lib/signOutAction';
 
@@ -218,7 +218,7 @@ function UserMenu({
               <Link href="/settings">Settings</Link>
             </li>
             <li className="px-4 py-2 hover:bg-red-100 dark:hover:bg-red-700 rounded-b-lg">
-              <button onClick={handleSignOut}>Sign Out</button>
+              <button onClick={() => signOut()}>Sign Out</button>
             </li>
           </ul>
         </div>

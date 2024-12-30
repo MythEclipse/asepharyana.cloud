@@ -1,35 +1,23 @@
 'use client';
+import { signIn } from 'next-auth/react';
 import { FcGoogle } from 'react-icons/fc';
 import React, { Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
-import login from './login';
 
-function LoginForm() {
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get('callbackUrl') || '/';
-
+function LoginButton() {
   return (
-    <form
-      onSubmit={async (e) => {
-        e.preventDefault();
-        await login(callbackUrl);
-      }}
-      className="flex flex-col items-center justify-center h-screen p-5 rounded-lg shadow-md"
+    <button
+      onClick={() => signIn('google', { redirectTo: '/' })}
+      className="px-5 py-2 flex justify-between text-lg text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors"
     >
-      <button
-        type="submit"
-        className="px-5 py-2 flex justify-between text-lg text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors"
-      >
-        <FcGoogle /> Sign in with Google
-      </button>
-    </form>
+      <FcGoogle /> Sign in with Google
+    </button>
   );
 }
 
 export default function SignIn() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <LoginForm />
+      <LoginButton />
     </Suspense>
   );
 }
