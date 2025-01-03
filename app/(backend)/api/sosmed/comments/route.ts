@@ -63,3 +63,66 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ message: 'Failed to fetch comments' }, { status: 500 });
   }
 }
+
+export async function PUT(req: NextRequest) {
+  const session = await auth();
+
+  if (!session || !session.user || !session.user.id) {
+    return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
+  }
+
+  const { id, content } = await req.json();
+
+  if (!id || !content) {
+    return NextResponse.json({ message: 'Comment ID and content are required' }, { status: 400 });
+  }
+
+  try {
+    const comment = await prisma.comments.findUnique({ where: { id } });
+
+    if (!comment || comment.userId !== session.user.id) {
+      return NextResponse.json({ message: 'User not authorized to edit this comment' }, { status: 403 });
+    }
+
+    const updatedComment = await prisma.comments.update({
+      where: { id },
+      data: {
+        content: `${content} -edited`
+      }
+    });
+
+    return NextResponse.json({ message: 'Comment updated successfully!', comment: updatedComment }, { status: 200 });
+  } catch (error) {
+    console.error('Error updating comment:', error);
+    return NextResponse.json({ message: 'Failed to update comment' }, { status: 500 });
+  }
+}
+
+export async function DELETE(req: NextRequest) {
+  const session = await auth();
+
+  if (!session || !session.user || !session.user.id) {
+    return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
+  }
+
+  const { id } = await req.json();
+
+  if (!id) {
+    return NextResponse.json({ message: 'Comment ID is required' }, { status: 400 });
+  }
+
+  try {
+    const comment = await prisma.comments.findUnique({ where: { id } });
+
+    if (!comment || comment.userId !== session.user.id) {
+      return NextResponse.json({ message: 'User not authorized to delete this comment' }, { status: 403 });
+    }
+
+    await prisma.comments.delete({ where: { id } });
+
+    return NextResponse.json({ message: 'Comment deleted successfully!' }, { status: 200 });
+  } catch (error) {
+    console.error('Error deleting comment:', error);
+    return NextResponse.json({ message: 'Failed to delete comment' }, { status: 500 });
+  }
+}

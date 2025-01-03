@@ -108,6 +108,66 @@ export default function PostPage() {
     }
   };
 
+  const handleEditPost = async (postId: string, content: string) => {
+    try {
+      await fetch(`${BaseUrl}/api/sosmed/posts`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ id: postId, content })
+      });
+      fetchPosts();
+    } catch (error) {
+      console.error('Error editing post:', error);
+    }
+  };
+
+  const handleDeletePost = async (postId: string) => {
+    try {
+      await fetch(`${BaseUrl}/api/sosmed/posts`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ id: postId })
+      });
+      fetchPosts();
+    } catch (error) {
+      console.error('Error deleting post:', error);
+    }
+  };
+
+  const handleEditComment = async (commentId: string, content: string) => {
+    try {
+      await fetch(`${BaseUrl}/api/sosmed/comments`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ id: commentId, content })
+      });
+      fetchPosts();
+    } catch (error) {
+      console.error('Error editing comment:', error);
+    }
+  };
+
+  const handleDeleteComment = async (commentId: string) => {
+    try {
+      await fetch(`${BaseUrl}/api/sosmed/comments`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ id: commentId })
+      });
+      fetchPosts();
+    } catch (error) {
+      console.error('Error deleting comment:', error);
+    }
+  };
+
   return (
     <div className="container mx-auto py-8 px-4">
       <h1 className="text-4xl font-extrabold text-gray-800 dark:text-gray-100 mb-8 text-center">Social Feed</h1>
@@ -147,8 +207,20 @@ export default function PostPage() {
                   user: comment.user || { name: null, id: '', email: null, emailVerified: null, role: '', image: null }
                 })) || []
             }}
+            currentUser={{
+              name: 'Current User',
+              id: 'currentUserId',
+              email: 'current@example.com',
+              emailVerified: null,
+              role: 'user',
+              image: null
+            }} // Replace with actual current user data
             handleLike={handleLike}
             handleAddComment={handleAddComment}
+            handleEditPost={handleEditPost}
+            handleDeletePost={handleDeletePost}
+            handleEditComment={handleEditComment}
+            handleDeleteComment={handleDeleteComment}
             toggleComments={toggleComments}
             showComments={!!showComments[post.id]}
             newComment={newComments[post.id] || ''}
