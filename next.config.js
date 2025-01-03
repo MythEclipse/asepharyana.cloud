@@ -61,10 +61,60 @@ const nextConfig = {
     NEXT_PUBLIC_ANIME: process.env.NEXT_PUBLIC_ANIME,
     DATABASE_URL: process.env.DATABASE_URL
   },
-  api: {
-    bodyParser: {
-      sizeLimit: '1gb' // Maksimal ukuran body
-    }
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-Frame-Options',
+            value: 'SAMEORIGIN'
+          },
+          {
+            key: 'X-XSS-Protection',
+            value: '1; mode=block'
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff'
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'strict-origin-when-cross-origin'
+          },
+          {
+            key: 'Content-Security-Policy',
+            value: `default-src 'self'; style-src 'self' 'unsafe-inline'; img-src *; media-src *; script-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src *`
+          }
+        ]
+      }
+    ];
+  },
+  async redirects() {
+    return [
+      {
+        source: '/komik/:slug',
+        destination: '/komik/:slug/1',
+        permanent: true
+      },
+      {
+        source: '/anime/:slug',
+        destination: '/anime/:slug/1',
+        permanent: true
+      }
+    ];
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/komik/:slug',
+        destination: '/komik/:slug/1'
+      },
+      {
+        source: '/anime/:slug',
+        destination: '/anime/:slug/1'
+      }
+    ];
   }
 };
 

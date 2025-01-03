@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import PostCard from '@/components/sosmed/PostCard';
-import Card from '@/components/card/CardB';
+import Card from '@/components/card/CardC';
 import ButtonA from '@/components/button/ButtonA';
 import { Textarea } from '@/components/text/textarea';
 import { BaseUrl } from '@/lib/url';
@@ -31,6 +31,7 @@ const usePosts = () => {
 export default function PostPage() {
   const { posts, fetchPosts } = usePosts();
   const [content, setContent] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
   const [newComments, setNewComments] = useState<Record<string, string>>({});
   const [showComments, setShowComments] = useState<Record<string, boolean>>({});
 
@@ -43,9 +44,10 @@ export default function PostPage() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ content })
+        body: JSON.stringify({ content, imageUrl })
       });
       setContent('');
+      setImageUrl('');
       fetchPosts();
     } catch (error) {
       console.error('Error creating post:', error);
@@ -63,7 +65,10 @@ export default function PostPage() {
         body: formData
       })
         .then((res) => res.json())
-        .then((data) => console.log('File uploaded successfully:', data))
+        .then((data) => {
+          console.log('File uploaded successfully:', data);
+          setImageUrl(data.url); // Assuming the response contains the URL in `data.url`
+        })
         .catch((err) => console.error('Error uploading file:', err));
     }
   };
