@@ -218,7 +218,7 @@ export default function PostPage() {
                 })) || []
             }}
             currentUser={
-              session
+              session?.user
                 ? {
                     name: session.user?.name || null,
                     id: session.user?.id || '',
