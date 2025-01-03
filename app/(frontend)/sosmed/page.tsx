@@ -7,6 +7,7 @@ import ButtonA from '@/components/button/ButtonA';
 import { Textarea } from '@/components/text/textarea';
 import { BaseUrl } from '@/lib/url';
 import { Posts, User, Likes, Comments } from '@prisma/client';
+import { useSession } from 'next-auth/react';
 
 const usePosts = () => {
   const [posts, setPosts] = useState<Posts[]>([]);
@@ -29,6 +30,7 @@ const usePosts = () => {
 };
 
 export default function PostPage() {
+  const { data: session } = useSession();
   const { posts, fetchPosts } = usePosts();
   const [content, setContent] = useState('');
   const [imageUrl, setImageUrl] = useState('');
@@ -171,27 +173,35 @@ export default function PostPage() {
   return (
     <div className="container mx-auto py-8 px-4">
       <h1 className="text-4xl font-extrabold text-gray-800 dark:text-gray-100 mb-8 text-center">Social Feed</h1>
-      <Card>
-        <div className="p-6 mb-8 shadow-xl rounded-lg bg-white dark:bg-black">
-          <Textarea
-            placeholder="What's on your mind?"
-            value={content}
-            onChange={handleContentChange}
-            className="mb-4 border border-blue-500 dark:border-blue-500 rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-500 dark:bg-gray-700 dark:text-gray-100 shadow-lg"
-          />
-          <input
-            type="file"
-            onChange={handleFileChange}
-            className="mb-4 block w-full text-sm text-gray-500 dark:text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 dark:file:bg-gray-700 file:text-blue-700 dark:file:text-gray-300 hover:file:bg-blue-100 dark:hover:file:bg-gray-600"
-          />
-          <ButtonA
-            onClick={handlePostSubmit}
-            className="w-full py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300"
-          >
-            Post
-          </ButtonA>
-        </div>
-      </Card>
+      {session ? (
+        <Card>
+          <div className="p-6 mb-8 shadow-xl rounded-lg bg-white dark:bg-black">
+            <Textarea
+              placeholder="What's on your mind?"
+              value={content}
+              onChange={handleContentChange}
+              className="mb-4 border border-blue-500 dark:border-blue-500 rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-500 dark:bg-gray-700 dark:text-gray-100 shadow-lg"
+            />
+            <input
+              type="file"
+              onChange={handleFileChange}
+              className="mb-4 block w-full text-sm text-gray-500 dark:text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 dark:file:bg-gray-700 file:text-blue-700 dark:file:text-gray-300 hover:file:bg-blue-100 dark:hover:file:bg-gray-600"
+            />
+            <ButtonA
+              onClick={handlePostSubmit}
+              className="w-full py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300"
+            >
+              Post
+            </ButtonA>
+          </div>
+        </Card>
+      ) : (
+        <Card>
+          <div className="p-6 mb-8 shadow-xl rounded-lg bg-white dark:bg-black text-center">
+            <p className="text-gray-800 dark:text-gray-100">You must be logged in to create a post.</p>
+          </div>
+        </Card>
+      )}
 
       <div className="grid gap-8">
         {posts.map((post: Posts & { user?: User; likes?: Likes[]; comments?: (Comments & { user?: User })[] }) => (
@@ -207,14 +217,18 @@ export default function PostPage() {
                   user: comment.user || { name: null, id: '', email: null, emailVerified: null, role: '', image: null }
                 })) || []
             }}
-            currentUser={{
-              name: 'Current User',
-              id: 'currentUserId',
-              email: 'current@example.com',
-              emailVerified: null,
-              role: 'user',
-              image: null
-            }} // Replace with actual current user data
+            currentUser={
+              session
+                ? {
+                    name: session.user?.name || null,
+                    id: session.user?.id || '',
+                    email: session.user?.email || null,
+                    emailVerified: null,
+                    role: '',
+                    image: session.user?.image || null
+                  }
+                : { name: null, id: '', email: null, emailVerified: null, role: '', image: null }
+            } // Replace with actual current user data
             handleLike={handleLike}
             handleAddComment={handleAddComment}
             handleEditPost={handleEditPost}
