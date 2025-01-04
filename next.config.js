@@ -10,7 +10,7 @@ const withPWA = require('@ducanh2912/next-pwa').default({
   disable: process.env.NODE_ENV === 'development',
   workboxOptions: {
     disableDevLogs: true,
-    maximumFileSizeToCacheInBytes: 5 * 1024 * 1024, // Maksimal ukuran file 5 MB
+    maximumFileSizeToCacheInBytes: 3 * 1024 * 1024, // Maksimal ukuran file 5 MB
     runtimeCaching: [
       {
         urlPattern: /^https?.*/,
@@ -18,8 +18,8 @@ const withPWA = require('@ducanh2912/next-pwa').default({
         options: {
           cacheName: 'runtime-cache',
           expiration: {
-            maxEntries: 1000, // Batasi maksimal file hingga 10.000
-            maxAgeSeconds: 2 * 60 * 60 // Kedaluwarsa dalam 6 jam
+            maxEntries: 100, // Batasi maksimal file hingga 10.000
+            maxAgeSeconds: 1 * 60 * 60 // Kedaluwarsa dalam 6 jam
           },
           cacheableResponse: {
             statuses: [0, 200] // Hanya cache response dengan status 0 atau 200

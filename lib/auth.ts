@@ -2,7 +2,6 @@ import NextAuth from 'next-auth';
 import Google from 'next-auth/providers/google';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import prisma from '@/prisma/prisma';
-
 export const { auth, handlers, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(prisma),
   providers: [Google],
@@ -21,6 +20,15 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         request.nextUrl.searchParams.set('callbackUrl', callbackUrl);
         return false;
       }
+    },
+    session: async ({ session, user }) => {
+      const sessiona = await auth();
+      if (session?.user) {
+        if (sessiona?.user?.id) {
+          session.user.id = sessiona.user.id;
+        }
+      }
+      return session;
     }
   }
 });

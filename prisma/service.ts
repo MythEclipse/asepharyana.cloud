@@ -25,7 +25,7 @@ export async function loginWithGoogle(
         data: {
           email: userData.email,
           name: userData.fullname,
-          emailVerified: userData.emailVerified,
+          // emailVerified: userData.emailVerified,
           role: userData.role,
           image: '', // Provide a default or empty image if needed
         },

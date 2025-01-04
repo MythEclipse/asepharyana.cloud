@@ -209,12 +209,12 @@ export default function PostPage() {
             key={post.id}
             post={{
               ...post,
-              user: post.user || { name: null, id: '', email: null, emailVerified: null, role: '', image: null }, // Ensure user property exists
+              user: post.user || { name: null, id: '', email: null, role: '', image: null }, // Ensure user property exists
               likes: post.likes || [],
               comments:
                 post.comments?.map((comment) => ({
                   ...comment,
-                  user: comment.user || { name: null, id: '', email: null, emailVerified: null, role: '', image: null }
+                  user: comment.user || { name: null, id: '', email: null, role: '', image: null }
                 })) || []
             }}
             currentUserId={session?.user?.id ?? ''}
