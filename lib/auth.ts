@@ -22,11 +22,8 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       }
     },
     session: async ({ session, user }) => {
-      const sessiona = await auth();
       if (session?.user) {
-        if (sessiona?.user?.id) {
-          session.user.id = sessiona.user.id;
-        }
+        session.user.id = user.id;
       }
       return session;
     }
