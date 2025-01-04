@@ -217,18 +217,7 @@ export default function PostPage() {
                   user: comment.user || { name: null, id: '', email: null, emailVerified: null, role: '', image: null }
                 })) || []
             }}
-            currentUser={
-              session?.user
-                ? {
-                    name: session.user?.name || null,
-                    id: session.user?.id || '',
-                    email: session.user?.email || null,
-                    emailVerified: null,
-                    role: '',
-                    image: session.user?.image || null
-                  }
-                : { name: null, id: '', email: null, emailVerified: null, role: '', image: null }
-            } // Replace with actual current user data
+            currentUserId={session?.user?.id ?? ''}
             handleLike={handleLike}
             handleAddComment={handleAddComment}
             handleEditPost={handleEditPost}

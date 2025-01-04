@@ -12,7 +12,7 @@ interface PostCardProps {
     likes: Likes[];
     comments: (Comments & { user: User })[];
   };
-  currentUser: User;
+  currentUserId: string;
   handleLike: (postId: string) => void;
   handleAddComment: (postId: string, comment: string) => void;
   handleEditPost: (postId: string, content: string) => void;
@@ -27,7 +27,7 @@ interface PostCardProps {
 
 export default function PostCard({
   post,
-  currentUser,
+  currentUserId,
   handleLike,
   handleAddComment,
   handleEditPost,
@@ -68,7 +68,7 @@ export default function PostCard({
           <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100">{post.user.name}</h2>
           <p className="text-sm text-gray-500 dark:text-gray-400">{new Date(post.created_at).toLocaleDateString()}</p>
         </div>
-        {currentUser.id === post.user.id && (
+        {currentUserId === post.user.id && (
           <div className="ml-auto flex space-x-2">
             <button onClick={() => setIsEditingPost(true)} className="text-blue-500 hover:text-blue-600">
               <HiPencil className="w-5 h-5" />
@@ -105,7 +105,7 @@ export default function PostCard({
       <div className="flex items-center mt-6 space-x-6">
         <button
           onClick={() => handleLike(post.id)}
-          className={`flex items-center gap-2 ${post.likes.some((like) => like.userId === currentUser.id) ? 'text-red-500' : 'text-gray-500'} hover:text-red-600 transition duration-300 px-6 py-2 border border-blue-500 dark:border-blue-500 rounded-full focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-500`}
+          className={`flex items-center gap-2 ${post.likes.some((like) => like.userId === currentUserId) ? 'text-red-500' : 'text-gray-500'} hover:text-red-600 transition duration-300 px-6 py-2 border border-blue-500 dark:border-blue-500 rounded-full focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-500`}
         >
           <HiHeart className="w-5 h-5" /> {post.likes.length}
         </button>
@@ -134,7 +134,7 @@ export default function PostCard({
                   className="rounded-full border-2 border-blue-500"
                 />
                 <strong>{comment.user.name}</strong>
-                {currentUser.id === comment.user.id && (
+                {currentUserId === comment.user.id && (
                   <div className="ml-auto flex space-x-2">
                     <button
                       onClick={() => {
