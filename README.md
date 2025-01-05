@@ -2,28 +2,28 @@
 
 ## Overview
 
-Welcome to my personal website project. This project is built with Next.js and incorporates various modern technologies and tools to deliver a smooth and dynamic user experience.
+Welcome to my personal website project! This site is crafted with Next.js and integrates cutting-edge technologies to provide a seamless and dynamic user experience.
 
-### Demo
+### 🌐 Live Demo
 
-You can view the live demo of the project here: [asepharyana](https://asepharyana.cloud).
+Check out the live demo: [asepharyana](https://asepharyana.cloud)
 
-### Features
+### ✨ Features
 
-- **Modern Framework:** Built with Next.js 14 for a robust and scalable architecture.
-- **Full-Stack Support:** Includes Prisma, Firebase, and MongoDB for comprehensive data management.
-- **Enhanced User Interface:** Utilizes Tailwind CSS, Flowbite, and various React components for a polished look.
+- **Modern Framework:** Built with Next.js 15 for a robust and scalable architecture.
+- **Full-Stack Support:** Utilizes Prisma and MySQL for comprehensive data management.
+- **Enhanced UI:** Styled with Tailwind CSS, Flowbite, and various React components for a polished look.
 - **Internationalization:** Supports multiple languages with Next-Intl for a global audience.
 
-### Installation
+### 🚀 Getting Started
 
-To get started with this project locally, follow these steps:
+Follow these steps to set up the project locally:
 
 #### Setup pnpm
 
 **On Windows:**
 
-1. Install `pnpm` globally using `npm`:
+1. Install `pnpm` globally:
 
     ```cmd
     npm install -g pnpm
@@ -41,13 +41,13 @@ To get started with this project locally, follow these steps:
     cd asepharyana.cloud
     ```
 
-4. Install the dependencies:
+4. Install dependencies:
 
     ```cmd
     pnpm install
     ```
 
-5. Run the development server:
+5. Start the development server:
 
     ```cmd
     pnpm run dev
@@ -55,7 +55,7 @@ To get started with this project locally, follow these steps:
 
 **On Linux:**
 
-1. Install `pnpm` globally using `curl`:
+1. Install `pnpm` globally:
 
     ```bash
     curl -fsSL https://get.pnpm.io/v6/install.sh | sh
@@ -73,19 +73,19 @@ To get started with this project locally, follow these steps:
     cd asepharyana.cloud
     ```
 
-4. Install the dependencies:
+4. Install dependencies:
 
     ```bash
     pnpm install
     ```
 
-5. Run the development server:
+5. Start the development server:
 
     ```bash
     pnpm run dev
     ```
 
-### Scripts
+### 📜 Scripts
 
 - `dev` - Start the development server with Turbo mode on port 3090.
 - `build` - Build the production-ready application.
@@ -101,32 +101,31 @@ To get started with this project locally, follow these steps:
 - `check-format` - Check code formatting.
 - `check-lint` - Check linting status.
 
-### Dependencies
+### 📦 Dependencies
 
 - Next.js
 - React & React DOM
 - Tailwind CSS
 - Prisma
-- Firebase
 - Flowbite
 - Formik
 - And many more...
 
-### Dev Dependencies
+### 🛠 Dev Dependencies
 
 - ESLint & Prettier for code quality
 - TypeScript for type safety
 - Husky for Git hooks
 - Autoprefixer for CSS compatibility
 
-### Coming Soon
+### 🔮 Coming Soon
 
 Stay tuned for more updates and features!
 
-## Contributing
+## 🤝 Contributing
 
 Feel free to submit issues or pull requests. Contributions are welcome!
 
-## License
+## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
