@@ -15,12 +15,12 @@ export async function fetchWithProxy(
 
       if (contentType && contentType.includes('application/json')) {
         const jsonData = await response.json();
-        console.log('Fetched directly json');
+        // console.log('Fetched directly json');
         return { data: jsonData, contentType };
       }
 
       const textData = await response.text();
-      console.log('Fetched directly text');
+      // console.log('Fetched directly text');
       return { data: textData, contentType };
     }
 
@@ -54,12 +54,12 @@ async function fetchFromProxies(
 
         if (contentType && contentType.includes('application/json')) {
           const jsonData = await response.json();
-          console.log('Fetched from proxy json:', proxyUrl);
+          // console.log('Fetched from proxy json:', proxyUrl);
           return { data: JSON.stringify(jsonData), contentType };
         }
 
         const textData = await response.text();
-        console.log('Fetched from proxy text:', proxyUrl);
+        // console.log('Fetched from proxy text:', proxyUrl);
         const cleanedTextData = textData.replace(/\/proxy/g, ''); // Menghapus semua "/proxy" dari teks
         return { data: cleanedTextData, contentType };
       }

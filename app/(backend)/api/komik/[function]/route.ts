@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import * as cheerio from 'cheerio';
 import { fetchWithProxy } from '@/lib/fetchWithProxy';
+import logger from '@/lib/logger';
 
 const baseUrl = {
   komik: 'https://komikindo.pw',
@@ -218,28 +219,34 @@ const getChapter = async (chapter_url: string): Promise<MangaChapter> => {
 };
 
 export const GET = async (req: Request) => {
-  const url = new URL(req.url);
-  const page = url.searchParams.get('page') || '1';
-  const type = url.pathname.split('/')[3] as
-    | 'manga'
-    | 'manhwa'
-    | 'manhua'
-    | 'search'
-    | 'detail'
-    | 'chapter';
+  const ip =
+    req.headers.get('x-forwarded-for') ||
+    req.headers.get('remote-addr') ||
+    'unknown';
+  const url = req.url;
 
   try {
+    const urlObj = new URL(req.url);
+    const page = urlObj.searchParams.get('page') || '1';
+    const type = urlObj.pathname.split('/')[3] as
+      | 'manga'
+      | 'manhwa'
+      | 'manhua'
+      | 'search'
+      | 'detail'
+      | 'chapter';
+
     let data: unknown;
     if (type === 'detail') {
-      const komik_id = url.searchParams.get('komik_id') || 'one-piece';
+      const komik_id = urlObj.searchParams.get('komik_id') || 'one-piece';
       data = await getDetail(komik_id);
     } else if (type === 'chapter') {
-      const chapter_url = url.searchParams.get('chapter_url') || '';
+      const chapter_url = urlObj.searchParams.get('chapter_url') || '';
       data = await getChapter(chapter_url);
     } else {
       let apiUrl = `${baseURL}/${type}/page/${page}/`;
       if (type === 'search') {
-        const query = url.searchParams.get('query') || '';
+        const query = urlObj.searchParams.get('query') || '';
         apiUrl = `${baseURL}/page/${page}/?s=${query}`;
       }
       const body = await fetchWithProxyWrapper(apiUrl);
@@ -250,6 +257,13 @@ export const GET = async (req: Request) => {
         nextPage: $('.next').length > 0,
       };
     }
+
+    logger.info('Request processed', {
+      ip,
+      url,
+      type,
+      page,
+    });
 
     return NextResponse.json(data, { status: 200 });
   } catch (error) {

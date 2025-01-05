@@ -1,10 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import * as cheerio from 'cheerio';
 import { fetchWithProxy } from '@/lib/fetchWithProxy';
-
-const logError = (error: { message: string }) => {
-  console.error('Error:', error.message);
-};
+import logger from '@/lib/logger';
 
 interface AnimeResponse {
   status: string;
@@ -101,11 +98,17 @@ const parseAnimePage = (html: string, slug: string): AnimeData => {
 };
 
 export async function GET(
-  _: NextRequest,
+  request: NextRequest,
   props: { params: Promise<{ slug: string }> }
 ) {
   const params = await props.params;
   const { slug } = params;
+
+  const ip =
+    request.headers.get('x-forwarded-for') ||
+    request.headers.get('remote-addr') ||
+    'unknown';
+  const url = request.url;
 
   try {
     const html = await fetchAnimePage(slug);
@@ -116,10 +119,21 @@ export async function GET(
       data,
     };
 
+    logger.info('Request processed', {
+      ip,
+      url,
+      slug,
+    });
+
     return NextResponse.json(animeResponse, { status: 200 });
   } catch (error: unknown) {
     const err = error as { message: string };
-    logError(err);
+    logger.error('Error processing request', {
+      ip,
+      url,
+      slug,
+      error: err.message,
+    });
     return NextResponse.json(
       {
         status: 'Error',

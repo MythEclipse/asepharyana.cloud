@@ -1,6 +1,7 @@
 import * as cheerio from 'cheerio';
 import { NextResponse } from 'next/server';
 import { fetchWithProxy } from '@/lib/fetchWithProxy';
+import logger from '@/lib/logger';
 
 async function fetchHtml(url: string): Promise<string> {
   const response = await fetchWithProxy(url);
@@ -75,7 +76,13 @@ function parseCompleteAnime(html: string) {
   return completeAnime;
 }
 
-export async function GET() {
+export async function GET(request: Request) {
+  const ip =
+    request.headers.get('x-forwarded-for') ||
+    request.headers.get('remote-addr') ||
+    'unknown';
+  const url = request.url;
+
   try {
     const ongoingHtml = await fetchHtml(
       'https://otakudesu.cloud/ongoing-anime/'
@@ -87,6 +94,13 @@ export async function GET() {
     const ongoingAnime = parseOngoingAnime(ongoingHtml);
     const completeAnime = parseCompleteAnime(completeHtml);
 
+    logger.info('Request processed', {
+      ip,
+      url,
+      ongoingAnimeCount: ongoingAnime.length,
+      completeAnimeCount: completeAnime.length,
+    });
+
     return NextResponse.json({
       status: 'Ok',
       data: {
@@ -95,7 +109,7 @@ export async function GET() {
       },
     });
   } catch (error) {
-    console.error(error);
+    logger.error('Failed to scrape data', { error, url });
     return NextResponse.json(
       { message: 'Failed to scrape data' },
       { status: 500 }

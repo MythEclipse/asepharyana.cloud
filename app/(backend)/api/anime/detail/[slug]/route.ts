@@ -1,6 +1,7 @@
 import * as cheerio from 'cheerio';
 import { NextRequest, NextResponse } from 'next/server';
 import { fetchWithProxy } from '@/lib/fetchWithProxy';
+import logger from '@/lib/logger'; // Make sure to import your logger
 
 const fetchAnimePage = async (slug: string) => {
   const { data, contentType } = await fetchWithProxy(
@@ -104,10 +105,22 @@ export async function GET(
   req: NextRequest,
   props: { params: Promise<{ slug: string }> }
 ) {
+  const ip =
+    req.headers.get('x-forwarded-for') ||
+    req.headers.get('remote-addr') ||
+    'unknown';
+  const url = req.url;
+
   try {
     const { slug } = await props.params;
     const html = (await fetchAnimePage(slug)) as string;
     const animeData = parseAnimeData(html);
+
+    logger.info('Request processed', {
+      ip,
+      url,
+      slug,
+    });
 
     return NextResponse.json({ status: 'Ok', data: animeData });
   } catch (error) {

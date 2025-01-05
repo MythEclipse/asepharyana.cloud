@@ -1,6 +1,7 @@
 import * as cheerio from 'cheerio';
 import { NextRequest, NextResponse } from 'next/server';
 import { fetchWithProxy } from '@/lib/fetchWithProxy';
+import logger from '@/lib/logger'; // Import your logger
 
 async function fetchAnimeData(slug: string) {
   const response = await fetchWithProxy(
@@ -87,12 +88,30 @@ function parseAnimeData(html: string, slug: string) {
 }
 
 export async function GET(req: NextRequest) {
-  const url = new URL(req.url);
-  const slug = url.searchParams.get('q') || 'one';
+  const ip =
+    req.headers.get('x-forwarded-for') ||
+    req.headers.get('remote-addr') ||
+    'unknown';
+  const url = req.url;
+  const slug = new URL(req.url).searchParams.get('q') || 'one';
 
   try {
     const html = await fetchAnimeData(slug);
     const { animeList, pagination } = parseAnimeData(html, slug);
+
+    const ongoingAnime = animeList.filter(
+      (anime) => anime.status === 'Ongoing'
+    );
+    const completeAnime = animeList.filter(
+      (anime) => anime.status === 'Completed'
+    );
+
+    logger.info('Request processed', {
+      ip,
+      url,
+      ongoingAnimeCount: ongoingAnime.length,
+      completeAnimeCount: completeAnime.length,
+    });
 
     return NextResponse.json({
       status: 'Ok',
