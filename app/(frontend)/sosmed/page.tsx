@@ -1,4 +1,4 @@
-"use client"
+'use client';
 import React, { useState } from 'react';
 import PostCard from '@/components/sosmed/PostCard';
 import Card from '@/components/card/CardC';
@@ -13,10 +13,11 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function PostPage() {
   const { data: session } = useSession();
-  const { data: postsData, error: postsError, isValidating } = useSWR(
-    `${BaseUrl}/api/sosmed/posts`,
-    fetcher
-  );
+  const {
+    data: postsData,
+    error: postsError,
+    isValidating,
+  } = useSWR(`${BaseUrl}/api/sosmed/posts`, fetcher);
   const [content, setContent] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [isUploading, setIsUploading] = useState(false); // State untuk melacak status pengunggahan gambar
@@ -230,13 +231,17 @@ export default function PostPage() {
       )}
 
       {/* Loading Indicator */}
-      {isValidating && (
-        <div className="text-center py-4">Loading...</div>
-      )}
+      {isValidating && <div className='text-center py-4'>Loading...</div>}
 
       <div className='grid gap-8'>
         {postsData?.posts?.map(
-          (post: Posts & { user?: User; likes?: Likes[]; comments?: (Comments & { user?: User })[] }) => (
+          (
+            post: Posts & {
+              user?: User;
+              likes?: Likes[];
+              comments?: (Comments & { user?: User })[];
+            }
+          ) => (
             <PostCard
               key={post.id}
               post={{
@@ -249,16 +254,17 @@ export default function PostPage() {
                   image: null,
                 },
                 likes: post.likes || [],
-                comments: post.comments?.map((comment) => ({
-                  ...comment,
-                  user: comment.user || {
-                    name: null,
-                    id: '',
-                    email: null,
-                    role: '',
-                    image: null,
-                  },
-                })) || [],
+                comments:
+                  post.comments?.map((comment) => ({
+                    ...comment,
+                    user: comment.user || {
+                      name: null,
+                      id: '',
+                      email: null,
+                      role: '',
+                      image: null,
+                    },
+                  })) || [],
               }}
               currentUserId={session?.user?.id ?? ''}
               handleLike={handleLike}

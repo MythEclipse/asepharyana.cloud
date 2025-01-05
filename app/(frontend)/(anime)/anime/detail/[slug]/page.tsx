@@ -165,34 +165,34 @@ export default async function DetailAnimePage(props: DetailAnimePageProps) {
               </div>
 
               {/* Recommendations Section */}
-                <div className='mt-6'>
+              <div className='mt-6'>
                 <h2 className='text-2xl font-semibold mb-2 text-primary-dark dark:text-primary'>
                   Recommendations
                 </h2>
                 <div className='overflow-x-auto'>
                   <div className='flex space-x-4'>
-                  {anime.data.recommendations &&
+                    {anime.data.recommendations &&
                     anime.data.recommendations.length > 0 ? (
-                    anime.data.recommendations.map((recommendation) => (
-                    <div
-                      key={recommendation.slug}
-                      className='flex-shrink-0 w-64 aspect-w-16 aspect-h-9'
-                    >
-                      <CardA
-                      title={recommendation.title}
-                      imageUrl={recommendation.poster}
-                      linkUrl={`/anime/detail/${recommendation.slug}`}
-                      />
-                    </div>
-                    ))
-                  ) : (
-                    <p className='col-span-full text-center text-primary-dark dark:text-primary'>
-                    No recommendations available
-                    </p>
-                  )}
+                      anime.data.recommendations.map((recommendation) => (
+                        <div
+                          key={recommendation.slug}
+                          className='flex-shrink-0 w-64 aspect-w-16 aspect-h-9'
+                        >
+                          <CardA
+                            title={recommendation.title}
+                            imageUrl={recommendation.poster}
+                            linkUrl={`/anime/detail/${recommendation.slug}`}
+                          />
+                        </div>
+                      ))
+                    ) : (
+                      <p className='col-span-full text-center text-primary-dark dark:text-primary'>
+                        No recommendations available
+                      </p>
+                    )}
                   </div>
                 </div>
-                </div>
+              </div>
             </div>
           </div>
         </BackgroundGradient>
