@@ -18,12 +18,12 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({ placeholder }) => {
 
   return (
     <SimpleMDE
-      className="dark:bg-darka dark:text-gray-100"
+      className='dark:bg-darka dark:text-gray-100'
       options={{
         spellChecker: false, // Menonaktifkan spell checker
         renderingConfig: {
           singleLineBreaks: false,
-          codeSyntaxHighlighting: true
+          codeSyntaxHighlighting: true,
         },
         toolbar: [
           'bold',
@@ -40,8 +40,8 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({ placeholder }) => {
           '|',
           'preview',
           '|',
-          'guide'
-        ]
+          'guide',
+        ],
       }}
       placeholder={placeholder}
     />

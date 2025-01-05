@@ -28,7 +28,9 @@ interface SearchDetailData {
 
 const fetchSearchResults = async (query: string): Promise<SearchDetailData> => {
   try {
-    const response = await fetch(`${BaseUrl}/api/anime/search?q=${encodeURIComponent(query)}`);
+    const response = await fetch(
+      `${BaseUrl}/api/anime/search?q=${encodeURIComponent(query)}`
+    );
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
@@ -48,13 +50,17 @@ const SearchPage = async (props: { params: Promise<{ slug: string }> }) => {
   const searchResults = await fetchSearchResults(query);
 
   return (
-    <div className="p-6">
-      <h1 className="text-3xl font-bold mb-6 dark:text-white">Search Anime</h1>
-      <SearchForm classname="w-full mb-6" initialQuery={query} baseUrl="/anime" />
+    <div className='p-6'>
+      <h1 className='text-3xl font-bold mb-6 dark:text-white'>Search Anime</h1>
+      <SearchForm
+        classname='w-full mb-6'
+        initialQuery={query}
+        baseUrl='/anime'
+      />
       <div>
         {searchResults.data.length > 0 ? (
-          <div className="flex flex-col items-center p-4">
-            <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          <div className='flex flex-col items-center p-4'>
+            <div className='grid grid-cols-3 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-5 gap-4'>
               {searchResults.data.map((anime) => (
                 <CardA
                   key={anime.slug}
@@ -67,7 +73,7 @@ const SearchPage = async (props: { params: Promise<{ slug: string }> }) => {
             </div>
           </div>
         ) : (
-          <p className="text-gray-600">No results found</p>
+          <p className='text-gray-600'>No results found</p>
         )}
       </div>
     </div>

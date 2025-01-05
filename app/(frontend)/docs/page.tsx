@@ -1,10 +1,10 @@
 export const metadata = {
   title: {
     default: 'Dokumentasi API',
-    template: '%s - Dokumentasi API'
+    template: '%s - Dokumentasi API',
   },
   description: 'Dokumentasi API untuk digunakan secara gratis',
-  keywords: 'nextjs, api, free'
+  keywords: 'nextjs, api, free',
 };
 import React from 'react';
 import SwaggerUI from 'swagger-ui-react';

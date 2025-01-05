@@ -15,7 +15,9 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         return true;
       } else {
         const pathname = request.nextUrl.pathname;
-        const callbackUrl = request.nextUrl.searchParams.get('callbackUrl') || encodeURIComponent(pathname);
+        const callbackUrl =
+          request.nextUrl.searchParams.get('callbackUrl') ||
+          encodeURIComponent(pathname);
         request.nextUrl.pathname = `/login`;
         request.nextUrl.searchParams.set('callbackUrl', callbackUrl);
         return false;
@@ -26,6 +28,6 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         session.user.id = user.id;
       }
       return session;
-    }
-  }
+    },
+  },
 });

@@ -33,69 +33,100 @@ function Navbar() {
   }, [pathname]);
 
   return (
-    <nav className="fixed top-0 z-30 w-full border-b border-blue-500 bg-white dark:bg-black shadow-md transition-all duration-300">
-      <div className="container mx-auto flex items-center justify-between px-4 py-3 relative">
-        <Link href="/" className="flex items-center space-x-2">
-          <Image src="/Logo.svg" alt="Logo" width={50} height={40} priority />
+    <nav className='fixed top-0 z-30 w-full border-b border-blue-500 bg-white dark:bg-black shadow-md transition-all duration-300'>
+      <div className='container mx-auto flex items-center justify-between px-4 py-3 relative'>
+        <Link href='/' className='flex items-center space-x-2'>
+          <Image src='/Logo.svg' alt='Logo' width={50} height={40} priority />
           <span
             className={`text-lg ${pathname === '/' ? 'font-semibold text-blue-600' : 'text-gray-900 dark:text-gray-300'}`}
           >
             Asep Haryana
           </span>
         </Link>
-        <div className="hidden md:flex items-center space-x-6">
-          <DesktopNavLinks pathname={pathname} indicatorPos={indicatorPos} indicatorWidth={indicatorWidth} />
+        <div className='hidden md:flex items-center space-x-6'>
+          <DesktopNavLinks
+            pathname={pathname}
+            indicatorPos={indicatorPos}
+            indicatorWidth={indicatorWidth}
+          />
         </div>
-        <div className="flex items-center space-x-4">
+        <div className='flex items-center space-x-4'>
           <UserMenu session={session} loginUrl={loginUrl} />
           <NavToggleButton isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
         </div>
-        <MobileNavLinks isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} pathname={pathname} loginUrl={loginUrl} />
+        <MobileNavLinks
+          isNavOpen={isNavOpen}
+          setIsNavOpen={setIsNavOpen}
+          pathname={pathname}
+          loginUrl={loginUrl}
+        />
       </div>
     </nav>
   );
 }
 
-function NavToggleButton({ isNavOpen, setIsNavOpen }: { isNavOpen: boolean; setIsNavOpen: (isOpen: boolean) => void }) {
+function NavToggleButton({
+  isNavOpen,
+  setIsNavOpen,
+}: {
+  isNavOpen: boolean;
+  setIsNavOpen: (isOpen: boolean) => void;
+}) {
   return (
     <button
-      className="md:hidden flex items-center justify-center w-10 h-10 bg-blue-500 rounded-full text-white"
+      className='md:hidden flex items-center justify-center w-10 h-10 bg-blue-500 rounded-full text-white'
       onClick={() => setIsNavOpen(!isNavOpen)}
     >
       <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
+        xmlns='http://www.w3.org/2000/svg'
+        fill='none'
+        viewBox='0 0 24 24'
         strokeWidth={2}
-        stroke="currentColor"
-        className="w-6 h-6"
+        stroke='currentColor'
+        className='w-6 h-6'
       >
         {isNavOpen ? (
-          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+          <path
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            d='M6 18L18 6M6 6l12 12'
+          />
         ) : (
-          <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
+          <path
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            d='M4 6h16M4 12h16m-7 6h7'
+          />
         )}
       </svg>
     </button>
   );
 }
 
-function UserMenu({ session, loginUrl }: { session: Session | null; loginUrl: string }) {
+function UserMenu({
+  session,
+  loginUrl,
+}: {
+  session: Session | null;
+  loginUrl: string;
+}) {
   return (
-    <div className="relative">
+    <div className='relative'>
       {session ? (
-        <button className="w-10 h-10 rounded-full border border-blue-500">
+        <button className='w-10 h-10 rounded-full border border-blue-500'>
           <Image
             src={session.user?.image || '/profile-circle-svgrepo-com.svg'}
-            alt="Profile"
+            alt='Profile'
             width={32}
             height={32}
-            className="rounded-full"
+            className='rounded-full'
           />
         </button>
       ) : (
         <Link href={loginUrl}>
-          <button className="px-4 py-2 bg-blue-500 text-white rounded-full">Login</button>
+          <button className='px-4 py-2 bg-blue-500 text-white rounded-full'>
+            Login
+          </button>
         </Link>
       )}
     </div>
@@ -105,7 +136,7 @@ function UserMenu({ session, loginUrl }: { session: Session | null; loginUrl: st
 function DesktopNavLinks({
   pathname,
   indicatorPos,
-  indicatorWidth
+  indicatorWidth,
 }: {
   pathname: string;
   indicatorPos: number;
@@ -114,19 +145,19 @@ function DesktopNavLinks({
   const links = [
     { href: '/', label: 'Home' },
     { href: '/docs', label: 'Docs' },
-    { href: '/project', label: 'Project' }
+    { href: '/project', label: 'Project' },
   ];
 
   return (
-    <div className="relative">
-      <ul className="flex space-x-4">
+    <div className='relative'>
+      <ul className='flex space-x-4'>
         {links.map((link, index) => (
           <li key={index} id={`nav-link-${index}`}>
             <Link href={link.href}>
               <span
                 className={`px-3 py-2 relative ${pathname === link.href ? 'text-blue-600 font-semibold' : 'text-gray-900 dark:text-gray-300'}`}
                 style={{
-                  marginBottom: '10px' // Tambahkan jarak untuk teks
+                  marginBottom: '10px', // Tambahkan jarak untuk teks
                 }}
               >
                 {link.label}
@@ -136,11 +167,11 @@ function DesktopNavLinks({
         ))}
       </ul>
       <div
-        className="absolute bottom-[-2px] left-0 h-1 bg-blue-600 rounded transition-transform"
+        className='absolute bottom-[-2px] left-0 h-1 bg-blue-600 rounded transition-transform'
         style={{
           width: `${indicatorWidth}px`,
           transform: `translateX(${indicatorPos}px)`,
-          transition: 'transform 0.3s ease'
+          transition: 'transform 0.3s ease',
         }}
       />
     </div>
@@ -151,7 +182,7 @@ function MobileNavLinks({
   isNavOpen,
   setIsNavOpen,
   pathname,
-  loginUrl
+  loginUrl,
 }: {
   isNavOpen: boolean;
   setIsNavOpen: (isOpen: boolean) => void;
@@ -161,7 +192,7 @@ function MobileNavLinks({
   const links = [
     { href: '/', label: 'Home' },
     { href: '/docs', label: 'Docs' },
-    { href: '/project', label: 'Project' }
+    { href: '/project', label: 'Project' },
   ];
 
   return (
@@ -173,7 +204,7 @@ function MobileNavLinks({
       <div
         className={`fixed top-0 left-0 w-full bg-white dark:bg-black transition-transform ${isNavOpen ? 'translate-y-0' : '-translate-y-full'}`}
       >
-        <ul className="flex flex-col p-4">
+        <ul className='flex flex-col p-4'>
           {links.map((link, index) => (
             <li key={index}>
               <Link href={link.href}>
@@ -186,9 +217,11 @@ function MobileNavLinks({
               </Link>
             </li>
           ))}
-          <li className="mt-4">
+          <li className='mt-4'>
             <Link href={loginUrl}>
-              <button className="w-full px-4 py-2 bg-blue-500 text-white rounded-full">Login</button>
+              <button className='w-full px-4 py-2 bg-blue-500 text-white rounded-full'>
+                Login
+              </button>
             </Link>
           </li>
         </ul>

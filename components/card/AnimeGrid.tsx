@@ -19,8 +19,8 @@ interface AnimeGridProps {
 
 const AnimeGrid: React.FC<AnimeGridProps> = ({ animes }) => {
   return (
-    <div className="flex flex-col items-center p-4">
-      <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-5 gap-4">
+    <div className='flex flex-col items-center p-4'>
+      <div className='grid grid-cols-3 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-5 gap-4'>
         {animes.map((anime) => (
           <CardA
             key={anime.slug}

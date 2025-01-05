@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { BaseUrl } from '@/lib/url';
-import ButtonA from '@/components/button/ButtonA';
+import ButtonA from '@/components/button/ScrollButton';
 
 interface ChapterDetail {
   title: string;
@@ -14,11 +14,15 @@ interface ChapterDetail {
   images: string[];
 }
 
-export default async function ChapterPage(props: { params: Promise<{ chapterId: string }> }) {
+export default async function ChapterPage(props: {
+  params: Promise<{ chapterId: string }>;
+}) {
   const params = await props.params;
   const { chapterId } = params;
 
-  const response = await fetch(`${BaseUrl}/api/komik/chapter?chapter_url=${chapterId}`);
+  const response = await fetch(
+    `${BaseUrl}/api/komik/chapter?chapter_url=${chapterId}`
+  );
   if (!response.ok) {
     notFound();
   }
@@ -26,10 +30,10 @@ export default async function ChapterPage(props: { params: Promise<{ chapterId: 
   const chapter: ChapterDetail = await response.json();
 
   return (
-    <main className="p-6 pb-6">
-      <div className="text-center mb-4">
-        <h1 className="text-2xl font-bold dark:text-white">{chapter.title}</h1>
-        <div className="mt-4 flex justify-between gap-4">
+    <main className='p-6 pb-6'>
+      <div className='text-center mb-4'>
+        <h1 className='text-2xl font-bold dark:text-white'>{chapter.title}</h1>
+        <div className='mt-4 flex justify-between gap-4'>
           {chapter.prev_chapter_id && (
             <Link scroll href={`/komik/chapter/${chapter.prev_chapter_id}`}>
               <ButtonA>Previous Chapter</ButtonA>
@@ -43,7 +47,7 @@ export default async function ChapterPage(props: { params: Promise<{ chapterId: 
         </div>
       </div>
 
-      <div className="flex flex-col md:w-1/2 md:mx-auto">
+      <div className='flex flex-col md:w-1/2 md:mx-auto'>
         {chapter.images.map((image, index) => (
           <div
             key={index}
@@ -51,22 +55,22 @@ export default async function ChapterPage(props: { params: Promise<{ chapterId: 
               position: 'relative',
               width: '100%',
               minHeight: '300px', // Placeholder height, adjust as needed
-              backgroundColor: '#f0f0f0' // Placeholder background color
+              backgroundColor: '#f0f0f0', // Placeholder background color
             }}
-            className=""
+            className=''
           >
             <Image
               src={image}
               alt={`Chapter ${chapter.title} - page ${index + 1}`}
-              className="object-cover transition-opacity duration-300"
-              width="725"
-              height="1024"
+              className='object-cover transition-opacity duration-300'
+              width='725'
+              height='1024'
             />
           </div>
         ))}
       </div>
 
-      <div className="mt-4 flex justify-between gap-4">
+      <div className='mt-4 flex justify-between gap-4'>
         {chapter.prev_chapter_id && (
           <Link scroll href={`/komik/chapter/${chapter.prev_chapter_id}`}>
             <ButtonA>Previous Chapter</ButtonA>

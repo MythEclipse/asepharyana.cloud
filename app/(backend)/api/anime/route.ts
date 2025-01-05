@@ -10,7 +10,9 @@ async function fetchHtml(url: string): Promise<string> {
   }
 
   if (typeof response.data !== 'string') {
-    throw new Error(`Expected response data to be a string but got ${typeof response.data}`);
+    throw new Error(
+      `Expected response data to be a string but got ${typeof response.data}`
+    );
   }
   return response.data;
 }
@@ -37,7 +39,7 @@ function parseOngoingAnime(html: string) {
       slug,
       poster,
       current_episode,
-      anime_url
+      anime_url,
     });
   });
 
@@ -66,7 +68,7 @@ function parseCompleteAnime(html: string) {
       slug,
       poster,
       episode_count,
-      anime_url
+      anime_url,
     });
   });
 
@@ -75,8 +77,12 @@ function parseCompleteAnime(html: string) {
 
 export async function GET() {
   try {
-    const ongoingHtml = await fetchHtml('https://otakudesu.cloud/ongoing-anime/');
-    const completeHtml = await fetchHtml('https://otakudesu.cloud/complete-anime/');
+    const ongoingHtml = await fetchHtml(
+      'https://otakudesu.cloud/ongoing-anime/'
+    );
+    const completeHtml = await fetchHtml(
+      'https://otakudesu.cloud/complete-anime/'
+    );
 
     const ongoingAnime = parseOngoingAnime(ongoingHtml);
     const completeAnime = parseCompleteAnime(completeHtml);
@@ -85,11 +91,14 @@ export async function GET() {
       status: 'Ok',
       data: {
         ongoing_anime: ongoingAnime,
-        complete_anime: completeAnime
-      }
+        complete_anime: completeAnime,
+      },
     });
   } catch (error) {
     console.error(error);
-    return NextResponse.json({ message: 'Failed to scrape data' }, { status: 500 });
+    return NextResponse.json(
+      { message: 'Failed to scrape data' },
+      { status: 500 }
+    );
   }
 }

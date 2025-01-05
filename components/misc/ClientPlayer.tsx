@@ -13,15 +13,22 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ url }) => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className='flex justify-center items-center h-screen'>
       {!isPlaying ? (
-        <div className="flex flex-col items-center">
-          <button onClick={handlePlay} className="px-4 py-2 bg-blue-500 text-white rounded-lg shadow-lg">
+        <div className='flex flex-col items-center'>
+          <button
+            onClick={handlePlay}
+            className='px-4 py-2 bg-blue-500 text-white rounded-lg shadow-lg'
+          >
             Play Video
           </button>
         </div>
       ) : (
-        <iframe src={url} style={{ width: '80%', height: '80vh', border: 'none' }} allowFullScreen />
+        <iframe
+          src={url}
+          style={{ width: '80%', height: '80vh', border: 'none' }}
+          allowFullScreen
+        />
       )}
     </div>
   );

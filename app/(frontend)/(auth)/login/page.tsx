@@ -7,7 +7,7 @@ function LoginButton() {
   return (
     <button
       onClick={() => signIn('google', { redirectTo: '/' })}
-      className="px-5 py-2 flex justify-between text-lg text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors"
+      className='px-5 py-2 flex justify-between text-lg text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors'
     >
       <FcGoogle /> Sign in with Google
     </button>

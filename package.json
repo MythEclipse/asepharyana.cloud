@@ -15,16 +15,16 @@
     "build": "next build",
     "postbuild": "next-sitemap",
     "start": "next start --port 3090",
-    "lint": "next lint",
-    "lint:debug": "next lint  --debug",
-    "lint:fix": "next lint --fix",
+    "lint": "eslint .",
+    "lint:debug": "eslint .  --debug",
+    "lint:fix": "eslint . --fix",
     "migrate": "prisma migrate dev && prisma generate",
     "studio": "prisma studio",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
     "prepare": "husky",
     "check-types": "tsc --noEmit",
     "check-format": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
-    "check-lint": "next lint"
+    "check-lint": "eslint ."
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.7.4",

@@ -1,7 +1,7 @@
 import { FlatCompat } from '@eslint/eslintrc';
 
 const compat = new FlatCompat({
-  baseDirectory: import.meta.dirname,
+  baseDirectory: import.meta.url,
 });
 
 const eslintConfig = [
@@ -13,10 +13,25 @@ const eslintConfig = [
       'plugin:@next/next/recommended',
       'next',
     ],
+    parserOptions: {
+      project: './tsconfig.json',
+    },
     rules: {
       '@typescript-eslint/no-unused-vars': 'off', 
     },
   }),
+  {
+    ignores: [
+      '**/node_modules/**',
+      '**/.git/**',
+      '**/public/**',
+      '**/dist/**',
+      '**/build/**',
+      '**/.next/**',
+      '**/out/**',
+      '**/coverage/**',
+    ],
+  },
 ];
 
 export default eslintConfig;

@@ -50,31 +50,10 @@ model User {
   authoredPosts    Posts[]        @relation("AuthoredPosts")
   posts            Posts[]        @relation("UserPosts")
   replies          Replies[]
-  subscription     Subscription[]
   accounts         Account[]
   sessions         Session[]
 
   @@map("users")
-}
-
-model VerificationRequest {
-  id         String   @id @default(cuid())
-  identifier String
-  token      String   @unique
-  expires    DateTime
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-
-  @@unique([identifier, token])
-}
-
-model VerificationToken {
-  identifier String
-  token      String
-  expires    DateTime
-
-  @@unique([identifier, token])
-  @@map("verification_tokens")
 }
 
 model Comments {
@@ -83,9 +62,10 @@ model Comments {
   postId     String    @map("post_id") @db.VarChar(255)
   content    String    @db.Text
   created_at DateTime  @default(now())
+  updated_at DateTime  @default(now()) @updatedAt
   authorId   String    @db.VarChar(255)
   author     User      @relation("AuthoredComments", fields: [authorId], references: [id])
-  posts      Posts     @relation("PostComments", fields: [postId], references: [id])
+  posts      Posts     @relation("PostComments", fields: [postId], references: [id], onDelete: Cascade)
   user       User      @relation("UserComments", fields: [userId], references: [id])
   replies    Replies[]
 
@@ -94,15 +74,17 @@ model Comments {
   @@index([authorId], map: "Comments_authorId_fkey")
 }
 
+
 model Likes {
   userId String @map("user_id") @db.VarChar(255)
   postId String @map("post_id") @db.VarChar(255)
-  posts  Posts  @relation(fields: [postId], references: [id])
+  posts  Posts  @relation(fields: [postId], references: [id], onDelete: Cascade)
   user   User   @relation(fields: [userId], references: [id])
 
   @@id([userId, postId])
   @@index([postId], map: "Likes_post_id_fkey")
 }
+
 
 model Posts {
   id         String     @id @default(cuid()) @db.VarChar(255)
@@ -110,7 +92,7 @@ model Posts {
   content    String     @db.Text
   image_url  String?    @db.VarChar(255)
   created_at DateTime   @default(now())
-  updated_at DateTime   @default(now())
+  updated_at DateTime   @default(now()) @updatedAt
   authorId   String     @db.VarChar(255)
   comments   Comments[] @relation("PostComments")
   likes      Likes[]
@@ -120,6 +102,8 @@ model Posts {
   @@index([userId], map: "userId_Posts")
   @@index([authorId], map: "Posts_authorId_fkey")
 }
+
+
 
 model Replies {
   id         String   @id @default(cuid()) @db.VarChar(255)
@@ -134,19 +118,3 @@ model Replies {
   @@index([userId], map: "userId_Replies")
 }
 
-model Subscription {
-  userId  String @db.VarChar(255)
-  topicId String @db.VarChar(255)
-  user    User   @relation(fields: [userId], references: [id])
-
-  @@id([userId, topicId])
-}
-
-model Feedback {
-  email     String   @unique
-  id        String   @id @default(uuid())
-  name      String
-  message   String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}

@@ -1,11 +1,13 @@
 // lib/fetchWithFallback.ts
 import { DEFAULT_HEADERS } from '@/lib/DHead';
 
-export async function fetchWithProxy(slug: string): Promise<{ data: string | object; contentType: string | null }> {
+export async function fetchWithProxy(
+  slug: string
+): Promise<{ data: string | object; contentType: string | null }> {
   try {
     // Coba fetch langsung terlebih dahulu
     const response = await fetch(slug, {
-      headers: DEFAULT_HEADERS
+      headers: DEFAULT_HEADERS,
     });
 
     if (response.ok) {
@@ -29,15 +31,22 @@ export async function fetchWithProxy(slug: string): Promise<{ data: string | obj
   }
 }
 
-async function fetchFromProxies(slug: string): Promise<{ data: string | object; contentType: string | null }> {
-  const baseUrls = ['meitang.xyz', 'btch.us.kg', 'api.tioo.eu.org', 'api.tioprm.eu.org'];
+async function fetchFromProxies(
+  slug: string
+): Promise<{ data: string | object; contentType: string | null }> {
+  const baseUrls = [
+    'meitang.xyz',
+    'btch.us.kg',
+    'api.tioo.eu.org',
+    'api.tioprm.eu.org',
+  ];
   let lastError: Error | null = null;
 
   for (const apiUrl of baseUrls) {
     try {
       const proxyUrl = `https://${apiUrl}/proxy?url=${encodeURIComponent(slug)}`;
       const response = await fetch(proxyUrl, {
-        headers: DEFAULT_HEADERS
+        headers: DEFAULT_HEADERS,
       });
 
       if (response.ok) {

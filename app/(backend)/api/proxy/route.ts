@@ -6,7 +6,10 @@ export async function GET(request: Request) {
   const slug = url.searchParams.get('url');
 
   if (!slug) {
-    return NextResponse.json({ error: 'Missing slug parameter' }, { status: 400 });
+    return NextResponse.json(
+      { error: 'Missing slug parameter' },
+      { status: 400 }
+    );
   }
 
   try {
@@ -17,27 +20,32 @@ export async function GET(request: Request) {
     }
 
     return new Response(data, {
-      headers: { 'Content-Type': contentType || 'text/plain' }
+      headers: { 'Content-Type': contentType || 'text/plain' },
     });
   } catch (error) {
     return NextResponse.json(
       {
         error: 'Failed to fetch from all proxies',
-        details: (error as Error).message
+        details: (error as Error).message,
       },
       { status: 500 }
     );
   }
 }
 async function fetchFromProxies(slug: string) {
-  const baseUrls = ['meitang.xyz', 'btch.us.kg', 'api.tioo.eu.org', 'api.tioprm.eu.org'];
+  const baseUrls = [
+    'meitang.xyz',
+    'btch.us.kg',
+    'api.tioo.eu.org',
+    'api.tioprm.eu.org',
+  ];
   let lastError: Error | null = null;
 
   for (const apiUrl of baseUrls) {
     try {
       const proxyUrl = `https://${apiUrl}/proxy?url=${encodeURIComponent(slug)}`;
       const apiResponse = await fetch(proxyUrl, {
-        headers: DEFAULT_HEADERS
+        headers: DEFAULT_HEADERS,
       });
 
       if (apiResponse.ok) {

@@ -62,7 +62,7 @@ const parseAnimePage = (html: string, slug: string): AnimeData => {
       .find('a')
       .map((_, link) => ({
         server: $(link).text().trim(),
-        url: $(link).attr('href') || ''
+        url: $(link).attr('href') || '',
       }))
       .get();
 
@@ -77,8 +77,12 @@ const parseAnimePage = (html: string, slug: string): AnimeData => {
   const next_episode_url = nextEpisodeElement.attr('href') || null;
   const previous_episode_url = prevEpisodeElement.attr('href') || null;
 
-  const next_episode_slug = next_episode_url ? next_episode_url.split('/').slice(-2).join('/') : null;
-  const previous_episode_slug = previous_episode_url ? previous_episode_url.split('/').slice(-2).join('/') : null;
+  const next_episode_slug = next_episode_url
+    ? next_episode_url.split('/').slice(-2).join('/')
+    : null;
+  const previous_episode_slug = previous_episode_url
+    ? previous_episode_url.split('/').slice(-2).join('/')
+    : null;
 
   return {
     episode,
@@ -87,14 +91,19 @@ const parseAnimePage = (html: string, slug: string): AnimeData => {
     has_next_episode: !!next_episode_slug,
     next_episode: next_episode_slug ? { slug: next_episode_slug } : null,
     has_previous_episode: !!previous_episode_slug,
-    previous_episode: previous_episode_slug ? { slug: previous_episode_slug } : null,
+    previous_episode: previous_episode_slug
+      ? { slug: previous_episode_slug }
+      : null,
     stream_url,
     download_urls: downloadUrls,
-    image_url
+    image_url,
   };
 };
 
-export async function GET(_: NextRequest, props: { params: Promise<{ slug: string }> }) {
+export async function GET(
+  _: NextRequest,
+  props: { params: Promise<{ slug: string }> }
+) {
   const params = await props.params;
   const { slug } = params;
 
@@ -104,7 +113,7 @@ export async function GET(_: NextRequest, props: { params: Promise<{ slug: strin
 
     const animeResponse: AnimeResponse = {
       status: 'Ok',
-      data
+      data,
     };
 
     return NextResponse.json(animeResponse, { status: 200 });
@@ -114,7 +123,7 @@ export async function GET(_: NextRequest, props: { params: Promise<{ slug: strin
     return NextResponse.json(
       {
         status: 'Error',
-        message: (error as { message: string }).message
+        message: (error as { message: string }).message,
       },
       { status: 500 }
     );

@@ -3,7 +3,7 @@ import * as cheerio from 'cheerio';
 import { fetchWithProxy } from '@/lib/fetchWithProxy';
 
 const baseUrl = {
-  komik: 'https://komikindo.pw'
+  komik: 'https://komikindo.pw',
 };
 const baseURL = baseUrl.komik;
 
@@ -74,7 +74,7 @@ const parseMangaData = (body: string): MangaData[] => {
       score,
       date,
       type,
-      komik_id
+      komik_id,
     });
   });
 
@@ -85,7 +85,9 @@ const parseMangaData = (body: string): MangaData[] => {
 const fetchWithProxyWrapper = async (url: string): Promise<string> => {
   try {
     const response = await fetchWithProxy(url);
-    return typeof response.data === 'string' ? response.data : JSON.stringify(response.data);
+    return typeof response.data === 'string'
+      ? response.data
+      : JSON.stringify(response.data);
   } catch (error) {
     logError(error as { message: string });
     throw new Error('Failed to fetch data');
@@ -103,7 +105,10 @@ const getDetail = async (komik_id: string): Promise<MangaDetail> => {
 
     // Alternative Title
     const alternativeTitle =
-      $(".spe span:contains('Judul Alternatif:')").text().replace('Judul Alternatif:', '').trim() || '';
+      $(".spe span:contains('Judul Alternatif:')")
+        .text()
+        .replace('Judul Alternatif:', '')
+        .trim() || '';
 
     // Score
     const score = $('.rtg > div > i').text().trim() || '';
@@ -116,7 +121,9 @@ const getDetail = async (komik_id: string): Promise<MangaDetail> => {
     const description = $('.shortcsc').text().trim() || '';
 
     // Status
-    const status = $(".spe span:contains('Status:')").text().replace('Status:', '').trim() || '';
+    const status =
+      $(".spe span:contains('Status:')").text().replace('Status:', '').trim() ||
+      '';
 
     // Genres
     const genres: string[] = [];
@@ -128,7 +135,10 @@ const getDetail = async (komik_id: string): Promise<MangaDetail> => {
     const releaseDate = ''; // Not provided in the new HTML, keep empty or fetch from another source
 
     // Author
-    const author = $(".spe span:contains('Pengarang:')").text().replace('Pengarang:', '').trim();
+    const author = $(".spe span:contains('Pengarang:')")
+      .text()
+      .replace('Pengarang:', '')
+      .trim();
 
     // Type
     const type = $(".spe span:contains('Jenis Komik:') a").text().trim();
@@ -140,11 +150,13 @@ const getDetail = async (komik_id: string): Promise<MangaDetail> => {
     const updatedOn = ''; // Not provided in the new HTML, keep empty or fetch from another source
 
     // Chapters list from the `#chapter_list` element
-    const chapters: { chapter: string; date: string; chapter_id: string }[] = [];
+    const chapters: { chapter: string; date: string; chapter_id: string }[] =
+      [];
     $('#chapter_list ul li').each((_, el) => {
       const chapter = $(el).find('.lchx a').text().trim();
       const date = $(el).find('.dt a').text().trim();
-      const chapter_id = $(el).find('.lchx a').attr('href')?.split('/')[3] || '';
+      const chapter_id =
+        $(el).find('.lchx a').attr('href')?.split('/')[3] || '';
       chapters.push({ chapter, date, chapter_id });
     });
 
@@ -161,7 +173,7 @@ const getDetail = async (komik_id: string): Promise<MangaDetail> => {
       totalChapter,
       updatedOn,
       genres,
-      chapters
+      chapters,
     };
   } catch (error) {
     logError(error as { message: string });
@@ -172,18 +184,24 @@ const getDetail = async (komik_id: string): Promise<MangaDetail> => {
 // Function to get manga chapter
 const getChapter = async (chapter_url: string): Promise<MangaChapter> => {
   try {
-    const body = await fetchWithProxyWrapper(`${baseURL}/chapter/${chapter_url}`);
+    const body = await fetchWithProxyWrapper(
+      `${baseURL}/chapter/${chapter_url}`
+    );
     const $ = cheerio.load(body);
 
     const title = $('.entry-title').text().trim() || '';
 
     // Handling previous chapter ID
     const prev_chapter_element = $('.nextprev a[rel="prev"]');
-    const prev_chapter_id = prev_chapter_element.length ? prev_chapter_element.attr('href')?.split('/')[3] || '' : '';
+    const prev_chapter_id = prev_chapter_element.length
+      ? prev_chapter_element.attr('href')?.split('/')[3] || ''
+      : '';
 
     // Handling next chapter ID
     const next_chapter_element = $('.nextprev a[rel="next"]');
-    const next_chapter_id = next_chapter_element.length ? next_chapter_element.attr('href')?.split('/')[3] || '' : '';
+    const next_chapter_id = next_chapter_element.length
+      ? next_chapter_element.attr('href')?.split('/')[3] || ''
+      : '';
 
     // Extracting images
     const images: string[] = [];
@@ -202,7 +220,13 @@ const getChapter = async (chapter_url: string): Promise<MangaChapter> => {
 export const GET = async (req: Request) => {
   const url = new URL(req.url);
   const page = url.searchParams.get('page') || '1';
-  const type = url.pathname.split('/')[3] as 'manga' | 'manhwa' | 'manhua' | 'search' | 'detail' | 'chapter';
+  const type = url.pathname.split('/')[3] as
+    | 'manga'
+    | 'manhwa'
+    | 'manhua'
+    | 'search'
+    | 'detail'
+    | 'chapter';
 
   try {
     let data: unknown;
@@ -223,7 +247,7 @@ export const GET = async (req: Request) => {
       data = {
         data: parseMangaData(body),
         prevPage: $('.prev').length > 0,
-        nextPage: $('.next').length > 0
+        nextPage: $('.next').length > 0,
       };
     }
 
@@ -233,7 +257,7 @@ export const GET = async (req: Request) => {
     return NextResponse.json(
       {
         status: false,
-        message: (error as { message: string }).message
+        message: (error as { message: string }).message,
       },
       { status: 500 }
     );

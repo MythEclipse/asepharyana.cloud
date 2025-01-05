@@ -17,9 +17,9 @@ export async function POST(req: NextRequest) {
       where: {
         userId_postId: {
           userId: session.user.id!,
-          postId
-        }
-      }
+          postId,
+        },
+      },
     });
 
     if (existingLike) {
@@ -30,13 +30,16 @@ export async function POST(req: NextRequest) {
     const like = await prisma.likes.create({
       data: {
         postId,
-        userId: session.user.id!
-      }
+        userId: session.user.id!,
+      },
     });
     return NextResponse.json({ like }, { status: 201 });
   } catch (error) {
     console.error('Error liking post:', error);
-    return NextResponse.json({ message: 'Failed to like post' }, { status: 500 });
+    return NextResponse.json(
+      { message: 'Failed to like post' },
+      { status: 500 }
+    );
   }
 }
 export async function DELETE(req: NextRequest) {
@@ -54,13 +57,16 @@ export async function DELETE(req: NextRequest) {
       where: {
         userId_postId: {
           userId: session.user.id!,
-          postId
-        }
-      }
+          postId,
+        },
+      },
     });
 
     if (!existingLike) {
-      return NextResponse.json({ message: 'Like not found or does not belong to the user' }, { status: 404 });
+      return NextResponse.json(
+        { message: 'Like not found or does not belong to the user' },
+        { status: 404 }
+      );
     }
 
     // Delete the like
@@ -68,14 +74,20 @@ export async function DELETE(req: NextRequest) {
       where: {
         userId_postId: {
           userId: session.user.id!,
-          postId
-        }
-      }
+          postId,
+        },
+      },
     });
 
-    return NextResponse.json({ message: 'Like removed successfully' }, { status: 200 });
+    return NextResponse.json(
+      { message: 'Like removed successfully' },
+      { status: 200 }
+    );
   } catch (error) {
     console.error('Error removing like:', error);
-    return NextResponse.json({ message: 'Failed to remove like' }, { status: 500 });
+    return NextResponse.json(
+      { message: 'Failed to remove like' },
+      { status: 500 }
+    );
   }
 }

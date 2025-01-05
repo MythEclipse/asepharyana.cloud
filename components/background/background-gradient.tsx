@@ -6,7 +6,7 @@ export const BackgroundGradient = ({
   children,
   className,
   containerClassName,
-  animate = true
+  animate = true,
 }: {
   children?: React.ReactNode;
   className?: string;

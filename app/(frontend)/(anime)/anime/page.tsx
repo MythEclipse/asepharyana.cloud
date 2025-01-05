@@ -3,7 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 import Loading from '@/components/misc/loading';
 import { BaseUrl } from '@/lib/url';
-import ButtonA from '@/components/button/ButtonA';
+import ButtonA from '@/components/button/ScrollButton';
 import AnimeGrid from '@/components/card/AnimeGrid';
 
 // Define the HomeData, OngoingAnime, and CompleteAnime interfaces
@@ -34,7 +34,9 @@ interface CompleteAnime {
 
 // Fetch episodes data
 const fetchEpisodes = async (): Promise<HomeData> => {
-  const res = await fetch(`${BaseUrl}/api/anime/`, { next: { revalidate: 30 } });
+  const res = await fetch(`${BaseUrl}/api/anime/`, {
+    next: { revalidate: 30 },
+  });
   if (!res.ok) {
     throw new Error('Failed to fetch episodes');
   }
@@ -52,10 +54,12 @@ export default async function AnimePage() {
   }
 
   return (
-    <main className="p-6">
+    <main className='p-6'>
       {/* Ongoing Anime Section */}
       <Link href={'/anime/ongoing-anime/1'}>
-        <ButtonA className="w-full max-w-[800rem] text-center py-4 px-8">Latest Ongoing Anime</ButtonA>
+        <ButtonA className='w-full max-w-[800rem] text-center py-4 px-8'>
+          Latest Ongoing Anime
+        </ButtonA>
       </Link>
 
       {episodeData ? (
@@ -64,7 +68,7 @@ export default async function AnimePage() {
             ...anime,
             rating: '',
             release_day: '',
-            newest_release_date: ''
+            newest_release_date: '',
           }))}
         />
       ) : (
@@ -73,7 +77,9 @@ export default async function AnimePage() {
 
       {/* Complete Anime Section */}
       <Link scroll href={'/anime/complete-anime/1'}>
-        <ButtonA className="w-full max-w-[800rem] text-center py-4 px-8">Latest Complete Anime</ButtonA>
+        <ButtonA className='w-full max-w-[800rem] text-center py-4 px-8'>
+          Latest Complete Anime
+        </ButtonA>
       </Link>
       {episodeData ? (
         <AnimeGrid
@@ -82,7 +88,7 @@ export default async function AnimePage() {
             rating: '',
             release_day: '',
             newest_release_date: '',
-            current_episode: ''
+            current_episode: '',
           }))}
         />
       ) : (

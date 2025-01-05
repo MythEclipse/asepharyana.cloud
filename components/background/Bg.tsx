@@ -3,6 +3,12 @@ import { BackgroundBeamsWithCollision } from '@/components/background/background
 
 import { ReactNode } from 'react';
 
-export default function BackgroundBeamsWithCollisionDemo({ children }: { children: ReactNode }) {
-  return <BackgroundBeamsWithCollision>{children}</BackgroundBeamsWithCollision>;
+export default function BackgroundBeamsWithCollisionDemo({
+  children,
+}: {
+  children: ReactNode;
+}) {
+  return (
+    <BackgroundBeamsWithCollision>{children}</BackgroundBeamsWithCollision>
+  );
 }

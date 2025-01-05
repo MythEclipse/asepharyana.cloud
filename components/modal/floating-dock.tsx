@@ -8,7 +8,7 @@ import { usePathname } from 'next/navigation';
 export const FloatingDock = ({
   items,
   desktopClassName,
-  mobileClassName
+  mobileClassName,
 }: {
   items: { title: string; icon: React.ReactNode; href: string }[];
   desktopClassName?: string;
@@ -24,7 +24,7 @@ export const FloatingDock = ({
 
 const FloatingDockMobile = ({
   items,
-  className
+  className,
 }: {
   items: { title: string; icon: React.ReactNode; href: string }[];
   className?: string;
@@ -54,20 +54,20 @@ const FloatingDockMobile = ({
                 {
                   'bg-blue-500 text-white': pathname === item.href,
                   'bg-white dark:bg-black text-blue-500 border border-blue-500 hover:bg-blue-500 hover:text-white focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50':
-                    pathname !== item.href
+                    pathname !== item.href,
                 }
               )}
             >
-              <div className="h-8 w-8">{item.icon}</div>
+              <div className='h-8 w-8'>{item.icon}</div>
             </Link>
           </div>
         ))}
       </div>
       <button
         onClick={() => setOpen(!open)}
-        className="flex flex-col items-center justify-center text-center px-3 py-2 text-blue-500 bg-transparent border-2 border-blue-500 rounded-full shadow-lg hover:bg-blue-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50"
+        className='flex flex-col items-center justify-center text-center px-3 py-2 text-blue-500 bg-transparent border-2 border-blue-500 rounded-full shadow-lg hover:bg-blue-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50'
       >
-        <IconLayoutNavbarCollapse className="h-8 w-8 text-neutral-500 dark:text-neutral-400" />
+        <IconLayoutNavbarCollapse className='h-8 w-8 text-neutral-500 dark:text-neutral-400' />
       </button>
     </div>
   );
@@ -75,7 +75,7 @@ const FloatingDockMobile = ({
 
 const FloatingDockDesktop = ({
   items,
-  className
+  className,
 }: {
   items: { title: string; icon: React.ReactNode; href: string }[];
   className?: string;
@@ -94,7 +94,15 @@ const FloatingDockDesktop = ({
   );
 };
 
-function IconContainer({ title, icon, href }: { title: string; icon: React.ReactNode; href: string }) {
+function IconContainer({
+  title,
+  icon,
+  href,
+}: {
+  title: string;
+  icon: React.ReactNode;
+  href: string;
+}) {
   const [hovered, setHovered] = useState(false);
   const pathname = usePathname();
   const [scale, setScale] = useState(1);
@@ -118,18 +126,18 @@ function IconContainer({ title, icon, href }: { title: string; icon: React.React
           'aspect-square rounded-full flex items-center justify-center relative border transition-all duration-200',
           {
             'bg-blue-500': pathname === href,
-            'bg-gray-200 dark:bg-neutral-800': pathname !== href
+            'bg-gray-200 dark:bg-neutral-800': pathname !== href,
           }
         )}
         style={{ transform: `scale(${scale})` }}
       >
         {hovered && (
-          <div className="absolute left-1/2 -translate-x-1/2 -top-10 px-4 py-2 whitespace-pre rounded-md bg-white dark:bg-black dark:border-neutral-900 dark:text-white border border-gray-200 text-sm">
+          <div className='absolute left-1/2 -translate-x-1/2 -top-10 px-4 py-2 whitespace-pre rounded-md bg-white dark:bg-black dark:border-neutral-900 dark:text-white border border-gray-200 text-sm'>
             {title}
           </div>
         )}
-        <div className="h-14 w-14 text-blue-500 border border-blue-500 rounded-full shadow-md hover:bg-blue-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 flex items-center justify-center">
-          <div className="h-7 w-7">{icon}</div>
+        <div className='h-14 w-14 text-blue-500 border border-blue-500 rounded-full shadow-md hover:bg-blue-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 flex items-center justify-center'>
+          <div className='h-7 w-7'>{icon}</div>
         </div>
       </div>
     </Link>

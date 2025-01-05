@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
-import type { Config } from 'tailwindcss';
+ import type { Config } from 'tailwindcss';
 import flowbite from 'flowbite/plugin';
 import tailwindcssAnimate from 'tailwindcss-animate';
 

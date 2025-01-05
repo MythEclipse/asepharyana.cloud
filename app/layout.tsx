@@ -16,19 +16,22 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 export const metadata: Metadata = {
   metadataBase: new URL(`${PRODUCTION}`),
   title: 'Asep Haryana Saputra',
-  description: 'Website pribadi milik Asep Haryana Saputra, ini adalah halaman utama pada website ini',
-  keywords: 'portfolio, nextjs, api, free, anime, manga, asep, haryana, saputra, asep haryana, asep haryana saputra',
+  description:
+    'Website pribadi milik Asep Haryana Saputra, ini adalah halaman utama pada website ini',
+  keywords:
+    'portfolio, nextjs, api, free, anime, manga, asep, haryana, saputra, asep haryana, asep haryana saputra',
   openGraph: {
     title: 'Website pribadi milik Asep Haryana Saputra',
-    description: 'Website pribadi milik Asep Haryana Saputra, ini adalah halaman utama pada website ini',
+    description:
+      'Website pribadi milik Asep Haryana Saputra, ini adalah halaman utama pada website ini',
     images: [
       { url: '/logo.png', width: 800, height: 600 },
-      { url: '/logo.png', width: 1800, height: 1600, alt: 'My custom alt' }
+      { url: '/logo.png', width: 1800, height: 1600, alt: 'My custom alt' },
     ],
     type: 'article',
     url: `${PRODUCTION}`,
     siteName: 'Website pribadi milik Asep Haryana Saputra',
-    locale: 'id_ID'
+    locale: 'id_ID',
   },
   twitter: {
     card: 'summary',
@@ -38,31 +41,43 @@ export const metadata: Metadata = {
       'Website pribadi milik Asep Haryana Saputra, berisi berbagai project seperti API, Anime, Manga, dan lainnya',
     images: [
       { url: '/logo.png', width: 800, height: 600 },
-      { url: '/logo.png', width: 1800, height: 1600, alt: 'My custom alt' }
+      { url: '/logo.png', width: 1800, height: 1600, alt: 'My custom alt' },
     ],
-    creator: '@asepharyana71'
-  }
+    creator: '@asepharyana71',
+  },
 };
 
 // RootLayout component
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <Flowbite>
       {/* <ContextAppProvider> */}
       {/* <ViewTransitions> */}
       <SessionWrapper>
-        <html lang="id" className={inter.className} suppressHydrationWarning>
+        <html lang='id' className={inter.className} suppressHydrationWarning>
           <head>
-            <link rel="canonical" href={`${PRODUCTION}`} />
-            <link rel="manifest" href="/manifest.json" />
-            <link rel="icon" href="/favicon.ico" />
+            <link rel='canonical' href={`${PRODUCTION}`} />
+            <link rel='manifest' href='/manifest.json' />
+            <link rel='icon' href='/favicon.ico' />
           </head>
-          <body className="h-screen bg-white dark:bg-black">
-            <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <body className='h-screen bg-white dark:bg-black'>
+            <ThemeProvider
+              attribute='class'
+              defaultTheme='system'
+              enableSystem
+              disableTransitionOnChange
+            >
               <NavbarWrapper />
-              <div className="mt-28 max-w-full px-0.5 pb-10 pt-38 sm:px-6 lg:px-8">
+              <div className='mt-28 max-w-full px-0.5 pb-10 pt-38 sm:px-6 lg:px-8'>
                 {children}
-                <DarkThemeToggle className="fixed bottom-0 left-0 z-10 m-4" aria-label="Toggle Dark Mode" />
+                <DarkThemeToggle
+                  className='fixed bottom-0 left-0 z-10 m-4'
+                  aria-label='Toggle Dark Mode'
+                />
               </div>
             </ThemeProvider>
           </body>

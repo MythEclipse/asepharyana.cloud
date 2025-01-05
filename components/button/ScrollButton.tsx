@@ -12,7 +12,14 @@ interface ButtonProps {
   type?: 'button' | 'submit' | 'reset'; // Restricting type to valid HTML button types
 }
 
-const AnimatedButton: FC<ButtonProps> = ({ children, disabled, onClick, type = 'button', className, href }) => {
+const AnimatedButton: FC<ButtonProps> = ({
+  children,
+  disabled,
+  onClick,
+  type = 'button',
+  className,
+  href,
+}) => {
   // Default value for type
   const buttonContent = (
     <div

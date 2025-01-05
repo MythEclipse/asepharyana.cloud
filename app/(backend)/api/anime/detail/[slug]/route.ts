@@ -3,7 +3,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { fetchWithProxy } from '@/lib/fetchWithProxy';
 
 const fetchAnimePage = async (slug: string) => {
-  const { data, contentType } = await fetchWithProxy(`https://otakudesu.cloud/anime/${slug}`);
+  const { data, contentType } = await fetchWithProxy(
+    `https://otakudesu.cloud/anime/${slug}`
+  );
 
   if (!contentType || !contentType.includes('text/html')) {
     throw new Error('Failed to fetch anime detail data: Invalid content type');
@@ -15,13 +17,20 @@ const fetchAnimePage = async (slug: string) => {
 const parseAnimeData = (html: string) => {
   const $ = cheerio.load(html);
 
-  const extractText = (selector: string, prefix: string = '') => $(selector).text().replace(prefix, '').trim();
+  const extractText = (selector: string, prefix: string = '') =>
+    $(selector).text().replace(prefix, '').trim();
 
   const title = extractText('.infozingle p:contains("Judul")', 'Judul: ');
-  const alternative_title = extractText('.infozingle p:contains("Japanese")', 'Japanese: ');
+  const alternative_title = extractText(
+    '.infozingle p:contains("Japanese")',
+    'Japanese: '
+  );
   const poster = $('.fotoanime img').attr('src') || '';
   const type = extractText('.infozingle p:contains("Tipe")', 'Tipe: ');
-  const release_date = extractText('.infozingle p:contains("Tanggal Rilis")', 'Tanggal Rilis: ');
+  const release_date = extractText(
+    '.infozingle p:contains("Tanggal Rilis")',
+    'Tanggal Rilis: '
+  );
   const status = extractText('.infozingle p:contains("Status")', 'Status: ');
   const synopsis = $('.sinopc').text().trim();
   const studio = extractText('.infozingle p:contains("Studio")', 'Studio: ');
@@ -52,11 +61,20 @@ const parseAnimeData = (html: string) => {
     }
   });
 
-  const producers: string[] = extractText('.infozingle p:contains("Produser")', 'Produser: ')
+  const producers: string[] = extractText(
+    '.infozingle p:contains("Produser")',
+    'Produser: '
+  )
     .split(',')
     .map((producer) => producer.trim());
 
-  const recommendations: { title: string; slug: string; poster: string; status: string; type: string }[] = [];
+  const recommendations: {
+    title: string;
+    slug: string;
+    poster: string;
+    status: string;
+    type: string;
+  }[] = [];
   $('#recommend-anime-series .isi-anime').each((_, element) => {
     const title = $(element).find('.judul-anime a').text().trim();
     const url = $(element).find('a').attr('href') || '';
@@ -78,11 +96,14 @@ const parseAnimeData = (html: string) => {
     producers,
     recommendations,
     batch, // Batch data terpisah
-    episode_lists // Episode reguler
+    episode_lists, // Episode reguler
   };
 };
 
-export async function GET(req: NextRequest, props: { params: Promise<{ slug: string }> }) {
+export async function GET(
+  req: NextRequest,
+  props: { params: Promise<{ slug: string }> }
+) {
   try {
     const { slug } = await props.params;
     const html = (await fetchAnimePage(slug)) as string;
@@ -91,7 +112,8 @@ export async function GET(req: NextRequest, props: { params: Promise<{ slug: str
     return NextResponse.json({ status: 'Ok', data: animeData });
   } catch (error) {
     console.error('Error fetching anime data:', error);
-    const errorMessage = error instanceof Error ? error.message : 'Failed to scrape data';
+    const errorMessage =
+      error instanceof Error ? error.message : 'Failed to scrape data';
     return NextResponse.json({ message: errorMessage }, { status: 500 });
   }
 }

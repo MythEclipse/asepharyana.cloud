@@ -4,10 +4,18 @@ import { NextResponse } from 'next/server';
 export async function GET(request: Request) {
   const url = new URL(request.url);
   const slug = url.searchParams.get('url');
-  const baseUrls = ['meitang.xyz', 'btch.us.kg', 'api.tioo.eu.org', 'api.tioprm.eu.org'];
+  const baseUrls = [
+    'meitang.xyz',
+    'btch.us.kg',
+    'api.tioo.eu.org',
+    'api.tioprm.eu.org',
+  ];
 
   if (!slug) {
-    return NextResponse.json({ error: 'Missing slug parameter' }, { status: 400 });
+    return NextResponse.json(
+      { error: 'Missing slug parameter' },
+      { status: 400 }
+    );
   }
 
   let lastError: Error | null = null;
@@ -16,7 +24,7 @@ export async function GET(request: Request) {
     try {
       const proxyUrl = `https://${apiUrl}/proxy?url=${encodeURIComponent(slug)}`;
       const apiResponse = await fetch(proxyUrl, {
-        headers: DEFAULT_HEADERS
+        headers: DEFAULT_HEADERS,
       });
 
       if (apiResponse.ok) {
@@ -33,8 +41,8 @@ export async function GET(request: Request) {
         return new Response(textData, {
           status: apiResponse.status,
           headers: {
-            'Content-Type': contentType || 'text/plain'
-          }
+            'Content-Type': contentType || 'text/plain',
+          },
         });
       }
     } catch (error) {
@@ -47,7 +55,7 @@ export async function GET(request: Request) {
   return NextResponse.json(
     {
       error: 'Failed to fetch from all proxies',
-      details: lastError?.message || null
+      details: lastError?.message || null,
     },
     { status: 500 }
   );

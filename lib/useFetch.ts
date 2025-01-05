@@ -21,12 +21,12 @@ export const useFetch = async (url: string, method = 'GET', pyld?: Payload) => {
       // console.log(JSON.stringify(from));
       const response = await axios.post(url, from, {
         headers: {
-          'Content-Type': 'multipart/form-data' // Important for sending FormData
-        }
+          'Content-Type': 'multipart/form-data', // Important for sending FormData
+        },
       });
 
       return {
-        data: response.data
+        data: response.data,
       };
     }
 
@@ -35,7 +35,7 @@ export const useFetch = async (url: string, method = 'GET', pyld?: Payload) => {
     const data = await response.text();
     return {
       data,
-      status: response.status
+      status: response.status,
     };
   } catch (error: unknown) {
     throw new Error(String(error));

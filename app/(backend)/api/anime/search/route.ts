@@ -3,7 +3,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { fetchWithProxy } from '@/lib/fetchWithProxy';
 
 async function fetchAnimeData(slug: string) {
-  const response = await fetchWithProxy(`https://otakudesu.cloud/?s=${slug}&post_type=anime`);
+  const response = await fetchWithProxy(
+    `https://otakudesu.cloud/?s=${slug}&post_type=anime`
+  );
 
   if (!response.data) {
     throw new Error('Failed to fetch data');
@@ -41,8 +43,20 @@ function parseAnimeData(html: string, slug: string) {
       .nextAll('a')
       .map((_, el) => $(el).text())
       .get();
-    const status = $(element).find('.set b:contains("Status")').parent().text().replace('Status :', '').trim() || '';
-    const rating = $(element).find('.set b:contains("Rating")').parent().text().replace('Rating :', '').trim() || '';
+    const status =
+      $(element)
+        .find('.set b:contains("Status")')
+        .parent()
+        .text()
+        .replace('Status :', '')
+        .trim() || '';
+    const rating =
+      $(element)
+        .find('.set b:contains("Rating")')
+        .parent()
+        .text()
+        .replace('Rating :', '')
+        .trim() || '';
 
     animeList.push({
       title,
@@ -52,7 +66,7 @@ function parseAnimeData(html: string, slug: string) {
       anime_url,
       genres,
       status,
-      rating
+      rating,
     });
   });
 
@@ -60,9 +74,13 @@ function parseAnimeData(html: string, slug: string) {
     current_page: parseInt(slug as string, 10) || 1,
     last_visible_page: 57,
     has_next_page: $('.hpage .r').length > 0,
-    next_page: $('.hpage .r').length > 0 ? parseInt(slug as string, 10) + 1 : null,
+    next_page:
+      $('.hpage .r').length > 0 ? parseInt(slug as string, 10) + 1 : null,
     has_previous_page: parseInt(slug as string, 10) > 1,
-    previous_page: parseInt(slug as string, 10) > 1 ? parseInt(slug as string, 10) - 1 : null
+    previous_page:
+      parseInt(slug as string, 10) > 1
+        ? parseInt(slug as string, 10) - 1
+        : null,
   };
 
   return { animeList, pagination };
@@ -79,10 +97,13 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({
       status: 'Ok',
       data: animeList,
-      pagination
+      pagination,
     });
   } catch (error) {
     console.error(error);
-    return NextResponse.json({ message: 'Failed to scrape data' }, { status: 500 });
+    return NextResponse.json(
+      { message: 'Failed to scrape data' },
+      { status: 500 }
+    );
   }
 }

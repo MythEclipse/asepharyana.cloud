@@ -8,7 +8,7 @@ export default async function SignOutComponent() {
         await signOut();
       }}
     >
-      <button type="submit">signOut with Google</button>
+      <button type='submit'>signOut with Google</button>
     </form>
   );
 }
