@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import PostCard from '@/components/sosmed/PostCard';
-import Card from '@/components/card/CardC';
+import Card from '@/components/card/ThemedCard';
 import ButtonA from '@/components/button/NormalButton';
 import { Textarea } from '@/components/text/textarea';
 import { BaseUrl } from '@/lib/url';
@@ -42,6 +42,8 @@ export default function PostPage() {
       });
       setContent('');
       setImageUrl('');
+      (document.querySelector('input[type="file"]') as HTMLInputElement).value =
+        '';
       mutate(`${BaseUrl}/api/sosmed/posts`);
     } catch (error) {
       console.error('Error creating post:', error);
@@ -214,7 +216,7 @@ export default function PostPage() {
             <ButtonA
               onClick={handlePostSubmit}
               disabled={isUploading} // Disable tombol saat sedang mengunggah gambar
-              className={`w-full py-2 ${isUploading ? 'bg-gray-400' : 'bg-blue-600'} text-white rounded-lg ${isUploading ? '' : 'hover:bg-blue-700'} transition duration-300`}
+              className={`w-full py-2 ${isUploading ? 'bg-gray-400' : 'bg-blue-600'} text-white dark:text-black rounded-lg ${isUploading ? '' : 'hover:bg-blue-700'} transition duration-300`}
             >
               {isUploading ? 'Uploading...' : 'Post'}
             </ButtonA>

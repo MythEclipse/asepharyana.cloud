@@ -205,7 +205,7 @@ export default function PostCard({
 
           <ButtonA
             onClick={() => handleAddComment(post.id, newComment)}
-            className='mt-2 py-2 w-full bg-blue-600 text-white rounded-full hover:bg-blue-700 transition duration-300'
+            className='mt-2 py-2 w-full bg-blue-600 text-white dark:text-black rounded-full hover:bg-blue-700 transition duration-300'
           >
             Add Comment
           </ButtonA>

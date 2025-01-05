@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { BackgroundGradient } from '@/components/background/background-gradient';
 import { Metadata } from 'next';
-import CardA from '@/components/card/CardA';
+import CardA from '@/components/card/MediaCard';
 import ButtonA from '@/components/button/ScrollButton';
 
 interface Genre {

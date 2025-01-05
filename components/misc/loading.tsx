@@ -4,16 +4,15 @@ import loadingGif from '@/public/loading.gif';
 
 const Loading: React.FC = () => {
   return (
-    <div className='fixed inset-0 flex justify-center items-center z-29'>
-      <div className='rounded-full' style={{ height: '150px', width: '150px' }}>
+    <div className='fixed inset-0 flex justify-center items-center z-50'>
+      <div className='rounded-full h-36 w-36'>
         <Image
           src={loadingGif}
-          alt='loading'
+          alt='Loading...'
           width={150}
           height={150}
           className='rounded-full'
           priority
-          unoptimized
         />
       </div>
     </div>

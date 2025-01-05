@@ -1,5 +1,5 @@
 import React from 'react';
-import CardA from './CardA';
+import CardA from './MediaCard';
 
 interface MangaData {
   title: string;

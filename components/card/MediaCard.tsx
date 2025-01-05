@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { Card as ShadcnCard } from '@/components/card/card';
+import { Card as ShadcnCard } from '@/components/card/ComponentCard';
 import Link from 'next/link';
 import Image from 'next/image';
 

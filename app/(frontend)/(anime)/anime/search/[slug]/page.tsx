@@ -1,6 +1,6 @@
 // app/search/[slug]/page.tsx
 import SearchForm from '@/components/misc/SearchForm';
-import CardA from '@/components/card/CardA';
+import CardA from '@/components/card/MediaCard';
 import { BaseUrl } from '@/lib/url';
 import React from 'react';
 interface Genre {
