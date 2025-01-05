@@ -1,7 +1,6 @@
-// PostPage.tsx
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import PostCard from '@/components/sosmed/PostCard';
 import Card from '@/components/card/CardC';
 import ButtonA from '@/components/button/NormalButton';
@@ -9,34 +8,24 @@ import { Textarea } from '@/components/text/textarea';
 import { BaseUrl } from '@/lib/url';
 import { Posts, User, Likes, Comments } from '@prisma/client';
 import { useSession } from 'next-auth/react';
+import useSWR, { mutate } from 'swr';
 
-const usePosts = () => {
-  const [posts, setPosts] = useState<Posts[]>([]);
-
-  const fetchPosts = async () => {
-    try {
-      const response = await fetch(`${BaseUrl}/api/sosmed/posts`);
-      const data = await response.json();
-      setPosts(data.posts);
-    } catch (error) {
-      console.error('Error fetching posts:', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchPosts();
-  }, []);
-
-  return { posts, fetchPosts };
-};
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function PostPage() {
   const { data: session } = useSession();
-  const { posts, fetchPosts } = usePosts();
+  const { data: postsData, error: postsError } = useSWR(
+    `${BaseUrl}/api/sosmed/posts`,
+    fetcher
+  );
   const [content, setContent] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [newComments, setNewComments] = useState<Record<string, string>>({});
   const [showComments, setShowComments] = useState<Record<string, boolean>>({});
+
+  if (postsError) {
+    console.error('Error fetching posts:', postsError);
+  }
 
   const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
     setContent(e.target.value);
@@ -52,7 +41,7 @@ export default function PostPage() {
       });
       setContent('');
       setImageUrl('');
-      await fetchPosts();
+      mutate(`${BaseUrl}/api/sosmed/posts`);
     } catch (error) {
       console.error('Error creating post:', error);
     }
@@ -71,7 +60,7 @@ export default function PostPage() {
         .then((res) => res.json())
         .then((data) => {
           console.log('File uploaded successfully:', data);
-          setImageUrl(data.url); // Assuming the response contains the URL in `data.url`
+          setImageUrl(data.url);
         })
         .catch((err) => console.error('Error uploading file:', err));
     }
@@ -89,7 +78,7 @@ export default function PostPage() {
         },
         body: JSON.stringify({ postId }),
       });
-      await fetchPosts();
+      mutate(`${BaseUrl}/api/sosmed/posts`);
     } catch (error) {
       console.error('Error liking post:', error);
     }
@@ -106,7 +95,7 @@ export default function PostPage() {
         },
         body: JSON.stringify({ content: newComments[postId], postId }),
       });
-      await fetchPosts();
+      mutate(`${BaseUrl}/api/sosmed/posts`);
       setNewComments((prev) => ({ ...prev, [postId]: '' }));
     } catch (error) {
       console.error('Error adding comment:', error);
@@ -124,7 +113,7 @@ export default function PostPage() {
       });
 
       if (response.ok) {
-        await fetchPosts(); // Only refresh posts if the request was successful
+        mutate(`${BaseUrl}/api/sosmed/posts`);
       } else {
         console.error('Failed to edit post:', response.statusText);
       }
@@ -144,7 +133,7 @@ export default function PostPage() {
       });
 
       if (response.ok) {
-        await fetchPosts(); // Only refresh posts if the request was successful
+        mutate(`${BaseUrl}/api/sosmed/posts`);
       } else {
         console.error('Failed to delete post:', response.statusText);
       }
@@ -152,7 +141,20 @@ export default function PostPage() {
       console.error('Error deleting post:', error);
     }
   };
-
+  const handleUnlike = async (postId: string) => {
+    try {
+      await fetch(`${BaseUrl}/api/sosmed/likes`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ postId }),
+      });
+      mutate(`${BaseUrl}/api/sosmed/posts`);
+    } catch (error) {
+      console.error('Error unliking post:', error);
+    }
+  };
   const handleEditComment = async (commentId: string, content: string) => {
     try {
       await fetch(`${BaseUrl}/api/sosmed/comments`, {
@@ -162,7 +164,7 @@ export default function PostPage() {
         },
         body: JSON.stringify({ id: commentId, content }),
       });
-      await fetchPosts();
+      mutate(`${BaseUrl}/api/sosmed/posts`);
     } catch (error) {
       console.error('Error editing comment:', error);
     }
@@ -177,7 +179,7 @@ export default function PostPage() {
         },
         body: JSON.stringify({ id: commentId }),
       });
-      await fetchPosts();
+      mutate(`${BaseUrl}/api/sosmed/posts`);
     } catch (error) {
       console.error('Error deleting comment:', error);
     }
@@ -221,7 +223,7 @@ export default function PostPage() {
       )}
 
       <div className='grid gap-8'>
-        {posts.map(
+        {postsData?.posts?.map(
           (
             post: Posts & {
               user?: User;
@@ -255,6 +257,7 @@ export default function PostPage() {
               }}
               currentUserId={session?.user?.id ?? ''}
               handleLike={handleLike}
+              handleUnlike={handleUnlike}
               handleAddComment={handleAddComment}
               handleEditPost={handleEditPost}
               handleDeletePost={handleDeletePost}

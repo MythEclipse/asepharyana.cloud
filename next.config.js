@@ -10,7 +10,7 @@ const withPWA = require('@ducanh2912/next-pwa').default({
   disable: process.env.NODE_ENV === 'development',
   workboxOptions: {
     disableDevLogs: true,
-    maximumFileSizeToCacheInBytes: 3 * 1024 * 1024, // Maksimal ukuran file 5 MB
+    maximumFileSizeToCacheInBytes: 10 * 1024 * 1024, // Maksimal ukuran file 5 MB
     runtimeCaching: [
       {
         urlPattern: /^https?.*/,
@@ -90,6 +90,18 @@ const nextConfig = {
           {
             key: 'Content-Security-Policy',
             value: `default-src 'self'; style-src 'self' 'unsafe-inline'; img-src *; media-src *; script-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src *`,
+          },
+          {
+            key: 'Access-Control-Allow-Origin',
+            value: '*', // Allows all origins (set specific origins for better security)
+          },
+          {
+            key: 'Access-Control-Allow-Methods',
+            value: 'GET, POST, PUT, DELETE, OPTIONS',
+          },
+          {
+            key: 'Access-Control-Allow-Headers',
+            value: 'Content-Type, Authorization, X-Requested-With',
           },
         ],
       },

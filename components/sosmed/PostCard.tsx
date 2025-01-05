@@ -14,6 +14,7 @@ interface PostCardProps {
   };
   currentUserId: string;
   handleLike: (postId: string) => void;
+  handleUnlike: (postId: string) => void;
   handleAddComment: (postId: string, comment: string) => void;
   handleEditPost: (postId: string, content: string) => void;
   handleDeletePost: (postId: string) => void;
@@ -29,6 +30,7 @@ export default function PostCard({
   post,
   currentUserId,
   handleLike,
+  handleUnlike,
   handleAddComment,
   handleEditPost,
   handleDeletePost,
@@ -53,6 +55,8 @@ export default function PostCard({
     handleEditComment(commentId, editedCommentContent);
     setEditingCommentId(null);
   };
+
+  const userHasLiked = post.likes.some((like) => like.userId === currentUserId);
 
   return (
     <div className='p-6 shadow-xl bg-white dark:bg-black border border-blue-500 dark:border-blue-500 rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-500'>
@@ -120,8 +124,10 @@ export default function PostCard({
 
       <div className='flex items-center mt-6 space-x-6'>
         <button
-          onClick={() => handleLike(post.id)}
-          className={`flex items-center gap-2 ${post.likes.some((like) => like.userId === currentUserId) ? 'text-red-500' : 'text-gray-500'} hover:text-red-600 transition duration-300 px-6 py-2 border border-blue-500 dark:border-blue-500 rounded-full focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-500`}
+          onClick={() =>
+            userHasLiked ? handleUnlike(post.id) : handleLike(post.id)
+          }
+          className={`flex items-center gap-2 ${userHasLiked ? 'text-red-500' : 'text-gray-500'} hover:text-red-600 transition duration-300 px-6 py-2 border border-blue-500 dark:border-blue-500 rounded-full focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-500`}
         >
           <HiHeart className='w-5 h-5' /> {post.likes.length}
         </button>

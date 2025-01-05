@@ -13,9 +13,6 @@ const eslintConfig = [
       'plugin:@next/next/recommended',
       'next',
     ],
-    parserOptions: {
-      project: './tsconfig.json',
-    },
     rules: {
       '@typescript-eslint/no-unused-vars': 'off', 
     },
