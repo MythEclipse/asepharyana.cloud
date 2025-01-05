@@ -1,5 +1,4 @@
-'use client';
-
+"use client"
 import React, { useState } from 'react';
 import PostCard from '@/components/sosmed/PostCard';
 import Card from '@/components/card/CardC';
@@ -14,12 +13,13 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function PostPage() {
   const { data: session } = useSession();
-  const { data: postsData, error: postsError } = useSWR(
+  const { data: postsData, error: postsError, isValidating } = useSWR(
     `${BaseUrl}/api/sosmed/posts`,
     fetcher
   );
   const [content, setContent] = useState('');
   const [imageUrl, setImageUrl] = useState('');
+  const [isUploading, setIsUploading] = useState(false); // State untuk melacak status pengunggahan gambar
   const [newComments, setNewComments] = useState<Record<string, string>>({});
   const [showComments, setShowComments] = useState<Record<string, boolean>>({});
 
@@ -50,6 +50,7 @@ export default function PostPage() {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      setIsUploading(true); // Set status uploading ke true saat mulai mengupload
       const formData = new FormData();
       formData.append('file', file);
 
@@ -59,10 +60,13 @@ export default function PostPage() {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log('File uploaded successfully:', data);
           setImageUrl(data.url);
+          setIsUploading(false); // Set status uploading ke false setelah selesai upload
         })
-        .catch((err) => console.error('Error uploading file:', err));
+        .catch((err) => {
+          console.error('Error uploading file:', err);
+          setIsUploading(false); // Reset status uploading jika terjadi error
+        });
     }
   };
 
@@ -141,6 +145,7 @@ export default function PostPage() {
       console.error('Error deleting post:', error);
     }
   };
+
   const handleUnlike = async (postId: string) => {
     try {
       await fetch(`${BaseUrl}/api/sosmed/likes`, {
@@ -155,6 +160,7 @@ export default function PostPage() {
       console.error('Error unliking post:', error);
     }
   };
+
   const handleEditComment = async (commentId: string, content: string) => {
     try {
       await fetch(`${BaseUrl}/api/sosmed/comments`, {
@@ -206,9 +212,10 @@ export default function PostPage() {
             />
             <ButtonA
               onClick={handlePostSubmit}
-              className='w-full py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300'
+              disabled={isUploading} // Disable tombol saat sedang mengunggah gambar
+              className={`w-full py-2 ${isUploading ? 'bg-gray-400' : 'bg-blue-600'} text-white rounded-lg ${isUploading ? '' : 'hover:bg-blue-700'} transition duration-300`}
             >
-              Post
+              {isUploading ? 'Uploading...' : 'Post'}
             </ButtonA>
           </div>
         </Card>
@@ -222,15 +229,14 @@ export default function PostPage() {
         </Card>
       )}
 
+      {/* Loading Indicator */}
+      {isValidating && (
+        <div className="text-center py-4">Loading...</div>
+      )}
+
       <div className='grid gap-8'>
         {postsData?.posts?.map(
-          (
-            post: Posts & {
-              user?: User;
-              likes?: Likes[];
-              comments?: (Comments & { user?: User })[];
-            }
-          ) => (
+          (post: Posts & { user?: User; likes?: Likes[]; comments?: (Comments & { user?: User })[] }) => (
             <PostCard
               key={post.id}
               post={{
@@ -243,17 +249,16 @@ export default function PostPage() {
                   image: null,
                 },
                 likes: post.likes || [],
-                comments:
-                  post.comments?.map((comment) => ({
-                    ...comment,
-                    user: comment.user || {
-                      name: null,
-                      id: '',
-                      email: null,
-                      role: '',
-                      image: null,
-                    },
-                  })) || [],
+                comments: post.comments?.map((comment) => ({
+                  ...comment,
+                  user: comment.user || {
+                    name: null,
+                    id: '',
+                    email: null,
+                    role: '',
+                    image: null,
+                  },
+                })) || [],
               }}
               currentUserId={session?.user?.id ?? ''}
               handleLike={handleLike}
