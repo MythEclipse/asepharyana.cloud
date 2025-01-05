@@ -1,3 +1,4 @@
+// PostPage.tsx
 'use client';
 
 import React, { useEffect, useState } from 'react';
@@ -51,7 +52,7 @@ export default function PostPage() {
       });
       setContent('');
       setImageUrl('');
-      fetchPosts();
+      await fetchPosts();
     } catch (error) {
       console.error('Error creating post:', error);
     }
@@ -88,7 +89,7 @@ export default function PostPage() {
         },
         body: JSON.stringify({ postId }),
       });
-      fetchPosts();
+      await fetchPosts();
     } catch (error) {
       console.error('Error liking post:', error);
     }
@@ -105,7 +106,7 @@ export default function PostPage() {
         },
         body: JSON.stringify({ content: newComments[postId], postId }),
       });
-      fetchPosts();
+      await fetchPosts();
       setNewComments((prev) => ({ ...prev, [postId]: '' }));
     } catch (error) {
       console.error('Error adding comment:', error);
@@ -114,14 +115,19 @@ export default function PostPage() {
 
   const handleEditPost = async (postId: string, content: string) => {
     try {
-      await fetch(`${BaseUrl}/api/sosmed/posts`, {
+      const response = await fetch(`${BaseUrl}/api/sosmed/posts`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ id: postId, content }),
       });
-      fetchPosts();
+
+      if (response.ok) {
+        await fetchPosts(); // Only refresh posts if the request was successful
+      } else {
+        console.error('Failed to edit post:', response.statusText);
+      }
     } catch (error) {
       console.error('Error editing post:', error);
     }
@@ -129,14 +135,19 @@ export default function PostPage() {
 
   const handleDeletePost = async (postId: string) => {
     try {
-      await fetch(`${BaseUrl}/api/sosmed/posts`, {
+      const response = await fetch(`${BaseUrl}/api/sosmed/posts`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ id: postId }),
       });
-      fetchPosts();
+
+      if (response.ok) {
+        await fetchPosts(); // Only refresh posts if the request was successful
+      } else {
+        console.error('Failed to delete post:', response.statusText);
+      }
     } catch (error) {
       console.error('Error deleting post:', error);
     }
@@ -151,7 +162,7 @@ export default function PostPage() {
         },
         body: JSON.stringify({ id: commentId, content }),
       });
-      fetchPosts();
+      await fetchPosts();
     } catch (error) {
       console.error('Error editing comment:', error);
     }
@@ -166,7 +177,7 @@ export default function PostPage() {
         },
         body: JSON.stringify({ id: commentId }),
       });
-      fetchPosts();
+      await fetchPosts();
     } catch (error) {
       console.error('Error deleting comment:', error);
     }
@@ -228,7 +239,7 @@ export default function PostPage() {
                   email: null,
                   role: '',
                   image: null,
-                }, // Ensure user property exists
+                },
                 likes: post.likes || [],
                 comments:
                   post.comments?.map((comment) => ({
