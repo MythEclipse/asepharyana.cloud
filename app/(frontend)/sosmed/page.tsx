@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import PostCard from '@/components/sosmed/PostCard';
 import Card from '@/components/card/ThemedCard';
-import ButtonA from '@/components/button/NormalButton';
 import { Textarea } from '@/components/text/textarea';
 import { BaseUrl } from '@/lib/url';
 import { Posts, User, Likes, Comments } from '@prisma/client';
@@ -213,13 +212,13 @@ export default function PostPage() {
               onChange={handleFileChange}
               className='mb-4 block w-full text-sm text-gray-500 dark:text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 dark:file:bg-gray-700 file:text-blue-700 dark:file:text-gray-300 hover:file:bg-blue-100 dark:hover:file:bg-gray-600'
             />
-            <ButtonA
+            <button
               onClick={handlePostSubmit}
               disabled={isUploading} // Disable tombol saat sedang mengunggah gambar
-              className={`w-full py-2 ${isUploading ? 'bg-gray-400' : 'bg-blue-600'} text-white dark:text-black rounded-lg ${isUploading ? '' : 'hover:bg-blue-700'} transition duration-300`}
+              className={`w-full py-2 ${isUploading ? 'bg-red-600' : 'bg-blue-600'} text-white dark:text-black rounded-lg ${isUploading ? '' : 'hover:bg-blue-700'} transition duration-300`}
             >
               {isUploading ? 'Uploading...' : 'Post'}
-            </ButtonA>
+            </button>
           </div>
         </Card>
       ) : (

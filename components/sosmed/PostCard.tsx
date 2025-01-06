@@ -103,7 +103,7 @@ export default function PostCard({
           />
           <ButtonA
             onClick={handleEditPostSubmit}
-            className='mb-4 py-2 w-full bg-blue-600 text-white rounded-full hover:bg-blue-700 transition duration-300'
+            className='mb-4 py-2 w-full bg-blue-600 rounded-full hover:bg-blue-700 transition duration-300'
           >
             Save Changes
           </ButtonA>
@@ -185,7 +185,7 @@ export default function PostCard({
                   />
                   <ButtonA
                     onClick={() => handleEditCommentSubmit(comment.id)}
-                    className='py-1 w-full bg-blue-600 text-white rounded-full hover:bg-blue-700 transition duration-300'
+                    className='py-1 w-full bg-blue-600 rounded-full hover:bg-blue-700 transition duration-300'
                   >
                     Save Changes
                   </ButtonA>

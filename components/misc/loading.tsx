@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import loadingGif from '@/public/loading.gif';
+import loadingGif from '@/public/loading.webp';
 
 const Loading: React.FC = () => {
   return (
@@ -12,6 +12,7 @@ const Loading: React.FC = () => {
           width={150}
           height={150}
           className='rounded-full'
+          unoptimized
           priority
         />
       </div>
