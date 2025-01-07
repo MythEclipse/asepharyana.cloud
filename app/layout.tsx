@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { Flowbite } from 'flowbite-react';
 import './globals.css';
-import NavbarWrapper from '@/components/navbar/MainNavbar';
+import NavbarWrapper from '@/components/navbar/NavbarWrapper';
 import SessionWrapper from '@/components/misc/SessionWrapper';
 // import ContextAppProvider from '@/components/ContextApp';
 // import { ViewTransitions } from 'next-view-transitions';
