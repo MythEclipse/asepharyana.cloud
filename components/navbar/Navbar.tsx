@@ -33,22 +33,28 @@ export default function Navbar() {
   }, [pathname]);
 
   return (
-    <nav className="fixed top-0 z-30 w-full border-b border-blue-500 bg-white dark:bg-black shadow-md transition-all duration-300">
-      <div className="container mx-auto flex items-center justify-between px-4 py-3 relative">
-        <Link href="/" className="flex items-center space-x-2">
-          <Image src="/Logo.svg" alt="Logo" width={50} height={40} priority />
+    <nav className='fixed top-0 z-30 w-full border-b border-blue-500 bg-white dark:bg-black shadow-md transition-all duration-300'>
+      <div className='container mx-auto flex items-center justify-between px-4 py-3 relative'>
+        <Link href='/' className='flex items-center space-x-2'>
+          <Image src='/Logo.svg' alt='Logo' width={50} height={40} priority />
           <span
             className={`text-lg ${
-              pathname === '/' ? 'font-semibold text-blue-600' : 'text-gray-900 dark:text-gray-300'
+              pathname === '/'
+                ? 'font-semibold text-blue-600'
+                : 'text-gray-900 dark:text-gray-300'
             }`}
           >
             Asep Haryana
           </span>
         </Link>
-        <div className="hidden md:flex items-center space-x-6">
-          <DesktopNavLinks pathname={pathname} indicatorPos={indicatorPos} indicatorWidth={indicatorWidth} />
+        <div className='hidden md:flex items-center space-x-6'>
+          <DesktopNavLinks
+            pathname={pathname}
+            indicatorPos={indicatorPos}
+            indicatorWidth={indicatorWidth}
+          />
         </div>
-        <div className="flex items-center space-x-4">
+        <div className='flex items-center space-x-4'>
           <UserMenu session={session} loginUrl={loginUrl} />
           <NavToggleButton isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
         </div>

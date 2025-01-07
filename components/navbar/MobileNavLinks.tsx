@@ -13,7 +13,13 @@ interface MobileNavLinksProps {
   session: Session | null;
 }
 
-export default function MobileNavLinks({ isNavOpen, setIsNavOpen, pathname, loginUrl, session }: MobileNavLinksProps) {
+export default function MobileNavLinks({
+  isNavOpen,
+  setIsNavOpen,
+  pathname,
+  loginUrl,
+  session,
+}: MobileNavLinksProps) {
   const links = [
     { href: '/', label: 'Home' },
     { href: '/docs', label: 'Docs' },
@@ -24,7 +30,9 @@ export default function MobileNavLinks({ isNavOpen, setIsNavOpen, pathname, logi
     <>
       <div
         className={`fixed inset-0 bg-black bg-opacity-50 transition-opacity ${
-          isNavOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+          isNavOpen
+            ? 'opacity-100 pointer-events-auto'
+            : 'opacity-0 pointer-events-none'
         }`}
         onClick={() => setIsNavOpen(false)}
       />
@@ -33,13 +41,15 @@ export default function MobileNavLinks({ isNavOpen, setIsNavOpen, pathname, logi
           isNavOpen ? 'translate-y-0' : '-translate-y-full'
         }`}
       >
-        <ul className="flex flex-col p-4">
+        <ul className='flex flex-col p-4'>
           {links.map((link, index) => (
             <li key={index}>
               <Link href={link.href}>
                 <span
                   className={`block px-4 py-2 ${
-                    pathname === link.href ? 'text-blue-600 font-semibold' : 'text-gray-900 dark:text-gray-300'
+                    pathname === link.href
+                      ? 'text-blue-600 font-semibold'
+                      : 'text-gray-900 dark:text-gray-300'
                   }`}
                   onClick={() => setIsNavOpen(false)}
                 >
@@ -48,7 +58,7 @@ export default function MobileNavLinks({ isNavOpen, setIsNavOpen, pathname, logi
               </Link>
             </li>
           ))}
-          <li className="mt-4">
+          <li className='mt-4'>
             <UserMenu session={session} loginUrl={loginUrl} />
           </li>
         </ul>

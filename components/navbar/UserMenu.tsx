@@ -12,20 +12,22 @@ interface UserMenuProps {
 
 export default function UserMenu({ session, loginUrl }: UserMenuProps) {
   return (
-    <div className="relative">
+    <div className='relative'>
       {session ? (
-        <button className="w-10 h-10 rounded-full border border-blue-500 overflow-hidden">
+        <button className='w-10 h-10 rounded-full border border-blue-500 overflow-hidden'>
           <Image
             src={session.user?.image || '/profile-circle-svgrepo-com.svg'}
-            alt="Profile"
+            alt='Profile'
             width={40}
             height={40}
-            className="rounded-full object-cover"
+            className='rounded-full object-cover'
           />
         </button>
       ) : (
         <Link href={loginUrl}>
-          <button className="px-4 py-2 bg-blue-500 text-white rounded-full">Login</button>
+          <button className='px-4 py-2 bg-blue-500 text-white rounded-full'>
+            Login
+          </button>
         </Link>
       )}
     </div>
