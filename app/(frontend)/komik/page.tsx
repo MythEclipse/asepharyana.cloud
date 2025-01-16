@@ -23,15 +23,15 @@ export interface Comic {
 
 const HomePage = () => {
   const { data: manga, error: mangaError } = useSWR<Comic[]>(
-    '/api/komik/manga?page=1&order=update',
+    '/api/komik/manga?page=1',
     fetcher
   );
   const { data: manhua, error: manhuaError } = useSWR<Comic[]>(
-    '/api/komik/manhua?page=1&order=update',
+    '/api/komik/manga?page=1',
     fetcher
   );
   const { data: manhwa, error: manhwaError } = useSWR<Comic[]>(
-    '/api/komik/manhwa?page=1&order=update',
+    '/api/komik/manga?page=1',
     fetcher
   );
 

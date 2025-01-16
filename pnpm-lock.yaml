@@ -81,6 +81,9 @@ importers:
       formik:
         specifier: ^2.4.6
         version: 2.4.6(react@19.0.0)
+      https-proxy-agent:
+        specifier: ^7.0.6
+        version: 7.0.6
       input-otp:
         specifier: ^1.4.2
         version: 1.4.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -150,6 +153,9 @@ importers:
       simplemde:
         specifier: ^1.11.2
         version: 1.11.2(@lezer/common@1.2.3)
+      socks-proxy-agent:
+        specifier: ^8.0.5
+        version: 8.0.5
       sonner:
         specifier: ^1.7.2
         version: 1.7.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
