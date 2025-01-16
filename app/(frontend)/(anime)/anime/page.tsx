@@ -6,8 +6,8 @@ import { BaseUrl } from '@/lib/url';
 import ButtonA from '@/components/button/ScrollButton';
 import AnimeGrid from '@/components/card/AnimeGrid';
 import useSWR from 'swr';
+import fetcher from '@/lib/fetcher';
 
-// Define the HomeData, OngoingAnime, and CompleteAnime interfaces
 interface HomeData {
   status: string;
   data: {
@@ -34,18 +34,12 @@ interface CompleteAnime {
 }
 
 // Fetch episodes data using SWR
-const fetchEpisodes = async (): Promise<HomeData> => {
-  const res = await fetch(`/api/anime/`);
-  if (!res.ok) {
-    throw new Error('Failed to fetch episodes');
-  }
-  return res.json();
-};
+
 
 export default function AnimePage() {
   const { data: episodeData, error } = useSWR<HomeData>(
     '/api/anime/',
-    fetchEpisodes
+    fetcher
   );
 
   if (error) {
