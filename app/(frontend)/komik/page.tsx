@@ -21,7 +21,6 @@ export interface Comic {
 
 // Fetch comics data using SWR
 
-
 const HomePage = () => {
   const { data: manga, error: mangaError } = useSWR<Comic[]>(
     '/api/komik/manga?page=1&order=update',

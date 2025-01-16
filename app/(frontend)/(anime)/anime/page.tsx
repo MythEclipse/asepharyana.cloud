@@ -35,12 +35,8 @@ interface CompleteAnime {
 
 // Fetch episodes data using SWR
 
-
 export default function AnimePage() {
-  const { data: episodeData, error } = useSWR<HomeData>(
-    '/api/anime/',
-    fetcher
-  );
+  const { data: episodeData, error } = useSWR<HomeData>('/api/anime/', fetcher);
 
   if (error) {
     console.error('Failed to fetch episodes:', error);
