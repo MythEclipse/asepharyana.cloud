@@ -1,5 +1,4 @@
 /** @type {import('next').NextConfig} */
-
 const nextConfig = {
   images: {
     remotePatterns: [
@@ -41,30 +40,15 @@ const nextConfig = {
       {
         source: '/(.*)',
         headers: [
-          {
-            key: 'X-Frame-Options',
-            value: 'SAMEORIGIN',
-          },
-          {
-            key: 'X-XSS-Protection',
-            value: '1; mode=block',
-          },
-          {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff',
-          },
-          {
-            key: 'Referrer-Policy',
-            value: 'strict-origin-when-cross-origin',
-          },
+          { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
+          { key: 'X-XSS-Protection', value: '1; mode=block' },
+          { key: 'X-Content-Type-Options', value: 'nosniff' },
+          { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
           {
             key: 'Content-Security-Policy',
             value: `default-src 'self'; style-src 'self' 'unsafe-inline'; img-src *; media-src *; script-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src *`,
           },
-          {
-            key: 'Access-Control-Allow-Origin',
-            value: '*', // Allows all origins (set specific origins for better security)
-          },
+          { key: 'Access-Control-Allow-Origin', value: '*' },
           {
             key: 'Access-Control-Allow-Methods',
             value: 'GET, POST, PUT, DELETE, OPTIONS',
@@ -102,6 +86,17 @@ const nextConfig = {
         destination: '/anime/:slug/1',
       },
     ];
+  },
+  reactStrictMode: true, // Mengaktifkan mode ketat React
+  // output: 'standalone', // Optimalisasi untuk deployment container
+  experimental: {
+    cacheLife: {
+      default: {
+        stale: 60 * 60, // 1 hour stale time
+        revalidate: 15 * 60, // 15 minutes revalidation
+        expire: 1 * 60 * 60, // 1 hour expiration
+      },
+    },
   },
 };
 
