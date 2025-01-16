@@ -7,6 +7,7 @@ import ButtonA from '@/components/button/ScrollButton';
 import { ComicCard } from '@/components/card/ComicCard';
 import useSWR from 'swr';
 import Loading from '@/components/misc/loading';
+import fetcher from '@/lib/fetcher';
 
 export interface Comic {
   komik_id: string;
@@ -19,27 +20,19 @@ export interface Comic {
 }
 
 // Fetch comics data using SWR
-const fetchComics = async (type: string): Promise<Comic[]> => {
-  const res = await fetch(`${BaseUrl}/api/komik/${type}?page=1&order=update`);
-  if (!res.ok) {
-    throw new Error(`Failed to fetch ${type}`);
-  }
-  const data = await res.json();
-  return data.data || [];
-};
 
 const HomePage = () => {
   const { data: manga, error: mangaError } = useSWR<Comic[]>(
     '/api/komik/manga?page=1&order=update',
-    () => fetchComics('manga')
+    fetcher
   );
   const { data: manhua, error: manhuaError } = useSWR<Comic[]>(
     '/api/komik/manhua?page=1&order=update',
-    () => fetchComics('manhua')
+    fetcher
   );
   const { data: manhwa, error: manhwaError } = useSWR<Comic[]>(
     '/api/komik/manhwa?page=1&order=update',
-    () => fetchComics('manhwa')
+    fetcher
   );
 
   if (mangaError || manhuaError || manhwaError) {
