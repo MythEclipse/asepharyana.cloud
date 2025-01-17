@@ -253,6 +253,7 @@ export default function PostPage() {
                   email: null,
                   role: '',
                   image: null,
+                  emailVerified: null,
                 },
                 likes: post.likes || [],
                 comments:
@@ -264,6 +265,7 @@ export default function PostPage() {
                       email: null,
                       role: '',
                       image: null,
+                      emailVerified: null,
                     },
                   })) || [],
               }}
