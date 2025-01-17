@@ -42,6 +42,7 @@ model User {
   id               String         @id @default(cuid()) @db.VarChar(255)
   name             String?
   email            String?        @unique
+  emailVerified    DateTime?      @map("email_verified")
   role             String         @default("user")
   image            String?
   authoredComments Comments[]     @relation("AuthoredComments")
